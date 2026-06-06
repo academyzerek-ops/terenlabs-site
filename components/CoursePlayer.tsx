@@ -93,12 +93,22 @@ export function CoursePlayer({ course }: { course: Course }) {
 
       {/* Контент шага */}
       <section className="flex flex-col">
-        <div className="flex-1 px-6 py-10 sm:px-12">
-          <div className="mx-auto max-w-2xl">
-            <p className="eyebrow">{cur.lessonTitle}</p>
-            <StepView key={cur.step.id} step={cur.step} onComplete={() => markDone(cur.step.id)} />
+        {cur.step.kind === "html" ? (
+          /* глава Академии — готовая дизайнерская страница, во всю площадь */
+          <iframe
+            key={cur.step.id}
+            src={cur.step.src}
+            title={cur.step.title}
+            className="min-h-[78vh] w-full flex-1 border-0"
+          />
+        ) : (
+          <div className="flex-1 px-6 py-10 sm:px-12">
+            <div className="mx-auto max-w-2xl">
+              <p className="eyebrow">{cur.lessonTitle}</p>
+              <StepView key={cur.step.id} step={cur.step} onComplete={() => markDone(cur.step.id)} />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Навигация */}
         <div className="sticky bottom-0 flex items-center justify-between border-t border-line bg-subtle/90 px-6 py-4 backdrop-blur sm:px-12">
@@ -129,7 +139,7 @@ export function CoursePlayer({ course }: { course: Course }) {
 }
 
 function KindTag({ kind }: { kind: Step["kind"] }) {
-  const map = { text: "текст", video: "видео", quiz: "тест" };
+  const map = { text: "текст", video: "видео", quiz: "тест", html: "глава" };
   return <span className="ml-auto shrink-0 text-[0.6rem] text-muted">{map[kind]}</span>;
 }
 
@@ -153,6 +163,7 @@ function StepView({ step, onComplete }: { step: Step; onComplete: () => void }) 
       </>
     );
   }
+  if (step.kind !== "quiz") return null; // html рендерится выше, мимо StepView
   return <QuizStep step={step} onComplete={onComplete} />;
 }
 

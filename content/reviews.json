@@ -1,0 +1,282 @@
+[
+ {
+  "slug": "review-accounting",
+  "title": "Бухгалтерский аутсорсинг",
+  "file": "/reviews-html/review-accounting.html"
+ },
+ {
+  "slug": "review-auto-parts",
+  "title": "Магазин автозапчастей",
+  "file": "/reviews-html/review-auto-parts.html"
+ },
+ {
+  "slug": "review-autoservice",
+  "title": "Автосервис",
+  "file": "/reviews-html/review-autoservice.html"
+ },
+ {
+  "slug": "review-barber",
+  "title": "Барбершоп",
+  "file": "/reviews-html/review-barber.html"
+ },
+ {
+  "slug": "review-beauty",
+  "title": "Салон красоты",
+  "file": "/reviews-html/review-beauty.html"
+ },
+ {
+  "slug": "review-brow-lash",
+  "title": "Брови и ресницы",
+  "file": "/reviews-html/review-brow-lash.html"
+ },
+ {
+  "slug": "review-bubbletea",
+  "title": "Островок напитков / бабл-ти",
+  "file": "/reviews-html/review-bubbletea.html"
+ },
+ {
+  "slug": "review-build-mat",
+  "title": "Магазин стройматериалов",
+  "file": "/reviews-html/review-build-mat.html"
+ },
+ {
+  "slug": "review-canteen",
+  "title": "Столовая",
+  "file": "/reviews-html/review-canteen.html"
+ },
+ {
+  "slug": "review-cargo",
+  "title": "Грузоперевозки",
+  "file": "/reviews-html/review-cargo.html"
+ },
+ {
+  "slug": "review-carpet-clean",
+  "title": "Чистка ковров",
+  "file": "/reviews-html/review-carpet-clean.html"
+ },
+ {
+  "slug": "review-carwash",
+  "title": "Автомойка",
+  "file": "/reviews-html/review-carwash.html"
+ },
+ {
+  "slug": "review-catering",
+  "title": "Кейтеринг",
+  "file": "/reviews-html/review-catering.html"
+ },
+ {
+  "slug": "review-cinema",
+  "title": "Кинотеатр",
+  "file": "/reviews-html/review-cinema.html"
+ },
+ {
+  "slug": "review-clean",
+  "title": "Клининг",
+  "file": "/reviews-html/review-clean.html"
+ },
+ {
+  "slug": "review-coffee",
+  "title": "Кофейня",
+  "file": "/reviews-html/review-coffee.html"
+ },
+ {
+  "slug": "review-comp-club",
+  "title": "Компьютерный клуб",
+  "file": "/reviews-html/review-comp-club.html"
+ },
+ {
+  "slug": "review-confection",
+  "title": "Кондитерская",
+  "file": "/reviews-html/review-confection.html"
+ },
+ {
+  "slug": "review-cosmetology",
+  "title": "Косметология",
+  "file": "/reviews-html/review-cosmetology.html"
+ },
+ {
+  "slug": "review-cross-fit",
+  "title": "Кроссфит-зал",
+  "file": "/reviews-html/review-cross-fit.html"
+ },
+ {
+  "slug": "review-dental",
+  "title": "Стоматология",
+  "file": "/reviews-html/review-dental.html"
+ },
+ {
+  "slug": "review-detailing",
+  "title": "Детейлинг авто",
+  "file": "/reviews-html/review-detailing.html"
+ },
+ {
+  "slug": "review-doner",
+  "title": "Донерная",
+  "file": "/reviews-html/review-doner.html"
+ },
+ {
+  "slug": "review-driving",
+  "title": "Автошкола",
+  "file": "/reviews-html/review-driving.html"
+ },
+ {
+  "slug": "review-dry-clean",
+  "title": "Химчистка одежды",
+  "file": "/reviews-html/review-dry-clean.html"
+ },
+ {
+  "slug": "review-epilation",
+  "title": "Эпиляция и депиляция",
+  "file": "/reviews-html/review-epilation.html"
+ },
+ {
+  "slug": "review-evaluation",
+  "title": "Оценочная компания",
+  "file": "/reviews-html/review-evaluation.html"
+ },
+ {
+  "slug": "review-fastfood",
+  "title": "Фастфуд",
+  "file": "/reviews-html/review-fastfood.html"
+ },
+ {
+  "slug": "review-fitness",
+  "title": "Фитнес-клуб",
+  "file": "/reviews-html/review-fitness.html"
+ },
+ {
+  "slug": "review-flowers",
+  "title": "Цветочный магазин",
+  "file": "/reviews-html/review-flowers.html"
+ },
+ {
+  "slug": "review-football-school",
+  "title": "Футбольная школа",
+  "file": "/reviews-html/review-football-school.html"
+ },
+ {
+  "slug": "review-fruitsvegs",
+  "title": "Овощи и фрукты",
+  "file": "/reviews-html/review-fruitsvegs.html"
+ },
+ {
+  "slug": "review-furniture",
+  "title": "Мебельный магазин",
+  "file": "/reviews-html/review-furniture.html"
+ },
+ {
+  "slug": "review-grocery",
+  "title": "Продуктовый магазин",
+  "file": "/reviews-html/review-grocery.html"
+ },
+ {
+  "slug": "review-group-fitness",
+  "title": "Студия групповых программ",
+  "file": "/reviews-html/review-group-fitness.html"
+ },
+ {
+  "slug": "review-hotel",
+  "title": "Хостел и мини-отель",
+  "file": "/reviews-html/review-hotel.html"
+ },
+ {
+  "slug": "review-kids-center",
+  "title": "Детский развивающий центр",
+  "file": "/reviews-html/review-kids-center.html"
+ },
+ {
+  "slug": "review-kindergarten",
+  "title": "Частный детский сад",
+  "file": "/reviews-html/review-kindergarten.html"
+ },
+ {
+  "slug": "review-loft-furniture",
+  "title": "Мебель в стиле лофт",
+  "file": "/reviews-html/review-loft-furniture.html"
+ },
+ {
+  "slug": "review-manicure",
+  "title": "Маникюрный салон",
+  "file": "/reviews-html/review-manicure.html"
+ },
+ {
+  "slug": "review-martial-arts",
+  "title": "Школа единоборств",
+  "file": "/reviews-html/review-martial-arts.html"
+ },
+ {
+  "slug": "review-massage",
+  "title": "Массажный салон",
+  "file": "/reviews-html/review-massage.html"
+ },
+ {
+  "slug": "review-meatshop",
+  "title": "Мясная лавка",
+  "file": "/reviews-html/review-meatshop.html"
+ },
+ {
+  "slug": "review-notary",
+  "title": "Нотариальная контора",
+  "file": "/reviews-html/review-notary.html"
+ },
+ {
+  "slug": "review-optics",
+  "title": "Оптика",
+  "file": "/reviews-html/review-optics.html"
+ },
+ {
+  "slug": "review-pet-shop",
+  "title": "Зоомагазин",
+  "file": "/reviews-html/review-pet-shop.html"
+ },
+ {
+  "slug": "review-pharmacy",
+  "title": "Аптека",
+  "file": "/reviews-html/review-pharmacy.html"
+ },
+ {
+  "slug": "review-pizza",
+  "title": "Пиццерия",
+  "file": "/reviews-html/review-pizza.html"
+ },
+ {
+  "slug": "review-pvz",
+  "title": "Пункт выдачи заказов",
+  "file": "/reviews-html/review-pvz.html"
+ },
+ {
+  "slug": "review-realtor",
+  "title": "Риэлторские услуги",
+  "file": "/reviews-html/review-realtor.html"
+ },
+ {
+  "slug": "review-repair-phone",
+  "title": "Ремонт телефонов",
+  "file": "/reviews-html/review-repair-phone.html"
+ },
+ {
+  "slug": "review-semifood",
+  "title": "Магазин полуфабрикатов",
+  "file": "/reviews-html/review-semifood.html"
+ },
+ {
+  "slug": "review-sushi",
+  "title": "Суши-бар",
+  "file": "/reviews-html/review-sushi.html"
+ },
+ {
+  "slug": "review-tailor",
+  "title": "Ателье одежды",
+  "file": "/reviews-html/review-tailor.html"
+ },
+ {
+  "slug": "review-tire-service",
+  "title": "Шиномонтаж",
+  "file": "/reviews-html/review-tire-service.html"
+ },
+ {
+  "slug": "review-waterplant",
+  "title": "Цех очистки воды",
+  "file": "/reviews-html/review-waterplant.html"
+ }
+]

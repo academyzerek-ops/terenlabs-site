@@ -129,7 +129,7 @@ function hrefFor(p: RawProduct): string {
     case "test":
       return p.stub ? `/tests/${p.slug}` : `/tests/${p.slug}/take`;
     case "course":
-      return p.stub ? `/courses/${p.slug}` : `/learn/${p.slug}`;
+      return `/courses/${p.slug}`; // лендинг с программой; в плеер — кнопкой «Начать»
     case "case":
       return `/cases/${p.slug}`;
     case "review":
@@ -152,7 +152,7 @@ export const CASES = CATALOG.filter((x) => x.type === "case");
 export const REVIEWS = CATALOG.filter((x) => x.type === "review");
 export const COURSES = CATALOG.filter((x) => x.type === "course");
 
-export const FEATURED: CatalogItem[] = ["finmodel-cafe", "t1-a04", "case-marketplace", "review-coffee-market-kz"]
+export const FEATURED: CatalogItem[] = ["finmodel-cafe", "t1-a04", "case-marketplace", "review-coffee"]
   .map((s) => CATALOG.find((x) => x.slug === s))
   .filter(Boolean) as CatalogItem[];
 

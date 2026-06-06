@@ -1,0 +1,139 @@
+/* TerenLabs · review.css — аналитические компоненты обзора ниши.
+   Подключается вместе с lessons.css. Токены наследуются (--les-*). */
+
+/* ═══ addon: аналитические компоненты обзора (в токенах --les-) ═══ */
+.src{font-size:12px;color:var(--les-text-3);margin:-4px 4px 14px;line-height:1.5}
+/* фото-герой (duotone под палитру) */
+.phero{position:relative;border-radius:18px;overflow:hidden;margin:4px 0 16px;aspect-ratio:16/9;border:0.5px solid var(--les-border)}
+.phero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.phero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,11,18,.10) 0%,rgba(5,11,18,.45) 55%,rgba(5,11,18,.92) 100%)}
+.phero-in{position:absolute;left:0;right:0;bottom:0;padding:16px 18px 18px;z-index:1}
+.phero-badge{display:inline-block;background:rgba(79,211,221,.18);color:#7FE7EE;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 9px;border-radius:6px;margin-bottom:10px;backdrop-filter:blur(4px)}
+.phero h1{font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:29px;line-height:1.12;letter-spacing:-.018em;color:#fff;margin-bottom:6px;font-variation-settings:"opsz" 29}
+.phero h1 .o{color:#4FD3DD;font-style:italic;font-weight:500}
+.phero-sub{font-size:13.5px;color:rgba(255,255,255,.84);line-height:1.5}
+.c em{font-style:italic;color:var(--les-text-2)}
+.c.ar{border-left:3.5px solid var(--les-red);background:var(--les-red-soft)}
+/* нумерованный / маркированный список (вместо перечислений простынёй) */
+.ql{list-style:none;counter-reset:q;margin:8px 0 0;padding:0}
+.ql li{position:relative;padding-left:30px;margin-bottom:9px;font-size:13.5px;color:var(--les-text-2);line-height:1.55}
+.ql li:last-child{margin-bottom:0}
+.ql li::before{counter-increment:q;content:counter(q);position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:6px;background:var(--les-aqua-soft);color:var(--les-aqua-deep);font-weight:700;font-size:11.5px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.ql li strong{color:var(--les-text);font-weight:700}
+.bl{list-style:none;margin:8px 0 0;padding:0}
+.bl li{position:relative;padding-left:18px;margin-bottom:9px;font-size:13.5px;color:var(--les-text-2);line-height:1.55}
+.bl li:last-child{margin-bottom:0}
+.bl li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:2px;background:var(--les-accent);opacity:.6}
+.bl li strong{color:var(--les-text);font-weight:700}
+
+/* секционный заголовок-«отчёт»: номер + крупный serif */
+.sh{display:flex;align-items:baseline;gap:12px;margin:30px 4px 14px}
+.sh-n{font-family:'Newsreader',Georgia,serif;font-weight:700;font-size:30px;line-height:1;color:var(--les-accent);opacity:.55;font-variant-numeric:tabular-nums;font-variation-settings:"opsz" 30}
+.sh-t{font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:21px;line-height:1.15;color:var(--les-text);letter-spacing:-.015em}
+
+/* TL;DR — карточка ключевых выводов */
+.tldr{background:linear-gradient(135deg,var(--les-aqua-soft),var(--les-green-soft));border:0.5px solid var(--les-aqua-soft);border-radius:16px;padding:20px 18px;margin-bottom:16px}
+.tldr-h{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--les-aqua-deep);margin-bottom:14px}
+.tldr-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:11px}
+.tldr-row:last-child{margin-bottom:0}
+.tldr-k{font-family:'Newsreader',Georgia,serif;font-weight:700;font-size:21px;line-height:1.05;color:var(--les-accent);flex:0 0 84px;font-variant-numeric:tabular-nums}
+.tldr-v{font-size:13.5px;color:var(--les-text-2);line-height:1.5}
+.tldr-v strong{color:var(--les-text);font-weight:700}
+
+/* бар-чарт городов */
+.bars{margin-bottom:6px}
+.bar{display:grid;grid-template-columns:78px 1fr 52px;align-items:center;gap:10px;margin-bottom:7px}
+.bar-l{font-size:13px;color:var(--les-text-2)}
+.bar-t{height:18px;background:var(--les-border);border-radius:5px;overflow:hidden}
+.bar-f{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--les-aqua-deep),var(--les-aqua))}
+.bar-f.crit{background:linear-gradient(90deg,var(--les-red),#ff9a6b)}
+.bar-v{font-size:13px;font-weight:700;color:var(--les-text);text-align:right;font-variant-numeric:tabular-nums}
+
+/* сезонность */
+.season{display:flex;align-items:flex-end;gap:5px;height:120px;margin:4px 2px 8px;padding-top:10px}
+.season-c{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
+.season-b{width:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--les-aqua),var(--les-aqua-deep));min-height:4px}
+.season-b.hi{background:linear-gradient(180deg,var(--les-green),#2BA888)}
+.season-b.lo{background:linear-gradient(180deg,var(--les-text-3),var(--les-border))}
+.season-m{font-size:9.5px;color:var(--les-text-3);font-weight:600}
+
+/* донат структуры затрат */
+.donut-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center}
+.donut{width:150px;height:150px;flex-shrink:0;transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:5.5}
+.donut-c{font-family:'Newsreader',Georgia,serif}
+.leg{display:flex;flex-direction:column;gap:7px;min-width:150px;flex:1}
+.leg-i{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--les-text-2)}
+.leg-d{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.leg-v{margin-left:auto;font-weight:700;color:var(--les-text);font-variant-numeric:tabular-nums}
+
+/* таблица форматов */
+.dtw{margin-bottom:14px;border-radius:14px;overflow:hidden;border:0.5px solid var(--les-border)}
+table.dt{width:100%;border-collapse:collapse;background:var(--les-surface);font-size:13px}
+table.dt th{background:var(--les-aqua-soft);color:var(--les-aqua-deep);font-weight:700;text-align:left;padding:9px 11px;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+table.dt th:not(:first-child),table.dt td.n{text-align:right}
+table.dt td{padding:9px 11px;border-top:0.5px solid var(--les-border-2);color:var(--les-text-2)}
+table.dt td.n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--les-text);text-align:right;white-space:nowrap}
+table.dt tr.peak td{background:var(--les-green-soft)}
+table.dt td.fmt{font-weight:600;color:var(--les-text)}
+
+/* бары структуры затрат (line items) */
+.pr{margin-bottom:11px}.pr:last-child{margin-bottom:0}
+.prh{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+.prn{color:var(--les-text-2)}.prv{font-weight:700;color:var(--les-text);font-variant-numeric:tabular-nums}
+.prt{height:7px;background:var(--les-border);border-radius:5px;overflow:hidden}
+.prf{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--les-aqua-deep),var(--les-aqua))}
+
+/* 2×2 стат-сетка */
+.stat4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.stat4 .nb{margin-bottom:0;padding:18px 10px 14px}
+.stat4 .nb-n{font-size:28px}
+
+/* сценарии */
+.scn{border-radius:14px;padding:18px;margin-bottom:10px;border:0.5px solid var(--les-border);border-left:4px solid var(--les-text-3);background:var(--les-surface)}
+.scn.good{border-left-color:var(--les-green);background:var(--les-green-soft)}
+.scn.mid{border-left-color:var(--les-warm);background:var(--les-warm-soft)}
+.scn.bad{border-left-color:var(--les-red);background:var(--les-red-soft)}
+.scn-h{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.scn-tag{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:6px}
+.scn.good .scn-tag{color:var(--les-green);background:rgba(95,224,181,.16)}
+.scn.mid .scn-tag{color:var(--les-warm);background:rgba(232,160,92,.16)}
+.scn.bad .scn-tag{color:var(--les-red);background:rgba(255,107,107,.14)}
+.scn-t{font-weight:700;font-size:15px;color:var(--les-text)}
+.scn p{font-size:13.5px;color:var(--les-text-2);line-height:1.6;margin:0}
+.scn p strong{color:var(--les-text);font-weight:700}
+
+/* риск-карточки (яркие) */
+.risk{background:var(--les-surface);border:0.5px solid var(--les-border);border-left:4px solid var(--les-red);border-radius:14px;padding:18px;margin-bottom:11px;box-shadow:0 4px 18px rgba(255,107,107,.06)}
+.risk.warn{border-left-color:var(--les-warn);box-shadow:0 4px 18px rgba(240,201,94,.06)}
+.risk-h{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.risk-ic{font-size:22px;line-height:1}
+.risk-n{font-weight:700;font-size:15.5px;color:var(--les-text);flex:1}
+.risk-sev{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 8px;border-radius:5px;color:var(--les-red);background:var(--les-red-soft);white-space:nowrap}
+.risk.warn .risk-sev{color:var(--les-warn);background:var(--les-warn-soft)}
+.risk p{font-size:13.5px;color:var(--les-text-2);line-height:1.6;margin-bottom:9px}
+.risk-math{font-size:12.5px;color:var(--les-red);background:var(--les-red-soft);border-radius:8px;padding:9px 12px;margin-bottom:9px;font-variant-numeric:tabular-nums;line-height:1.5}
+.risk-fix{font-size:12.5px;color:var(--les-green);line-height:1.55}
+.risk-fix strong{color:var(--les-green)}
+
+/* красные флаги / факторы выживания — списки-чипы */
+.flags{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.flag{display:flex;gap:11px;align-items:flex-start;background:var(--les-surface);border:0.5px solid var(--les-border);border-radius:12px;padding:13px 15px}
+.flag.red{background:var(--les-red-soft);border-color:rgba(255,107,107,.2)}
+.flag.grn{background:var(--les-green-soft);border-color:rgba(95,224,181,.2)}
+.flag-ic{font-size:17px;line-height:1.3;flex-shrink:0}
+.flag-t{font-size:13.5px;color:var(--les-text-2);line-height:1.55}
+.flag-t strong{color:var(--les-text);font-weight:700}
+
+/* CTA */
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.cta{background:var(--les-surface-2);border:0.5px solid var(--les-border);border-radius:16px;padding:22px 16px;text-align:center}
+.cta-t{font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:18px;color:var(--les-text);margin-bottom:10px}
+.cta-price{font-family:'Newsreader',Georgia,serif;font-weight:700;font-size:38px;color:var(--les-accent);line-height:1;margin-bottom:14px}
+.cta-btn{display:block;background:var(--les-aqua-deep);color:#fff;font-weight:700;font-size:13.5px;padding:11px;border-radius:100px;text-decoration:none}
+.dark .cta-btn{background:var(--les-aqua);color:#002B45}
+[id^="s-"]{scroll-margin-top:66px}
+.totop{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));width:44px;height:44px;border-radius:50%;background:var(--les-aqua-deep);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s;z-index:60;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.dark .totop{background:var(--les-aqua);color:#002B45}
+.totop.on{opacity:1;visibility:visible;transform:translateY(0)}
+.totop svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.6;fill:none}

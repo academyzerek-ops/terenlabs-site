@@ -1,0 +1,1320 @@
+[
+ {
+  "key": "fund",
+  "slug": "course-fundament",
+  "topic": "Финансы",
+  "folder": "fundament",
+  "title": "Фундамент",
+  "subtitle": "16+ — финансовая грамотность",
+  "chapterTotal": 46,
+  "modules": [
+   {
+    "id": "m1",
+    "title": "Урок 1 · Деньги как договор",
+    "chapters": [
+     {
+      "title": "Тебя только что поймали",
+      "file": "m1-ch00",
+      "img": "/academy-assets/hero/fundament/m1-ch00.webp"
+     },
+     {
+      "title": "Грязная бумажка",
+      "file": "m1-ch01",
+      "img": "/academy-assets/hero/fundament/m1-ch01.webp"
+     },
+     {
+      "title": "Почему доллар стоит 500 тенге",
+      "file": "m1-ch02",
+      "img": null
+     },
+     {
+      "title": "От ракушек до QR-кода",
+      "file": "m1-ch03",
+      "img": "/academy-assets/hero/fundament/m1-ch03.webp"
+     },
+     {
+      "title": "Что делает валюту крепкой",
+      "file": "m1-ch04",
+      "img": null
+     },
+     {
+      "title": "За твоими деньгами идёт охота",
+      "file": "m1-ch05",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m2",
+    "title": "Урок 2 · Ловушки витрины",
+    "chapters": [
+     {
+      "title": "Цена с девятками",
+      "file": "m2-ch01",
+      "img": "/academy-assets/hero/fundament/m2-ch01.webp"
+     },
+     {
+      "title": "iPhone Pro Max и средний выбор",
+      "file": "m2-ch02",
+      "img": "/academy-assets/hero/fundament/m2-ch02.webp"
+     },
+     {
+      "title": "FOMO: покупка в панике",
+      "file": "m2-ch03",
+      "img": "/academy-assets/hero/fundament/m2-ch03.webp"
+     },
+     {
+      "title": "Клуб для избранных",
+      "file": "m2-ch04",
+      "img": "/academy-assets/hero/fundament/m2-ch04.webp"
+     },
+     {
+      "title": "Запах, который покупает",
+      "file": "m2-ch05",
+      "img": "/academy-assets/hero/fundament/m2-ch05.webp"
+     },
+     {
+      "title": "Лабиринт Минотавра",
+      "file": "m2-ch06",
+      "img": "/academy-assets/hero/fundament/m2-ch06.webp"
+     },
+     {
+      "title": "Битва у полки",
+      "file": "m2-ch07",
+      "img": "/academy-assets/hero/fundament/m2-ch07.webp"
+     },
+     {
+      "title": "Невидимый гипноз: цвета и шрифты",
+      "file": "m2-ch08",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m3",
+    "title": "Урок 3 · Ловушки кошелька",
+    "chapters": [
+     {
+      "title": "Возвращаем 5%",
+      "file": "m3-ch01",
+      "img": "/academy-assets/hero/fundament/m3-ch01.webp"
+     },
+     {
+      "title": "По 9 990 в месяц",
+      "file": "m3-ch02",
+      "img": "/academy-assets/hero/fundament/m3-ch02.webp"
+     },
+     {
+      "title": "Блогер, который тебя выбрал",
+      "file": "m3-ch03",
+      "img": "/academy-assets/hero/fundament/m3-ch03.webp"
+     },
+     {
+      "title": "Это не реклама, это просто пост",
+      "file": "m3-ch04",
+      "img": null
+     },
+     {
+      "title": "Первый месяц бесплатно",
+      "file": "m3-ch05",
+      "img": null
+     },
+     {
+      "title": "Только 1000 штук",
+      "file": "m3-ch06",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m4",
+    "title": "Урок 4 · Три роли в деньгах",
+    "chapters": [
+     {
+      "title": "Три роли в деньгах",
+      "file": "m4-ch01",
+      "img": "/academy-assets/hero/fundament/m4-ch01.webp"
+     },
+     {
+      "title": "Потребитель: белка в колесе",
+      "file": "m4-ch02",
+      "img": null
+     },
+     {
+      "title": "Наёмник: продавец времени",
+      "file": "m4-ch03",
+      "img": "/academy-assets/hero/fundament/m4-ch03.webp"
+     },
+     {
+      "title": "Созидатель: архитектор систем",
+      "file": "m4-ch04",
+      "img": "/academy-assets/hero/fundament/m4-ch04.webp"
+     },
+     {
+      "title": "Одна скидка — три реальности",
+      "file": "m4-ch05",
+      "img": "/academy-assets/hero/fundament/m4-ch05.webp"
+     },
+     {
+      "title": "Роль выбираешь ты",
+      "file": "m4-ch06",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m5",
+    "title": "Урок 5 · Время как актив",
+    "chapters": [
+     {
+      "title": "Невозвратный ресурс",
+      "file": "m5-ch01",
+      "img": "/academy-assets/hero/fundament/m5-ch01.webp"
+     },
+     {
+      "title": "Восьмое чудо света",
+      "file": "m5-ch02",
+      "img": "/academy-assets/hero/fundament/m5-ch02.webp"
+     },
+     {
+      "title": "Час твоей жизни",
+      "file": "m5-ch03",
+      "img": null
+     },
+     {
+      "title": "Цена опыта",
+      "file": "m5-ch04",
+      "img": null
+     },
+     {
+      "title": "Молодость как преимущество",
+      "file": "m5-ch05",
+      "img": "/academy-assets/hero/fundament/m5-ch05.webp"
+     }
+    ]
+   },
+   {
+    "id": "m6",
+    "title": "Урок 6 · Откуда деньги",
+    "chapters": [
+     {
+      "title": "От Безоса до Безоса",
+      "file": "m6-ch01",
+      "img": "/academy-assets/hero/fundament/m6-ch01.webp"
+     },
+     {
+      "title": "Как устроена зарплата",
+      "file": "m6-ch02",
+      "img": "/academy-assets/hero/fundament/m6-ch02.webp"
+     },
+     {
+      "title": "Бэнкси и его тайна",
+      "file": "m6-ch03",
+      "img": null
+     },
+     {
+      "title": "Как устроен фриланс",
+      "file": "m6-ch04",
+      "img": null
+     },
+     {
+      "title": "Сэм Уолтон и его пять центов",
+      "file": "m6-ch05",
+      "img": "/academy-assets/hero/fundament/m6-ch05.webp"
+     },
+     {
+      "title": "Деньги, которые работают",
+      "file": "m6-ch06",
+      "img": "/academy-assets/hero/fundament/m6-ch06.webp"
+     }
+    ]
+   },
+   {
+    "id": "m7",
+    "title": "Урок 7 · Как мыслят умные",
+    "chapters": [
+     {
+      "title": "Активы и пассивы",
+      "file": "m7-ch01",
+      "img": "/academy-assets/hero/fundament/m7-ch01.webp"
+     },
+     {
+      "title": "Риск vs неопределённость",
+      "file": "m7-ch02",
+      "img": "/academy-assets/hero/fundament/m7-ch02.webp"
+     },
+     {
+      "title": "Безос и десятилетние решения",
+      "file": "m7-ch03",
+      "img": "/academy-assets/hero/fundament/m7-ch03.webp"
+     },
+     {
+      "title": "Баффет и его линза",
+      "file": "m7-ch04",
+      "img": "/academy-assets/hero/fundament/m7-ch04.webp"
+     },
+     {
+      "title": "Маленькие версии больших вопросов",
+      "file": "m7-ch05",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m8",
+    "title": "Урок 8 · Развилка",
+    "chapters": [
+     {
+      "title": "Универ и корпорат",
+      "file": "m8-ch01",
+      "img": "/academy-assets/hero/fundament/m8-ch01.webp"
+     },
+     {
+      "title": "Мастер с руками",
+      "file": "m8-ch02",
+      "img": "/academy-assets/hero/fundament/m8-ch02.webp"
+     },
+     {
+      "title": "Свободный график",
+      "file": "m8-ch03",
+      "img": "/academy-assets/hero/fundament/m8-ch03.webp"
+     },
+     {
+      "title": "Сразу в дело",
+      "file": "m8-ch04",
+      "img": "/academy-assets/hero/fundament/m8-ch04.webp"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "arch",
+  "slug": "course-architect",
+  "topic": "Бизнес",
+  "folder": "architect",
+  "title": "Архитектор",
+  "subtitle": "16+ — стартап-мышление и предпринимательство",
+  "chapterTotal": 45,
+  "modules": [
+   {
+    "id": "m1",
+    "title": "Урок 1 · Идея как реакция",
+    "chapters": [
+     {
+      "title": "Девять из десяти не дойдут",
+      "file": "m1-ch00",
+      "img": "/academy-assets/hero/architect/m1-ch00.webp"
+     },
+     {
+      "title": "Тракторист, который утёр нос Феррари",
+      "file": "m1-ch01",
+      "img": null
+     },
+     {
+      "title": "Ошибка на миллиард долларов",
+      "file": "m1-ch02",
+      "img": null
+     },
+     {
+      "title": "Лень стоимостью 200 миллиардов",
+      "file": "m1-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m2",
+    "title": "Урок 2 · Идея как наблюдение",
+    "chapters": [
+     {
+      "title": "Серфер, который снимал друзей",
+      "file": "m2-ch01",
+      "img": null
+     },
+     {
+      "title": "Головоломка профессора",
+      "file": "m2-ch02",
+      "img": null
+     },
+     {
+      "title": "Подсмотрено в Италии",
+      "file": "m2-ch03",
+      "img": null
+     },
+     {
+      "title": "Сушёная рыба против фотоплёнки",
+      "file": "m2-ch04",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m3",
+    "title": "Урок 3 · Проверка идеи",
+    "chapters": [
+     {
+      "title": "Как продать воздух",
+      "file": "m3-ch01",
+      "img": null
+     },
+     {
+      "title": "Магазин без склада",
+      "file": "m3-ch02",
+      "img": null
+     },
+     {
+      "title": "51 провал и одна свинья",
+      "file": "m3-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m4",
+    "title": "Урок 4 · Стратегия",
+    "chapters": [
+     {
+      "title": "Ошибка на триллион долларов",
+      "file": "m4-ch01",
+      "img": "/academy-assets/hero/architect/m4-ch01.webp"
+     },
+     {
+      "title": "Проклятие «Быстрой Лошади»",
+      "file": "m4-ch02",
+      "img": null
+     },
+     {
+      "title": "Океан без акул",
+      "file": "m4-ch03",
+      "img": "/academy-assets/hero/architect/m4-ch03.webp"
+     },
+     {
+      "title": "Торговец воздухом",
+      "file": "m4-ch04",
+      "img": "/academy-assets/hero/architect/m4-ch04.webp"
+     },
+     {
+      "title": "Император Терпения",
+      "file": "m4-ch05",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m5",
+    "title": "Урок 5 · Запуск без ресурсов",
+    "chapters": [
+     {
+      "title": "Квадратное уродство",
+      "file": "m5-ch01",
+      "img": null
+     },
+     {
+      "title": "Театр одного актёра",
+      "file": "m5-ch02",
+      "img": null
+     },
+     {
+      "title": "Авиакомпания на один день",
+      "file": "m5-ch03",
+      "img": null
+     },
+     {
+      "title": "Стартап за один вечер",
+      "file": "m5-ch04",
+      "img": null
+     },
+     {
+      "title": "Искусство убийства",
+      "file": "m5-ch05",
+      "img": "/academy-assets/hero/architect/m5-ch05.webp"
+     }
+    ]
+   },
+   {
+    "id": "m6",
+    "title": "Урок 6 · Маркетинг и бренд",
+    "chapters": [
+     {
+      "title": "Великая иллюзия торговли",
+      "file": "m6-ch00",
+      "img": "/academy-assets/hero/architect/m6-ch00.webp"
+     },
+     {
+      "title": "Эффект толпы (Red Bull)",
+      "file": "m6-ch01",
+      "img": null
+     },
+     {
+      "title": "Костёр из денег (люкс)",
+      "file": "m6-ch02",
+      "img": null
+     },
+     {
+      "title": "Ты — Герой (Nike)",
+      "file": "m6-ch03",
+      "img": null
+     },
+     {
+      "title": "Король троллинга (Burger King)",
+      "file": "m6-ch04",
+      "img": null
+     },
+     {
+      "title": "Смертельная вода (Liquid Death)",
+      "file": "m6-ch05",
+      "img": "/academy-assets/hero/architect/m6-ch05.webp"
+     },
+     {
+      "title": "Один против всех (MrBeast)",
+      "file": "m6-ch06",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m7",
+    "title": "Урок 7 · От идеи к делу",
+    "chapters": [
+     {
+      "title": "Как идея превращается в бизнес",
+      "file": "m7-ch01",
+      "img": "/academy-assets/hero/architect/m7-ch01.webp"
+     },
+     {
+      "title": "Customer Discovery",
+      "file": "m7-ch02",
+      "img": null
+     },
+     {
+      "title": "MVP без иллюзий",
+      "file": "m7-ch03",
+      "img": null
+     },
+     {
+      "title": "Первая продажа",
+      "file": "m7-ch04",
+      "img": null
+     },
+     {
+      "title": "Цена — это сообщение",
+      "file": "m7-ch05",
+      "img": null
+     },
+     {
+      "title": "Самозанятый, ИП или ТОО",
+      "file": "m7-ch06",
+      "img": null
+     },
+     {
+      "title": "Когда нужны деньги, и когда нет",
+      "file": "m7-ch07",
+      "img": null
+     },
+     {
+      "title": "Один или с партнёром",
+      "file": "m7-ch08",
+      "img": "/academy-assets/hero/architect/m7-ch08.webp"
+     }
+    ]
+   },
+   {
+    "id": "m8",
+    "title": "Урок 8 · Юнит-экономика",
+    "chapters": [
+     {
+      "title": "Юнит-экономика на пальцах",
+      "file": "m8-ch01",
+      "img": "/academy-assets/hero/architect/m8-ch01.webp"
+     },
+     {
+      "title": "LTV и CAC",
+      "file": "m8-ch02",
+      "img": null
+     },
+     {
+      "title": "Где живут твои клиенты",
+      "file": "m8-ch03",
+      "img": null
+     },
+     {
+      "title": "Маржа против оборота",
+      "file": "m8-ch04",
+      "img": null
+     },
+     {
+      "title": "Что ломается при росте",
+      "file": "m8-ch05",
+      "img": "/academy-assets/hero/architect/m8-ch05.webp"
+     }
+    ]
+   },
+   {
+    "id": "m9",
+    "title": "Урок 9 · Когда не надо",
+    "chapters": [
+     {
+      "title": "Главные причины смерти бизнеса",
+      "file": "m9-ch01",
+      "img": "/academy-assets/hero/architect/m9-ch01.webp"
+     },
+     {
+      "title": "Sunk cost: когда бросать",
+      "file": "m9-ch02",
+      "img": "/academy-assets/hero/architect/m9-ch02.webp"
+     },
+     {
+      "title": "Партнёры, с которыми не начинать",
+      "file": "m9-ch03",
+      "img": null
+     },
+     {
+      "title": "Когда ты готов начинать",
+      "file": "m9-ch04",
+      "img": "/academy-assets/hero/architect/m9-ch04.webp"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "mgmt",
+  "slug": "course-management",
+  "topic": "Управление",
+  "folder": "management",
+  "title": "Менеджмент малого бизнеса",
+  "subtitle": "Для собственников и тех, кто планирует открывать",
+  "chapterTotal": 27,
+  "modules": [
+   {
+    "id": "m1",
+    "title": "Узкое горлышко: почему фаундер сам душит свой бизнес",
+    "chapters": [
+     {
+      "title": "Джинн в бутылке",
+      "file": "m1-ch01",
+      "img": "/academy-assets/hero/management/m1-ch01.webp"
+     },
+     {
+      "title": "Проблема Баке",
+      "file": "m1-ch02",
+      "img": null
+     },
+     {
+      "title": "Капитан и драйка палубы",
+      "file": "m1-ch03",
+      "img": "/academy-assets/hero/management/m1-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m2",
+    "title": "С кем ты работаешь: миллениалы, зумеры и тихое увольнение",
+    "chapters": [
+     {
+      "title": "Поколение твоей команды",
+      "file": "m2-ch01",
+      "img": "/academy-assets/hero/management/m2-ch01.webp"
+     },
+     {
+      "title": "Тихое увольнение",
+      "file": "m2-ch02",
+      "img": null
+     },
+     {
+      "title": "Маркеры разрыва",
+      "file": "m2-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m3",
+    "title": "Как удержать сильного сотрудника",
+    "chapters": [
+     {
+      "title": "Почему оклад и сделка не удержат сильного",
+      "file": "m3-ch01",
+      "img": null
+     },
+     {
+      "title": "Что такое доля и три способа её дать",
+      "file": "m3-ch02",
+      "img": "/academy-assets/hero/management/m3-ch02.webp"
+     },
+     {
+      "title": "Как не потерять контроль",
+      "file": "m3-ch03",
+      "img": "/academy-assets/hero/management/m3-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m4",
+    "title": "Три системы оплаты + KPI: что работает в КЗ-реалиях",
+    "chapters": [
+     {
+      "title": "Три системы оплаты и под какие задачи их выбирать",
+      "file": "m4-ch01",
+      "img": null
+     },
+     {
+      "title": "KPI как настройка, а не как закон",
+      "file": "m4-ch02",
+      "img": "/academy-assets/hero/management/m4-ch02.webp"
+     },
+     {
+      "title": "Конкретные KPI для типовых ролей",
+      "file": "m4-ch03",
+      "img": null
+     },
+     {
+      "title": "Пять смертельных ошибок KPI в малом бизнесе",
+      "file": "m4-ch04",
+      "img": "/academy-assets/hero/management/m4-ch04.webp"
+     }
+    ]
+   },
+   {
+    "id": "m5",
+    "title": "Найм под функцию: метод Moneyball",
+    "chapters": [
+     {
+      "title": "Не каждая роль требует звезды",
+      "file": "m5-ch01",
+      "img": "/academy-assets/hero/management/m5-ch01.webp"
+     },
+     {
+      "title": "Закон подобия: почему вы нанимаете не тех",
+      "file": "m5-ch02",
+      "img": "/academy-assets/hero/management/m5-ch02.webp"
+     },
+     {
+      "title": "Тестовая неделя как настоящее интервью",
+      "file": "m5-ch03",
+      "img": "/academy-assets/hero/management/m5-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m6",
+    "title": "Команда: кто играет, кто тащит рояль",
+    "chapters": [
+     {
+      "title": "Рояль и тащильщики",
+      "file": "m6-ch01",
+      "img": "/academy-assets/hero/management/m6-ch01.webp"
+     },
+     {
+      "title": "Порядок бьёт класс",
+      "file": "m6-ch02",
+      "img": null
+     },
+     {
+      "title": "Высокие vs низкие мотивы",
+      "file": "m6-ch03",
+      "img": "/academy-assets/hero/management/m6-ch03.webp"
+     },
+     {
+      "title": "Что Google узнал про лучшие команды",
+      "file": "m6-ch04",
+      "img": "/academy-assets/hero/management/m6-ch04.webp"
+     }
+    ]
+   },
+   {
+    "id": "m7",
+    "title": "Дисциплина без срывов: прогрессивное давление",
+    "chapters": [
+     {
+      "title": "Накопление и взрыв",
+      "file": "m7-ch01",
+      "img": "/academy-assets/hero/management/m7-ch01.webp"
+     },
+     {
+      "title": "Прогрессивное давление: четыре уровня",
+      "file": "m7-ch02",
+      "img": null
+     },
+     {
+      "title": "Ловушка Сэндвича",
+      "file": "m7-ch03",
+      "img": "/academy-assets/hero/management/m7-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m8",
+    "title": "Расставание с сотрудником без потери репутации",
+    "chapters": [
+     {
+      "title": "Когда ты тащишь балласт",
+      "file": "m8-ch01",
+      "img": "/academy-assets/hero/management/m8-ch01.webp"
+     },
+     {
+      "title": "Четыре типа токсиков",
+      "file": "m8-ch02",
+      "img": "/academy-assets/hero/management/m8-ch02.webp"
+     },
+     {
+      "title": "Три встречи: диагностическая, предупредительная, финальная",
+      "file": "m8-ch03",
+      "img": null
+     },
+     {
+      "title": "Что говорить команде после ухода",
+      "file": "m8-ch04",
+      "img": null
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "mkt",
+  "slug": "course-marketing",
+  "topic": "Маркетинг",
+  "folder": "marketing",
+  "title": "Маркетинг малого бизнеса",
+  "subtitle": "Для собственников и тех, кто планирует открывать",
+  "chapterTotal": 30,
+  "modules": [
+   {
+    "id": "m1",
+    "title": "Маркетинг — это не реклама, это психология",
+    "chapters": [
+     {
+      "title": "Три ложных лица маркетинга",
+      "file": "m1-ch01",
+      "img": null
+     },
+     {
+      "title": "Боль клиента: ядро",
+      "file": "m1-ch02",
+      "img": null
+     },
+     {
+      "title": "Инструменты без боли крутят воздух",
+      "file": "m1-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m2",
+    "title": "Три ноги стола: почему маркетинг самый опасный",
+    "chapters": [
+     {
+      "title": "Стол на трёх ногах",
+      "file": "m2-ch01",
+      "img": null
+     },
+     {
+      "title": "Почему маркетинг бьёт по карману первым",
+      "file": "m2-ch02",
+      "img": null
+     },
+     {
+      "title": "Дисциплина вместо вдохновения",
+      "file": "m2-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m3",
+    "title": "Как на самом деле решает человек",
+    "chapters": [
+     {
+      "title": "Сознание против подсознания",
+      "file": "m3-ch01",
+      "img": null
+     },
+     {
+      "title": "Один против массы",
+      "file": "m3-ch02",
+      "img": null
+     },
+     {
+      "title": "Мода и статус",
+      "file": "m3-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m4",
+    "title": "Фишки: как зацепить вживую и в экране",
+    "chapters": [
+     {
+      "title": "Офлайн-триггеры: запах, девятки, срочность",
+      "file": "m4-ch01",
+      "img": null
+     },
+     {
+      "title": "Первые три секунды",
+      "file": "m4-ch02",
+      "img": null
+     },
+     {
+      "title": "Внимание современного человека",
+      "file": "m4-ch03",
+      "img": null
+     },
+     {
+      "title": "Профиль-витрина: открытый прайс и контент-магнит",
+      "file": "m4-ch04",
+      "img": null
+     },
+     {
+      "title": "Где тебя находят: 2GIS и Kaspi",
+      "file": "m4-ch05",
+      "img": null
+     },
+     {
+      "title": "Почему фишки не вечны",
+      "file": "m4-ch06",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m5",
+    "title": "Бренд: за что платят сверх качества",
+    "chapters": [
+     {
+      "title": "Футболка за $20 и за $80",
+      "file": "m5-ch01",
+      "img": null
+     },
+     {
+      "title": "Бренд как актив, который держит маржу",
+      "file": "m5-ch02",
+      "img": null
+     },
+     {
+      "title": "Бренд как рамка",
+      "file": "m5-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m6",
+    "title": "Иллюзия конкуренции",
+    "chapters": [
+     {
+      "title": "Конкуренты с одним хозяином",
+      "file": "m6-ch01",
+      "img": null
+     },
+     {
+      "title": "Зачем дробить рынок на лица",
+      "file": "m6-ch02",
+      "img": null
+     },
+     {
+      "title": "Мультибренд в вашем масштабе",
+      "file": "m6-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m7",
+    "title": "Тренды убивают гигантов",
+    "chapters": [
+     {
+      "title": "Ядро остаётся, инструменты меняются",
+      "file": "m7-ch01",
+      "img": null
+     },
+     {
+      "title": "Гиганты, выпавшие из гонки",
+      "file": "m7-ch02",
+      "img": null
+     },
+     {
+      "title": "Ребрендинг: когда губит, когда спасает",
+      "file": "m7-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m8",
+    "title": "PR: репутация дороже рекламы",
+    "chapters": [
+     {
+      "title": "PR — это не реклама",
+      "file": "m8-ch01",
+      "img": null
+     },
+     {
+      "title": "Репутацию больше нельзя замять",
+      "file": "m8-ch02",
+      "img": null
+     },
+     {
+      "title": "Следить за базаром",
+      "file": "m8-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m9",
+    "title": "Ваши метрики и ваши кадры",
+    "chapters": [
+     {
+      "title": "Какие метрики действительно ваши",
+      "file": "m9-ch01",
+      "img": null
+     },
+     {
+      "title": "Качество трафика против количества",
+      "file": "m9-ch02",
+      "img": null
+     },
+     {
+      "title": "Маркетолог или выпускник курсов",
+      "file": "m9-ch03",
+      "img": null
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "fin",
+  "slug": "course-finance",
+  "topic": "Финансы",
+  "folder": "finance",
+  "title": "Финансы малого бизнеса",
+  "subtitle": "Для собственников и тех, кто планирует открывать",
+  "chapterTotal": 47,
+  "modules": [
+   {
+    "id": "m1",
+    "title": "Финансы — это не деньги",
+    "chapters": [
+     {
+      "title": "Деньги видят все",
+      "file": "m1-ch01",
+      "img": null
+     },
+     {
+      "title": "Финансист — не счетовод",
+      "file": "m1-ch02",
+      "img": null
+     },
+     {
+      "title": "Над всеми функциями",
+      "file": "m1-ch03",
+      "img": null
+     },
+     {
+      "title": "Почему его зовут последним",
+      "file": "m1-ch04",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m2",
+    "title": "Прибыль — это не деньги",
+    "chapters": [
+     {
+      "title": "Бумажная прибыль и пустой счёт",
+      "file": "m2-ch01",
+      "img": null
+     },
+     {
+      "title": "Куда прячется прибыль",
+      "file": "m2-ch02",
+      "img": null
+     },
+     {
+      "title": "Кэш — король",
+      "file": "m2-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m3",
+    "title": "Рентабельность и оборот",
+    "chapters": [
+     {
+      "title": "Две рентабельности",
+      "file": "m3-ch01",
+      "img": null
+     },
+     {
+      "title": "Рентабельность — не единственный показатель",
+      "file": "m3-ch02",
+      "img": null
+     },
+     {
+      "title": "Оборот решает",
+      "file": "m3-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m4",
+    "title": "Затраты, которые меняют решения",
+    "chapters": [
+     {
+      "title": "Себестоимость, которая врёт",
+      "file": "m4-ch01",
+      "img": null
+     },
+     {
+      "title": "Переменные и постоянные",
+      "file": "m4-ch02",
+      "img": null
+     },
+     {
+      "title": "Затраты, которых нет в решении",
+      "file": "m4-ch03",
+      "img": null
+     },
+     {
+      "title": "Продать ниже себестоимости — или отказать",
+      "file": "m4-ch04",
+      "img": null
+     },
+     {
+      "title": "Директ-костинг: счёт для решений",
+      "file": "m4-ch05",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m5",
+    "title": "Безубыточность и окупаемость",
+    "chapters": [
+     {
+      "title": "Точка безубыточности",
+      "file": "m5-ch01",
+      "img": null
+     },
+     {
+      "title": "Аренда как коэффициент",
+      "file": "m5-ch02",
+      "img": null
+     },
+     {
+      "title": "Когда вернутся деньги",
+      "file": "m5-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m6",
+    "title": "Кассовый разрыв",
+    "chapters": [
+     {
+      "title": "Прибыль есть, а денег нет",
+      "file": "m6-ch01",
+      "img": null
+     },
+     {
+      "title": "Деньги есть, а прибыли нет",
+      "file": "m6-ch02",
+      "img": null
+     },
+     {
+      "title": "Почему касса врёт",
+      "file": "m6-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m7",
+    "title": "Чужие деньги: дебиторка и кредиторка",
+    "chapters": [
+     {
+      "title": "Дебиторка: ваш кэш в чужом кармане",
+      "file": "m7-ch01",
+      "img": null
+     },
+     {
+      "title": "Кредиторка, которая работает на вас",
+      "file": "m7-ch02",
+      "img": null
+     },
+     {
+      "title": "Всё решается в контракте",
+      "file": "m7-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m8",
+    "title": "Учёт, который смотрит вперёд",
+    "chapters": [
+     {
+      "title": "Почему бухгалтерия всегда опаздывает",
+      "file": "m8-ch01",
+      "img": null
+     },
+     {
+      "title": "Учёт, в котором свежесть важнее копейки",
+      "file": "m8-ch02",
+      "img": null
+     },
+     {
+      "title": "Главное — это прогноз",
+      "file": "m8-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m9",
+    "title": "Сезонность и разгон",
+    "chapters": [
+     {
+      "title": "Деньги рывками, расходы ровно",
+      "file": "m9-ch01",
+      "img": null
+     },
+     {
+      "title": "Никто не выходит на мощность с первого дня",
+      "file": "m9-ch02",
+      "img": null
+     },
+     {
+      "title": "Две картины плана",
+      "file": "m9-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m10",
+    "title": "Внешние ветра: инфляция, курс, ставка",
+    "chapters": [
+     {
+      "title": "Стоять на месте — значит беднеть",
+      "file": "m10-ch01",
+      "img": null
+     },
+     {
+      "title": "Скрытая валютная цепочка: даже мясник зависит",
+      "file": "m10-ch02",
+      "img": null
+     },
+     {
+      "title": "Импорт против экспорта: один тенге, два ветра",
+      "file": "m10-ch03",
+      "img": null
+     },
+     {
+      "title": "Базовая ставка как сигнал",
+      "file": "m10-ch04",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m11",
+    "title": "Кредит: рычаг или петля",
+    "chapters": [
+     {
+      "title": "Кредит — не зло, это рычаг",
+      "file": "m11-ch01",
+      "img": null
+     },
+     {
+      "title": "Подо что брать: рост против дыры",
+      "file": "m11-ch02",
+      "img": null
+     },
+     {
+      "title": "Какой кредит под какую задачу",
+      "file": "m11-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m12",
+    "title": "Налоговый режим как расчёт",
+    "chapters": [
+     {
+      "title": "Две разные модели",
+      "file": "m12-ch01",
+      "img": null
+     },
+     {
+      "title": "Упрощёнка не всегда выгоднее: маржа решает",
+      "file": "m12-ch02",
+      "img": null
+     },
+     {
+      "title": "Сцена с кофе: считаем по полной нагрузке",
+      "file": "m12-ch03",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m13",
+    "title": "Язык и инструменты финансиста",
+    "chapters": [
+     {
+      "title": "EBITDA: дело без местной обёртки",
+      "file": "m13-ch01",
+      "img": null
+     },
+     {
+      "title": "EBIT, EBITDA и метрики как входы модели",
+      "file": "m13-ch02",
+      "img": null
+     },
+     {
+      "title": "Бизнес-план против финмодели",
+      "file": "m13-ch03",
+      "img": null
+     },
+     {
+      "title": "Считать до, а не после",
+      "file": "m13-ch04",
+      "img": null
+     }
+    ]
+   },
+   {
+    "id": "m14",
+    "title": "Финансист — второй человек",
+    "chapters": [
+     {
+      "title": "Всё упирается в экономику",
+      "file": "m14-ch01",
+      "img": null
+     },
+     {
+      "title": "Думать как финансист",
+      "file": "m14-ch02",
+      "img": null
+     },
+     {
+      "title": "Три ноги стола",
+      "file": "m14-ch03",
+      "img": null
+     }
+    ]
+   }
+  ]
+ }
+]

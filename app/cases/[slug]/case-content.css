@@ -1,0 +1,220 @@
+/* ============================================================
+   Контент кейсов — портированный сабсет design-system/lessons.css,
+   посаженный на токены сайта (адаптируется к теме автоматически).
+   Классы из тел кейсов: .c .al .ag .ao .lb(.red/.green/.orange/.purple)
+   .pq .dropcap .ins .qt .div .ln .dt
+   ============================================================ */
+.case-content {
+  /* тёмная глубина (дефолт сайта) */
+  --les-text: var(--color-heading);
+  --les-text-2: var(--color-body);
+  --les-text-3: var(--color-muted);
+  --les-border: var(--color-line);
+  --les-surface: var(--color-card);
+  --les-bg: var(--background);
+  --les-accent: #4fd3dd;
+  --les-aqua-deep: #00b7c2;
+  --les-aqua-soft: rgba(0, 183, 194, 0.18);
+  --les-green: #5fe0b5;
+  --les-green-soft: rgba(95, 224, 181, 0.14);
+  --les-red: #ff6b6b;
+  --les-red-soft: rgba(255, 107, 107, 0.12);
+  --les-warm: #e8a05c;
+  --les-warm-soft: rgba(232, 160, 92, 0.14);
+
+  max-width: 680px;
+  margin: 0 auto;
+}
+.light .case-content {
+  --les-accent: #00b7c2;
+  --les-aqua-deep: #007f87;
+  --les-aqua-soft: rgba(0, 183, 194, 0.1);
+  --les-green: #2ba888;
+  --les-green-soft: rgba(43, 168, 136, 0.1);
+  --les-red: #e85454;
+  --les-red-soft: rgba(232, 84, 84, 0.1);
+  --les-warm: #d4722b;
+  --les-warm-soft: rgba(212, 114, 43, 0.1);
+}
+
+/* ---- карточка-абзац ---- */
+.case-content .c {
+  background: var(--les-surface);
+  border: 0.5px solid var(--les-border);
+  border-radius: 14px;
+  padding: 20px 18px;
+  margin-bottom: 14px;
+}
+.case-content .c p {
+  font-size: 15px;
+  color: var(--les-text-2);
+  margin-bottom: 10px;
+  line-height: 1.75;
+}
+.case-content .c p:last-child {
+  margin-bottom: 0;
+}
+.case-content .c strong {
+  font-weight: 700;
+  color: var(--les-text);
+}
+.case-content .c em {
+  font-style: italic;
+}
+.case-content .c.al {
+  border-left: 3.5px solid var(--les-accent);
+  background: var(--les-aqua-soft);
+}
+.case-content .c.ag {
+  border-left: 3.5px solid var(--les-green);
+  background: var(--les-green-soft);
+}
+.case-content .c.ao {
+  border-left: 3.5px solid var(--les-warm);
+  background: var(--les-warm-soft);
+}
+
+/* ---- метка-лейбл ---- */
+.case-content .lb {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+.case-content .lb.purple { color: var(--les-aqua-deep); background: var(--les-aqua-soft); }
+.case-content .lb.red    { color: var(--les-red);       background: var(--les-red-soft); }
+.case-content .lb.green  { color: var(--les-green);     background: var(--les-green-soft); }
+.case-content .lb.orange { color: var(--les-warm);      background: var(--les-warm-soft); }
+
+/* ---- цитата ---- */
+.case-content .pq {
+  position: relative;
+  text-align: center;
+  padding: 36px 22px 24px;
+  margin: 22px 4px 18px;
+}
+.case-content .pq::before {
+  content: "\201C";
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 1;
+  color: var(--les-accent);
+  opacity: 0.18;
+}
+.case-content .pq p {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--les-text);
+  letter-spacing: -0.012em;
+}
+.case-content .pq .pq-by {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-text), sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--les-text-3);
+}
+
+/* ---- крупная первая буква ---- */
+.case-content .dropcap::first-letter {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  float: left;
+  font-size: 54px;
+  line-height: 0.9;
+  padding: 6px 10px 0 0;
+  color: var(--les-accent);
+  font-style: italic;
+}
+
+/* ---- инсайт-бокс ---- */
+.case-content .ins {
+  background: linear-gradient(135deg, var(--les-aqua-soft) 0%, var(--les-green-soft) 100%);
+  border: 0.5px solid var(--les-aqua-soft);
+  border-radius: 14px;
+  padding: 22px 18px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.case-content .ins-ico {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--les-bg);
+  padding: 0 4px;
+  font-size: 18px;
+  border-radius: 4px;
+}
+.case-content .ins p {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--les-text);
+  line-height: 1.65;
+}
+.case-content .ins strong {
+  color: var(--les-aqua-deep);
+  font-weight: 700;
+}
+
+/* ---- косвенная цитата ---- */
+.case-content .qt {
+  border-left: 3.5px solid var(--les-warm);
+  background: var(--les-warm-soft);
+  border-radius: 0 12px 12px 0;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.case-content .qt p {
+  font-size: 14.5px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--les-text-2);
+  line-height: 1.6;
+}
+
+/* ---- разделитель ---- */
+.case-content .div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 18px;
+}
+.case-content .div .ln {
+  flex: 1;
+  height: 1px;
+  background: var(--les-border);
+}
+.case-content .div .dt {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--les-text-3);
+  opacity: 0.6;
+}
+
+/* ---- хвостовые ссылки/CTA внутри тела, если есть ---- */
+.case-content a {
+  color: var(--les-aqua-deep);
+}
+
+/* ---- акцентное слово в заголовке (из исходного h1 кейса) ---- */
+.case-title-html .o,
+.case-content .o {
+  color: var(--color-teal);
+  font-style: italic;
+}

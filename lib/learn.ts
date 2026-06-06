@@ -1,13 +1,64 @@
-// Демо-структура обучения и теста (каркас). Реальный контент — позже.
+// Структура обучения. Реальные курсы собираются из content/academy.json
+// (генерится scripts/import_content.mjs из основного репо TerenLabs).
+import academyJson from "@/content/academy.json";
 
 export type Step =
   | { id: string; kind: "text"; title: string; body: string }
   | { id: string; kind: "video"; title: string; body: string }
+  | { id: string; kind: "html"; title: string; src: string; img?: string | null }
   | { id: string; kind: "quiz"; title: string; question: string; options: string[]; correct: number; explain: string };
 
 export type Lesson = { id: string; title: string; steps: Step[] };
 export type Module = { id: string; title: string; lessons: Lesson[] };
 export type Course = { slug: string; title: string; modules: Module[] };
+
+// ---- Академия: 5 треков → курсы. Урок трека = Module, глава = Lesson c html-шагом ----
+export type AcademyChapter = { title: string; file: string; img?: string | null; missing?: boolean };
+export type AcademyModule = { id: string; title: string; chapters: AcademyChapter[] };
+export type AcademyTrack = {
+  key: string;
+  slug: string;
+  topic: string;
+  folder: string;
+  title: string;
+  subtitle: string;
+  chapterTotal: number;
+  modules: AcademyModule[];
+};
+
+export const ACADEMY: AcademyTrack[] = academyJson as AcademyTrack[];
+
+export const ACADEMY_COURSES: Course[] = ACADEMY.map((t) => ({
+  slug: t.slug,
+  title: t.title,
+  modules: t.modules.map((m) => ({
+    id: m.id,
+    title: m.title,
+    lessons: m.chapters
+      .filter((c) => !c.missing)
+      .map((c) => ({
+        id: `${m.id}-${c.file}`,
+        title: c.title,
+        steps: [
+          {
+            id: `${m.id}-${c.file}-s`,
+            kind: "html" as const,
+            title: c.title,
+            src: `/academy/${t.folder}/${c.file}.html`,
+            img: c.img,
+          },
+        ],
+      })),
+  })),
+}));
+
+export function getCourse(slug: string): Course | undefined {
+  return ACADEMY_COURSES.find((c) => c.slug === slug);
+}
+
+export function getTrack(slug: string): AcademyTrack | undefined {
+  return ACADEMY.find((t) => t.slug === slug);
+}
 
 export const DEMO_COURSE: Course = {
   slug: "course-finance-base",

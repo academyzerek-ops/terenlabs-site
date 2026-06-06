@@ -11,7 +11,7 @@
     ],
     "testSlugs": ["t1-a04", "t1-risks", "t1-synthesis"],
     "caseSlugs": ["case-marketplace", "case-013", "case-016", "case-017", "case-058", "case-061", "case-063", "case-067", "case-009", "case-010"],
-    "reviewSlugs": ["review-coffee-market-kz", "review-ecom-niche"]
+    "reviewSlugs": ["review-coffee", "review-pvz"]
   },
   { "key": "krab", "rankIndex": 2, "name": "Краб", "tag": "T2", "color": "var(--color-rank-krab)", "tagline": "Продвижение. Глубже в экономику и риски ниши.", "locked": true, "modules": [], "testSlugs": [], "caseSlugs": [], "reviewSlugs": [] },
   { "key": "barrakuda", "rankIndex": 3, "name": "Барракуда", "tag": "T3", "color": "var(--color-rank-barrakuda)", "tagline": "Ускорение.", "locked": true, "modules": [], "testSlugs": [], "caseSlugs": [], "reviewSlugs": [] },
