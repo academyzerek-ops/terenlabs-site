@@ -53,11 +53,17 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                   <div className="flex-1 p-6">
                     <p className="eyebrow">Урок {mi + 1}</p>
                     <h3 className="mt-1 text-xl text-heading">{m.title}</h3>
-                    <ol className="mt-4 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
+                    <ol className="mt-4 grid gap-x-8 gap-y-1 sm:grid-cols-2">
                       {m.chapters.map((c, ci) => (
-                        <li key={c.file} className="flex items-baseline gap-2.5 text-sm text-body/80">
-                          <span className="num shrink-0 text-xs text-teal-600">{ci + 1}</span>
-                          {c.title}
+                        <li key={c.file}>
+                          <Link
+                            href={`/learn/${track.slug}?ch=${c.file}`}
+                            className="group/ch flex items-baseline gap-2.5 rounded-lg px-2 py-1 text-sm text-body/80 transition-colors hover:bg-subtle hover:text-teal-600"
+                          >
+                            <span className="num shrink-0 text-xs text-teal-600">{ci + 1}</span>
+                            <span className="flex-1">{c.title}</span>
+                            <span className="opacity-0 transition-opacity group-hover/ch:opacity-100">→</span>
+                          </Link>
                         </li>
                       ))}
                     </ol>

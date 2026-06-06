@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Course, Step } from "@/lib/learn";
 
-export function CoursePlayer({ course }: { course: Course }) {
+export function CoursePlayer({ course, initialStepId }: { course: Course; initialStepId?: string }) {
   // Плоский список шагов для навигации + индекс
   const flat = useMemo(() => {
     const arr: { step: Step; lessonTitle: string }[] = [];
@@ -14,7 +14,10 @@ export function CoursePlayer({ course }: { course: Course }) {
     return arr;
   }, [course]);
 
-  const [current, setCurrent] = useState(0);
+  const initialIdx = initialStepId
+    ? Math.max(0, flat.findIndex((f) => f.step.id === initialStepId))
+    : 0;
+  const [current, setCurrent] = useState(initialIdx);
   const [done, setDone] = useState<Set<string>>(new Set());
   const [navOpen, setNavOpen] = useState(false); // дерево курса на мобиле
 
