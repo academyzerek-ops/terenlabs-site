@@ -1,6 +1,8 @@
 import { Container } from "@/components/Container";
-import { CatalogBrowser } from "@/components/CatalogBrowser";
-import { ProductType } from "@/lib/content";
+import Link from "next/link";
+import { ProductCard } from "@/components/ProductCard";
+import { CATALOG, plural } from "@/lib/content";
+import type { ProductType } from "@/lib/content";
 
 export const metadata = { title: "Каталог — TerenLabs" };
 
@@ -54,6 +56,7 @@ export default async function CatalogPage({
   const sp = await searchParams;
   const t = typeof sp.type === "string" ? sp.type : "all";
   const s = SECTION[(t as ProductType) in SECTION ? (t as ProductType) : "all"] ?? SECTION.all;
+  const items = CATALOG.filter((p) => t === "all" || p.type === t);
 
   return (
     <>
@@ -79,7 +82,34 @@ export default async function CatalogPage({
 
       <div className="deck py-14">
         <Container>
-          <CatalogBrowser initialType={t === "all" ? undefined : t} />
+          {/* разделы переключает верхняя навигация — дубль-табы убраны */}
+          <div className="mb-8 flex items-center justify-between">
+            <span className="num text-sm text-muted">
+              {items.length} {plural(items.length, "материал", "материала", "материалов")}
+            </span>
+            {t !== "all" && (
+              <Link href="/catalog" className="text-sm font-semibold text-teal-600 hover:text-teal">
+                Показать весь каталог →
+              </Link>
+            )}
+          </div>
+          {items.length > 0 ? (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {items.map((p) => (
+                <ProductCard key={`${p.type}-${p.slug}`} p={p} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-[var(--radius-tl)] border border-dashed border-line bg-card p-12 text-center">
+              <p className="text-heading">В этом разделе пока пусто</p>
+              <Link
+                href="/catalog"
+                className="mt-5 inline-block rounded-[var(--radius-tl)] bg-teal px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-600"
+              >
+                Показать все
+              </Link>
+            </div>
+          )}
         </Container>
       </div>
     </>

@@ -138,8 +138,13 @@ for (const f of fs.readdirSync(nichesDir).filter((x) => x.endsWith(".html")).sor
   const html = read(path.join(nichesDir, f));
   const titleRaw = (html.match(/<title>([^<]*)<\/title>/) || [, base])[1];
   const title = titleRaw.split("—")[0].split("·")[0].trim();
+  // живой подзаголовок обзора — в карточку каталога вместо одинакового текста
+  const sub = (html.match(/class="(?:p?hero-sub)">([\s\S]*?)<\/p>/) || [, ""])[1]
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
   write(path.join(SITE, "public/reviews-html", slug + ".html"), transformEmbedded(html, { keepLocalScripts: true }));
-  reviews.push({ slug, title, file: `/reviews-html/${slug}.html` });
+  reviews.push({ slug, title, sub, file: `/reviews-html/${slug}.html` });
 }
 write(path.join(SITE, "content/reviews.json"), JSON.stringify(reviews, null, 1));
 report.counts.reviews = reviews.length;
@@ -181,8 +186,10 @@ const reviewProducts = reviews.map((r) => {
   const hasHero = Boolean(heroPath);
   return {
     type: "review", slug: r.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
-    title: r.title, blurb: "Разбор ниши на цифрах: рынок, экономика, риски", price: "Бесплатно", badge: "Обзор",
-    img: hasHero ? heroPath : null, // фото ниши для карточки каталога
+    title: r.title,
+    blurb: r.sub || "Разбор ниши на цифрах: рынок, экономика, риски",
+    price: "Бесплатно", badge: "Обзор",
+    img: hasHero ? heroPath : null, // фото ниши (из самого обзора) для карточки
   };
 });
 write(

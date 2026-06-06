@@ -3,10 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
-// TEREN-AI — тот же мозг, что в Mini App: Railway POST /chat
+// TEREN-AI — тот же мозг, что в Mini App: Railway POST /chat[/stream]
 // (системный промпт из source-of-truth + RAG по базе знаний + история диалога).
 const AI_API =
   process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-production.up.railway.app/chat";
+const AI_API_STREAM = AI_API + "/stream";
+const MAINTENANCE =
+  "TEREN-AI сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
 
 type Msg = { role: "user" | "ai"; text: string };
 
@@ -28,41 +31,89 @@ export function NoaChat() {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [msgs, open]);
 
+  // последнее AI-сообщение печатается посимвольно: target набегает из стрима,
+  // интервал раскрывает текст порциями — живая «печать» вместо вываливания разом
+  const typewriter = (getTarget: () => string, isDone: () => boolean) =>
+    new Promise<void>((resolve) => {
+      const tick = setInterval(() => {
+        setMsgs((m) => {
+          const last = m[m.length - 1];
+          if (!last || last.role !== "ai") return m;
+          const target = getTarget();
+          if (last.text.length >= target.length) {
+            if (isDone()) {
+              clearInterval(tick);
+              resolve();
+            }
+            return m;
+          }
+          const next = target.slice(0, last.text.length + 3);
+          return [...m.slice(0, -1), { ...last, text: next }];
+        });
+      }, 24);
+    });
+
   const send = async () => {
     const question = input.trim();
     if (!question || busy) return;
     setInput("");
-    setMsgs((m) => [...m, { role: "user", text: question }]);
     setBusy(true);
+    const history = msgs
+      .filter((m) => m !== GREETING)
+      .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text }));
+    // пользовательский пузырь + пустой AI-пузырь под печать
+    setMsgs((m) => [...m, { role: "user", text: question }, { role: "ai", text: "" }]);
+
+    const body = JSON.stringify({
+      message: question,
+      context: { screen: "site", title: pathname },
+      history,
+    });
+
+    let target = "";
+    let done = false;
+    const reveal = typewriter(
+      () => target,
+      () => done
+    );
+
     try {
-      const r = await fetch(AI_API, {
+      // 1) пробуем стрим — токены набегают по мере генерации
+      const r = await fetch(AI_API_STREAM, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: question,
-          context: { screen: "site", title: pathname },
-          // история без приветствия — как в Mini App, роли user/assistant
-          history: msgs
-            .filter((m) => m !== GREETING)
-            .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text })),
-        }),
+        body,
       });
-      const data = await r.json();
-      let text: string =
-        typeof data?.reply === "string" && data.reply.trim()
-          ? data.reply
-          : "Не получила ответ. Попробуй ещё раз.";
-      // техошибки бэкенда не показываем сырым JSON
-      if (data?.status === "error" || /временно недоступ|PERMISSION_DENIED|"code":/i.test(text)) {
-        text = "TEREN-AI сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
+      if (r.ok && r.body) {
+        const reader = r.body.getReader();
+        const dec = new TextDecoder();
+        for (;;) {
+          const { value, done: d } = await reader.read();
+          if (d) break;
+          target += dec.decode(value, { stream: true });
+        }
       }
-      setMsgs((m) => [...m, { role: "ai", text }]);
+      // 2) стрим пуст (ошибка/недоступен) — фолбэк на обычный /chat
+      if (!target.trim()) {
+        const r2 = await fetch(AI_API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body,
+        });
+        const data = await r2.json();
+        target =
+          typeof data?.reply === "string" && data.reply.trim()
+            ? data.reply
+            : "Не получила ответ. Попробуй ещё раз.";
+        if (data?.status === "error") target = MAINTENANCE;
+      }
+      // техошибки не показываем сырым JSON
+      if (/временно недоступ|PERMISSION_DENIED|"code":/i.test(target)) target = MAINTENANCE;
     } catch {
-      setMsgs((m) => [
-        ...m,
-        { role: "ai", text: "Связь с глубиной прервалась. Проверь интернет и попробуй ещё раз." },
-      ]);
+      target = target.trim() || "Связь с глубиной прервалась. Проверь интернет и попробуй ещё раз.";
     } finally {
+      done = true;
+      await reveal;
       setBusy(false);
     }
   };
@@ -117,19 +168,21 @@ export function NoaChat() {
 
           {/* сообщения */}
           <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto p-4" aria-live="polite">
-            {msgs.map((m, i) => (
-              <div
-                key={i}
-                className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                  m.role === "user"
-                    ? "ml-auto rounded-br-md bg-teal text-white"
-                    : "rounded-bl-md bg-subtle text-body"
-                }`}
-              >
-                {m.text}
-              </div>
-            ))}
-            {busy && (
+            {msgs
+              .filter((m) => m.text !== "")
+              .map((m, i) => (
+                <div
+                  key={i}
+                  className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                    m.role === "user"
+                      ? "ml-auto rounded-br-md bg-teal text-white"
+                      : "rounded-bl-md bg-subtle text-body"
+                  }`}
+                >
+                  {m.text}
+                </div>
+              ))}
+            {busy && msgs[msgs.length - 1]?.text === "" && (
               <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-subtle px-3.5 py-2.5 text-sm text-muted">
                 TEREN-AI думает…
               </div>
