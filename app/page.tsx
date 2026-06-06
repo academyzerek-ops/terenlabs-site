@@ -123,34 +123,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Визуальный путь: 6 рангов-орбов от ракушки до кита */}
+          {/* персонажи рангов живут НИЖЕ, в «Системе уровней» — здесь не дублируем */}
           <div className="relative mt-12">
-            {/* линия-течение под орбами */}
-            <div className="pointer-events-none absolute left-0 right-0 top-9 hidden h-[2px] sm:block">
-              <div className="mx-[8%] h-full bg-gradient-to-r from-teal/0 via-teal/40 to-teal/0" />
-            </div>
-            <ol className="relative grid grid-cols-3 gap-y-8 sm:grid-cols-6 sm:gap-0">
-              {OCEAN_RANKS.map((r, i) => (
-                <li key={r.key}>
-                  <Link
-                    href={`/levels/${r.key}`}
-                    className="group flex flex-col items-center text-center"
-                  >
-                    <span className="num text-xs text-muted">0{i + 1}</span>
-                    <img
-                      src={r.img}
-                      alt={r.name}
-                      className="mt-1 h-16 w-16 object-contain transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-110 sm:h-[72px] sm:w-[72px]"
-                    />
-                    <span className="mt-2 text-sm font-semibold text-heading">{r.name}</span>
-                    <span className="text-xs text-muted">{r.meaning}</span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div className="relative mt-14">
             {/* соединительная линия-течение между ступенями (десктоп) */}
             <div className="pointer-events-none absolute left-0 right-0 top-7 hidden h-[2px] md:block">
               <div className="mx-[16%] h-full bg-gradient-to-r from-teal/0 via-teal/50 to-teal/0" />
@@ -265,20 +239,25 @@ export default function Home() {
               <div
                 key={s.n}
                 className="group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
-                style={{
-                  background:
-                    "radial-gradient(90% 90% at 100% 0%, #11314e 0%, transparent 55%), linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)",
-                }}
+                style={{ background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)" }}
               >
-                {/* ранг-водяной знак, оживает на hover */}
-                <img
-                  src={s.img}
-                  alt=""
-                  className="pointer-events-none absolute -bottom-7 -right-6 h-36 w-36 -rotate-12 object-contain opacity-40 transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110 group-hover:opacity-80"
-                />
-                <span className="num text-4xl font-semibold text-teal">{s.n}</span>
-                <h3 className="mt-4 text-xl !text-foam">{s.title}</h3>
-                <p className="mt-2 max-w-[80%] text-sm leading-relaxed text-foam/65">{s.desc}</p>
+                {/* тематический кадр растворяется в толще справа */}
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-3/5">
+                  <img
+                    src={s.img}
+                    alt=""
+                    className="h-full w-full object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
+                    style={{
+                      maskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
+                      WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
+                    }}
+                  />
+                </div>
+                <div className="relative">
+                  <span className="num text-4xl font-semibold text-teal">{s.n}</span>
+                  <h3 className="mt-4 text-xl !text-foam">{s.title}</h3>
+                  <p className="mt-2 max-w-[75%] text-sm leading-relaxed text-foam/65">{s.desc}</p>
+                </div>
               </div>
             ))}
           </div>
