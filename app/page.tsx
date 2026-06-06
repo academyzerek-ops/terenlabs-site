@@ -9,6 +9,7 @@ import {
   OCEAN_RANKS,
   CATALOG,
   PROOF_STATS,
+  plural,
 } from "@/lib/content";
 
 // Путь обучения: 3 ступени (кейсы — часть Академии/обучения)
@@ -17,28 +18,31 @@ const PATH = [
     key: "learn",
     title: "Учиться",
     sub: "Академия",
-    desc: "Проходишь модули и разбираешь реальные кейсы — теория сразу на практике.",
+    desc: "Модули без воды и кейсы, где чужие деньги уже сгорели. Дешевле учиться на чужих ошибках.",
     items: ["Модули уроков", "Бизнес-кейсы"],
     href: "/catalog?type=course",
     cta: "В Академию",
+    img: "/lessons/arch_m5-ch01_five-step-staircase.jpg",
   },
   {
     key: "check",
     title: "Проверять",
     sub: "Тесты",
-    desc: "Честная проверка без зубрёжки. Получаешь балл и ранг «Океан».",
+    desc: "Тест, который нельзя угадать: балл честный — и за него дают ранг «Океан».",
     items: ["Тесты с разбором", "Ранг за результат"],
     href: "/catalog?type=test",
     cta: "К тестам",
+    img: "/lessons/arch_m7-ch04_readiness-compass.jpg",
   },
   {
     key: "apply",
     title: "Применять",
     sub: "Обзоры и расчёты",
-    desc: "Берёшь рабочие инструменты под свою задачу: разборы рынков и финмодели.",
+    desc: "Обзоры рынков и финмодели: подставь свои цифры — увидишь свой риск.",
     items: ["Обзоры бизнеса", "Финмодели и расчёты"],
     href: "/catalog?type=finmodel",
     cta: "К инструментам",
+    img: "/lessons/arch_m6-ch01_unit-econ-scale_v2.jpg",
   },
 ];
 
@@ -157,30 +161,41 @@ export default function Home() {
                 <Link
                   key={step.key}
                   href={step.href}
-                  className="card-premium group relative flex flex-col p-7"
+                  className="card-premium group relative flex flex-col overflow-hidden p-0"
                 >
-                  {/* номер-ступень в стеклянном пузыре */}
-                  <div className="relative z-10 mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-teal/30 bg-gradient-to-b from-white to-teal-200/30 text-lg font-bold text-teal-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_6px_16px_rgba(0,183,194,0.18)]">
-                    0{i + 1}
+                  {/* иллюминатор в глубину: кино-кадр Академии */}
+                  <div className="relative h-44 overflow-hidden">
+                    <img
+                      src={step.img}
+                      alt=""
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent" />
+                    {/* номер-ступень в стеклянном пузыре поверх кадра */}
+                    <div className="absolute bottom-4 left-6 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/15 text-base font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-md">
+                      0{i + 1}
+                    </div>
                   </div>
 
-                  <h3 className="text-2xl text-heading">{step.title}</h3>
-                  <p className="mt-1 text-sm font-semibold text-teal-600">{step.sub}</p>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{step.desc}</p>
+                  <div className="flex flex-1 flex-col p-7 pt-5">
+                    <h3 className="text-2xl text-heading">{step.title}</h3>
+                    <p className="mt-1 text-sm font-semibold text-teal-600">{step.sub}</p>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{step.desc}</p>
 
-                  {/* что входит в шаг */}
-                  <ul className="mt-5 space-y-1.5">
-                    {step.items.map((it) => (
-                      <li key={it} className="flex items-center gap-2 text-sm text-heading">
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
+                    {/* что входит в шаг */}
+                    <ul className="mt-5 space-y-1.5">
+                      {step.items.map((it) => (
+                        <li key={it} className="flex items-center gap-2 text-sm text-heading">
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
+                          {it}
+                        </li>
+                      ))}
+                    </ul>
 
-                  <span className="mt-6 inline-block text-sm font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
-                    {step.cta} →
-                  </span>
+                    <span className="mt-6 inline-block text-sm font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
+                      {step.cta} →
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -245,17 +260,25 @@ export default function Home() {
             title="Реализм вместо «успешного успеха»"
           />
           <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
             {STEPS.map((s) => (
               <div
                 key={s.n}
-                className="card-premium p-7"
+                className="group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
+                style={{
+                  background:
+                    "radial-gradient(90% 90% at 100% 0%, #11314e 0%, transparent 55%), linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)",
+                }}
               >
-                <div className="flex items-center gap-4">
-                  <img src={s.img} alt="" className="h-16 w-16 shrink-0 object-contain" />
-                  <span className="num text-3xl font-medium text-teal/30">{s.n}</span>
-                </div>
-                <h3 className="mt-5 text-xl text-heading">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{s.desc}</p>
+                {/* ранг-водяной знак, оживает на hover */}
+                <img
+                  src={s.img}
+                  alt=""
+                  className="pointer-events-none absolute -bottom-7 -right-6 h-36 w-36 -rotate-12 object-contain opacity-40 transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110 group-hover:opacity-80"
+                />
+                <span className="num text-4xl font-semibold text-teal">{s.n}</span>
+                <h3 className="mt-4 text-xl !text-foam">{s.title}</h3>
+                <p className="mt-2 max-w-[80%] text-sm leading-relaxed text-foam/65">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -309,23 +332,34 @@ export default function Home() {
         <Container>
           <SectionHeading eyebrow="Discovery" title="Подборки под задачу" />
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {COLLECTIONS.map((c) => (
-              <Link
-                key={c.title}
-                href={c.href}
-                className="card-premium group flex items-center justify-between p-6"
-              >
-                <div>
-                  <h3 className="text-lg text-heading">{c.title}</h3>
-                  <span className="num mt-1 block text-xs text-muted">
-                    {CATALOG.filter(c.filter).length} продуктов
+            {COLLECTIONS.map((c) => {
+              const n = CATALOG.filter(c.filter).length;
+              return (
+                <Link
+                  key={c.title}
+                  href={c.href}
+                  className="card-premium group flex items-center gap-5 p-4 pr-6"
+                >
+                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl">
+                    <img
+                      src={c.img}
+                      alt=""
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-lg text-heading">{c.title}</h3>
+                    <p className="mt-0.5 text-xs leading-relaxed text-muted">{c.hook}</p>
+                    <span className="num mt-1 block text-xs font-semibold text-teal-600">
+                      {n} {plural(n, "продукт", "продукта", "продуктов")}
+                    </span>
+                  </div>
+                  <span className="text-teal-600 transition-transform group-hover:translate-x-1">
+                    →
                   </span>
-                </div>
-                <span className="text-teal-600 transition-transform group-hover:translate-x-1">
-                  →
-                </span>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </Container>
       </section>

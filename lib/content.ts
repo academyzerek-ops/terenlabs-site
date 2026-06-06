@@ -50,13 +50,13 @@ export const RANK_IMG: Record<string, string> = Object.fromEntries(
 );
 
 export const STEPS = [
-  { n: "01", title: "Разбираем на реальных данных", desc: "Цифры из БНС, НБРК, 2GIS — не выдуманные кейсы", img: "/brand/ranks/rakushka.png?v=11" },
-  { n: "02", title: "Считаем риск, а не мотивируем", desc: "Где теряются деньги и время — до того, как ты вложишься", img: "/brand/ranks/barrakuda.png?v=11" },
-  { n: "03", title: "Даём рабочий инструмент", desc: "Финмодель и бизнес-план, которые открываются в Excel", img: "/brand/ranks/akula.png?v=11" },
+  { n: "01", title: "Разбираем на реальных данных", desc: "Цифры из БНС, НБРК и 2GIS. Мотивационных историй не будет.", img: "/brand/ranks/rakushka.png?v=11" },
+  { n: "02", title: "Считаем риск, а не мотивируем", desc: "Где утекут деньги и время — видно до того, как ты вложился.", img: "/brand/ranks/barrakuda.png?v=11" },
+  { n: "03", title: "Даём рабочий инструмент", desc: "Финмодель и бизнес-план, которые открываются в Excel, а не висят в слайдах.", img: "/brand/ranks/akula.png?v=11" },
 ];
 
 // Склонение после числа: plural(42, "вопрос", "вопроса", "вопросов") → "вопроса"
-const plural = (n: number, one: string, few: string, many: string) => {
+export const plural = (n: number, one: string, few: string, many: string) => {
   const m10 = n % 10;
   const m100 = n % 100;
   if (m10 === 1 && m100 !== 11) return one;
@@ -157,9 +157,27 @@ export const FEATURED: CatalogItem[] = ["finmodel-cafe", "t1-a04", "case-marketp
   .filter(Boolean) as CatalogItem[];
 
 export const COLLECTIONS = [
-  { title: "Готово к прохождению", filter: (x: CatalogItem) => !x.stub, href: "/catalog" },
-  { title: "Бесплатный вход", filter: (x: CatalogItem) => !!x.free, href: "/catalog?type=test" },
-  { title: "Применить в деле", filter: (x: CatalogItem) => ["case", "finmodel", "review"].includes(x.type), href: "/catalog?type=finmodel" },
+  {
+    title: "Готово к прохождению",
+    hook: "Собранный путь: от первого модуля до сертификата ранга",
+    img: "/lessons/fund_m4-ch02_compound-curves.jpg",
+    filter: (x: CatalogItem) => !x.stub,
+    href: "/catalog",
+  },
+  {
+    title: "Бесплатный вход",
+    hook: "Начни сегодня, не доставая карту — тест с разбором каждого ответа",
+    img: "/lessons/fund_m5-ch01_two-doors.jpg",
+    filter: (x: CatalogItem) => !!x.free,
+    href: "/catalog?type=test",
+  },
+  {
+    title: "Применить в деле",
+    hook: "Кейсы, обзоры и финмодели — инструменты под твою задачу",
+    img: "/lessons/mgmt_m1-ch03_captain-bridge.jpg",
+    filter: (x: CatalogItem) => ["case", "finmodel", "review"].includes(x.type),
+    href: "/catalog?type=finmodel",
+  },
 ];
 
 export function getItem(type: ProductType, slug: string): CatalogItem | undefined {
