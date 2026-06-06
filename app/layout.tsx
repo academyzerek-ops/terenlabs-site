@@ -4,6 +4,7 @@ import { Playfair_Display, Source_Sans_3, JetBrains_Mono } from "next/font/googl
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { NoaChat } from "@/components/NoaChat";
 
 // Дисплей/заголовки — Playfair Display (глубина, премиум)
 const playfair = Playfair_Display({
@@ -56,6 +57,9 @@ export default function RootLayout({
         </Suspense>
         <main className="flex-1">{children}</main>
         <Footer />
+        <Suspense fallback={null}>
+          <NoaChat />
+        </Suspense>
       </body>
     </html>
   );
