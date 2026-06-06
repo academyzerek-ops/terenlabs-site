@@ -1,0 +1,3 @@
+Готовые иконки из Nano Banana клади СЮДА с именами:
+  rakushka.png  krab.png  barrakuda.png  delfin.png  akula.png  kit.png
+Потом скажи мне — я перенесу их в /public/brand/ranks/ и подключу.

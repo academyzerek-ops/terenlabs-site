@@ -1,0 +1,357 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TerenLabs — Design System
+   Источник правды: ~/Downloads/брендбук/BRAND_SYSTEM.md + brand_tokens.css
+   Принцип: навы #0D2B45 — якорь/доминанта, бирюза #00B7C2 — акцент (не заливка).
+
+   Архитектура цвета — ДВА слоя, не путать:
+   1) Литеральные бренд-константы (navy всегда тёмный, foam всегда светлый) —
+      для поверхностей, одинаковых в обеих темах: футер, hero, тёмные карточки.
+   2) Семантические токены (heading / body / subtle / card / muted / line) —
+      меняются темой. Для всего адаптивного.
+   Запрещено: красить адаптивный текст литеральным цветом и наоборот.
+   ============================================================ */
+
+@theme {
+  /* ---- 1. Литеральные бренд-константы (темой НЕ меняются) ---- */
+  --color-ink: #0a0a0a;
+  --color-navy: #0d2b45;
+  --color-navy-900: #081b2e;
+  --color-navy-700: #0d2b45;
+  --color-navy-500: #1a4763;
+  --color-teal: #00b7c2;
+  --color-teal-600: #009ba6;
+  --color-teal-200: #b3eef1;
+  --color-foam: #f5f7fa; /* светлый текст/детали на навы-поверхностях */
+
+  /* ---- 2. Семантические токены (дефолт = тёмная глубина) ---- */
+  --color-heading: #eef4f9; /* заголовки/сильный текст */
+  --color-body: #d6e2ec; /* основной текст */
+  --color-subtle: #0a2236; /* фон секций-подложек */
+  --color-card: #0f2b44; /* поверхность карточек */
+  --color-card-2: #143352; /* приподнятая поверхность */
+  --color-muted: #8aa3b5; /* вторичный текст */
+  --color-line: rgba(120, 180, 210, 0.16);
+
+  /* ---- Уровни «Океан» (ранги) ---- */
+  --color-rank-rakushka: #126d73;
+  --color-rank-krab: #112b44;
+  --color-rank-barrakuda: #1e9ba2;
+  --color-rank-delfin: #1fb6c2;
+  --color-rank-akula: #2e4a5e;
+  --color-rank-kit: #74868d;
+
+  /* ---- Системные (сдержанно) ---- */
+  --color-warn: #c77d2a;
+  --color-danger: #b4452f;
+
+  /* ---- Типографика (значения приходят из next/font в layout) ---- */
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-text: var(--font-source), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* ---- Радиусы / тени (премиум: многослойные мягкие) ---- */
+  --radius-tl: 16px;
+  --radius-lg: 24px;
+  --shadow-tl-sm: 0 1px 2px rgba(13, 43, 69, 0.04), 0 4px 12px rgba(13, 43, 69, 0.06);
+  --shadow-tl: 0 2px 4px rgba(13, 43, 69, 0.05), 0 12px 32px rgba(13, 43, 69, 0.1);
+  --shadow-tl-lg: 0 4px 8px rgba(13, 43, 69, 0.06), 0 24px 60px rgba(13, 43, 69, 0.14);
+  --shadow-glow: 0 0 0 1px rgba(0, 183, 194, 0.12), 0 12px 40px rgba(0, 183, 194, 0.16);
+
+  /* ---- Тайминг (премиум-easing) ---- */
+  --ease-out-tl: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---- ГЛУБИНА ПО УМОЛЧАНИЮ (тёмный океан, премиум) ---- */
+:root {
+  --background: #06182a; /* самый глубокий фон страницы */
+  --foreground: #d6e2ec;
+}
+
+/* ---- Светлая тема (опционально, по клику): переопределяются ТОЛЬКО семантические ---- */
+.light {
+  --color-heading: #0d2b45;
+  --color-body: #0a0a0a;
+  --color-subtle: #f5f7fa;
+  --color-card: #ffffff;
+  --color-card-2: #f5f7fa;
+  --color-muted: #5b6b78;
+  --color-line: #dde4ea;
+  --background: #f5f7fa;
+  --foreground: #0a0a0a;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--color-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+
+/* Логотип авто-переключение по теме (тёмная глубина по умолчанию) */
+.logo-on-light { display: none; }
+.logo-on-dark { display: block; }
+.light .logo-on-light { display: block; }
+.light .logo-on-dark { display: none; }
+
+/* Цифры/данные — табличные цифры, но текстовым шрифтом (без моно) */
+.num {
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+
+/* Надзаголовок-метка — текстовый шрифт, не моно */
+.eyebrow {
+  font-family: var(--font-text);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-teal);
+}
+
+/* ---- Навигация: пункты ЗАГЛАВНЫМИ + glass-bubble эффект при наведении ---- */
+.nav-bubble {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-heading);
+  border: 1px solid transparent;
+  transition: color 0.25s var(--ease-out-tl),
+    background 0.35s var(--ease-out-tl), border-color 0.35s var(--ease-out-tl),
+    box-shadow 0.35s var(--ease-out-tl), transform 0.25s var(--ease-out-tl);
+}
+
+/* стеклянный пузырь (тёмная глубина по умолчанию) */
+.nav-bubble:hover,
+.nav-bubble--active {
+  color: var(--color-teal);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 183, 194, 0.18),
+    rgba(0, 183, 194, 0.06)
+  );
+  border-color: rgba(0, 183, 194, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 183, 194, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transform: translateY(-1px);
+}
+
+/* блик сверху как на пузыре-орбе */
+.nav-bubble::before {
+  content: "";
+  position: absolute;
+  inset: 2px 8px auto 8px;
+  height: 38%;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out-tl);
+  pointer-events: none;
+}
+.nav-bubble:hover::before,
+.nav-bubble--active::before {
+  opacity: 0.5;
+}
+
+/* светлая тема — ярче блик, белёсое стекло */
+.light .nav-bubble:hover,
+.light .nav-bubble--active {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(0, 183, 194, 0.1));
+  box-shadow: 0 6px 18px rgba(0, 183, 194, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.light .nav-bubble:hover::before,
+.light .nav-bubble--active::before {
+  opacity: 0.9;
+}
+
+/* Hero-океан: глубина + затемнение */
+.hero-ocean {
+  position: relative;
+  background-color: var(--color-navy-900);
+  background-image: linear-gradient(
+      180deg,
+      rgba(8, 27, 46, 0.74) 0%,
+      rgba(8, 27, 46, 0.93) 100%
+    ),
+    url("/brand/ocean.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Луч света сверху (биолюминесценция бренда) — медленно «дышит», создаёт ощущение глубины даже без видео */
+.hero-ocean::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    60% 50% at 50% 0%,
+    rgba(0, 183, 194, 0.16),
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: tl-rays 9s ease-in-out infinite;
+}
+
+@keyframes tl-rays {
+  0%, 100% { opacity: 0.6; transform: translateY(0) scale(1); }
+  50% { opacity: 1; transform: translateY(-2%) scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ocean::after { animation: none; }
+}
+
+/* Волна-разделитель секций */
+.wave-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-teal), transparent);
+  opacity: 0.45;
+}
+
+/* Появление при загрузке */
+@keyframes tl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: tl-rise 0.7s var(--ease-out-tl) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   ПРЕМИУМ-СЛОЙ: глубина, атмосфера, движение
+   ============================================================ */
+
+/* Атмосферная секция глубины — мягкие био-течения на тёмной толще */
+.atmo {
+  position: relative;
+  background-color: var(--color-subtle);
+}
+.atmo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 70% at 10% 0%, rgba(0, 183, 194, 0.08), transparent 70%),
+    radial-gradient(50% 60% at 100% 40%, rgba(0, 183, 194, 0.05), transparent 70%);
+}
+.atmo > * {
+  position: relative;
+}
+
+/* Глубинный навы-блок с лучом-биолюминесценцией (без фото) */
+.deep {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 80% at 50% -10%, #11314e 0%, transparent 60%),
+    linear-gradient(180deg, #0d2b45 0%, #081b2e 100%);
+  color: var(--color-foam);
+}
+.deep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(50% 40% at 50% 0%, rgba(0, 183, 194, 0.14), transparent 70%);
+  animation: tl-rays 11s ease-in-out infinite;
+}
+
+/* Премиум-карточка: тонкая граница, мягкий подъём, бирюзовое свечение на hover */
+.card-premium {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-card-2), var(--color-card));
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-tl);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s var(--ease-out-tl), box-shadow 0.4s var(--ease-out-tl),
+    border-color 0.4s var(--ease-out-tl);
+}
+.card-premium:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 183, 194, 0.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 183, 194, 0.15),
+    0 12px 40px rgba(0, 183, 194, 0.18);
+}
+/* светлая тема — мягкие тени без черноты */
+.light .card-premium {
+  background: var(--color-card);
+  box-shadow: var(--shadow-tl-sm);
+}
+.light .card-premium:hover {
+  box-shadow: var(--shadow-tl-lg);
+}
+
+/* Появление при скролле (JS добавляет .in) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-out-tl), transform 0.8s var(--ease-out-tl);
+  will-change: opacity, transform;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Тонкое зерно поверх тёмных блоков — премиум-текстура, убирает «плоскость» */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deep::after { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
