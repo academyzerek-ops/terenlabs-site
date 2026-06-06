@@ -96,7 +96,7 @@ export function HookCarousel() {
               <div className="relative z-10 flex flex-1 flex-col p-6 pt-4">
                 <h3
                   className="text-2xl leading-tight"
-                  style={{ fontFamily: "var(--font-display)", color: "#E9C679" }}
+                  style={{ fontFamily: "var(--font-display)", color: "var(--color-foam)" }}
                 >
                   {h.hook}
                 </h3>
