@@ -115,6 +115,8 @@ export type CatalogItem = {
   price?: string;
   badge?: string;
   stub?: boolean;
+  img?: string | null; // визуал карточки каталога (обзоры/курсы)
+  ico?: string | null; // эмодзи-тайл (кейсы)
   interactive?: boolean;
   metric?: { value: string; label: string };
   bank?: string;

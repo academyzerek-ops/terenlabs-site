@@ -65,8 +65,9 @@ const TRACKS = {
   fund: { slug: "course-fundament", topic: "Финансы" },
   arch: { slug: "course-architect", topic: "Бизнес" },
   mgmt: { slug: "course-management", topic: "Управление" },
-  mkt: { slug: "course-marketing", topic: "Маркетинг" },
-  fin: { slug: "course-finance", topic: "Финансы" },
+  // у маркетинга/финансов нет hero-артов глав — карточке каталога даём тематический арт
+  mkt: { slug: "course-marketing", topic: "Маркетинг", fallbackImg: "/lessons/fund_m2-ch04_store-maze.jpg" },
+  fin: { slug: "course-finance", topic: "Финансы", fallbackImg: "/lessons/fund_m5-ch05_coin-mountain.jpg" },
 };
 
 const academy = [];
@@ -159,15 +160,31 @@ const courseProducts = academy.map((a) => ({
   title: a.title, blurb: a.subtitle,
   metric: { value: String(a.chapterTotal), label: plural(a.chapterTotal, "глава", "главы", "глав") },
   price: "Бесплатно", badge: "Готов",
+  // визуал карточки каталога — первый арт главы трека (или тематический фолбэк)
+  img:
+    a.modules.flatMap((m) => m.chapters).find((c) => c.img)?.img ??
+    TRACKS[a.key]?.fallbackImg ??
+    null,
 }));
 const caseProducts = cases.map((c) => ({
   type: "case", slug: c.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
   title: c.title, blurb: c.sub.replace(/^✍️\s*/, ""), price: "Бесплатно", badge: c.kind || "Кейс",
+  ico: c.ico || null, // эмодзи кейса для тайла каталога
 }));
-const reviewProducts = reviews.map((r) => ({
-  type: "review", slug: r.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
-  title: r.title, blurb: "Разбор ниши на цифрах: рынок, экономика, риски", price: "Бесплатно", badge: "Обзор",
-}));
+const reviewProducts = reviews.map((r) => {
+  const base = r.slug.replace("review-", "");
+  // имена файлов niche_hero: чаще слитно (autoparts), иногда с подчёркиванием (repair_phone)
+  const candidates = [base.replace(/-/g, ""), base.replace(/-/g, "_")].map(
+    (b) => `/academy-assets/niche_hero/${b}.webp`
+  );
+  const heroPath = candidates.find((c) => fs.existsSync(path.join(SITE, "public", c.slice(1))));
+  const hasHero = Boolean(heroPath);
+  return {
+    type: "review", slug: r.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
+    title: r.title, blurb: "Разбор ниши на цифрах: рынок, экономика, риски", price: "Бесплатно", badge: "Обзор",
+    img: hasHero ? heroPath : null, // фото ниши для карточки каталога
+  };
+});
 write(
   path.join(SITE, "content/products.json"),
   JSON.stringify([...keep, ...courseProducts, ...caseProducts, ...reviewProducts], null, 1)

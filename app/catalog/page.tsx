@@ -18,31 +18,31 @@ const SECTION: Record<
     eyebrow: "Академия",
     title: "Учись на реальных деньгах",
     desc: "Модули и кейсы от основ до масштаба. Теория сразу в практику — без воды и мотивашек.",
-    img: "/brand/ranks/rakushka.png?v=11",
+    img: "/lessons/arch_m5-ch01_five-step-staircase.jpg",
   },
   test: {
     eyebrow: "Проверка",
     title: "Узнай свой ранг «Океан»",
     desc: "Тесты, которые нельзя угадать — только понять. С разбором каждого ответа.",
-    img: "/brand/ranks/krab.png?v=11",
+    img: "/lessons/arch_m7-ch04_readiness-compass.jpg",
   },
   case: {
     eyebrow: "Кейсы",
     title: "Чужие ошибки дешевле своих",
     desc: "Реальные истории казахстанского бизнеса: где потеряли деньги и почему.",
-    img: "/brand/ranks/barrakuda.png?v=11",
+    img: "/lessons/arch_m7-ch01_breached-hull.jpg",
   },
   review: {
     eyebrow: "Обзоры бизнеса",
     title: "Ниша на цифрах, а не на хайпе",
     desc: "Разборы рынков: спрос, конкуренция, маржа. До того, как ты вложишься.",
-    img: "/brand/ranks/delfin.png?v=11",
+    img: "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
   },
   finmodel: {
     eyebrow: "Финпродукты",
     title: "Рабочие инструменты под проект",
     desc: "Интерактивные финмодели и бизнес-планы. Меняешь допущения — видишь результат.",
-    img: "/brand/ranks/akula.png?v=11",
+    img: "/lessons/arch_m6-ch01_unit-econ-scale_v2.jpg",
   },
 };
 
@@ -64,7 +64,9 @@ export default async function CatalogPage({
             <img
               src={s.img}
               alt=""
-              className="hidden h-24 w-24 shrink-0 object-contain sm:block"
+              width={224}
+              height={128}
+              className="hidden h-28 w-44 shrink-0 rounded-2xl border border-white/10 object-cover shadow-[var(--shadow-tl)] sm:block"
             />
           )}
           <div>
@@ -75,7 +77,7 @@ export default async function CatalogPage({
         </Container>
       </section>
 
-      <div className="atmo py-14">
+      <div className="deck py-14">
         <Container>
           <CatalogBrowser initialType={t === "all" ? undefined : t} />
         </Container>
