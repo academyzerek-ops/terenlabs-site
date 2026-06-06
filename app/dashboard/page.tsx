@@ -5,13 +5,14 @@ import { CATALOG, OCEAN_RANKS } from "@/lib/content";
 
 export const metadata = { title: "Личный кабинет — TerenLabs" };
 
+// Демо-кабинет: прогресс условный, но курсы и тест — реальные продукты каталога
 const IN_PROGRESS = [
-  { slug: "course-finance-base", title: "Финансы для основателя", progress: 40 },
-  { slug: "course-analytics", title: "Аналитика для решений", progress: 12 },
+  { slug: "course-fundament", title: "Фундамент", progress: 40 },
+  { slug: "course-finance", title: "Финансы малого бизнеса", progress: 12 },
 ];
 
 const CERTIFICATES = [
-  { title: "Юнит-экономика", rank: "Барракуда", date: "май 2026" },
+  { title: "Альтернативная стоимость времени", rank: "Барракуда", date: "май 2026" },
 ];
 
 const SAVED_FINMODELS = [

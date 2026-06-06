@@ -142,6 +142,9 @@ export default function Home() {
                     <img
                       src={step.img}
                       alt=""
+                      width={896}
+                      height={500}
+                      loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent" />
@@ -246,6 +249,9 @@ export default function Home() {
                   <img
                     src={s.img}
                     alt=""
+                    width={640}
+                    height={360}
+                    loading="lazy"
                     className="h-full w-full object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
                     style={{
                       maskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
@@ -297,7 +303,7 @@ export default function Home() {
                 href={`/levels/${r.key}`}
                 className="card-premium group p-5 text-center"
               >
-                <img src={r.img} alt={r.name} className="mx-auto h-20 w-20 object-contain" />
+                <img src={r.img} alt={r.name} width={80} height={80} loading="lazy" className="mx-auto h-20 w-20 object-contain" />
                 <h3 className="mt-4 text-base text-heading">{r.name}</h3>
                 <p className="mt-1 text-xs text-muted">{r.meaning}</p>
               </Link>
@@ -323,6 +329,9 @@ export default function Home() {
                     <img
                       src={c.img}
                       alt=""
+                      width={160}
+                      height={160}
+                      loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
@@ -364,6 +373,9 @@ export default function Home() {
             <img
               src="/brand/ranks/akula.png?v=11"
               alt="Акула"
+              width={192}
+              height={192}
+              loading="lazy"
               className="mx-auto h-40 w-40 object-contain md:h-48 md:w-48"
             />
           </div>

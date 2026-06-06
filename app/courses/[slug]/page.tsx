@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 <div key={m.id} className="card-premium overflow-hidden md:flex">
                   {cover && (
                     <div className="h-36 shrink-0 overflow-hidden md:h-auto md:w-56">
-                      <img src={cover} alt="" className="h-full w-full object-cover" />
+                      <img src={cover} alt="" width={448} height={288} loading="lazy" className="h-full w-full object-cover" />
                     </div>
                   )}
                   <div className="flex-1 p-6">

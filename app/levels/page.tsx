@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
-import { LEVELS, RANK_IMG } from "@/lib/content";
+import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
 export const metadata = { title: "Уровни «Океан» — TerenLabs" };
 
@@ -30,7 +30,7 @@ export default function LevelsPage() {
               <p className="mt-3 text-sm leading-relaxed text-muted">{l.tagline}</p>
               {!l.locked && (
                 <p className="num mt-4 text-xs text-muted">
-                  {l.modules.length} модулей · {l.testSlugs.length} теста · {l.caseSlugs.length + l.reviewSlugs.length} материалов
+                  {l.modules.length} {plural(l.modules.length, "модуль", "модуля", "модулей")} · {l.testSlugs.length} {plural(l.testSlugs.length, "тест", "теста", "тестов")} · {l.caseSlugs.length + l.reviewSlugs.length} {plural(l.caseSlugs.length + l.reviewSlugs.length, "материал", "материала", "материалов")}
                 </p>
               )}
             </Link>

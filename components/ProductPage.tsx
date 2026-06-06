@@ -63,9 +63,11 @@ export function ProductPage({ p }: { p: Product }) {
               <Button href={cta.href} className="w-full">
                 {cta.label}
               </Button>
-              <p className="mt-3 text-center text-xs text-foam/45">
-                Оплата: Kaspi · рассрочка · карта
-              </p>
+              {!p.free && (
+                <p className="mt-3 text-center text-xs text-foam/45">
+                  Оплата: Kaspi · рассрочка · карта
+                </p>
+              )}
             </aside>
           </div>
         </Container>
@@ -85,16 +87,11 @@ export function ProductPage({ p }: { p: Product }) {
             </ul>
           </Block>
 
-          <Block title="Программа">
-            <div className="rounded-[var(--radius-tl)] border border-dashed border-line bg-subtle p-8 text-center text-muted">
-              Структура (Модуль → Урок → Шаг) появится здесь.
-              <br />Наполняется из материалов проекта.
-            </div>
-          </Block>
-
           <Block title="Эксперт">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-full bg-navy-500" />
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-b from-teal to-teal-600 font-bold text-white">
+                N
+              </div>
               <div>
                 <div className="text-heading">Ноа · наставник TerenLabs</div>
                 <div className="text-sm text-muted">Практик, говорит числами</div>
@@ -126,11 +123,6 @@ export function ProductPage({ p }: { p: Product }) {
               <li>Прогресс и ранг «Океан»</li>
               <li>Языки: RU · KK</li>
             </ul>
-          </div>
-          <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
-            <h3 className="eyebrow">Доверие</h3>
-            <p className="num mt-3 text-2xl text-heading">4.88<span className="text-sm text-muted"> / 5</span></p>
-            <p className="text-xs text-muted">оценка поддержки</p>
           </div>
         </aside>
       </Container>
