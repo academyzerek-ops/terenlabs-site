@@ -42,6 +42,8 @@ function transformEmbedded(html, { keepLocalScripts = false } = {}) {
   out = out.replace(/src="(\.\.\/)+design-system\//g, 'src="/academy-assets/');
   out = out.replace(/src="\/frontend\/_assets\/academy_hero\//g, 'src="/academy-assets/hero/');
   out = out.replace(/src="(\.\.\/)+_assets\/niche_hero\//g, 'src="/academy-assets/niche_hero/');
+  // десктопная надстройка сайта — после родных стилей
+  out = out.replace("</head>", '<link rel="stylesheet" href="/embed-web.css">\n</head>');
   // прочие неизвестные /frontend/ ссылки — в отчёт
   for (const m of out.matchAll(/(?:src|href)="(\/frontend\/[^"]+)"/g)) report.unknownAssets.add(m[1]);
   return out;
