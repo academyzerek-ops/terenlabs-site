@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
-// TEREN-AI — тот же мозг, что в Mini App: Railway /ai-chat (Gemini + RAG по базе знаний).
+// TEREN-AI — тот же мозг, что в Mini App: Railway POST /chat
+// (системный промпт из source-of-truth + RAG по базе знаний + история диалога).
 const AI_API =
-  process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-production.up.railway.app/ai-chat";
+  process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-production.up.railway.app/chat";
 
 type Msg = { role: "user" | "ai"; text: string };
 
@@ -37,15 +38,22 @@ export function NoaChat() {
       const r = await fetch(AI_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question, context: `Сайт TerenLabs, страница: ${pathname}` }),
+        body: JSON.stringify({
+          message: question,
+          context: { screen: "site", title: pathname },
+          // история без приветствия — как в Mini App, роли user/assistant
+          history: msgs
+            .filter((m) => m !== GREETING)
+            .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text })),
+        }),
       });
       const data = await r.json();
       let text: string =
-        typeof data?.answer === "string" && data.answer.trim()
-          ? data.answer
+        typeof data?.reply === "string" && data.reply.trim()
+          ? data.reply
           : "Не получила ответ. Попробуй ещё раз.";
       // техошибки бэкенда не показываем сырым JSON
-      if (/временно недоступна|PERMISSION_DENIED|"code":/i.test(text)) {
+      if (data?.status === "error" || /временно недоступ|PERMISSION_DENIED|"code":/i.test(text)) {
         text = "TEREN-AI сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
       }
       setMsgs((m) => [...m, { role: "ai", text }]);
