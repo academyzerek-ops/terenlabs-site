@@ -18,7 +18,7 @@ const COMPANY = [
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-navy-900 text-foam/70">
+    <footer className="bg-navy-900 text-foam/70">
       <Container className="grid gap-10 py-16 md:grid-cols-4">
         <div className="md:col-span-1">
           <Logo light />

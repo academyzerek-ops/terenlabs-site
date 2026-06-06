@@ -57,14 +57,8 @@ export default function Home() {
         >
           <source src="/brand/ocean.mp4?v=3" type="video/mp4" />
         </video>
-        {/* кинематографичное затемнение: по краям и в глубину снизу */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(6,24,42,0.55) 0%, rgba(6,24,42,0.35) 35%, rgba(6,24,42,0.75) 75%, #06182a 100%)",
-          }}
-        />
+        {/* кинематографичное затемнение: по краям и в глубину снизу (на мобиле плотнее) */}
+        <div className="hero-shade absolute inset-0 z-0" />
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -111,12 +105,12 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ПУТЬ ОБУЧЕНИЯ ============ */}
-      <section id="path" className="atmo py-24">
+      {/* ============ ПУТЬ ОБУЧЕНИЯ — палуба ============ */}
+      <section id="path" className="deck py-24">
         <Container>
           <div className="max-w-2xl">
             <h2 className="text-3xl sm:text-4xl">От ракушки до акулы бизнеса</h2>
-            <p className="mt-3 text-xl font-semibold text-teal sm:text-2xl">
+            <p className="mt-3 text-xl font-semibold text-teal-600 sm:text-2xl">
               Сделай апгрейд скиллов бизнесмена
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted">
@@ -243,8 +237,8 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ КАК МЫ УЧИМ — с орбами ============ */}
-      <section className="atmo py-20">
+      {/* ============ КАК МЫ УЧИМ — палуба ============ */}
+      <section className="deck py-20">
         <Container>
           <SectionHeading
             eyebrow="Подход"
@@ -286,8 +280,8 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ УРОВНИ «ОКЕАН» ============ */}
-      <section className="atmo py-20">
+      {/* ============ УРОВНИ «ОКЕАН» — палуба ============ */}
+      <section className="deck py-20">
         <Container>
           <SectionHeading
             eyebrow="Геймификация"
@@ -310,8 +304,8 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ПОДБОРКИ ============ */}
-      <section className="atmo py-20">
+      {/* ============ ПОДБОРКИ — палуба ============ */}
+      <section className="deck py-20">
         <Container>
           <SectionHeading eyebrow="Discovery" title="Подборки под задачу" />
           <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -336,8 +330,8 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ БАННЕР БИЗНЕС-КЛУБА ============ */}
-      <section className="atmo py-20">
+      {/* ============ БАННЕР БИЗНЕС-КЛУБА — палуба ============ */}
+      <section className="deck py-20">
         <Container>
           <div className="grid items-center gap-8 rounded-[24px] border border-line bg-card p-8 sm:p-12 md:grid-cols-[1fr_200px]">
             <div>
@@ -363,8 +357,8 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ФИНАЛЬНЫЙ CTA ============ */}
-      <section className="pb-8">
+      {/* ============ ФИНАЛЬНЫЙ CTA — на палубе, тёмная карточка ============ */}
+      <section className="deck pb-20">
         <Container>
           <div className="hero-ocean overflow-hidden rounded-[24px]">
             <div className="relative z-10 flex flex-col items-center px-8 py-20 text-center">
