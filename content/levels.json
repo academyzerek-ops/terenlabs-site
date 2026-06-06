@@ -1,21 +1,119 @@
 [
-  {
-    "key": "rakushka", "rankIndex": 1, "name": "Ракушка", "tag": "T1", "color": "var(--color-rank-rakushka)",
-    "tagline": "Старт. Учишься видеть деньги бизнеса там, где другие их не замечают.",
-    "archetype": "A04 · Альтернативная стоимость времени",
-    "modules": [
-      { "id": "m4", "title": "Урок 4. Время как актив", "lessons": 0 },
-      { "id": "m1", "title": "Урок 1. Деньги как договор", "lessons": 0, "stub": true },
-      { "id": "m3", "title": "Урок 3. Три роли в деньгах", "lessons": 0, "stub": true },
-      { "id": "m6", "title": "Урок 6. Как мыслят умные", "lessons": 0, "stub": true }
-    ],
-    "testSlugs": ["t1-a04", "t1-risks", "t1-synthesis"],
-    "caseSlugs": ["case-marketplace", "case-013", "case-016", "case-017", "case-058", "case-061", "case-063", "case-067", "case-009", "case-010"],
-    "reviewSlugs": ["review-coffee", "review-pvz"]
-  },
-  { "key": "krab", "rankIndex": 2, "name": "Краб", "tag": "T2", "color": "var(--color-rank-krab)", "tagline": "Продвижение. Глубже в экономику и риски ниши.", "locked": true, "modules": [], "testSlugs": [], "caseSlugs": [], "reviewSlugs": [] },
-  { "key": "barrakuda", "rankIndex": 3, "name": "Барракуда", "tag": "T3", "color": "var(--color-rank-barrakuda)", "tagline": "Ускорение.", "locked": true, "modules": [], "testSlugs": [], "caseSlugs": [], "reviewSlugs": [] },
-  { "key": "delfin", "rankIndex": 4, "name": "Дельфин", "tag": "T4", "color": "var(--color-rank-delfin)", "tagline": "Мастерство.", "locked": true, "modules": [], "testSlugs": [], "caseSlugs": [], "reviewSlugs": [] },
-  { "key": "akula", "rankIndex": 5, "name": "Акула", "tag": "T5", "color": "var(--color-rank-akula)", "tagline": "Этапный партнёр.", "locked": true, "modules": [], "testSlugs": [], "caseSlugs": [], "reviewSlugs": [] },
-  { "key": "kit", "rankIndex": 6, "name": "Кит", "tag": "T6", "color": "var(--color-rank-kit)", "tagline": "Вершина.", "locked": true, "modules": [], "testSlugs": [], "caseSlugs": [], "reviewSlugs": [] }
+ {
+  "key": "rakushka",
+  "rankIndex": 1,
+  "name": "Ракушка",
+  "tag": "T1",
+  "color": "var(--color-rank-rakushka)",
+  "tagline": "Старт. Учишься видеть деньги бизнеса там, где другие их не замечают.",
+  "archetype": "A04 · Альтернативная стоимость времени",
+  "modules": [
+   {
+    "id": "course-fundament",
+    "title": "Фундамент"
+   },
+   {
+    "id": "course-architect",
+    "title": "Архитектор"
+   },
+   {
+    "id": "course-finance",
+    "title": "Финансы малого бизнеса"
+   },
+   {
+    "id": "course-management",
+    "title": "Менеджмент малого бизнеса"
+   },
+   {
+    "id": "course-marketing",
+    "title": "Маркетинг малого бизнеса"
+   }
+  ],
+  "testSlugs": [
+   "t1-a04",
+   "t1-risks",
+   "t1-synthesis"
+  ],
+  "caseSlugs": [
+   "case-marketplace",
+   "case-013",
+   "case-016",
+   "case-017",
+   "case-058",
+   "case-061",
+   "case-063",
+   "case-067",
+   "case-009",
+   "case-010"
+  ],
+  "reviewSlugs": [
+   "review-coffee",
+   "review-pvz"
+  ]
+ },
+ {
+  "key": "krab",
+  "rankIndex": 2,
+  "name": "Краб",
+  "tag": "T2",
+  "color": "var(--color-rank-krab)",
+  "tagline": "Продвижение. Глубже в экономику и риски ниши.",
+  "locked": true,
+  "modules": [],
+  "testSlugs": [],
+  "caseSlugs": [],
+  "reviewSlugs": []
+ },
+ {
+  "key": "barrakuda",
+  "rankIndex": 3,
+  "name": "Барракуда",
+  "tag": "T3",
+  "color": "var(--color-rank-barrakuda)",
+  "tagline": "Ускорение.",
+  "locked": true,
+  "modules": [],
+  "testSlugs": [],
+  "caseSlugs": [],
+  "reviewSlugs": []
+ },
+ {
+  "key": "delfin",
+  "rankIndex": 4,
+  "name": "Дельфин",
+  "tag": "T4",
+  "color": "var(--color-rank-delfin)",
+  "tagline": "Мастерство.",
+  "locked": true,
+  "modules": [],
+  "testSlugs": [],
+  "caseSlugs": [],
+  "reviewSlugs": []
+ },
+ {
+  "key": "akula",
+  "rankIndex": 5,
+  "name": "Акула",
+  "tag": "T5",
+  "color": "var(--color-rank-akula)",
+  "tagline": "Этапный партнёр.",
+  "locked": true,
+  "modules": [],
+  "testSlugs": [],
+  "caseSlugs": [],
+  "reviewSlugs": []
+ },
+ {
+  "key": "kit",
+  "rankIndex": 6,
+  "name": "Кит",
+  "tag": "T6",
+  "color": "var(--color-rank-kit)",
+  "tagline": "Вершина.",
+  "locked": true,
+  "modules": [],
+  "testSlugs": [],
+  "caseSlugs": [],
+  "reviewSlugs": []
+ }
 ]

@@ -7,8 +7,8 @@
 @media (min-width: 768px) {
   /* издательская колонка вместо телефонной */
   .page {
-    max-width: 820px;
-    padding: 44px 48px 96px;
+    max-width: 980px;
+    padding: 48px 56px 110px;
   }
 
   /* hero-кадр и заголовок главы */
@@ -20,14 +20,14 @@
     padding: 40px 0 30px;
   }
   .hero h1 {
-    font-size: clamp(34px, 4.2vw, 46px);
-    line-height: 1.12;
+    font-size: clamp(38px, 4.6vw, 54px);
+    line-height: 1.1;
   }
   .hero-ico {
-    font-size: 56px;
+    font-size: 60px;
   }
   .hero-sub {
-    font-size: 18px;
+    font-size: 20px;
     max-width: 58ch;
     margin-inline: auto;
   }
@@ -44,8 +44,8 @@
     margin-bottom: 8px;
   }
   .c p {
-    font-size: 17px;
-    line-height: 1.82;
+    font-size: 18.5px;
+    line-height: 1.85;
   }
   .c.al, .c.ag, .c.ao, .c.ar {
     padding: 24px 26px;
@@ -76,6 +76,53 @@
     font-size: 16px;
     line-height: 1.7;
   }
+
+  /* ====== ИНФОГРАФИКА: мобильные компоненты → десктопная сетка ====== */
+
+  /* флоу-шаги: вместо горизонтального скролла — полная ширина, без fade-маски */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .flow-s {
+    min-width: 0;
+  }
+  .flow-t { font-size: 16px; }
+  .flow-d { font-size: 14.5px; line-height: 1.6; }
+
+  /* versus-блоки: больше воздуха и кегль */
+  .vs { gap: 18px; }
+  .vs-t { font-size: 17px; }
+  .vs-d { font-size: 15px; line-height: 1.65; }
+  .vs-i { padding: 22px 20px; }
+
+  /* главный вывод (takeaway) — крупный плакатный блок */
+  .tk { padding: 30px 32px; }
+  .tk-t { font-size: 18px; line-height: 1.65; }
+  .tk-badge { font-size: 12px; }
+  .tk-pt { font-size: 16px; line-height: 1.7; }
+  .tk-n { font-size: 15px; }
+
+  /* нумерованные карточки-списки */
+  .lc-t { font-size: 16.5px; line-height: 1.7; }
+  .lc-num { width: 34px; height: 34px; font-size: 15px; }
+
+  /* таймлайны и факт-карточки */
+  .tl-txt, .fc-txt { font-size: 15.5px; line-height: 1.65; }
+  .tl-date { font-size: 13px; }
+
+  /* примеры-расчёты (обзоры): вопрос → ответ крупнее */
+  .ex-q, .ex-b { font-size: 15.5px; line-height: 1.7; }
+
+  /* бар-чарты и сезонность (обзоры) — выше и читаемее */
+  .bar-t, .bar-v, .leg-d, .leg-v { font-size: 14px; }
+  .tldr-k { font-size: 15px; }
+  .tldr-v { font-size: 15px; }
+  .sh-t { font-size: 24px; }
 
   /* навигация прев/некст внутри главы — у плеера сайта своя */
   .nav {

@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { ProductMissing } from "@/components/ProductMissing";
-import { getLevel, levelItems, Level, RANK_IMG } from "@/lib/content";
+import { getLevel, levelItems, Level, RANK_IMG, plural } from "@/lib/content";
+import { getTrack } from "@/lib/learn";
 
 export default async function Page({ params }: { params: Promise<{ rank: string }> }) {
   const { rank } = await params;
@@ -37,16 +38,23 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
       <Container className="space-y-14 py-16">
         <Block title="Модули уроков" count={lvl.modules.length}>
           <div className="grid gap-4 sm:grid-cols-2">
-            {lvl.modules.map((m) => (
-              <Card
-                key={m.id}
-                href={m.stub ? undefined : `/learn/${lvl.key}-${m.id}`}
-                stub={m.stub}
-                title={m.title}
-                meta={m.stub ? "текст готовится" : "демо урока"}
-                cta={m.stub ? undefined : "Открыть →"}
-              />
-            ))}
+            {lvl.modules.map((m) => {
+              const track = getTrack(m.id);
+              return (
+                <Card
+                  key={m.id}
+                  href={track ? `/courses/${m.id}` : undefined}
+                  stub={!track}
+                  title={m.title}
+                  meta={
+                    track
+                      ? `${track.chapterTotal} ${plural(track.chapterTotal, "глава", "главы", "глав")}`
+                      : "готовится"
+                  }
+                  cta={track ? "Открыть →" : undefined}
+                />
+              );
+            })}
           </div>
         </Block>
 

@@ -22,7 +22,7 @@
   --les-warm: #e8a05c;
   --les-warm-soft: rgba(232, 160, 92, 0.14);
 
-  max-width: 740px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -35,7 +35,7 @@
     margin-bottom: 8px;
   }
   .case-content .c p {
-    font-size: 17.5px;
+    font-size: 18.5px;
     line-height: 1.85;
   }
   .case-content .c.al,
