@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { Playfair_Display, Source_Sans_3, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { FooterGate } from "@/components/FooterGate";
 import { NoaChat } from "@/components/NoaChat";
 
 // Дисплей/заголовки — Playfair Display (глубина, премиум)
@@ -56,7 +56,9 @@ export default function RootLayout({
           <Header />
         </Suspense>
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Suspense fallback={null}>
+          <FooterGate />
+        </Suspense>
         <Suspense fallback={null}>
           <NoaChat />
         </Suspense>

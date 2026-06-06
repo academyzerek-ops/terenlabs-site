@@ -28,9 +28,9 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
   const go = (i: number) => setCurrent(Math.max(0, Math.min(flat.length - 1, i)));
 
   return (
-    <div className="grid min-h-[80vh] lg:grid-cols-[320px_1fr]">
+    <div className="grid h-[calc(100dvh-65px)] grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[320px_1fr] lg:grid-rows-1">
       {/* Дерево курса */}
-      <aside className="border-r border-line bg-subtle">
+      <aside className="flex min-h-0 flex-col border-r border-line bg-subtle">
         <div className="border-b border-line p-5">
           <Link href="/catalog?type=course" className="text-xs text-muted hover:text-teal">
             ← к курсам
@@ -53,7 +53,7 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
           </button>
         </div>
 
-        <nav className={`${navOpen ? "block" : "hidden"} max-h-[60vh] overflow-y-auto p-3 lg:block`}>
+        <nav className={`${navOpen ? "block" : "hidden"} min-h-0 flex-1 overflow-y-auto p-3 lg:block`}>
           {course.modules.map((m) => (
             <div key={m.id} className="mb-4">
               <p className="eyebrow px-2">{m.title}</p>
@@ -95,17 +95,17 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
       </aside>
 
       {/* Контент шага */}
-      <section className="flex flex-col">
+      <section className="flex min-h-0 flex-col">
         {cur.step.kind === "html" ? (
           /* глава Академии — готовая дизайнерская страница, во всю площадь */
           <iframe
             key={cur.step.id}
             src={cur.step.src}
             title={cur.step.title}
-            className="min-h-[78vh] w-full flex-1 border-0"
+            className="min-h-0 w-full flex-1 border-0"
           />
         ) : (
-          <div className="flex-1 px-6 py-10 sm:px-12">
+          <div className="min-h-0 flex-1 overflow-y-auto px-6 py-10 sm:px-12">
             <div className="mx-auto max-w-2xl">
               <p className="eyebrow">{cur.lessonTitle}</p>
               <StepView key={cur.step.id} step={cur.step} onComplete={() => markDone(cur.step.id)} />
