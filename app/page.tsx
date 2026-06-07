@@ -2,15 +2,11 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
-import { HookCarousel } from "@/components/HookCarousel";
 import { Bubbles } from "@/components/Bubbles";
 import { LiveQuiz } from "@/components/LiveQuiz";
 import {
-  COLLECTIONS,
   STEPS,
   OCEAN_RANKS,
-  LEVELS,
-  RANK_IMG,
   CATALOG,
   COURSES,
   TESTS,
@@ -130,10 +126,160 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* ============ БОЛЬ — почему TerenLabs существует ============ */}
+      <section className="deep grain-fine relative">
+        <Container className="relative z-10 py-24">
+          <div className="section-no"><span className="no">01</span><span className="ln" /><span className="no" style={{opacity:0.5}}>БОЛЬ</span></div>
+          <h2 className="max-w-3xl text-3xl !text-foam sm:text-5xl">
+            Тебя готовили к контрольным — не к кассовым разрывам
+          </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            <div className="rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <p className="eyebrow">Школа и вуз</p>
+              <p className="mt-4 text-xl leading-relaxed !text-foam sm:text-2xl">
+                Абстрактные графики — но не точка безубыточности твоей шаурмичной.
+              </p>
+              <p className="mt-4 text-[17px] leading-relaxed text-foam/65">
+                Государство зовёт людей в предприниматели — а считать деньги
+                не учит никто.
+              </p>
+            </div>
+            <div className="rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <p className="eyebrow">Рынок мотивации</p>
+              <p className="mt-4 text-xl leading-relaxed !text-foam sm:text-2xl">
+                «Успешный успех» создал иллюзию: бизнес — это озарение.
+              </p>
+              <p className="mt-4 text-[17px] leading-relaxed text-foam/65">
+                Про риски, сезонность и кассовый разрыв новичку не рассказывает
+                никто — пока он не заплатит за это своими деньгами.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ============ КАК МЫ УЧИМ — палуба ============ */}
+      <section className="deck py-20">
+        <Container>
+          <div className="section-no"><span className="no">02</span><span className="ln" /><span className="no" style={{opacity:0.5}}>НАШ ОТВЕТ</span></div>
+          <SectionHeading
+            eyebrow="Наш ответ"
+            title="Три «вместо»"
+            desc="Миссия TerenLabs — защитить тебя от потери денег на нежизнеспособный бизнес."
+          />
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
+            {STEPS.map((s, i) => (
+              <div
+                key={s.n}
+                className="group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
+                style={{ background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)" }}
+              >
+                {/* тематический кадр растворяется в толще справа */}
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-3/5">
+                  <img
+                    src={s.img}
+                    alt=""
+                    width={640}
+                    height={360}
+                    loading="lazy"
+                    className="h-full w-full object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
+                    style={{
+                      maskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
+                      WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
+                    }}
+                  />
+                </div>
+                <div className="relative">
+                  <span className="num text-4xl font-semibold text-teal">{s.n}</span>
+                  <h3 className="mt-4 text-xl !text-foam">{s.title}</h3>
+                  <p className="mt-2 max-w-[75%] text-sm leading-relaxed text-foam/65">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ============ МАНИФЕСТ + ЖИВОЙ ВОПРОС (Brilliant: продукт и есть демо) ============ */}
+      <section className="deep grain-fine relative">
+        <Container className="relative z-10 py-24 sm:py-28">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow">Наша ценность</p>
+            <h2 className="mt-4 text-3xl !text-foam sm:text-5xl" style={{ fontStyle: "italic" }}>
+              «Лучше отговорить тебя от плохой идеи, чем продать надежду»
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-foam/70">
+              Здесь больно и сложно — но это единственный способ не потерять
+              деньги в реальном бизнесе. Если математика говорит «не открывай» —
+              мы скажем это прямо.
+            </p>
+          </div>
+          <div className="mt-14">
+            <LiveQuiz />
+          </div>
+        </Container>
+      </section>
+
+      {/* ============ ФОРМАТ — «Дуолинго в бизнесе» ============ */}
+      <section className="deck py-20">
+        <Container>
+          <div className="section-no"><span className="no">03</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ФОРМАТ</span></div>
+          <SectionHeading
+            eyebrow="Как устроено"
+            title="«Дуолинго» в бизнесе"
+            desc="Учиться удобно, как в игре, — только ставки настоящие."
+          />
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <Link href="/levels" className="card-premium group flex flex-col p-7">
+              <div className="flex items-center gap-1.5">
+                {OCEAN_RANKS.map((r) => (
+                  <img key={r.key} src={r.img} alt={r.name} width={44} height={44} loading="lazy" className="h-11 w-11 object-contain transition-transform duration-300 group-hover:-translate-y-0.5" />
+                ))}
+              </div>
+              <h3 className="mt-5 text-2xl text-heading">Уровни, как в игре</h3>
+              <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">
+                От Ракушки до Кита. Ранг растёт за понимание — его нельзя
+                накликать, можно только заслужить решениями.
+              </p>
+              <span className="mt-4 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">Путь «Океан» →</span>
+            </Link>
+            <Link href="/catalog?type=case" className="card-premium group flex flex-col overflow-hidden p-0">
+              <div className="relative aspect-[16/8] overflow-hidden">
+                <img src="/lessons/arch_m7-ch01_breached-hull.jpg" alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 to-transparent" />
+              </div>
+              <div className="flex flex-1 flex-col p-7 pt-5">
+                <h3 className="text-2xl text-heading">Истории, не определения</h3>
+                <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">
+                  {CASES.length} разборов того, как теряют деньги. Чужие ошибки
+                  дешевле своих — учись на них.
+                </p>
+                <span className="mt-4 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">К кейсам →</span>
+              </div>
+            </Link>
+            <Link href="/finmodels/finmodel-cafe" className="card-premium group flex flex-col overflow-hidden p-0">
+              <div className="relative aspect-[16/8] overflow-hidden">
+                <img src="/lessons/fund_m2-ch08_algorithm-tunnel.jpg" alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 to-transparent" />
+              </div>
+              <div className="flex flex-1 flex-col p-7 pt-5">
+                <h3 className="text-2xl text-heading">Тренажёр, не лекция</h3>
+                <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">
+                  Тесты нельзя угадать, финмодель считает твои цифры.
+                  Знание проверяется делом, а не конспектом.
+                </p>
+                <span className="mt-4 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">Открыть демо →</span>
+              </div>
+            </Link>
+          </div>
+        </Container>
+      </section>
+
       {/* ============ ПУТЬ ОБУЧЕНИЯ — палуба ============ */}
       <section id="path" className="deck py-24">
         <Container>
-          <div className="section-no"><span className="no">01</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ПУТЬ</span></div>
+          <div className="section-no"><span className="no">04</span><span className="ln" /><span className="no" style={{opacity:0.5}}>РАЗДЕЛЫ</span></div>
           <div className="max-w-2xl">
             <h2 className="text-3xl sm:text-4xl">От ракушки до акулы бизнеса</h2>
             <p className="mt-3 text-xl font-semibold text-teal-600 sm:text-2xl">
@@ -207,23 +353,12 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ЛЕНТА ПРОДУКТОВ — карусель крючков ============ */}
-      <section className="atmo py-20">
-        <Container>
-          <div className="section-no"><span className="no">02</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ЛЕНТА</span></div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl">Лента продуктов</h2>
-          <div className="mt-14">
-            <HookCarousel />
-          </div>
-        </Container>
-      </section>
-
       {/* ============ ДИФФЕРЕНЦИАТОР — финмодели ============ */}
       <section className="hero-ocean grain-fine">
         <Bubbles />
         <Container className="relative z-10 grid items-center gap-12 py-24 md:grid-cols-2">
           <div>
-            <div className="section-no"><span className="no">03</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ИНСТРУМЕНТ</span></div>
+            <div className="section-no"><span className="no">05</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ИНСТРУМЕНТ</span></div>
           <SectionHeading
               light
               eyebrow="Наш инструмент"
@@ -255,175 +390,6 @@ export default function Home() {
               При загрузке 45% и просадке −30% летом бизнес уходит в минус.
               Модель показывает это до открытия.
             </p>
-          </div>
-        </Container>
-      </section>
-
-      {/* ============ КАК МЫ УЧИМ — палуба ============ */}
-      <section className="deck py-20">
-        <Container>
-          <div className="section-no"><span className="no">04</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ПОДХОД</span></div>
-          <SectionHeading
-            eyebrow="Подход"
-            title="Реализм вместо «успешного успеха»"
-          />
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
-            {STEPS.map((s, i) => (
-              <div
-                key={s.n}
-                className="group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
-                style={{ background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)" }}
-              >
-                {/* тематический кадр растворяется в толще справа */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-3/5">
-                  <img
-                    src={s.img}
-                    alt=""
-                    width={640}
-                    height={360}
-                    loading="lazy"
-                    className="h-full w-full object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
-                    style={{
-                      maskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
-                      WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
-                    }}
-                  />
-                </div>
-                <div className="relative">
-                  <span className="num text-4xl font-semibold text-teal">{s.n}</span>
-                  <h3 className="mt-4 text-xl !text-foam">{s.title}</h3>
-                  <p className="mt-2 max-w-[75%] text-sm leading-relaxed text-foam/65">{s.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ============ МАНИФЕСТ + ЖИВОЙ ВОПРОС (Brilliant: продукт и есть демо) ============ */}
-      <section className="deep grain-fine relative">
-        <Container className="relative z-10 py-24 sm:py-28">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow">Манифест</p>
-            <h2 className="mt-4 text-3xl !text-foam sm:text-5xl">
-              Защита от потерь, а не «успешный успех»
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-foam/70">
-              Знания здесь открыты каждому. Платное — только инструменты
-              под твой конкретный бизнес.
-            </p>
-          </div>
-          <div className="mt-14">
-            <LiveQuiz />
-          </div>
-        </Container>
-      </section>
-
-      {/* ============ УРОВНИ «ОКЕАН» — палуба ============ */}
-      <section className="deck py-20">
-        <Container>
-          <div className="section-no"><span className="no">05</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ОКЕАН</span></div>
-          <SectionHeading
-            eyebrow="Геймификация"
-            title="Система уровней «Океан»"
-            desc="Ранг = подтверждённое мастерство решений, а не число кликов. Сертификат ранга можно показать миру."
-          />
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {LEVELS.map((l) => {
-              const rank = OCEAN_RANKS.find((r) => r.key === l.key);
-              const tests = l.testSlugs?.length ?? 0;
-              const modules = l.modules?.length ?? 0;
-              return (
-                <Link
-                  key={l.key}
-                  href={`/levels/${l.key}`}
-                  className="card-premium group flex flex-col p-7"
-                >
-                  <div className="flex items-center gap-5">
-                    <img
-                      src={RANK_IMG[l.key]}
-                      alt={l.name}
-                      width={96}
-                      height={96}
-                      loading="lazy"
-                      className="h-24 w-24 shrink-0 object-contain transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2.5">
-                        <h3 className="text-2xl text-heading">{l.name}</h3>
-                        {l.locked ? (
-                          <span className="rounded-full bg-line px-2.5 py-0.5 text-[0.7rem] text-muted">закрыт</span>
-                        ) : (
-                          <span className="rounded-full bg-teal/15 px-2.5 py-0.5 text-[0.7rem] font-semibold text-teal-600">открыт</span>
-                        )}
-                      </div>
-                      <p className="num mt-0.5 text-sm text-muted">{l.tag} · {rank?.meaning}</p>
-                    </div>
-                  </div>
-                  <p className="mt-4 flex-1 text-[15.5px] leading-relaxed text-body/80">{l.tagline}</p>
-                  <p className="num mt-4 border-t border-line pt-3.5 text-[15px] font-semibold text-heading">
-                    {!l.locked
-                      ? [
-                          modules ? `${modules} ${plural(modules, "модуль", "модуля", "модулей")}` : null,
-                          tests ? `${tests} ${plural(tests, "тест", "теста", "тестов")}` : null,
-                        ]
-                          .filter(Boolean)
-                          .join(" · ") || "контент уровня внутри"
-                      : "откроется после предыдущего"}
-                  </p>
-                  <span className="mt-3 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
-                    {l.locked ? "Что внутри →" : "Войти →"}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-          <p className="mt-8 text-center">
-            <Link href="/ocean" className="text-base font-semibold text-teal-600 hover:text-teal">
-              Живой рейтинг «Океана» — кто на каком месте →
-            </Link>
-          </p>
-        </Container>
-      </section>
-
-      {/* ============ ПОДБОРКИ — палуба ============ */}
-      <section className="deck py-20">
-        <Container>
-          <div className="section-no"><span className="no">06</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ПОДБОРКИ</span></div>
-          <SectionHeading eyebrow="Discovery" title="Подборки под задачу" />
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {COLLECTIONS.map((c) => {
-              const n = CATALOG.filter(c.filter).length;
-              return (
-                <Link
-                  key={c.title}
-                  href={c.href}
-                  className="card-premium group flex items-center gap-5 p-4 pr-6"
-                >
-                  <div className="h-28 w-28 shrink-0 overflow-hidden rounded-xl">
-                    <img
-                      src={c.img}
-                      alt=""
-                      width={160}
-                      height={160}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-xl text-heading">{c.title}</h3>
-                    <p className="mt-0.5 text-xs leading-relaxed text-muted">{c.hook}</p>
-                    <span className="num mt-1 block text-xs font-semibold text-teal-600">
-                      {n} {plural(n, "продукт", "продукта", "продуктов")}
-                    </span>
-                  </div>
-                  <span className="text-teal-600 transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-              );
-            })}
           </div>
         </Container>
       </section>
