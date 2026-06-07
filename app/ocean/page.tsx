@@ -11,15 +11,18 @@ export const metadata = { title: "Рейтинг «Океан» — TerenLabs" }
 export default function OceanPage() {
   return (
     <>
-      <section className="hero-ocean grain-fine">
-        <Container className="relative z-10 py-16">
+      <section className="relative overflow-hidden bg-navy-900">
+        <img src="/lessons/fund_m6-ch03_horizon-distance.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(6,24,42,0.94) 0%, rgba(6,24,42,0.8) 45%, rgba(6,24,42,0.35) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 55%, rgba(6,24,42,0.85) 100%)" }} />
+        <Container className="relative z-10 py-20 sm:py-24">
           <nav className="mb-5 text-sm text-foam/50">
             <Link href="/levels" className="hover:text-teal">Океан</Link>
             <span className="mx-2">/</span>
             <span>Рейтинг</span>
           </nav>
           <p className="eyebrow">Живая таблица мест</p>
-          <h1 className="mt-4 max-w-2xl text-4xl !text-foam sm:text-5xl">
+          <h1 className="mt-4 max-w-2xl text-4xl !text-foam sm:text-5xl lg:text-6xl">
             Рейтинг «Океан»
           </h1>
           <p className="mt-4 max-w-xl text-lg text-foam/75">

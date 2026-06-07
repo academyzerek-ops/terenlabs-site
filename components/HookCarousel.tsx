@@ -65,10 +65,10 @@ export function HookCarousel() {
               key={h.hook}
               href={h.href}
               data-card
-              className="group relative flex min-h-[380px] w-[300px] shrink-0 snap-start flex-col overflow-hidden rounded-[var(--radius-tl)] border border-white/10 bg-navy-900 text-foam shadow-[var(--shadow-tl)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow-tl-lg)] sm:w-[340px]"
+              className="group relative flex min-h-[440px] w-[320px] shrink-0 snap-start flex-col overflow-hidden rounded-[var(--radius-tl)] border border-white/10 bg-navy-900 text-foam shadow-[var(--shadow-tl)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow-tl-lg)] sm:w-[400px]"
             >
               {/* картинка-шапка как у поста — приглушённая, в тему */}
-              <div className="relative h-[150px] w-full shrink-0 overflow-hidden">
+              <div className="relative h-[210px] w-full shrink-0 overflow-hidden">
                 {h.img && (
                   <img
                     src={h.img}
@@ -101,7 +101,7 @@ export function HookCarousel() {
                   {h.hook}
                 </h3>
 
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-foam/75">
+                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-foam/75">
                   {h.payoff}
                 </p>
 

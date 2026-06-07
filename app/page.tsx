@@ -401,7 +401,7 @@ export default function Home() {
                   href={c.href}
                   className="card-premium group flex items-center gap-5 p-4 pr-6"
                 >
-                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl">
+                  <div className="h-28 w-28 shrink-0 overflow-hidden rounded-xl">
                     <img
                       src={c.img}
                       alt=""
@@ -412,7 +412,7 @@ export default function Home() {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-lg text-heading">{c.title}</h3>
+                    <h3 className="text-xl text-heading">{c.title}</h3>
                     <p className="mt-0.5 text-xs leading-relaxed text-muted">{c.hook}</p>
                     <span className="num mt-1 block text-xs font-semibold text-teal-600">
                       {n} {plural(n, "продукт", "продукта", "продуктов")}
