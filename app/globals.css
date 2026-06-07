@@ -418,17 +418,18 @@ a {
    ВАУ-СЛОЙ 2026: кинетика, глубина, микровзаимодействия
    ============================================================ */
 
-/* Roll-over текста кнопки: дубликат подъезжает снизу (награды-2025, чистый CSS) */
-.btn-roll {
-  position: relative;
+/* Roll-over текста кнопки: дубликат подъезжает снизу (награды-2025, чистый CSS).
+   Клип — на обёртке высотой ровно в строку, НЕ на кнопке (иначе дубль виден в паддинге). */
+.btn-roll-inner {
+  display: block;
   overflow: hidden;
 }
-.btn-roll .btn-roll-inner {
+.btn-roll-text {
   display: block;
   position: relative;
   transition: transform 0.28s var(--ease-out-tl);
 }
-.btn-roll .btn-roll-inner::after {
+.btn-roll-text::after {
   content: attr(data-text);
   position: absolute;
   left: 0;
@@ -437,7 +438,7 @@ a {
   text-align: center;
 }
 @media (hover: hover) {
-  .btn-roll:hover .btn-roll-inner {
+  .btn-roll:hover .btn-roll-text {
     transform: translateY(-100%);
   }
 }
@@ -450,7 +451,7 @@ a:active {
   transform: scale(0.97);
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn-roll .btn-roll-inner {
+  .btn-roll-text {
     transition: none;
   }
 }

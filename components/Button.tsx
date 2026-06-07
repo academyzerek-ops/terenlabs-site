@@ -39,8 +39,10 @@ export function Button({
       className={`btn-press ${rollable ? "btn-roll" : ""} ${base} ${sizes[size]} ${variants[variant]} ${className}`}
     >
       {rollable ? (
-        <span className="btn-roll-inner" data-text={children as string}>
-          {children}
+        <span className="btn-roll-inner">
+          <span className="btn-roll-text" data-text={children as string}>
+            {children}
+          </span>
         </span>
       ) : (
         children
