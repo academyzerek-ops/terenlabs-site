@@ -81,13 +81,13 @@ export function ProductCard({ p }: { p: CatalogItem }) {
           )}
         </div>
 
-        <h3 className="text-xl text-heading">{p.title}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.blurb}</p>
+        <h3 className="text-2xl text-heading">{p.title}</h3>
+        <p className="mt-2 text-[15px] leading-relaxed text-muted">{p.blurb}</p>
 
         {p.metric && (
-          <div className="mt-5 flex items-baseline gap-2">
-            <span className="num text-2xl font-medium text-heading">{p.metric.value}</span>
-            <span className="text-xs text-muted">{p.metric.label}</span>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="num text-3xl font-semibold text-heading">{p.metric.value}</span>
+            <span className="text-sm text-muted">{p.metric.label}</span>
           </div>
         )}
 
