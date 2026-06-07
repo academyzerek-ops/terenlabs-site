@@ -50,24 +50,26 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <>
         <section className="hero-ocean">
           <Container className="relative z-10 py-14">
-            <nav className="mb-5 text-sm text-foam/50">
-              <Link href="/catalog?type=case" className="hover:text-teal">Кейсы</Link>
-              <span className="mx-2">/</span>
-              <span>{doc.title}</span>
-            </nav>
-            <div className="flex flex-wrap items-center gap-3">
-              {doc.kind && (
-                <span className="rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal">
-                  {doc.kind}
-                </span>
-              )}
-              {doc.mod && <span className="text-sm text-foam/60">{doc.mod}</span>}
+            {/* ОДНА ось с телом статьи (800px по центру) — шапка не живёт отдельной жизнью */}
+            <div className="mx-auto max-w-[800px]">
+              <nav className="mb-5 text-sm text-foam/50">
+                <Link href="/catalog?type=case" className="hover:text-teal">Кейсы</Link>
+                <span className="mx-2">/</span>
+                <span>{doc.title}</span>
+              </nav>
+              <div className="flex flex-wrap items-center gap-3">
+                {doc.ico && <span className="text-2xl">{doc.ico}</span>}
+                {doc.kind && (
+                  <span className="rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal">
+                    {doc.kind}
+                  </span>
+                )}
+              </div>
+              <h1 className="mt-4 text-4xl !text-foam sm:text-5xl">
+                <span className="case-title-html" dangerouslySetInnerHTML={{ __html: doc.titleHtml }} />
+              </h1>
+              {doc.sub && <p className="mt-4 text-lg text-foam/75">{doc.sub}</p>}
             </div>
-            <h1 className="mt-4 max-w-3xl text-4xl !text-foam sm:text-5xl">
-              {doc.ico && <span className="mr-3">{doc.ico}</span>}
-              <span className="case-title-html" dangerouslySetInnerHTML={{ __html: doc.titleHtml }} />
-            </h1>
-            {doc.sub && <p className="mt-4 max-w-xl text-lg text-foam/75">{doc.sub}</p>}
           </Container>
         </section>
         <section className="py-12">
@@ -80,6 +82,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             кейсы — можно: чужая ошибка → посчитай свою) */}
         <section className="deck py-16">
           <Container>
+            <div className="mx-auto max-w-[800px]">
             <h2 className="text-2xl sm:text-3xl">Дальше читать</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-3">
               {related(doc.slug).map((r) => (
@@ -110,6 +113,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 </p>
               </div>
               <Button href="/finmodels/finmodel-cafe">Посчитать мой бизнес</Button>
+            </div>
             </div>
           </Container>
         </section>
