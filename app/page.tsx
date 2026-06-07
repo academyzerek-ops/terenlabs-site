@@ -9,9 +9,16 @@ import {
   COLLECTIONS,
   STEPS,
   OCEAN_RANKS,
+  LEVELS,
+  RANK_IMG,
   CATALOG,
+  COURSES,
+  TESTS,
+  CASES,
+  REVIEWS,
   plural,
 } from "@/lib/content";
+import { ACADEMY } from "@/lib/learn";
 
 // Путь обучения: 3 ступени (кейсы — часть Академии/обучения)
 const PATH = [
@@ -48,6 +55,15 @@ const PATH = [
 ];
 
 export default function Home() {
+  // счётчики пути — из данных (правило: ничего не зашивать руками)
+  const chapterTotal = ACADEMY.reduce((s, t) => s + t.chapterTotal, 0);
+  const liveTests = TESTS.filter((t) => !t.stub);
+  const questionTotal = liveTests.reduce((s, t) => s + (parseInt(t.metric?.value ?? "0") || 0), 0);
+  const pathStats: Record<string, string> = {
+    learn: `${COURSES.length} ${plural(COURSES.length, "курс", "курса", "курсов")} · ${chapterTotal} глав`,
+    check: `${liveTests.length} ${plural(liveTests.length, "тест", "теста", "тестов")} · ${questionTotal} вопросов`,
+    apply: `${CASES.length} кейсов · ${REVIEWS.length} обзоров`,
+  };
   return (
     <>
       {/* ============ HERO — океан ============ */}
@@ -123,7 +139,7 @@ export default function Home() {
             <p className="mt-3 text-xl font-semibold text-teal-600 sm:text-2xl">
               Сделай апгрейд скиллов бизнесмена
             </p>
-            <p className="mt-4 text-base leading-relaxed text-muted">
+            <p className="mt-4 text-lg leading-relaxed text-muted">
               Многоуровневая система: проходи модули и кейсы, проверяй себя тестами,
               поднимайся в ранге «Океан» — и становись участником Бизнес-клуба.
             </p>
@@ -144,7 +160,7 @@ export default function Home() {
                   className="card-premium group relative flex flex-col overflow-hidden p-0"
                 >
                   {/* иллюминатор в глубину: кино-кадр Академии */}
-                  <div className="relative h-44 overflow-hidden">
+                  <div className="relative h-52 overflow-hidden">
                     <img
                       src={step.img}
                       alt=""
@@ -160,22 +176,27 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="flex flex-1 flex-col p-7 pt-5">
-                    <h3 className="text-2xl text-heading">{step.title}</h3>
-                    <p className="mt-1 text-sm font-semibold text-teal-600">{step.sub}</p>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{step.desc}</p>
+                  <div className="flex flex-1 flex-col p-8 pt-6">
+                    <h3 className="text-3xl text-heading">{step.title}</h3>
+                    <p className="mt-1 text-[15px] font-semibold uppercase tracking-wide text-teal-600">{step.sub}</p>
+                    <p className="mt-4 text-[17px] leading-relaxed text-body/85">{step.desc}</p>
 
                     {/* что входит в шаг */}
-                    <ul className="mt-5 space-y-1.5">
+                    <ul className="mt-5 space-y-2">
                       {step.items.map((it) => (
-                        <li key={it} className="flex items-center gap-2 text-sm text-heading">
+                        <li key={it} className="flex items-center gap-2.5 text-[16px] text-heading">
                           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
                           {it}
                         </li>
                       ))}
                     </ul>
 
-                    <span className="mt-6 inline-block text-sm font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
+                    {/* живой счётчик содержимого — из данных */}
+                    <p className="num mt-5 border-t border-line pt-4 text-lg font-semibold text-heading">
+                      {pathStats[step.key]}
+                    </p>
+
+                    <span className="mt-5 inline-block text-base font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
                       {step.cta} →
                     </span>
                   </div>
@@ -309,19 +330,61 @@ export default function Home() {
             title="Система уровней «Океан»"
             desc="Ранг = подтверждённое мастерство решений, а не число кликов. Сертификат ранга можно показать миру."
           />
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {OCEAN_RANKS.map((r, i) => (
-              <Link
-                key={r.key}
-                href={`/levels/${r.key}`}
-                className="card-premium group p-5 text-center"
-              >
-                <img src={r.img} alt={r.name} width={80} height={80} loading="lazy" className="mx-auto h-20 w-20 object-contain" />
-                <h3 className="mt-4 text-base text-heading">{r.name}</h3>
-                <p className="mt-1 text-xs text-muted">{r.meaning}</p>
-              </Link>
-            ))}
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {LEVELS.map((l) => {
+              const rank = OCEAN_RANKS.find((r) => r.key === l.key);
+              const tests = l.testSlugs?.length ?? 0;
+              const modules = l.modules?.length ?? 0;
+              return (
+                <Link
+                  key={l.key}
+                  href={`/levels/${l.key}`}
+                  className="card-premium group flex flex-col p-7"
+                >
+                  <div className="flex items-center gap-5">
+                    <img
+                      src={RANK_IMG[l.key]}
+                      alt={l.name}
+                      width={96}
+                      height={96}
+                      loading="lazy"
+                      className="h-24 w-24 shrink-0 object-contain transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2.5">
+                        <h3 className="text-2xl text-heading">{l.name}</h3>
+                        {l.locked ? (
+                          <span className="rounded-full bg-line px-2.5 py-0.5 text-[0.7rem] text-muted">закрыт</span>
+                        ) : (
+                          <span className="rounded-full bg-teal/15 px-2.5 py-0.5 text-[0.7rem] font-semibold text-teal-600">открыт</span>
+                        )}
+                      </div>
+                      <p className="num mt-0.5 text-sm text-muted">{l.tag} · {rank?.meaning}</p>
+                    </div>
+                  </div>
+                  <p className="mt-4 flex-1 text-[15.5px] leading-relaxed text-body/80">{l.tagline}</p>
+                  <p className="num mt-4 border-t border-line pt-3.5 text-[15px] font-semibold text-heading">
+                    {!l.locked
+                      ? [
+                          modules ? `${modules} ${plural(modules, "модуль", "модуля", "модулей")}` : null,
+                          tests ? `${tests} ${plural(tests, "тест", "теста", "тестов")}` : null,
+                        ]
+                          .filter(Boolean)
+                          .join(" · ") || "контент уровня внутри"
+                      : "откроется после предыдущего"}
+                  </p>
+                  <span className="mt-3 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
+                    {l.locked ? "Что внутри →" : "Войти →"}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
+          <p className="mt-8 text-center">
+            <Link href="/ocean" className="text-base font-semibold text-teal-600 hover:text-teal">
+              Живой рейтинг «Океана» — кто на каком месте →
+            </Link>
+          </p>
         </Container>
       </section>
 
