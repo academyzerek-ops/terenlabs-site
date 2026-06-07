@@ -58,6 +58,8 @@ export function ProductCard({ p }: { p: CatalogItem }) {
         : "rgba(212, 168, 43, 0.14)" // нейтральное: не убыток и не успех — просто опыт
       : p.type === "finmodel"
       ? "rgba(43, 168, 136, 0.12)" // зона финпродуктов — денежный изумруд
+      : p.type === "test"
+      ? "rgba(84, 104, 232, 0.10)" // зона Океана — ультрамарин
       : null;
   return (
     <Link
@@ -104,7 +106,7 @@ export function ProductCard({ p }: { p: CatalogItem }) {
 
         {p.metric && (
           <div className="mt-4 flex items-baseline gap-2">
-            <span className={`num text-3xl font-semibold ${p.type === "finmodel" ? "text-[#1f9e74]" : "text-heading"}`}>{p.metric.value}</span>
+            <span className={`num text-3xl font-semibold ${p.type === "finmodel" ? "text-[#1f9e74]" : p.type === "test" ? "text-[#5468e8]" : "text-heading"}`}>{p.metric.value}</span>
             <span className="text-sm text-muted">{p.metric.label}</span>
           </div>
         )}

@@ -15,6 +15,7 @@ export default function OceanPage() {
         <img src="/lessons/fund_m6-ch03_horizon-distance.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(6,24,42,0.94) 0%, rgba(6,24,42,0.8) 45%, rgba(6,24,42,0.35) 100%)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 55%, rgba(6,24,42,0.85) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(70% 90% at 20% 30%, rgba(84,104,232,0.24), transparent 65%)" }} />
         <Container className="relative z-10 py-20 sm:py-24">
           <nav className="mb-5 text-sm text-foam/50">
             <Link href="/levels" className="hover:text-teal">Океан</Link>
@@ -48,7 +49,7 @@ export default function OceanPage() {
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             <div className="card-premium p-7">
-              <div className="num text-3xl font-semibold text-teal-600">точность × скорость</div>
+              <div className="num text-3xl font-semibold text-[#5468e8]">точность × скорость</div>
               <h3 className="mt-3 text-lg text-heading">Очки места</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 Средний балл попыток умножается на коэффициент темпа: чем быстрее
@@ -57,7 +58,7 @@ export default function OceanPage() {
               </p>
             </div>
             <div className="card-premium p-7">
-              <div className="num text-3xl font-semibold text-teal-600">T1 + T2 + T3</div>
+              <div className="num text-3xl font-semibold text-[#5468e8]">T1 + T2 + T3</div>
               <h3 className="mt-3 text-lg text-heading">Композит уровня</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 Сумма лучших результатов по трём тестам уровня: Теория,
@@ -66,7 +67,7 @@ export default function OceanPage() {
               </p>
             </div>
             <div className="card-premium p-7">
-              <div className="num text-3xl font-semibold text-teal-600">кто раньше</div>
+              <div className="num text-3xl font-semibold text-[#5468e8]">кто раньше</div>
               <h3 className="mt-3 text-lg text-heading">Равные очки</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 При равных очках выше стоит тот, кто раньше вошёл в океан.
