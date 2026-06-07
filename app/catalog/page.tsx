@@ -10,7 +10,7 @@ export const metadata = { title: "Каталог — TerenLabs" };
 // Осмысленная герой-шапка для каждого раздела (не безликое «Всё в одном месте»)
 const SECTION: Record<
   ProductType | "all",
-  { eyebrow: string; title: string; desc: string; img?: string }
+  { eyebrow: string; title: string; desc: string; img?: string; glow?: string }
 > = {
   all: {
     eyebrow: "Каталог",
@@ -46,7 +46,8 @@ const SECTION: Record<
     eyebrow: "Финпродукты",
     title: "Рабочие инструменты под проект",
     desc: "Интерактивные финмодели и бизнес-планы. Меняешь допущения — видишь результат.",
-    img: "/lessons/arch_m6-ch01_unit-econ-scale_v2.jpg",
+    img: "/lessons/fund_m5-ch05_coin-mountain.jpg",
+    glow: "rgba(43, 168, 136, 0.2)", // зона: денежный изумруд
   },
 };
 
@@ -83,6 +84,12 @@ export default async function CatalogPage({
           className="absolute inset-0"
           style={{ background: "linear-gradient(180deg, transparent 55%, rgba(6,24,42,0.85) 100%)" }}
         />
+        {s.glow && (
+          <div
+            className="absolute inset-0"
+            style={{ background: `radial-gradient(70% 90% at 20% 30%, ${s.glow}, transparent 65%)` }}
+          />
+        )}
         <Container className="relative z-10 py-20 sm:py-24">
           <p className="eyebrow">{s.eyebrow}</p>
           <h1 className="mt-3 max-w-3xl text-4xl !text-foam sm:text-5xl lg:text-6xl">{s.title}</h1>

@@ -56,6 +56,8 @@ export function ProductCard({ p }: { p: CatalogItem }) {
         : p.badge === "Успех"
         ? "rgba(31, 158, 116, 0.15)"
         : "rgba(212, 168, 43, 0.14)" // нейтральное: не убыток и не успех — просто опыт
+      : p.type === "finmodel"
+      ? "rgba(43, 168, 136, 0.12)" // зона финпродуктов — денежный изумруд
       : null;
   return (
     <Link
@@ -102,7 +104,7 @@ export function ProductCard({ p }: { p: CatalogItem }) {
 
         {p.metric && (
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="num text-3xl font-semibold text-heading">{p.metric.value}</span>
+            <span className={`num text-3xl font-semibold ${p.type === "finmodel" ? "text-[#1f9e74]" : "text-heading"}`}>{p.metric.value}</span>
             <span className="text-sm text-muted">{p.metric.label}</span>
           </div>
         )}
@@ -110,7 +112,7 @@ export function ProductCard({ p }: { p: CatalogItem }) {
         <div className="flex-1" />
         <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
           <span className="num text-xs text-muted">{p.level} · {p.stage}</span>
-          {p.price && <span className="num text-sm font-medium text-teal-600">{p.price}</span>}
+          {p.price && <span className={`num text-sm font-semibold ${p.type === "finmodel" ? "text-[#1f9e74]" : "text-teal-600"}`}>{p.price}</span>}
         </div>
       </div>
     </Link>

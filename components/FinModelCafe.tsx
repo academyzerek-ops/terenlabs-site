@@ -135,7 +135,7 @@ export function FinModelCafe() {
                         className="w-full rounded-t"
                         style={{
                           height: `${Math.max(h, 2)}%`,
-                          background: neg ? "var(--color-danger)" : "var(--color-teal)",
+                          background: neg ? "var(--color-danger)" : "linear-gradient(180deg, #2BA888, #1f9e74)",
                           opacity: neg ? 0.85 : 1,
                         }}
                         title={`${x.m}: ${fmt(x.profit)} ₸`}
