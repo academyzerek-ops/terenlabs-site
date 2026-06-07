@@ -141,3 +141,66 @@
     display: none !important;
   }
 }
+
+/* ============================================================
+   Hover-жизнь инфографики обзоров (десктоп с мышью).
+   Только transform/filter/shadow — надёжно в WebKit.
+   ============================================================ */
+@media (min-width: 768px) and (hover: hover) {
+  /* бар-чарты: строка подсвечивается, заливка вспыхивает */
+  .bar { transition: transform 0.22s ease-out; }
+  .bar-f { transition: filter 0.22s ease-out, box-shadow 0.22s ease-out; }
+  .bar-v, .bar-l { transition: color 0.22s ease-out, transform 0.22s ease-out; }
+  .bar:hover { transform: translateX(3px); }
+  .bar:hover .bar-f {
+    filter: brightness(1.25) saturate(1.25);
+    box-shadow: 0 0 14px rgba(0, 183, 194, 0.45);
+  }
+  .bar:hover .bar-f.crit { box-shadow: 0 0 14px rgba(255, 107, 107, 0.45); }
+  .bar:hover .bar-v { color: var(--les-aqua-deep); transform: scale(1.12); }
+
+  /* сезонность: столбик месяца тянется вверх и светится */
+  .season-b {
+    transition: transform 0.25s ease-out, filter 0.25s ease-out;
+    transform-origin: bottom;
+  }
+  .season-b:hover {
+    transform: scaleY(1.08) scaleX(1.12);
+    filter: brightness(1.3) saturate(1.2);
+  }
+
+  /* расчёты-примеры: карточка приподнимается */
+  .ex { transition: transform 0.25s ease-out, border-color 0.25s ease-out, box-shadow 0.25s ease-out; }
+  .ex:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 183, 194, 0.45);
+    box-shadow: 0 10px 28px rgba(0, 43, 69, 0.16), 0 0 0 1px rgba(0, 183, 194, 0.12);
+  }
+
+  /* риски: сдвиг + усиление цветной тени */
+  .risk { transition: transform 0.22s ease-out, box-shadow 0.22s ease-out; }
+  .risk:hover { transform: translateX(5px); box-shadow: 0 6px 24px rgba(255, 107, 107, 0.18); }
+  .risk.warn:hover { box-shadow: 0 6px 24px rgba(240, 201, 94, 0.2); }
+
+  /* флаги: лёгкий сдвиг за курсором */
+  .flag { transition: transform 0.2s ease-out; }
+  .flag:hover { transform: translateX(4px); }
+
+  /* «если коротко»: число строки оживает */
+  .tldr-row { transition: transform 0.2s ease-out; }
+  .tldr-k { transition: transform 0.22s ease-out, color 0.22s ease-out; transform-origin: left center; }
+  .tldr-row:hover { transform: translateX(3px); }
+  .tldr-row:hover .tldr-k { transform: scale(1.08); }
+
+  /* выводы-takeaway и версусы: лёгкое дыхание */
+  .tk, .vs-i { transition: transform 0.25s ease-out, border-color 0.25s ease-out; }
+  .tk:hover { transform: translateY(-2px); }
+  .vs-i:hover { transform: translateY(-2px); border-color: rgba(0, 183, 194, 0.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar, .bar-f, .bar-v, .bar-l, .season-b, .ex, .risk, .flag, .tldr-row, .tldr-k, .tk, .vs-i {
+    transition: none !important;
+    transform: none !important;
+  }
+}
