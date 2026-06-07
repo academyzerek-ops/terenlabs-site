@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { HookCarousel } from "@/components/HookCarousel";
 import { Bubbles } from "@/components/Bubbles";
+import { LiveQuiz } from "@/components/LiveQuiz";
 import {
   COLLECTIONS,
   STEPS,
@@ -50,7 +51,7 @@ export default function Home() {
   return (
     <>
       {/* ============ HERO — океан ============ */}
-      <section className="relative min-h-[88vh] overflow-hidden">
+      <section className="vignette relative min-h-[88vh] overflow-hidden">
         <video
           className="hero-parallax pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
           autoPlay
@@ -116,6 +117,7 @@ export default function Home() {
       {/* ============ ПУТЬ ОБУЧЕНИЯ — палуба ============ */}
       <section id="path" className="deck py-24">
         <Container>
+          <div className="section-no"><span className="no">01</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ПУТЬ</span></div>
           <div className="max-w-2xl">
             <h2 className="text-3xl sm:text-4xl">От ракушки до акулы бизнеса</h2>
             <p className="mt-3 text-xl font-semibold text-teal-600 sm:text-2xl">
@@ -187,6 +189,7 @@ export default function Home() {
       {/* ============ ЛЕНТА ПРОДУКТОВ — карусель крючков ============ */}
       <section className="atmo py-20">
         <Container>
+          <div className="section-no"><span className="no">02</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ЛЕНТА</span></div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl">Лента продуктов</h2>
           <div className="mt-14">
             <HookCarousel />
@@ -195,11 +198,12 @@ export default function Home() {
       </section>
 
       {/* ============ ДИФФЕРЕНЦИАТОР — финмодели ============ */}
-      <section className="hero-ocean">
+      <section className="hero-ocean grain-fine">
         <Bubbles />
         <Container className="relative z-10 grid items-center gap-12 py-24 md:grid-cols-2">
           <div>
-            <SectionHeading
+            <div className="section-no"><span className="no">03</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ИНСТРУМЕНТ</span></div>
+          <SectionHeading
               light
               eyebrow="Наш инструмент"
               title="Финмодель, которая считает за тебя"
@@ -237,6 +241,7 @@ export default function Home() {
       {/* ============ КАК МЫ УЧИМ — палуба ============ */}
       <section className="deck py-20">
         <Container>
+          <div className="section-no"><span className="no">04</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ПОДХОД</span></div>
           <SectionHeading
             eyebrow="Подход"
             title="Реализм вместо «успешного успеха»"
@@ -275,9 +280,30 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* ============ МАНИФЕСТ + ЖИВОЙ ВОПРОС (Brilliant: продукт и есть демо) ============ */}
+      <section className="deep grain-fine relative">
+        <Container className="relative z-10 py-24 sm:py-28">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow">Манифест</p>
+            <h2 className="mt-4 text-3xl !text-foam sm:text-5xl">
+              Защита от потерь, а не «успешный успех»
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-foam/70">
+              Академия бесплатна навсегда: финансовая грамотность предпринимателя
+              не должна стоить денег. Платное здесь одно — инструменты под твой
+              конкретный бизнес.
+            </p>
+          </div>
+          <div className="mt-14">
+            <LiveQuiz />
+          </div>
+        </Container>
+      </section>
+
       {/* ============ УРОВНИ «ОКЕАН» — палуба ============ */}
       <section className="deck py-20">
         <Container>
+          <div className="section-no"><span className="no">05</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ОКЕАН</span></div>
           <SectionHeading
             eyebrow="Геймификация"
             title="Система уровней «Океан»"
@@ -302,6 +328,7 @@ export default function Home() {
       {/* ============ ПОДБОРКИ — палуба ============ */}
       <section className="deck py-20">
         <Container>
+          <div className="section-no"><span className="no">06</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ПОДБОРКИ</span></div>
           <SectionHeading eyebrow="Discovery" title="Подборки под задачу" />
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {COLLECTIONS.map((c) => {

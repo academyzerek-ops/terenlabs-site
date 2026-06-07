@@ -31,9 +31,20 @@ export function Button({
   size?: keyof typeof sizes;
   className?: string;
 }) {
+  // roll-over текста (награды-2025) — только для простого текстового лейбла
+  const rollable = typeof children === "string";
   return (
-    <Link href={href} className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
-      {children}
+    <Link
+      href={href}
+      className={`btn-press ${rollable ? "btn-roll" : ""} ${base} ${sizes[size]} ${variants[variant]} ${className}`}
+    >
+      {rollable ? (
+        <span className="btn-roll-inner" data-text={children as string}>
+          {children}
+        </span>
+      ) : (
+        children
+      )}
     </Link>
   );
 }
