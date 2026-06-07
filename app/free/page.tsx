@@ -3,14 +3,14 @@ import { Button } from "@/components/Button";
 import { CATALOG, COURSES, CASES, REVIEWS, TESTS, plural } from "@/lib/content";
 import Link from "next/link";
 
-export const metadata = { title: "Учиться бесплатно — TerenLabs" };
+export const metadata = { title: "Открытая библиотека — TerenLabs" };
 
 export default function Page() {
   const freeTests = TESTS.filter((t) => t.free && !t.stub);
   const groups = [
     {
       title: "Академия",
-      desc: "Полные курсы — от финансовой грамотности до маркетинга. Бесплатно навсегда, без звёздочек.",
+      desc: "Полные курсы — от финансовой грамотности до маркетинга. Открыты целиком, без звёздочек.",
       count: COURSES.length,
       noun: ["курс", "курса", "курсов"] as const,
       href: "/catalog?type=course",
@@ -43,13 +43,13 @@ export default function Page() {
     <>
       <section className="hero-ocean">
         <Container className="relative z-10 py-20 text-center">
-          <p className="eyebrow">Бесплатно навсегда</p>
+          <p className="eyebrow">Знания открыты</p>
           <h1 className="mx-auto mt-4 max-w-2xl text-4xl !text-foam sm:text-5xl">
-            Учиться бесплатно
+            Открытая библиотека
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-lg text-foam/75">
-            {totalFree} {plural(totalFree, "материал", "материала", "материалов")} без оплаты:
-            курсы Академии, тесты, кейсы и обзоры ниш. Это не пробник — это продукт.
+            {totalFree} {plural(totalFree, "материал", "материала", "материалов")} в открытом
+            доступе: курсы Академии, тесты, кейсы и обзоры ниш. Это не пробник — это продукт.
           </p>
         </Container>
       </section>
@@ -70,7 +70,7 @@ export default function Page() {
           </div>
           <div className="mt-10 text-center">
             <Button href="/tests/t1-a04/take" size="lg">
-              Начать с бесплатного теста
+              Начать с теста
             </Button>
           </div>
         </Container>

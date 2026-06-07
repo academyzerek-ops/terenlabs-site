@@ -170,7 +170,7 @@ for (const t of OCEAN_TESTS) {
     title: t.title,
     blurb: `10 вопросов — по одному из каждой темы уровня. Порог сдачи: ${t.floor} из 10.`,
     metric: { value: String(pool.length), label: "вопросов в пуле" },
-    price: "Бесплатно", badge: "Океан",
+    badge: "Океан",
   });
 }
 report.counts.oceanPools = OCEAN_TESTS.length;
@@ -190,7 +190,7 @@ const courseProducts = academy.map((a) => ({
   type: "course", slug: a.slug, level: "T1", topic: a.topic, stage: "Обучение", free: true,
   title: a.title, blurb: a.subtitle,
   metric: { value: String(a.chapterTotal), label: plural(a.chapterTotal, "глава", "главы", "глав") },
-  price: "Бесплатно", badge: "Готов",
+  badge: "Готов",
   // визуал карточки каталога — первый арт главы трека (или тематический фолбэк)
   img:
     a.modules.flatMap((m) => m.chapters).find((c) => c.img)?.img ??
@@ -199,7 +199,7 @@ const courseProducts = academy.map((a) => ({
 }));
 const caseProducts = cases.map((c) => ({
   type: "case", slug: c.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
-  title: c.title, blurb: c.sub.replace(/^✍️\s*/, ""), price: "Бесплатно", badge: c.kind || "Кейс",
+  title: c.title, blurb: c.sub.replace(/^✍️\s*/, ""), badge: c.kind || "Кейс",
   ico: c.ico || null, // эмодзи кейса для тайла каталога
 }));
 const reviewProducts = reviews.map((r) => {
@@ -214,7 +214,7 @@ const reviewProducts = reviews.map((r) => {
     type: "review", slug: r.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
     title: r.title,
     blurb: r.sub || "Разбор ниши на цифрах: рынок, экономика, риски",
-    price: "Бесплатно", badge: "Обзор",
+    badge: "Обзор",
     img: hasHero ? heroPath : null, // фото ниши (из самого обзора) для карточки
   };
 });

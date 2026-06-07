@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <span className="mx-2">/</span>
             <span>{track.title}</span>
           </nav>
-          <p className="eyebrow">Академия · бесплатно навсегда</p>
+          <p className="eyebrow">Академия</p>
           <h1 className="mt-4 max-w-2xl text-4xl !text-foam sm:text-5xl">{track.title}</h1>
           <p className="mt-4 max-w-xl text-lg text-foam/75">{track.subtitle}</p>
           <div className="mt-6 flex flex-wrap items-center gap-5">

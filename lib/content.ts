@@ -168,8 +168,8 @@ export const COLLECTIONS = [
     href: "/catalog",
   },
   {
-    title: "Бесплатный вход",
-    hook: "Начни сегодня, не доставая карту — тест с разбором каждого ответа",
+    title: "Быстрый старт",
+    hook: "Начни сегодня: тест с разбором каждого ответа",
     img: "/lessons/fund_m5-ch01_two-doors.jpg",
     filter: (x: CatalogItem) => !!x.free,
     href: "/catalog?type=test",

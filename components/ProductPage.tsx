@@ -25,7 +25,7 @@ export function ProductPage({ p }: { p: Product }) {
       : p.type === "course"
       ? { href: `/learn/${p.slug}`, label: p.stub ? "Открыть демо обучения" : "Начать обучение" }
       : p.free
-      ? { href: "/checkout", label: "Начать бесплатно" }
+      ? { href: "/catalog", label: "Открыть" }
       : { href: "/checkout", label: "Получить доступ" };
 
   return (
@@ -59,7 +59,7 @@ export function ProductPage({ p }: { p: Product }) {
                   <div className="text-xs text-foam/55">{p.metric.label}</div>
                 </div>
               )}
-              <div className="num mb-4 text-2xl text-teal">{p.price ?? "—"}</div>
+              {p.price && <div className="num mb-4 text-2xl text-teal">{p.price}</div>}
               <Button href={cta.href} className="w-full">
                 {cta.label}
               </Button>
