@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { ProductCard } from "./ProductCard";
 import { CatalogItem } from "@/lib/content";
 
@@ -29,7 +28,7 @@ export function CaseGrid({ items }: { items: CatalogItem[] }) {
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-8 flex flex-wrap items-center gap-3">
         <div className="flex flex-wrap gap-2.5">
           {FILTERS.map((f) => {
             const active = outcome === f.key;
@@ -56,9 +55,6 @@ export function CaseGrid({ items }: { items: CatalogItem[] }) {
             );
           })}
         </div>
-        <Link href="/catalog" className="text-sm font-semibold text-teal-600 hover:text-teal">
-          Показать весь каталог →
-        </Link>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

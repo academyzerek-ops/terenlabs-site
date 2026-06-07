@@ -96,20 +96,11 @@ export default async function CatalogPage({
             /* кейсы: цветные фильтры по исходу (красный/зелёный/жёлтый) */
             <CaseGrid items={items} />
           ) : items.length > 0 ? (
-            <>
-              {t !== "all" && (
-                <div className="mb-8 flex justify-end">
-                  <Link href="/catalog" className="text-sm font-semibold text-teal-600 hover:text-teal">
-                    Показать весь каталог →
-                  </Link>
-                </div>
-              )}
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((p) => (
-                  <ProductCard key={`${p.type}-${p.slug}`} p={p} />
-                ))}
-              </div>
-            </>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {items.map((p) => (
+                <ProductCard key={`${p.type}-${p.slug}`} p={p} />
+              ))}
+            </div>
           ) : (
             <div className="rounded-[var(--radius-tl)] border border-dashed border-line bg-card p-12 text-center">
               <p className="text-heading">В этом разделе пока пусто</p>
