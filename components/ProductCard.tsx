@@ -2,33 +2,43 @@ import Link from "next/link";
 import { CatalogItem, PRODUCT_TYPES } from "@/lib/content";
 
 export function ProductCard({ p }: { p: CatalogItem }) {
-  // Обзор ниши — журнальная карточка: фото из самого обзора во всю карту,
-  // заголовок и живой подзаголовок лежат на кадре.
-  if (p.type === "review" && p.img) {
+  // Постер (референс-стиль): кадр на всю карточку, чип-счётчик и заголовок поверх
+  if (p.img) {
+    const chip = p.metric
+      ? `${p.metric.value} ${p.metric.label}`
+      : p.type === "review"
+      ? "Бизнес-обзор · 2026"
+      : p.badge ?? null;
     return (
       <Link
         href={p.href}
-        className="card-premium group relative flex min-h-[340px] flex-col justify-end overflow-hidden p-0"
+        className="card-premium group relative flex min-h-[420px] flex-col overflow-hidden p-0"
       >
         <img
           src={p.img}
           alt=""
           width={640}
-          height={680}
+          height={840}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#081b2e] via-[#0d2b45]/55 to-transparent" />
-        <div className="relative p-6">
-          <span className="rounded-full bg-white/15 px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-foam backdrop-blur">
-            Бизнес-обзор · 2026
-          </span>
-          <h3 className="mt-3 text-2xl !text-foam">{p.title}</h3>
-          <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-foam/75">{p.blurb}</p>
-          <div className="mt-4 flex items-center justify-between border-t border-white/15 pt-3">
-            <span className="num text-xs text-foam/55">{p.level} · на цифрах</span>
+        {/* скрим: плотный сверху под текстом, лёгкая виньетка снизу */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#081b2e]/90 via-[#0d2b45]/30 to-[#081b2e]/80" />
+        <div className="relative flex flex-1 flex-col p-6">
+          {chip && (
+            <span className="num self-start rounded-full bg-white/15 px-3 py-1 text-[0.8rem] font-semibold text-foam backdrop-blur">
+              {chip}
+            </span>
+          )}
+          <h3 className="mt-3 text-2xl leading-snug !text-foam sm:text-3xl">{p.title}</h3>
+          <p className="mt-2 line-clamp-2 text-[15px] leading-relaxed text-foam/80">{p.blurb}</p>
+          <div className="flex-1" />
+          <div className="flex items-center justify-between border-t border-white/15 pt-3.5">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foam/55">
+              {PRODUCT_TYPES[p.type].label}
+            </span>
             <span className="text-sm font-semibold text-teal transition-transform group-hover:translate-x-1">
-              Читать →
+              Открыть →
             </span>
           </div>
         </div>
@@ -59,21 +69,6 @@ export function ProductCard({ p }: { p: CatalogItem }) {
           : undefined
       }
     >
-      {/* визуальный хедер: арт курса / эмодзи-тайл кейса */}
-      {p.img ? (
-        <div className="relative aspect-[16/9] overflow-hidden">
-          <img
-            src={p.img}
-            alt=""
-            width={640}
-            height={288}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 to-transparent" />
-        </div>
-      ) : null}
-
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-4 flex items-center justify-between">
           <span className="eyebrow flex items-center gap-2">
