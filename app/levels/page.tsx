@@ -25,6 +25,14 @@ export default function LevelsPage() {
             От мелководья к открытому океану. Каждый уровень — модули, тесты,
             кейсы и обзоры. Проходятся по порядку: чем глубже, тем серьёзнее решения.
           </p>
+          <p className="mt-5">
+            <Link
+              href="/ocean"
+              className="inline-flex items-center gap-2 rounded-full border border-teal-600/40 px-4 py-2 text-sm font-semibold text-teal-600 transition-colors hover:bg-teal/10"
+            >
+              Живой рейтинг «Океана» →
+            </Link>
+          </p>
         </div>
 
         {/* линия-течение погружения */}

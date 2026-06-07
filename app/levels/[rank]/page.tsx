@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
                 href={t.stub ? undefined : t.href}
                 stub={t.stub}
                 title={t.title}
-                meta={t.stub ? "скоро" : `${t.questions?.length ?? 0} вопросов`}
+                meta={t.stub ? "скоро" : t.questions?.length ? `${t.questions.length} вопросов` : "10 вопросов из пула"}
                 cta={t.stub ? undefined : "Пройти →"}
               />
             ))}

@@ -57,10 +57,13 @@
   "name": "Краб",
   "tag": "T2",
   "color": "var(--color-rank-krab)",
-  "tagline": "Продвижение. Глубже в экономику и риски ниши.",
-  "locked": true,
+  "tagline": "Продвижение. Глубже в экономику и риски ниши. Три теста: теория, применение, анализ.",
   "modules": [],
-  "testSlugs": [],
+  "testSlugs": [
+   "crab-t1",
+   "crab-t2",
+   "crab-t3"
+  ],
   "caseSlugs": [],
   "reviewSlugs": []
  },
@@ -70,10 +73,13 @@
   "name": "Барракуда",
   "tag": "T3",
   "color": "var(--color-rank-barrakuda)",
-  "tagline": "Ускорение.",
-  "locked": true,
+  "tagline": "Ускорение. Считаешь быстрее, чем конкурент успевает ошибиться.",
   "modules": [],
-  "testSlugs": [],
+  "testSlugs": [
+   "barracuda-t1",
+   "barracuda-t2",
+   "barracuda-t3"
+  ],
   "caseSlugs": [],
   "reviewSlugs": []
  },

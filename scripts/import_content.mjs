@@ -149,7 +149,33 @@ for (const f of fs.readdirSync(nichesDir).filter((x) => x.endsWith(".html")).sor
 write(path.join(SITE, "content/reviews.json"), JSON.stringify(reviews, null, 1));
 report.counts.reviews = reviews.length;
 
-// ---------- 4. PRODUCTS.JSON ----------
+// ---------- 4. ОКЕАН: пулы тестов Краб/Барракуда ----------
+// Канон Mini App: тест = 10 вопросов, по 1 случайному из каждого архетипа.
+// Пороги сдачи: T1≥7, T2≥7, T3≥6 (см. backend/app/routers/ocean.py).
+const OCEAN_TESTS = [
+  { slug: "crab-t1", rank: "Краб", tag: "T2", pool: "crab.t1", title: "Краб · Теория", floor: 7 },
+  { slug: "crab-t2", rank: "Краб", tag: "T2", pool: "crab.t2", title: "Краб · Применение", floor: 7 },
+  { slug: "crab-t3", rank: "Краб", tag: "T2", pool: "crab.t3", title: "Краб · Анализ", floor: 6 },
+  { slug: "barracuda-t1", rank: "Барракуда", tag: "T3", pool: "barracuda.t1", title: "Барракуда · Теория", floor: 7 },
+  { slug: "barracuda-t2", rank: "Барракуда", tag: "T3", pool: "barracuda.t2", title: "Барракуда · Применение", floor: 7 },
+  { slug: "barracuda-t3", rank: "Барракуда", tag: "T3", pool: "barracuda.t3", title: "Барракуда · Анализ", floor: 6 },
+];
+const oceanTestProducts = [];
+for (const t of OCEAN_TESTS) {
+  const src = path.join(SRC, "products/ocean-assets", t.pool + ".json");
+  const pool = JSON.parse(read(src));
+  write(path.join(SITE, "public/ocean-pools", t.pool + ".json"), JSON.stringify(pool));
+  oceanTestProducts.push({
+    type: "test", slug: t.slug, level: t.tag, topic: "Бизнес", stage: "Проверка", free: true,
+    title: t.title,
+    blurb: `10 вопросов — по одному из каждой темы уровня. Порог сдачи: ${t.floor} из 10.`,
+    metric: { value: String(pool.length), label: "вопросов в пуле" },
+    price: "Бесплатно", badge: "Океан",
+  });
+}
+report.counts.oceanPools = OCEAN_TESTS.length;
+
+// ---------- 5. PRODUCTS.JSON ----------
 const products = JSON.parse(read(path.join(SITE, "content/products.json")));
 const keep = products.filter(
   (p) => p.type === "finmodel" || p.type === "test" || (p.type === "case" && p.slug === "case-marketplace")
@@ -194,7 +220,11 @@ const reviewProducts = reviews.map((r) => {
 });
 write(
   path.join(SITE, "content/products.json"),
-  JSON.stringify([...keep, ...courseProducts, ...caseProducts, ...reviewProducts], null, 1)
+  JSON.stringify(
+    [...keep, ...oceanTestProducts, ...courseProducts, ...caseProducts, ...reviewProducts],
+    null,
+    1
+  )
 );
 report.counts.products = keep.length + courseProducts.length + caseProducts.length + reviewProducts.length;
 
