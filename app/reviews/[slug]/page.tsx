@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <iframe
           src={doc.file}
           title={doc.title}
-          className="min-h-0 w-full flex-1 border-0"
+          className="h-full min-h-0 w-full border-0"
         />
       </div>
     );
