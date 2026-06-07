@@ -52,7 +52,7 @@ export function ProductCard({ p }: { p: CatalogItem }) {
     >
       {/* визуальный хедер: арт курса / эмодзи-тайл кейса */}
       {p.img ? (
-        <div className="relative h-36 overflow-hidden">
+        <div className="relative aspect-[16/9] overflow-hidden">
           <img
             src={p.img}
             alt=""
