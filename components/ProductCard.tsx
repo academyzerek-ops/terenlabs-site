@@ -22,22 +22,23 @@ export function ProductCard({ p }: { p: CatalogItem }) {
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        {/* скрим: плотный сверху под текстом, лёгкая виньетка снизу */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#081b2e]/90 via-[#0d2b45]/30 to-[#081b2e]/80" />
+        {/* приглушение пёстрого кадра + скрим: текст не тонет */}
+        <div className="absolute inset-0 bg-[#0a2236]/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#081b2e]/90 via-[#0d2b45]/25 to-[#081b2e]/85" />
         <div className="relative flex flex-1 flex-col p-6">
           {chip && (
-            <span className="num self-start rounded-full bg-white/15 px-3 py-1 text-[0.8rem] font-semibold text-foam backdrop-blur">
+            <span className="num self-start rounded-full bg-white/15 px-3.5 py-1.5 text-[0.9rem] font-semibold text-foam backdrop-blur">
               {chip}
             </span>
           )}
-          <h3 className="mt-3 text-2xl leading-snug !text-foam sm:text-3xl">{p.title}</h3>
-          <p className="mt-2 line-clamp-2 text-[15px] leading-relaxed text-foam/80">{p.blurb}</p>
+          <h3 className="mt-3 text-3xl leading-snug !text-foam">{p.title}</h3>
+          <p className="mt-2.5 line-clamp-3 text-[16.5px] leading-relaxed text-foam/85">{p.blurb}</p>
           <div className="flex-1" />
           <div className="flex items-center justify-between border-t border-white/15 pt-3.5">
             <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foam/55">
               {PRODUCT_TYPES[p.type].label}
             </span>
-            <span className="text-sm font-semibold text-teal transition-transform group-hover:translate-x-1">
+            <span className="text-[15px] font-semibold text-teal transition-transform group-hover:translate-x-1">
               Открыть →
             </span>
           </div>
