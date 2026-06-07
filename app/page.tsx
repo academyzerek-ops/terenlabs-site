@@ -3,7 +3,6 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { HookCarousel } from "@/components/HookCarousel";
-import { NicheTicker } from "@/components/NicheTicker";
 import { Bubbles } from "@/components/Bubbles";
 import {
   COLLECTIONS,
@@ -196,9 +195,6 @@ export default function Home() {
           </div>
         </Container>
       </section>
-
-      {/* ============ ТИКЕР НИШ — 56 обзоров бегущей строкой ============ */}
-      <NicheTicker />
 
       {/* ============ ДИФФЕРЕНЦИАТОР — финмодели ============ */}
       <section className="hero-ocean">

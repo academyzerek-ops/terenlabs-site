@@ -458,19 +458,6 @@ a {
   pointer-events: none;
 }
 
-/* Тикер ниш: бесшовная бегущая строка, пауза по hover */
-@keyframes tl-ticker {
-  to {
-    transform: translateX(-50%);
-  }
-}
-.ticker-track {
-  animation: tl-ticker 60s linear infinite;
-}
-.ticker:hover .ticker-track {
-  animation-play-state: paused;
-}
-
 /* Морской снег: медленные частицы в глубинных секциях */
 @keyframes tl-bubble {
   0% {
@@ -512,9 +499,6 @@ a {
     animation: none;
   }
   .hero-parallax {
-    animation: none;
-  }
-  .ticker-track {
     animation: none;
   }
   .bubbles {
