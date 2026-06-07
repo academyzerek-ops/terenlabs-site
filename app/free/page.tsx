@@ -24,7 +24,7 @@ export default function Page() {
     },
     {
       title: "Кейсы",
-      desc: "Реальные истории казахстанского бизнеса: где потеряли деньги и почему.",
+      desc: "Мировой опыт на реальных примерах: где теряют деньги и почему.",
       count: CASES.length,
       noun: ["кейс", "кейса", "кейсов"] as const,
       href: "/catalog?type=case",
