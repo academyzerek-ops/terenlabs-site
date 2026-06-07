@@ -22,9 +22,9 @@ export function ProductCard({ p }: { p: CatalogItem }) {
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        {/* приглушение пёстрого кадра + скрим: текст не тонет */}
-        <div className="absolute inset-0 bg-[#0a2236]/45" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#081b2e]/90 via-[#0d2b45]/25 to-[#081b2e]/85" />
+        {/* приглушение пёстрого кадра нейтрально-тёмным (не синим) + скрим */}
+        <div className="absolute inset-0 bg-[#101214]/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0c0e10]/85 via-[#101214]/20 to-[#0c0e10]/80" />
         <div className="relative flex flex-1 flex-col p-6">
           {chip && (
             <span className="num self-start rounded-full bg-white/15 px-3.5 py-1.5 text-[0.9rem] font-semibold text-foam backdrop-blur">
