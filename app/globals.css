@@ -143,13 +143,15 @@ a {
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 1.05rem;
+  /* оптическая коррекция: Playfair сидит низко в строке — приподнимаем текст */
+  padding: 0.42rem 1.05rem 0.58rem;
   border-radius: 9999px;
   /* Playfair в навигации — журнальный характер, фирменный ход (реестр §24) */
   font-family: var(--font-display);
   font-size: 1.08rem;
   font-weight: 600;
   letter-spacing: 0.012em;
+  line-height: 1;
   white-space: nowrap;
   color: var(--color-heading);
   border: 1px solid transparent;
