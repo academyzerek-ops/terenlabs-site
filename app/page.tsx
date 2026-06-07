@@ -3,6 +3,8 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { HookCarousel } from "@/components/HookCarousel";
+import { NicheTicker } from "@/components/NicheTicker";
+import { Bubbles } from "@/components/Bubbles";
 import {
   COLLECTIONS,
   STEPS,
@@ -52,7 +54,7 @@ export default function Home() {
       {/* ============ HERO — океан ============ */}
       <section className="relative min-h-[88vh] overflow-hidden">
         <video
-          className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+          className="hero-parallax pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
           autoPlay
           muted
           loop
@@ -87,9 +89,13 @@ export default function Home() {
               textShadow: "0 4px 40px rgba(0,0,0,0.5)",
             }}
           >
-            Глубина анализа.
+            <span className="word-rise" style={{ animationDelay: "100ms" }}>Глубина</span>{" "}
+            <span className="word-rise" style={{ animationDelay: "240ms" }}>анализа.</span>
             <br />
-            <span style={{ color: "var(--color-teal)" }}>Сила результата.</span>
+            <span style={{ color: "var(--color-teal)" }}>
+              <span className="word-rise" style={{ animationDelay: "420ms" }}>Сила</span>{" "}
+              <span className="word-rise" style={{ animationDelay: "560ms" }}>результата.</span>
+            </span>
           </h1>
           <p
             className="rise mt-7 max-w-xl text-lg leading-relaxed text-foam/80 sm:text-xl"
@@ -135,7 +141,8 @@ export default function Home() {
                 <Link
                   key={step.key}
                   href={step.href}
-                  className="card-premium group relative flex flex-col overflow-hidden p-0"
+                  className="card-premium reveal group relative flex flex-col overflow-hidden p-0"
+                  style={{ transitionDelay: `${i * 110}ms` }}
                 >
                   {/* иллюминатор в глубину: кино-кадр Академии */}
                   <div className="relative h-44 overflow-hidden">
@@ -190,8 +197,12 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* ============ ТИКЕР НИШ — 56 обзоров бегущей строкой ============ */}
+      <NicheTicker />
+
       {/* ============ ДИФФЕРЕНЦИАТОР — финмодели ============ */}
       <section className="hero-ocean">
+        <Bubbles />
         <Container className="relative z-10 grid items-center gap-12 py-24 md:grid-cols-2">
           <div>
             <SectionHeading
@@ -238,11 +249,14 @@ export default function Home() {
           />
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
-            {STEPS.map((s) => (
+            {STEPS.map((s, i) => (
               <div
                 key={s.n}
-                className="group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
-                style={{ background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)" }}
+                className="reveal group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
+                style={{
+                  transitionDelay: `${i * 110}ms`,
+                  background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)",
+                }}
               >
                 {/* тематический кадр растворяется в толще справа */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-3/5">
@@ -272,11 +286,12 @@ export default function Home() {
 
       {/* ============ БАННЕР-ЦИФРЫ (глубина) ============ */}
       <section className="deep grain">
+        <Bubbles count={8} />
         <Container className="relative z-10 py-16">
           <div className="grid gap-10 sm:grid-cols-3">
             {PROOF_STATS.map((s) => (
               <div key={s.value}>
-                <div className="num text-4xl font-semibold !text-foam sm:text-5xl">
+                <div className="num text-4xl font-semibold !text-foam sm:text-5xl" data-countup>
                   {s.value}
                 </div>
                 <div className="mt-3 text-sm leading-relaxed text-foam/65">
@@ -301,7 +316,8 @@ export default function Home() {
               <Link
                 key={r.key}
                 href={`/levels/${r.key}`}
-                className="card-premium group p-5 text-center"
+                className="card-premium reveal group p-5 text-center"
+                style={{ transitionDelay: `${i * 70}ms` }}
               >
                 <img src={r.img} alt={r.name} width={80} height={80} loading="lazy" className="mx-auto h-20 w-20 object-contain" />
                 <h3 className="mt-4 text-base text-heading">{r.name}</h3>
@@ -323,7 +339,7 @@ export default function Home() {
                 <Link
                   key={c.title}
                   href={c.href}
-                  className="card-premium group flex items-center gap-5 p-4 pr-6"
+                  className="card-premium reveal group flex items-center gap-5 p-4 pr-6"
                 >
                   <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl">
                     <img

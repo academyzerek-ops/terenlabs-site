@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { FooterGate } from "@/components/FooterGate";
 import { NoaChat } from "@/components/NoaChat";
+import { ScrollFX } from "@/components/ScrollFX";
 
 // Дисплей/заголовки — Playfair Display (глубина, премиум)
 const playfair = Playfair_Display({
@@ -61,6 +62,9 @@ export default function RootLayout({
         </Suspense>
         <Suspense fallback={null}>
           <NoaChat />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ScrollFX />
         </Suspense>
       </body>
     </html>

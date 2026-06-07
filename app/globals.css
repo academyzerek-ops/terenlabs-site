@@ -390,6 +390,141 @@ a {
   transform: translateY(0);
 }
 
+/* ============================================================
+   ВАУ-СЛОЙ 2026: кинетика, глубина, микровзаимодействия
+   ============================================================ */
+
+/* Кинетический hero: слова всплывают из толщи с blur→фокус */
+@keyframes tl-word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+.word-rise {
+  display: inline-block;
+  animation: tl-word-rise 0.9s var(--ease-out-tl) both;
+}
+
+/* Параллакс hero-видео: глубина отстаёт от скролла (прогрессивно, CSS-only) */
+@supports (animation-timeline: scroll()) {
+  @keyframes tl-hero-sink {
+    to {
+      transform: translateY(13%) scale(1.06);
+    }
+  }
+  .hero-parallax {
+    animation: tl-hero-sink linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100vh;
+  }
+}
+
+/* Биолюминесцентное свечение за курсором (создаётся в ScrollFX) */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 40;
+  background: radial-gradient(circle, rgba(0, 183, 194, 0.07) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.light .cursor-glow {
+  opacity: 0.5;
+}
+
+/* Линия прогресса скролла под шапкой */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60;
+  background: linear-gradient(90deg, var(--color-teal), var(--color-teal-600));
+  transform-origin: left;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+/* Тикер ниш: бесшовная бегущая строка, пауза по hover */
+@keyframes tl-ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  animation: tl-ticker 60s linear infinite;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* Морской снег: медленные частицы в глубинных секциях */
+@keyframes tl-bubble {
+  0% {
+    transform: translateY(110%) translateX(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--bub-o, 0.3);
+  }
+  88% {
+    opacity: var(--bub-o, 0.3);
+  }
+  100% {
+    transform: translateY(-130%) translateX(var(--bub-dx, 12px));
+    opacity: 0;
+  }
+}
+.bubble {
+  position: absolute;
+  bottom: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(180, 240, 245, 0.5), rgba(0, 183, 194, 0.12));
+  animation: tl-bubble linear infinite;
+}
+/* раскладка частиц — размер/позиция/темп через nth-child */
+.bubble:nth-child(1)  { left: 6%;  width: 5px; height: 5px; animation-duration: 17s; --bub-o: 0.28; --bub-dx: 18px; }
+.bubble:nth-child(2)  { left: 16%; width: 3px; height: 3px; animation-duration: 23s; animation-delay: -8s;  --bub-o: 0.2; --bub-dx: -14px; }
+.bubble:nth-child(3)  { left: 27%; width: 6px; height: 6px; animation-duration: 15s; animation-delay: -4s;  --bub-o: 0.32; --bub-dx: 10px; }
+.bubble:nth-child(4)  { left: 38%; width: 4px; height: 4px; animation-duration: 26s; animation-delay: -15s; --bub-o: 0.22; --bub-dx: -20px; }
+.bubble:nth-child(5)  { left: 49%; width: 3px; height: 3px; animation-duration: 20s; animation-delay: -11s; --bub-o: 0.18; --bub-dx: 16px; }
+.bubble:nth-child(6)  { left: 58%; width: 5px; height: 5px; animation-duration: 18s; animation-delay: -6s;  --bub-o: 0.3; --bub-dx: -10px; }
+.bubble:nth-child(7)  { left: 69%; width: 4px; height: 4px; animation-duration: 24s; animation-delay: -18s; --bub-o: 0.24; --bub-dx: 22px; }
+.bubble:nth-child(8)  { left: 79%; width: 6px; height: 6px; animation-duration: 16s; animation-delay: -2s;  --bub-o: 0.34; --bub-dx: -16px; }
+.bubble:nth-child(9)  { left: 88%; width: 3px; height: 3px; animation-duration: 28s; animation-delay: -13s; --bub-o: 0.18; --bub-dx: 12px; }
+.bubble:nth-child(10) { left: 95%; width: 4px; height: 4px; animation-duration: 21s; animation-delay: -9s;  --bub-o: 0.26; --bub-dx: -18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .word-rise {
+    animation: none;
+  }
+  .hero-parallax {
+    animation: none;
+  }
+  .ticker-track {
+    animation: none;
+  }
+  .bubbles {
+    display: none;
+  }
+  .cursor-glow {
+    display: none;
+  }
+}
+
 /* Тонкое зерно поверх тёмных блоков — премиум-текстура, убирает «плоскость» */
 .grain::before {
   content: "";
