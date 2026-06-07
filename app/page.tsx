@@ -9,7 +9,6 @@ import {
   STEPS,
   OCEAN_RANKS,
   CATALOG,
-  PROOF_STATS,
   plural,
 } from "@/lib/content";
 
@@ -140,8 +139,7 @@ export default function Home() {
                 <Link
                   key={step.key}
                   href={step.href}
-                  className="card-premium reveal group relative flex flex-col overflow-hidden p-0"
-                  style={{ transitionDelay: `${i * 110}ms` }}
+                  className="card-premium group relative flex flex-col overflow-hidden p-0"
                 >
                   {/* иллюминатор в глубину: кино-кадр Академии */}
                   <div className="relative h-44 overflow-hidden">
@@ -248,11 +246,8 @@ export default function Home() {
             {STEPS.map((s, i) => (
               <div
                 key={s.n}
-                className="reveal group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
-                style={{
-                  transitionDelay: `${i * 110}ms`,
-                  background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)",
-                }}
+                className="group relative overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
+                style={{ background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)" }}
               >
                 {/* тематический кадр растворяется в толще справа */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-3/5">
@@ -280,25 +275,6 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ БАННЕР-ЦИФРЫ (глубина) ============ */}
-      <section className="deep grain">
-        <Bubbles count={8} />
-        <Container className="relative z-10 py-16">
-          <div className="grid gap-10 sm:grid-cols-3">
-            {PROOF_STATS.map((s) => (
-              <div key={s.value}>
-                <div className="num text-4xl font-semibold !text-foam sm:text-5xl" data-countup>
-                  {s.value}
-                </div>
-                <div className="mt-3 text-sm leading-relaxed text-foam/65">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* ============ УРОВНИ «ОКЕАН» — палуба ============ */}
       <section className="deck py-20">
         <Container>
@@ -312,8 +288,7 @@ export default function Home() {
               <Link
                 key={r.key}
                 href={`/levels/${r.key}`}
-                className="card-premium reveal group p-5 text-center"
-                style={{ transitionDelay: `${i * 70}ms` }}
+                className="card-premium group p-5 text-center"
               >
                 <img src={r.img} alt={r.name} width={80} height={80} loading="lazy" className="mx-auto h-20 w-20 object-contain" />
                 <h3 className="mt-4 text-base text-heading">{r.name}</h3>
@@ -335,7 +310,7 @@ export default function Home() {
                 <Link
                   key={c.title}
                   href={c.href}
-                  className="card-premium reveal group flex items-center gap-5 p-4 pr-6"
+                  className="card-premium group flex items-center gap-5 p-4 pr-6"
                 >
                   <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl">
                     <img

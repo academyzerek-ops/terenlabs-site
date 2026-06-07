@@ -37,7 +37,7 @@ export default function LevelsPage() {
             }}
           />
 
-          <div className="space-y-12 sm:space-y-16">
+          <div className="space-y-12 sm:space-y-14">
             {LEVELS.map((l, i) => {
               const deepIdx = i >= 4; // глубина и бездна — тёмные карты
               const midIdx = i >= 2 && i < 4; // толща/течение — стеклянные
@@ -47,16 +47,16 @@ export default function LevelsPage() {
                   {/* орб ранга на линии */}
                   <div className="absolute left-9 top-0 z-10 -translate-x-1/2 sm:left-1/2">
                     <div
-                      className={`flex h-[72px] w-[72px] items-center justify-center rounded-full border-2 ${
+                      className={`flex h-20 w-20 items-center justify-center rounded-full border-2 sm:h-32 sm:w-32 ${
                         deepIdx ? "border-teal/50 bg-navy-900" : "border-white/70 bg-white/80 backdrop-blur"
-                      } shadow-[0_8px_30px_rgba(6,24,42,0.35)]`}
+                      } shadow-[0_0_50px_rgba(0,183,194,0.35),0_10px_36px_rgba(6,24,42,0.4)]`}
                     >
                       <img
                         src={RANK_IMG[l.key]}
                         alt={l.name}
-                        width={52}
-                        height={52}
-                        className="object-contain"
+                        width={104}
+                        height={104}
+                        className="h-14 w-14 object-contain sm:h-[104px] sm:w-[104px]"
                       />
                     </div>
                   </div>
@@ -64,11 +64,11 @@ export default function LevelsPage() {
                   {/* метка зоны глубины — напротив карточки */}
                   <div
                     className={`hidden items-center sm:flex ${
-                      right ? "justify-start pl-14" : "order-2 justify-end pr-14"
+                      right ? "justify-start pl-20" : "order-2 justify-end pr-20"
                     }`}
                   >
                     <span
-                      className={`text-xs font-semibold uppercase tracking-[0.22em] ${
+                      className={`text-sm font-bold uppercase tracking-[0.3em] ${
                         i < 2 ? "text-navy/45" : i < 4 ? "text-white/55" : "text-foam/40"
                       }`}
                     >
@@ -77,10 +77,10 @@ export default function LevelsPage() {
                   </div>
 
                   {/* карточка уровня */}
-                  <div className={`pl-20 sm:pl-0 ${right ? "order-2 sm:pl-14" : "sm:pr-14"}`}>
+                  <div className={`pl-24 sm:pl-0 ${right ? "order-2 sm:pl-20" : "sm:pr-20"}`}>
                     <Link
                       href={`/levels/${l.key}`}
-                      className={`group block rounded-[var(--radius-tl)] border p-6 transition-all hover:-translate-y-1 ${
+                      className={`group block rounded-[var(--radius-tl)] border p-7 transition-all hover:-translate-y-1 sm:p-9 ${
                         deepIdx
                           ? "border-white/10 bg-navy-900/80 shadow-[0_16px_40px_rgba(0,0,0,0.45)] backdrop-blur hover:border-teal/50"
                           : midIdx
@@ -89,7 +89,7 @@ export default function LevelsPage() {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <h3 className={`text-2xl ${deepIdx || midIdx ? "!text-foam" : "!text-navy"}`}>
+                        <h3 className={`text-3xl sm:text-4xl ${deepIdx || midIdx ? "!text-foam" : "!text-navy"}`}>
                           {l.name}
                         </h3>
                         {l.locked ? (
@@ -111,11 +111,14 @@ export default function LevelsPage() {
                         {l.archetype ? ` · ${l.archetype}` : ""}
                       </p>
                       <p
-                        className={`mt-3 text-sm leading-relaxed ${
+                        className={`mt-3 text-base leading-relaxed sm:text-lg ${
                           deepIdx || midIdx ? "text-foam/70" : "text-navy/70"
                         }`}
                       >
                         {l.tagline}
+                      </p>
+                      <p className="mt-5 text-sm font-semibold text-teal transition-transform group-hover:translate-x-1">
+                        {l.locked ? "Что внутри →" : "Войти на уровень →"}
                       </p>
                       {!l.locked && (
                         <p className={`num mt-4 text-xs ${deepIdx || midIdx ? "text-foam/50" : "text-navy/55"}`}>
