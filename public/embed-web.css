@@ -124,6 +124,14 @@
   .tldr-v { font-size: 15px; }
   .sh-t { font-size: 24px; }
 
+  /* hover-подсветка строк таблиц (обзоры) — таблица как дизайн-объект */
+  tbody tr {
+    transition: background-color 0.2s ease-out;
+  }
+  tbody tr:hover {
+    background-color: rgba(0, 183, 194, 0.06);
+  }
+
   /* навигация прев/некст внутри главы — у плеера сайта своя */
   .nav {
     display: none;

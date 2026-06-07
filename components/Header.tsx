@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Logo } from "./Logo";
 import { Container } from "./Container";
@@ -19,6 +19,19 @@ const NAV = [
 
 export function Header() {
   const [open, setOpen] = useState(false); // мобильное меню
+  const [hidden, setHidden] = useState(false); // прячем при скролле вниз (награды-2025)
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      // вниз и не у верха — спрятать; вверх — показать
+      setHidden(y > lastY && y > 140);
+      lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const pathname = usePathname();
   const sp = useSearchParams();
   const isActive = (href: string) => {
@@ -33,7 +46,11 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/80 bg-subtle/85 backdrop-blur-md">
+    <header
+      className={`sticky top-0 z-50 border-b border-line/80 bg-subtle/85 backdrop-blur-md transition-transform duration-300 motion-reduce:transition-none motion-reduce:translate-y-0 ${
+        hidden && !open ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <Container className="flex h-16 items-center justify-between gap-4">
         <div className="flex items-center gap-8">
           <Link href="/" aria-label="На главную">

@@ -18,7 +18,7 @@ const COMPANY = [
 
 export function Footer() {
   return (
-    <footer className="bg-navy-900 text-foam/70">
+    <footer className="grain-fine relative overflow-hidden bg-navy-900 text-foam/70">
       <Container className="grid gap-10 py-16 md:grid-cols-4">
         <div className="md:col-span-1">
           <Logo light />
@@ -37,6 +37,21 @@ export function Footer() {
           <span>© {new Date().getFullYear()} TerenLabs. Казахстан.</span>
           <span className="num">Интерфейс: RU · KK</span>
         </Container>
+      </div>
+
+      {/* «дно»: имя уходит под воду — обрезается нижним краем футера */}
+      <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
+        <p
+          className="text-center font-bold leading-none text-foam/[0.05]"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(90px, 17vw, 280px)",
+            marginBottom: "-0.34em",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          TerenLabs
+        </p>
       </div>
     </footer>
   );
