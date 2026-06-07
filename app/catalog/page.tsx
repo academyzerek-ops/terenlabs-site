@@ -15,6 +15,7 @@ const SECTION: Record<
     eyebrow: "Каталог",
     title: "Всё, что двигает бизнес",
     desc: "Курсы, тесты, кейсы, обзоры и финмодели — фильтруй по своей задаче.",
+    img: "/lessons/arch_m1-ch00_chessboard-ocean.jpg",
   },
   course: {
     eyebrow: "Академия",
@@ -60,23 +61,31 @@ export default async function CatalogPage({
 
   return (
     <>
-      {/* Герой-шапка раздела — глубинный навы-блок */}
-      <section className="deep grain">
-        <Container className="relative z-10 flex items-center gap-6 py-14 sm:py-16">
-          {s.img && (
-            <img
-              src={s.img}
-              alt=""
-              width={224}
-              height={128}
-              className="hidden h-28 w-44 shrink-0 rounded-2xl border border-white/10 object-cover shadow-[var(--shadow-tl)] sm:block"
-            />
-          )}
-          <div>
-            <p className="eyebrow">{s.eyebrow}</p>
-            <h1 className="mt-2 text-3xl !text-foam sm:text-4xl lg:text-5xl">{s.title}</h1>
-            <p className="mt-3 max-w-xl text-base leading-relaxed text-foam/70">{s.desc}</p>
-          </div>
+      {/* Герой раздела: кино-кадр во весь блок, заголовок контрастно поверх */}
+      <section className="relative overflow-hidden bg-navy-900">
+        {s.img && (
+          <img
+            src={s.img}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+        {/* кинематографичный скрим: плотный слева под текстом, тает вправо */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(6,24,42,0.94) 0%, rgba(6,24,42,0.8) 45%, rgba(6,24,42,0.35) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(180deg, transparent 55%, rgba(6,24,42,0.85) 100%)" }}
+        />
+        <Container className="relative z-10 py-20 sm:py-24">
+          <p className="eyebrow">{s.eyebrow}</p>
+          <h1 className="mt-3 max-w-3xl text-4xl !text-foam sm:text-5xl lg:text-6xl">{s.title}</h1>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-foam/80 sm:text-xl">{s.desc}</p>
         </Container>
       </section>
 

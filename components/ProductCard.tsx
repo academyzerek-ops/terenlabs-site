@@ -36,19 +36,28 @@ export function ProductCard({ p }: { p: CatalogItem }) {
     );
   }
 
-  const edge =
+  // исход кейса — деликатный тонированный ФОН карточки (не рамка, не раскраска):
+  // карточки перестают сливаться на светлом, но остаются спокойными
+  const tint =
     p.type === "case"
       ? p.badge === "Провал"
-        ? "#c25b42"
+        ? "rgba(194, 91, 66, 0.07)"
         : p.badge === "Успех"
-        ? "#1f8a6d"
-        : "var(--color-teal)"
+        ? "rgba(31, 138, 109, 0.07)"
+        : "rgba(0, 183, 194, 0.06)"
       : null;
   return (
     <Link
       href={p.href}
       className="card-premium group relative flex flex-col overflow-hidden p-0"
-      style={edge ? { borderTop: `3px solid ${edge}` } : undefined}
+      style={
+        tint
+          ? {
+              backgroundColor: "var(--color-card)",
+              backgroundImage: `linear-gradient(0deg, ${tint}, ${tint})`,
+            }
+          : undefined
+      }
     >
       {/* визуальный хедер: арт курса / эмодзи-тайл кейса */}
       {p.img ? (
