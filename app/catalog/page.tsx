@@ -1,7 +1,8 @@
 import { Container } from "@/components/Container";
 import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
-import { CATALOG, plural } from "@/lib/content";
+import { CaseGrid } from "@/components/CaseGrid";
+import { CATALOG } from "@/lib/content";
 import type { ProductType } from "@/lib/content";
 
 export const metadata = { title: "Каталог — TerenLabs" };
@@ -91,23 +92,24 @@ export default async function CatalogPage({
 
       <div className="deck py-14">
         <Container>
-          {/* разделы переключает верхняя навигация — дубль-табы убраны */}
-          <div className="mb-8 flex items-center justify-between">
-            <span className="num text-sm text-muted">
-              {items.length} {plural(items.length, "материал", "материала", "материалов")}
-            </span>
-            {t !== "all" && (
-              <Link href="/catalog" className="text-sm font-semibold text-teal-600 hover:text-teal">
-                Показать весь каталог →
-              </Link>
-            )}
-          </div>
-          {items.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((p) => (
-                <ProductCard key={`${p.type}-${p.slug}`} p={p} />
-              ))}
-            </div>
+          {t === "case" ? (
+            /* кейсы: цветные фильтры по исходу (красный/зелёный/жёлтый) */
+            <CaseGrid items={items} />
+          ) : items.length > 0 ? (
+            <>
+              {t !== "all" && (
+                <div className="mb-8 flex justify-end">
+                  <Link href="/catalog" className="text-sm font-semibold text-teal-600 hover:text-teal">
+                    Показать весь каталог →
+                  </Link>
+                </div>
+              )}
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {items.map((p) => (
+                  <ProductCard key={`${p.type}-${p.slug}`} p={p} />
+                ))}
+              </div>
+            </>
           ) : (
             <div className="rounded-[var(--radius-tl)] border border-dashed border-line bg-card p-12 text-center">
               <p className="text-heading">В этом разделе пока пусто</p>

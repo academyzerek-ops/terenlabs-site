@@ -41,10 +41,10 @@ export function ProductCard({ p }: { p: CatalogItem }) {
   const tint =
     p.type === "case"
       ? p.badge === "Провал"
-        ? "rgba(194, 91, 66, 0.07)"
+        ? "rgba(208, 79, 51, 0.15)"
         : p.badge === "Успех"
-        ? "rgba(31, 138, 109, 0.07)"
-        : "rgba(0, 183, 194, 0.06)"
+        ? "rgba(31, 158, 116, 0.15)"
+        : "rgba(212, 168, 43, 0.14)" // нейтральное: не убыток и не успех — просто опыт
       : null;
   return (
     <Link
@@ -82,11 +82,13 @@ export function ProductCard({ p }: { p: CatalogItem }) {
           </span>
           {p.badge && (
             <span
-              className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-semibold ${
+              className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold ${
                 p.badge === "Провал"
-                  ? "bg-[rgba(180,69,47,0.12)] text-[#c25b42]"
+                  ? "bg-[rgba(208,79,51,0.22)] text-[#b13a20]"
                   : p.badge === "Успех"
-                  ? "bg-[rgba(43,168,136,0.14)] text-[#1f8a6d]"
+                  ? "bg-[rgba(31,158,116,0.22)] text-[#157a58]"
+                  : p.type === "case"
+                  ? "bg-[rgba(212,168,43,0.25)] text-[#9a7a14]"
                   : "bg-teal-200/60 text-teal-600"
               }`}
             >
