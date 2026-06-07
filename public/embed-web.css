@@ -198,6 +198,15 @@
   .vs-i:hover { transform: translateY(-2px); border-color: rgba(0, 183, 194, 0.4); }
 }
 
+/* кнопка «вверх» встроенных страниц: на сайте справа внизу живёт чат-акула —
+   поднимаем кнопку выше, чтобы не наезжали друг на друга */
+@media (min-width: 768px) {
+  .totop {
+    right: 22px;
+    bottom: calc(104px + env(safe-area-inset-bottom));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bar, .bar-f, .bar-v, .bar-l, .season-b, .ex, .risk, .flag, .tldr-row, .tldr-k, .tk, .vs-i {
     transition: none !important;

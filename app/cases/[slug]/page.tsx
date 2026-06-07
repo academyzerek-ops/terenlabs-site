@@ -6,6 +6,7 @@ import { ProductMissing } from "@/components/ProductMissing";
 import { CaseTrainer } from "@/components/CaseTrainer";
 import { getItem } from "@/lib/content";
 import { getCaseDoc, CASE_DOCS } from "@/lib/cases-data";
+import { ContentSidebar } from "@/components/ContentSidebar";
 import "./case-content.css";
 
 
@@ -43,11 +44,28 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     );
   }
 
-  // Реальный кейс канала — нативный рендер распарсенного HTML
+  // Реальный кейс канала: панель остальных кейсов слева (как в плеере), контент правее
   const doc = getCaseDoc(slug);
   if (doc) {
+    const dotOf = (kind: string) =>
+      kind === "Провал" ? "#d04f33" : kind === "Успех" ? "#1f9e74" : "#d4a82b";
     return (
-      <>
+      <div className="lg:grid lg:grid-cols-[320px_1fr]">
+        <div className="lg:sticky lg:top-16 lg:h-[calc(100dvh-65px)]">
+          <ContentSidebar
+            title="Кейсы"
+            backHref="/catalog?type=case"
+            backLabel="к каталогу"
+            activeSlug={slug}
+            items={CASE_DOCS.map((c) => ({
+              slug: c.slug,
+              title: c.title,
+              href: `/cases/${c.slug}`,
+              dot: dotOf(c.kind),
+            }))}
+          />
+        </div>
+        <div className="min-w-0">
         <section className="hero-ocean">
           <Container className="relative z-10 py-14">
             {/* ОДНА ось с телом статьи (800px по центру) — шапка не живёт отдельной жизнью */}
@@ -117,7 +135,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             </div>
           </Container>
         </section>
-      </>
+        </div>
+      </div>
     );
   }
 
