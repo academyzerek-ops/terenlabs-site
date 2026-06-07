@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Course, Step } from "@/lib/learn";
+import { saveProgress } from "@/lib/memory";
 
 export function CoursePlayer({ course, initialStepId }: { course: Course; initialStepId?: string }) {
   // Плоский список шагов для навигации + индекс
@@ -22,6 +23,20 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
   const [navOpen, setNavOpen] = useState(false); // дерево курса на мобиле
 
   const cur = flat[current];
+
+  // память: «продолжить с этого места» (локально; этап B — синк в аккаунт)
+  useEffect(() => {
+    if (!cur) return;
+    saveProgress({
+      slug: course.slug,
+      title: course.title,
+      stepId: cur.step.id,
+      stepTitle: cur.step.title,
+      idx: current,
+      total: flat.length,
+      at: new Date().toISOString(),
+    });
+  }, [cur, current, course.slug, course.title, flat.length]);
   const progress = Math.round((done.size / flat.length) * 100);
 
   const markDone = (id: string) => setDone((p) => new Set(p).add(id));

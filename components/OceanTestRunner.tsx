@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Container } from "./Container";
 import { Button } from "./Button";
 import { OceanTestMeta, OceanQuestion, prepareAttempt } from "@/lib/ocean-tests";
+import { saveAttempt } from "@/lib/memory";
 
 // Прохождение океанского теста (Краб/Барракуда) по канону Mini App:
 // 10 вопросов по архетипам, разбор каждой опции после ответа, порог сдачи.
@@ -52,6 +53,15 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
 
   const next = () => {
     if (idx + 1 >= questions.length) {
+      // память: попытка сохраняется локально (аноним тоже); этап B — синк в аккаунт
+      saveAttempt({
+        slug: meta.slug,
+        title: meta.title,
+        score,
+        total: questions.length,
+        passed: score >= meta.floor,
+        at: new Date().toISOString(),
+      });
       setFinished(true);
     } else {
       setIdx(idx + 1);

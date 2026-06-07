@@ -1,27 +1,17 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { ProductCard } from "@/components/ProductCard";
-import { CATALOG, OCEAN_RANKS } from "@/lib/content";
+import { MyMemory } from "@/components/MyMemory";
+import { CATALOG } from "@/lib/content";
+import { auth, signOut } from "@/auth";
 
 export const metadata = { title: "Личный кабинет — TerenLabs" };
 
-// Демо-кабинет: прогресс условный, но курсы и тест — реальные продукты каталога
-const IN_PROGRESS = [
-  { slug: "course-fundament", title: "Фундамент", progress: 40 },
-  { slug: "course-finance", title: "Финансы малого бизнеса", progress: 12 },
-];
-
-const CERTIFICATES = [
-  { title: "Альтернативная стоимость времени", rank: "Барракуда", date: "май 2026" },
-];
-
-const SAVED_FINMODELS = [
-  { slug: "finmodel-cafe", title: "Финмодель кофейни", note: "−1.4 млн ₸/год при загрузке 45%" },
-];
-
-export default function Dashboard() {
-  const rank = OCEAN_RANKS[2]; // Барракуда — заглушка текущего ранга
-  const recommendations = CATALOG.filter((p) => !p.stub).slice(0, 3);
+// Кабинет работает и анониму (локальная память устройства).
+// Вход (Google/Apple) добавляет профиль; этап B — синк памяти и рейтинг «Океана».
+export default async function Dashboard() {
+  const session = await auth();
+  const recommendations = CATALOG.filter((p) => !p.stub && p.type !== "case").slice(0, 3);
 
   return (
     <div className="py-14">
@@ -30,113 +20,89 @@ export default function Dashboard() {
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div>
             <p className="eyebrow">Личный кабинет</p>
-            <h1 className="mt-2 text-4xl text-heading">Привет, основатель</h1>
-            <p className="mt-2 text-muted">Что делаем сегодня — учимся, проверяем или применяем?</p>
+            <h1 className="mt-2 text-4xl text-heading">
+              {session?.user?.name ? `Привет, ${session.user.name.split(" ")[0]}` : "Привет, основатель"}
+            </h1>
+            <p className="mt-2 text-muted">
+              {session
+                ? "Память подключена к аккаунту. Что делаем сегодня?"
+                : "Память хранится на этом устройстве. Войди — и она поедет с тобой."}
+            </p>
           </div>
-          <div className="flex items-center gap-4 rounded-[var(--radius-tl)] border border-line bg-card p-4">
-            <img src={rank.img} alt={rank.name} className="h-20 w-20 object-contain" />
-            <div>
-              <div className="text-xs text-muted">Твой ранг</div>
-              <div className="text-lg text-heading">{rank.name}</div>
-              <div className="text-xs text-muted">{rank.meaning}</div>
-            </div>
-          </div>
-        </div>
 
-        {/* Метрики */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          <Metric value="2" label="продукта в процессе" />
-          <Metric value="84%" label="средний балл тестов" />
-          <Metric value="1" label="сертификат" />
-        </div>
-
-        {/* Продолжить обучение */}
-        <Section title="Продолжить обучение">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {IN_PROGRESS.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/learn/${c.slug}`}
-                className="group rounded-[var(--radius-tl)] border border-line bg-card p-6 transition-all hover:-translate-y-1 hover:border-teal/40 hover:shadow-[var(--shadow-tl)]"
-              >
-                <h3 className="text-lg text-heading">{c.title}</h3>
-                <div className="mt-4 flex items-center justify-between text-xs text-muted">
-                  <span>Прогресс</span>
-                  <span className="num">{c.progress}%</span>
+          {session?.user ? (
+            <div className="flex items-center gap-4 rounded-[var(--radius-tl)] border border-line bg-card p-4">
+              {session.user.image ? (
+                <img
+                  src={session.user.image}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="h-14 w-14 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-b from-teal to-teal-600 text-lg font-bold text-white">
+                  {(session.user.name ?? "?").slice(0, 1)}
                 </div>
-                <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-line">
-                  <div className="h-full rounded-full bg-teal" style={{ width: `${c.progress}%` }} />
-                </div>
-                <span className="mt-4 inline-block text-sm font-medium text-teal-600 group-hover:translate-x-1">
-                  Продолжить →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </Section>
-
-        {/* Сертификаты + Финмодели */}
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div>
-            <h2 className="text-2xl text-heading">Сертификаты</h2>
-            <div className="wave-divider my-5" />
-            {CERTIFICATES.map((c) => (
-              <div key={c.title} className="flex items-center justify-between rounded-[var(--radius-tl)] border border-line bg-card p-5">
-                <div>
-                  <div className="text-heading">{c.title}</div>
-                  <div className="text-xs text-muted">Ранг {c.rank} · {c.date}</div>
-                </div>
-                <button className="rounded-[var(--radius-tl)] border border-line px-3 py-1.5 text-sm text-heading hover:border-teal hover:text-teal">
-                  Поделиться
-                </button>
+              )}
+              <div>
+                <div className="text-heading">{session.user.name}</div>
+                <div className="text-xs text-muted">{session.user.email}</div>
+                <form
+                  action={async () => {
+                    "use server";
+                    await signOut({ redirectTo: "/" });
+                  }}
+                >
+                  <button className="mt-1 text-xs text-teal-600 hover:text-teal">Выйти</button>
+                </form>
               </div>
-            ))}
-          </div>
-
-          <div>
-            <h2 className="text-2xl text-heading">Мои финмодели</h2>
-            <div className="wave-divider my-5" />
-            {SAVED_FINMODELS.map((f) => (
-              <Link
-                key={f.slug}
-                href={`/finmodels/${f.slug}`}
-                className="block rounded-[var(--radius-tl)] border border-line bg-card p-5 transition-colors hover:border-teal/40"
-              >
-                <div className="text-heading">{f.title}</div>
-                <div className="num mt-1 text-xs text-danger">{f.note}</div>
-              </Link>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <Link
+              href="/auth/sign-in"
+              className="group rounded-[var(--radius-tl)] border border-teal/40 bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow)]"
+            >
+              <div className="text-heading">Войти — Google или Apple</div>
+              <div className="mt-1 max-w-[240px] text-xs text-muted">
+                Статистика, память между устройствами и место в рейтинге «Океана»
+              </div>
+              <span className="mt-2 inline-block text-sm font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
+                Вход →
+              </span>
+            </Link>
+          )}
         </div>
+
+        {/* Память: метрики, продолжить обучение, попытки — реальные данные устройства */}
+        <MyMemory />
+
+        {/* Рейтинг */}
+        <section className="mt-14">
+          <h2 className="text-2xl text-heading">Океан</h2>
+          <div className="wave-divider my-5" />
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius-tl)] border border-line bg-card p-6">
+            <p className="max-w-xl text-sm text-muted">
+              Живая таблица мест и механика рейтинга — точность × скорость.
+              Зачёт попыток в рейтинг идёт через Mini App.
+            </p>
+            <Link href="/ocean" className="text-sm font-semibold text-teal-600 hover:text-teal">
+              Открыть рейтинг →
+            </Link>
+          </div>
+        </section>
 
         {/* Рекомендации */}
-        <Section title="Рекомендуем дальше">
+        <section className="mt-14">
+          <h2 className="text-2xl text-heading">Рекомендуем дальше</h2>
+          <div className="wave-divider my-5" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {recommendations.map((p) => (
               <ProductCard key={`${p.type}-${p.slug}`} p={p} />
             ))}
           </div>
-        </Section>
+        </section>
       </Container>
     </div>
-  );
-}
-
-function Metric({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
-      <div className="num text-3xl font-medium text-heading">{value}</div>
-      <div className="mt-1 text-xs text-muted">{label}</div>
-    </div>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="mt-14">
-      <h2 className="text-2xl text-heading">{title}</h2>
-      <div className="wave-divider my-5" />
-      {children}
-    </section>
   );
 }
