@@ -70,9 +70,9 @@ export default function Home() {
           muted
           loop
           playsInline
-          poster="/brand/ocean-poster.jpg?v=3"
+          poster="/brand/ocean-evolution-poster.jpg"
         >
-          <source src="/brand/ocean.mp4?v=3" type="video/mp4" />
+          <source src="/brand/ocean-evolution.mp4" type="video/mp4" />
         </video>
         {/* кинематографичное затемнение: по краям и в глубину снизу (на мобиле плотнее) */}
         <div className="hero-shade absolute inset-0 z-0" />
