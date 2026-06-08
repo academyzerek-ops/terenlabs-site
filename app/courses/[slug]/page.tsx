@@ -64,7 +64,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         <li key={c.file}>
                           <Link
                             href={`/learn/${track.slug}?ch=${c.file}`}
-                            className="group/ch flex items-center gap-3 rounded-xl border border-line bg-card px-3.5 py-2.5 transition-all hover:-translate-y-0.5 hover:border-teal/50 hover:shadow-[var(--shadow-tl-sm)]"
+                            className="group/ch flex items-center gap-3 rounded-xl border border-line border-l-[3px] border-l-teal bg-card px-3.5 py-2.5 transition-all hover:-translate-y-0.5 hover:border-teal/50 hover:border-l-teal hover:shadow-[var(--shadow-tl-sm)]"
                           >
                             <span className="num flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-[13px] font-semibold text-teal-600">
                               {ci + 1}
