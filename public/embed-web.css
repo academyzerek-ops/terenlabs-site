@@ -213,3 +213,13 @@
     transform: none !important;
   }
 }
+
+/* Водяной фон уроков/обзоров (батиметрические контуры) — только светлая тема,
+   только десктоп (где есть поля по краям колонки). Тёмная — своя атмосфера. */
+@media (min-width: 768px) {
+  html:not(.dark) body {
+    background-image: url("/wave-light.svg");
+    background-attachment: fixed;
+    background-repeat: repeat;
+  }
+}
