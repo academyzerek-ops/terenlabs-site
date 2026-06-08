@@ -326,6 +326,7 @@ a {
    Одинакова в ОБЕИХ темах: локально переопределяет семантические токены,
    поэтому всё содержимое (heading/body/card/muted/line) работает без правок. */
 .deck {
+  position: relative;
   --color-heading: #0d2b45;
   --color-body: #0a0a0a;
   --color-subtle: #eef3f7;
@@ -591,6 +592,31 @@ a:active {
   .cursor-glow {
     display: none;
   }
+}
+
+
+/* ============================================================
+   Водяной фон: батиметрические контуры (изолинии глубин океана).
+   Едва заметно на светлых поверхностях — текст не страдает.
+   ============================================================ */
+.light body,
+body.is-light {
+  background-image: url("/wave-light.svg");
+  background-attachment: fixed;
+}
+
+/* На палубах (.deck) тот же узор плотнее — секция-передышка «дышит» водой */
+.deck::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("/wave-deck.svg");
+}
+.deck > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Тонкое зерно поверх тёмных блоков — премиум-текстура, убирает «плоскость» */
