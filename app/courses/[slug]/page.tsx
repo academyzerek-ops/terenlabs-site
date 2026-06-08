@@ -46,23 +46,31 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               return (
                 <div key={m.id} className="card-premium overflow-hidden md:flex">
                   {cover && (
-                    <div className="h-36 shrink-0 overflow-hidden md:h-auto md:w-56">
+                    <div className="h-40 shrink-0 overflow-hidden md:h-auto md:w-64">
                       <img src={cover} alt="" width={448} height={288} loading="lazy" className="h-full w-full object-cover" />
                     </div>
                   )}
-                  <div className="flex-1 p-6">
+                  <div className="flex-1 p-6 sm:p-7">
                     <p className="eyebrow">Урок {mi + 1}</p>
-                    <h3 className="mt-1 text-xl text-heading">{m.title}</h3>
-                    <ol className="mt-4 grid gap-x-8 gap-y-1 sm:grid-cols-2">
+                    {/* дубль «Урок N» из названия модуля убираем — он уже в eyebrow */}
+                    <h3 className="mt-1 text-xl text-heading sm:text-2xl">
+                      {m.title.replace(/^Урок\s*\d+\s*[·.\-—:]\s*/i, "")}
+                    </h3>
+                    <p className="num mt-1 text-xs text-muted">
+                      {m.chapters.length} {plural(m.chapters.length, "глава", "главы", "глав")}
+                    </p>
+                    <ol className="mt-4 grid gap-2 sm:grid-cols-2">
                       {m.chapters.map((c, ci) => (
                         <li key={c.file}>
                           <Link
                             href={`/learn/${track.slug}?ch=${c.file}`}
-                            className="group/ch flex items-baseline gap-2.5 rounded-lg px-2 py-1 text-sm text-body/80 transition-colors hover:bg-subtle hover:text-teal-600"
+                            className="group/ch flex items-center gap-3 rounded-xl border border-line bg-card px-3.5 py-2.5 transition-all hover:-translate-y-0.5 hover:border-teal/50 hover:shadow-[var(--shadow-tl-sm)]"
                           >
-                            <span className="num shrink-0 text-xs text-teal-600">{ci + 1}</span>
-                            <span className="flex-1">{c.title}</span>
-                            <span className="opacity-0 transition-opacity group-hover/ch:opacity-100">→</span>
+                            <span className="num flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-[13px] font-semibold text-teal-600">
+                              {ci + 1}
+                            </span>
+                            <span className="flex-1 text-[15px] leading-snug text-heading">{c.title}</span>
+                            <span className="shrink-0 text-teal-600 transition-transform group-hover/ch:translate-x-0.5">→</span>
                           </Link>
                         </li>
                       ))}
