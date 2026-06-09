@@ -47,11 +47,11 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-line/80 bg-subtle/85 backdrop-blur-md transition-transform duration-300 motion-reduce:transition-none motion-reduce:translate-y-0 ${
-        hidden && !open ? "-translate-y-full" : "translate-y-0"
+      className={`sticky top-0 z-50 px-3 pt-3 transition-transform duration-300 motion-reduce:transition-none motion-reduce:translate-y-0 ${
+        hidden && !open ? "-translate-y-[120%]" : "translate-y-0"
       }`}
     >
-      <Container className="flex h-16 items-center justify-between gap-4">
+      <div className="glass-bar relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-6">
         <div className="flex items-center gap-8">
           <Link href="/" aria-label="На главную">
             <Logo auto />
@@ -101,12 +101,12 @@ export function Header() {
             </div>
           </button>
         </div>
-      </Container>
+      </div>
 
-      {/* Мобильное меню */}
+      {/* Мобильное меню — стеклянная панель под шапкой */}
       {open && (
-        <div className="border-t border-line bg-card lg:hidden">
-          <Container className="flex flex-col py-3">
+        <div className="glass-bar mx-3 mt-2 lg:hidden">
+          <div className="flex flex-col px-5 py-3">
             {NAV.map((n) => (
               <Link key={n.href} href={n.href} className="py-2.5 text-heading" onClick={() => setOpen(false)}>
                 {n.label}
@@ -116,7 +116,7 @@ export function Header() {
             <Link href="/dashboard" className="py-2.5 text-heading" onClick={() => setOpen(false)}>
               Кабинет
             </Link>
-          </Container>
+          </div>
         </div>
       )}
     </header>
