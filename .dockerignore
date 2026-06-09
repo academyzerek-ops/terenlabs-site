@@ -1,0 +1,13 @@
+# Секреты — никогда в образ (прод получает env от хостинга)
+.env
+.env.*
+!.env.example
+
+node_modules
+.next
+.git
+.gitignore
+*.md
+docs/
+.DS_Store
+tsconfig.tsbuildinfo
