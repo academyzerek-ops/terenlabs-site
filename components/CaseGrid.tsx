@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { ProductCard } from "./ProductCard";
-import { CatalogItem } from "@/lib/content";
+import { CatalogItem, plural } from "@/lib/content";
+
+// Порция выдачи: 90 кейсов одной лентой не показываем
+const CHUNK = 24;
 
 // Кейсы: цветовая система исходов + фильтры с подписями.
 // 🔴 Провал — неудачные действия · 🟢 Успех — удачные решения ·
@@ -23,8 +26,15 @@ const FILTERS: { key: Outcome; label: string; dot?: string; activeBg?: string }[
 ];
 
 export function CaseGrid({ items }: { items: CatalogItem[] }) {
-  const [outcome, setOutcome] = useState<Outcome>("all");
-  const visible = items.filter((p) => outcome === "all" || outcomeOf(p) === outcome);
+  const [outcome, setOutcomeRaw] = useState<Outcome>("all");
+  const [limit, setLimit] = useState(CHUNK);
+  const setOutcome = (o: Outcome) => {
+    setOutcomeRaw(o);
+    setLimit(CHUNK); // смена фильтра сбрасывает выдачу к первой порции
+  };
+  const filtered = items.filter((p) => outcome === "all" || outcomeOf(p) === outcome);
+  const visible = filtered.slice(0, limit);
+  const rest = filtered.length - visible.length;
 
   return (
     <div>
@@ -62,6 +72,17 @@ export function CaseGrid({ items }: { items: CatalogItem[] }) {
           <ProductCard key={`${p.type}-${p.slug}`} p={p} />
         ))}
       </div>
+      {rest > 0 && (
+        <div className="mt-10 text-center">
+          <button
+            type="button"
+            onClick={() => setLimit((v) => v + CHUNK)}
+            className="btn-press rounded-full border border-line px-7 py-3 text-sm font-semibold text-heading transition-colors hover:border-teal hover:text-teal"
+          >
+            Показать ещё ({rest} {plural(rest, "кейс", "кейса", "кейсов")})
+          </button>
+        </div>
+      )}
     </div>
   );
 }

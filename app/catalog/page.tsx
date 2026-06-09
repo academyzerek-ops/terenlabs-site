@@ -1,6 +1,7 @@
 import { Container } from "@/components/Container";
 import Link from "next/link";
-import { ProductCard } from "@/components/ProductCard";
+import Image from "next/image";
+import { ShowMoreGrid } from "@/components/ShowMoreGrid";
 import { CaseGrid } from "@/components/CaseGrid";
 import { CATALOG } from "@/lib/content";
 import type { ProductType } from "@/lib/content";
@@ -70,11 +71,7 @@ export default async function CatalogPage({
       {/* Герой раздела: кино-кадр во весь блок, заголовок контрастно поверх */}
       <section className="relative overflow-hidden bg-navy-900">
         {s.img && (
-          <img
-            src={s.img}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-          />
+          <Image src={s.img} alt="" fill priority sizes="100vw" className="object-cover" />
         )}
         {/* кинематографичный скрим: плотный слева под текстом, тает вправо */}
         <div
@@ -107,11 +104,7 @@ export default async function CatalogPage({
             /* кейсы: цветные фильтры по исходу (красный/зелёный/жёлтый) */
             <CaseGrid items={items} />
           ) : items.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((p) => (
-                <ProductCard key={`${p.type}-${p.slug}`} p={p} />
-              ))}
-            </div>
+            <ShowMoreGrid items={items} />
           ) : (
             <div className="rounded-[var(--radius-tl)] border border-dashed border-line bg-card p-12 text-center">
               <p className="text-heading">В этом разделе пока пусто</p>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -177,13 +178,12 @@ export default function Home() {
               >
                 {/* тематический кадр растворяется в толще справа */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-3/5">
-                  <img
+                  <Image
                     src={s.img}
                     alt=""
-                    width={640}
-                    height={360}
-                    loading="lazy"
-                    className="h-full w-full object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
+                    fill
+                    sizes="(max-width: 768px) 60vw, 30vw"
+                    className="object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
                     style={{
                       maskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
                       WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
@@ -246,7 +246,7 @@ export default function Home() {
             </Link>
             <Link href="/catalog?type=case" className="card-premium group flex flex-col overflow-hidden p-0">
               <div className="relative aspect-[16/8] overflow-hidden">
-                <img src="/lessons/arch_m7-ch01_breached-hull.jpg" alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src="/lessons/arch_m7-ch01_breached-hull.jpg" alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 to-transparent" />
               </div>
               <div className="flex flex-1 flex-col p-7 pt-5">
@@ -260,7 +260,7 @@ export default function Home() {
             </Link>
             <Link href="/finmodels/finmodel-cafe" className="card-premium group flex flex-col overflow-hidden p-0">
               <div className="relative aspect-[16/8] overflow-hidden">
-                <img src="/lessons/fund_m2-ch08_algorithm-tunnel.jpg" alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src="/lessons/fund_m2-ch08_algorithm-tunnel.jpg" alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 to-transparent" />
               </div>
               <div className="flex flex-1 flex-col p-7 pt-5">
@@ -307,13 +307,12 @@ export default function Home() {
                 >
                   {/* иллюминатор в глубину: кино-кадр Академии */}
                   <div className="relative h-52 overflow-hidden">
-                    <img
+                    <Image
                       src={step.img}
                       alt=""
-                      width={896}
-                      height={500}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent" />
                     {/* номер-ступень в стеклянном пузыре поверх кадра */}

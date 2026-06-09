@@ -10,6 +10,7 @@ export type SidebarItem = {
   title: string;
   href: string;
   dot?: string; // цвет исхода (кейсы)
+  group?: string; // заголовок-разделитель: подряд идущие item'ы одной группы
 };
 
 export function ContentSidebar({
@@ -57,11 +58,18 @@ export function ContentSidebar({
           <p className="px-2 py-4 text-sm text-muted">Ничего не нашлось.</p>
         )}
         <div className="space-y-0.5">
-          {visible.map((i) => {
+          {visible.map((i, idx) => {
             const active = i.slug === activeSlug;
+            // при поиске группы не показываем — выдача плоская
+            const showGroup = !q && i.group && i.group !== visible[idx - 1]?.group;
             return (
+              <div key={i.slug}>
+                {showGroup && (
+                  <p className="px-2.5 pb-1 pt-4 text-[11px] font-semibold uppercase tracking-wider text-muted first:pt-1">
+                    {i.group}
+                  </p>
+                )}
               <Link
-                key={i.slug}
                 href={i.href}
                 onClick={() => setOpen(false)}
                 className={`flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm leading-snug transition-colors ${
@@ -77,6 +85,7 @@ export function ContentSidebar({
                 )}
                 <span className="line-clamp-2">{i.title}</span>
               </Link>
+              </div>
             );
           })}
         </div>
