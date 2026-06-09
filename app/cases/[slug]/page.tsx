@@ -1,13 +1,29 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { ProductPage } from "@/components/ProductPage";
-import { ProductMissing } from "@/components/ProductMissing";
 import { CaseTrainer } from "@/components/CaseTrainer";
-import { getItem } from "@/lib/content";
+import { getItem, CASES } from "@/lib/content";
 import { getCaseDoc, CASE_DOCS } from "@/lib/cases-data";
+import { pageMetadata } from "@/lib/seo";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import "./case-content.css";
+
+export function generateStaticParams() {
+  return CASES.map((c) => ({ slug: c.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = getItem("case", slug);
+  const doc = getCaseDoc(slug);
+  if (!p && !doc) return {};
+  return pageMetadata({
+    title: doc?.title ?? p?.title,
+    description: doc?.sub || p?.blurb,
+  });
+}
 
 
 // 3 соседних кейса по порядку (детерминированно, без random — SSR-стабильно)
@@ -19,7 +35,7 @@ function related(slug: string) {
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const p = getItem("case", slug);
-  if (!p) return <ProductMissing />;
+  if (!p) notFound();
 
   // Демо кейс-тренажёра с ветвлением (наш дифференциатор)
   if (slug === "case-marketplace") {
@@ -49,6 +65,23 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   if (doc) {
     const dotOf = (kind: string) =>
       kind === "Провал" ? "#d04f33" : kind === "Успех" ? "#1f9e74" : "#d4a82b";
+    const groupOf = (kind: string) =>
+      kind === "Провал" ? "Неудачные действия" : kind === "Успех" ? "Удачные решения" : "Просто опыт";
+    // 90 ссылок без структуры — шум; группируем по исходу, порядок внутри сохраняем
+    const groupOrder = ["Провал", "Успех"];
+    const sidebarItems = [...CASE_DOCS]
+      .sort((a, b) => {
+        const ai = groupOrder.indexOf(a.kind);
+        const bi = groupOrder.indexOf(b.kind);
+        return (ai === -1 ? groupOrder.length : ai) - (bi === -1 ? groupOrder.length : bi);
+      })
+      .map((c) => ({
+        slug: c.slug,
+        title: c.title,
+        href: `/cases/${c.slug}`,
+        dot: dotOf(c.kind),
+        group: groupOf(c.kind),
+      }));
     return (
       <div className="lg:grid lg:grid-cols-[320px_1fr]">
         <div className="lg:sticky lg:top-16 lg:h-[calc(100dvh-65px)]">
@@ -57,12 +90,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             backHref="/catalog?type=case"
             backLabel="к каталогу"
             activeSlug={slug}
-            items={CASE_DOCS.map((c) => ({
-              slug: c.slug,
-              title: c.title,
-              href: `/cases/${c.slug}`,
-              dot: dotOf(c.kind),
-            }))}
+            items={sidebarItems}
           />
         </div>
         <div className="min-w-0">

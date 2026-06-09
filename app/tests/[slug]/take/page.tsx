@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { TestRunner } from "@/components/TestRunner";
 import { ProductMissing } from "@/components/ProductMissing";
 import { OceanTestRunner } from "@/components/OceanTestRunner";
@@ -23,5 +24,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     return <TestRunner title={DEMO_TEST.title} questions={DEMO_TEST.questions} backHref="/levels/rakushka" />;
   }
 
-  return <ProductMissing />;
+  // тест существует, но банк вопросов ещё не подключён — честная заглушка;
+  // неизвестный slug — настоящий 404
+  if (t) return <ProductMissing />;
+  notFound();
 }

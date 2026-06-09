@@ -1,14 +1,26 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
-import { ProductMissing } from "@/components/ProductMissing";
-import { getLevel, levelItems, Level, RANK_IMG, plural } from "@/lib/content";
+import { getLevel, levelItems, Level, RANK_IMG, plural, LEVELS } from "@/lib/content";
 import { getTrack } from "@/lib/learn";
+import { pageMetadata } from "@/lib/seo";
+
+export function generateStaticParams() {
+  return LEVELS.map((l) => ({ rank: l.key }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ rank: string }> }) {
+  const { rank } = await params;
+  const lvl = getLevel(rank);
+  if (!lvl) return {};
+  return pageMetadata({ title: `Уровень «${lvl.name}»`, description: lvl.tagline });
+}
 
 export default async function Page({ params }: { params: Promise<{ rank: string }> }) {
   const { rank } = await params;
   const lvl = getLevel(rank);
-  if (!lvl) return <ProductMissing />;
+  if (!lvl) notFound();
 
   if (lvl.locked) {
     return (

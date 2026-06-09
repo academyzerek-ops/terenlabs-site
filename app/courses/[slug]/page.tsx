@@ -1,15 +1,25 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { ProductPage } from "@/components/ProductPage";
-import { ProductMissing } from "@/components/ProductMissing";
-import { getItem, plural } from "@/lib/content";
+import { getItem, plural, COURSES } from "@/lib/content";
 import { getTrack } from "@/lib/learn";
+import { itemMetadata } from "@/lib/seo";
+
+export function generateStaticParams() {
+  return COURSES.map((c) => ({ slug: c.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return itemMetadata(getItem("course", slug));
+}
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const p = getItem("course", slug);
-  if (!p) return <ProductMissing />;
+  if (!p) notFound();
   const track = getTrack(slug);
   if (!track) return <ProductPage p={p} />;
 

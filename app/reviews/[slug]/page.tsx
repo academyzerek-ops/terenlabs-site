@@ -1,13 +1,23 @@
+import { notFound } from "next/navigation";
 import { ProductPage } from "@/components/ProductPage";
-import { ProductMissing } from "@/components/ProductMissing";
 import { ContentSidebar } from "@/components/ContentSidebar";
-import { getItem } from "@/lib/content";
+import { getItem, REVIEWS } from "@/lib/content";
 import { getReviewDoc, REVIEW_DOCS } from "@/lib/reviews-data";
+import { itemMetadata } from "@/lib/seo";
+
+export function generateStaticParams() {
+  return REVIEWS.map((r) => ({ slug: r.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return itemMetadata(getItem("review", slug));
+}
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const p = getItem("review", slug);
-  if (!p) return <ProductMissing />;
+  if (!p) notFound();
 
   // Канонический wiki-обзор + панель остальных обзоров слева (как в плеере)
   const doc = getReviewDoc(slug);

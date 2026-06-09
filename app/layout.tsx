@@ -30,9 +30,20 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TerenLabs — Глубина анализа. Сила результата.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://terenlabs.cc"),
+  title: {
+    default: "TerenLabs — Глубина анализа. Сила результата.",
+    template: "%s", // дочерние страницы сами добавляют «— TerenLabs»
+  },
   description:
     "EdTech и FinTools для предпринимателей: курсы, тесты, бизнес-кейсы, обзоры и интерактивные финмодели. Реализм и расчёт вместо мотивации.",
+  openGraph: {
+    siteName: "TerenLabs",
+    type: "website",
+    title: "TerenLabs — Глубина анализа. Сила результата.",
+    description:
+      "EdTech и FinTools для предпринимателей: курсы, тесты, кейсы, обзоры и интерактивные финмодели.",
+  },
 };
 
 export default function RootLayout({
