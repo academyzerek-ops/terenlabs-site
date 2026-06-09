@@ -445,16 +445,19 @@ a {
   box-shadow: var(--shadow-tl-lg);
 }
 
-/* Появление при скролле (JS добавляет .in) */
+/* Появление при скролле (JS добавляет .in): подъём из толщи с расфокусом */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s var(--ease-out-tl), transform 0.8s var(--ease-out-tl);
-  will-change: opacity, transform;
+  transform: translateY(26px);
+  filter: blur(7px);
+  transition: opacity 0.9s var(--ease-out-tl), transform 0.9s var(--ease-out-tl),
+    filter 0.9s var(--ease-out-tl);
+  will-change: opacity, transform, filter;
 }
 .reveal.in {
   opacity: 1;
   transform: translateY(0);
+  filter: none;
 }
 
 /* ============================================================
@@ -672,4 +675,78 @@ body.is-light {
 @media (prefers-reduced-motion: reduce) {
   .deep::after { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   ВАУ-СЛОЙ ГЛАВНОЙ: скролл-проявление, tilt-блик, плавучесть,
+   течение, глубиномер. Все анимации — transform/opacity only.
+   ============================================================ */
+
+/* 3D-наклон + блик, следующий за курсором (только мышь) */
+.tilt-card {
+  position: relative;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.55s var(--ease-out-tl);
+  border-radius: inherit;
+}
+@media (pointer: fine) {
+  .tilt-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-out-tl);
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(159, 226, 232, 0.14),
+      transparent 65%
+    );
+  }
+  .tilt-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Плавучесть: медальоны и акула дрейфуют в толще воды */
+@keyframes tl-floaty {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(1.2deg); }
+}
+.floaty {
+  animation: tl-floaty var(--float-dur, 4.5s) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+/* Течение: линия пути живёт, свет бежит по ней */
+@keyframes tl-flow {
+  from { background-position: 0% 0; }
+  to { background-position: 200% 0; }
+}
+.flow-line {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 183, 194, 0.55) 30%,
+    rgba(159, 226, 232, 0.95) 50%,
+    rgba(0, 183, 194, 0.55) 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: tl-flow 3.5s linear infinite;
+}
+
+/* Манящая стрелка «как это работает» */
+@keyframes tl-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.bob { display: inline-block; animation: tl-bob 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { filter: none; }
+  .tilt-card { transform: none; }
+  .floaty, .flow-line, .bob { animation: none; }
 }
