@@ -133,24 +133,27 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ БОЛЬ — почему TerenLabs существует ============ */}
-      <section className="deep grain-fine relative">
+      {/* ============ БОЛЬ — светлая бирюза: контраст к тёмному hero ============ */}
+      <section
+        className="relative"
+        style={{ background: "linear-gradient(180deg, #EAF7F8 0%, #D6EFF1 100%)" }}
+      >
         <Container className="relative z-10 py-24">
-          <div className="section-no"><span className="no">01</span><span className="ln" /><span className="no" style={{opacity:0.5}}>БОЛЬ</span></div>
+          <div className="section-no"><span className="no">01</span><span className="ln" style={{background:"rgba(13,43,69,0.12)"}} /><span className="no" style={{opacity:0.5}}>БОЛЬ</span></div>
           <Reveal>
-            <h2 className="max-w-3xl text-3xl !text-foam sm:text-5xl">
+            <h2 className="max-w-3xl text-3xl !text-navy sm:text-5xl">
               Тебя готовили к контрольным — не к кассовым разрывам
             </h2>
           </Reveal>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             <Reveal>
               <TiltSpotlight className="h-full rounded-[var(--radius-lg)]">
-                <div className="h-full rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-8 backdrop-blur">
-                  <p className="eyebrow">Школа и вуз</p>
-                  <p className="mt-4 text-xl leading-relaxed !text-foam sm:text-2xl">
+                <div className="h-full rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur">
+                  <p className="eyebrow !text-teal-600">Школа и вуз</p>
+                  <p className="mt-4 text-xl leading-relaxed !text-navy sm:text-2xl">
                     Абстрактные графики — но не точка безубыточности твоей шаурмичной.
                   </p>
-                  <p className="mt-4 text-[17px] leading-relaxed text-foam/65">
+                  <p className="mt-4 text-[17px] leading-relaxed text-navy/70">
                     Государство зовёт людей в предприниматели — а считать деньги
                     не учит никто.
                   </p>
@@ -159,12 +162,12 @@ export default function Home() {
             </Reveal>
             <Reveal delay={120}>
               <TiltSpotlight className="h-full rounded-[var(--radius-lg)]">
-                <div className="h-full rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-8 backdrop-blur">
-                  <p className="eyebrow">Рынок мотивации</p>
-                  <p className="mt-4 text-xl leading-relaxed !text-foam sm:text-2xl">
+                <div className="h-full rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur">
+                  <p className="eyebrow !text-teal-600">Рынок мотивации</p>
+                  <p className="mt-4 text-xl leading-relaxed !text-navy sm:text-2xl">
                     «Успешный успех» создал иллюзию: бизнес — это озарение.
                   </p>
-                  <p className="mt-4 text-[17px] leading-relaxed text-foam/65">
+                  <p className="mt-4 text-[17px] leading-relaxed text-navy/70">
                     Про риски, сезонность и кассовый разрыв новичку не рассказывает
                     никто — пока он не заплатит за это своими деньгами.
                   </p>
