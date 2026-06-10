@@ -92,9 +92,9 @@ export default async function CatalogPage({
           />
         )}
         <Container className="relative z-10 py-20 sm:py-24">
-          <p className="eyebrow">{s.eyebrow}</p>
-          <h1 className="mt-3 max-w-3xl text-4xl !text-foam sm:text-5xl lg:text-6xl">{s.title}</h1>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-foam/80 sm:text-xl">{s.desc}</p>
+          <p className="eyebrow rise">{s.eyebrow}</p>
+          <h1 className="rise mt-3 max-w-3xl text-4xl !text-foam sm:text-5xl lg:text-6xl" style={{ animationDelay: "80ms" }}>{s.title}</h1>
+          <p className="rise mt-4 max-w-xl text-lg leading-relaxed text-foam/80 sm:text-xl" style={{ animationDelay: "160ms" }}>{s.desc}</p>
         </Container>
       </section>
 

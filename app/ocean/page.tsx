@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
+import { Reveal } from "@/components/Reveal";
 import { OceanLeaderboard } from "@/components/OceanLeaderboard";
 
 export const metadata = { title: "Рейтинг «Океан» — TerenLabs" };
@@ -22,11 +23,11 @@ export default function OceanPage() {
             <span className="mx-2">/</span>
             <span>Рейтинг</span>
           </nav>
-          <p className="eyebrow">Живая таблица мест</p>
-          <h1 className="mt-4 max-w-2xl text-4xl !text-foam sm:text-5xl lg:text-6xl">
+          <p className="eyebrow rise">Живая таблица мест</p>
+          <h1 className="rise mt-4 max-w-2xl text-4xl !text-foam sm:text-5xl lg:text-6xl" style={{ animationDelay: "80ms" }}>
             Рейтинг «Океан»
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-foam/75">
+          <p className="rise mt-4 max-w-xl text-lg text-foam/75" style={{ animationDelay: "160ms" }}>
             Место в стае зарабатывают решениями: точность ответов, помноженная
             на скорость мысли. Это те же данные, что в Mini App — вживую.
           </p>
@@ -48,7 +49,8 @@ export default function OceanPage() {
             <span className="no" style={{ opacity: 0.5 }}>КАК СЧИТАЕТСЯ МЕСТО</span>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
-            <div className="card-premium p-7">
+            <Reveal>
+            <div className="card-premium h-full p-7">
               <div className="num text-3xl font-semibold text-[#5468e8]">точность × скорость</div>
               <h3 className="mt-3 text-lg text-heading">Очки места</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -57,7 +59,9 @@ export default function OceanPage() {
                 бессмысленно — антифрод-пол выравнивает спринтеров.
               </p>
             </div>
-            <div className="card-premium p-7">
+            </Reveal>
+            <Reveal delay={130}>
+            <div className="card-premium h-full p-7">
               <div className="num text-3xl font-semibold text-[#5468e8]">T1 + T2 + T3</div>
               <h3 className="mt-3 text-lg text-heading">Композит уровня</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -66,7 +70,9 @@ export default function OceanPage() {
                 три — поднялся на следующий уровень.
               </p>
             </div>
-            <div className="card-premium p-7">
+            </Reveal>
+            <Reveal delay={260}>
+            <div className="card-premium h-full p-7">
               <div className="num text-3xl font-semibold text-[#5468e8]">кто раньше</div>
               <h3 className="mt-3 text-lg text-heading">Равные очки</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -74,6 +80,7 @@ export default function OceanPage() {
                 Стрик активных дней и бейджи скорости — видны в таблице.
               </p>
             </div>
+            </Reveal>
           </div>
 
           <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-[var(--radius-lg)] bg-navy p-8 sm:flex-row sm:items-center">

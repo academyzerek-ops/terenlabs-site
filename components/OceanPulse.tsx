@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { plural } from "@/lib/content";
 
 // Соревновательный слой страницы «Океан»: живые данные рейтинга
 // (тот же бэкенд, что у Mini App). Один fetch на страницу — кэш на модуле.
@@ -65,7 +66,7 @@ export function LevelCrowd({ levelKey, deep }: { levelKey: string; deep?: boolea
     <span className={`num inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[0.72rem] font-semibold ${tone}`}>
       <span className={`h-1.5 w-1.5 rounded-full ${n > 0 ? "bg-teal shadow-[0_0_8px_rgba(0,183,194,0.9)]" : deep ? "bg-foam/30" : "bg-navy/25"}`} />
       {n > 0
-        ? `в океане: ${n} ${n % 10 === 1 && n % 100 !== 11 ? "человек" : "чел."}`
+        ? `в океане: ${n} ${plural(n, "человек", "человека", "человек")}`
         : "здесь ещё никого — будь первым"}
     </span>
   );
@@ -83,8 +84,7 @@ export function OceanPulseStrip() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-60" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
         </span>
-        В океане {data.total_users}{" "}
-        {data.total_users % 10 === 1 && data.total_users % 100 !== 11 ? "человек" : "человек"}
+        В океане {data.total_users} {plural(data.total_users, "человек", "человека", "человек")}
       </span>
       <span className="num text-sm text-navy/60">
         впереди стаи — {leader.name}: {leader.composite} очков

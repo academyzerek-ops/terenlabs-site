@@ -114,20 +114,34 @@ function LevelHero({ lvl }: { lvl: Level }) {
           <span className="mx-2">/</span>
           <span>{lvl.name}</span>
         </nav>
-        <div className="flex items-center gap-5">
-          <img src={RANK_IMG[lvl.key]} alt={lvl.name} className="h-24 w-24 shrink-0 object-contain" />
+        <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-10">
+          {/* персонаж-герой уровня — как на странице пути */}
+          <div className="relative flex shrink-0 items-center justify-center">
+            <div
+              className="absolute h-52 w-52 rounded-full sm:h-64 sm:w-64"
+              style={{ background: "radial-gradient(circle, rgba(0,183,194,0.3) 0%, transparent 70%)", filter: "blur(6px)" }}
+              aria-hidden="true"
+            />
+            <img
+              src={RANK_IMG[lvl.key]}
+              alt={lvl.name}
+              className="floaty relative h-40 w-40 object-contain drop-shadow-[0_24px_50px_rgba(4,16,28,0.55)] sm:h-52 sm:w-52"
+            />
+          </div>
           <div>
             <p className="eyebrow">{lvl.tag}{lvl.archetype ? ` · ${lvl.archetype}` : ""}</p>
-            <h1 className="mt-1 text-4xl !text-foam sm:text-5xl">{lvl.name}</h1>
+            <h1 className="mt-1 text-4xl !text-foam sm:text-6xl">{lvl.name}</h1>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-foam/75">{lvl.metaphor ?? lvl.tagline}</p>
           </div>
         </div>
-        <p className="mt-5 max-w-xl text-lg text-foam/75">{lvl.tagline}</p>
       </Container>
     </section>
   );
 }
 
 function Block({ title, count, children }: { title: string; count: number; children: React.ReactNode }) {
+  // пустая секция не светит нулём — её просто нет
+  if (count === 0) return null;
   return (
     <section>
       <div className="flex items-baseline gap-3">
