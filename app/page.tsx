@@ -146,9 +146,16 @@ export default function Home() {
 
       {/* ============ БОЛЬ — светлая бирюза: контраст к тёмному hero ============ */}
       <section
-        className="relative"
+        className="relative overflow-hidden"
         style={{ background: "linear-gradient(180deg, #EAF7F8 0%, #D6EFF1 100%)" }}
       >
+        {/* приглушённая пасть акулы: рынок тебя схавает */}
+        <img
+          src="/brand/shark-jaws.svg"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-44 -top-44 hidden w-[640px] max-w-none rotate-12 opacity-[0.2] md:block"
+        />
         <Container className="relative z-10 py-24">
           <div className="section-no"><span className="no">01</span><span className="ln" style={{background:"rgba(13,43,69,0.12)"}} /><span className="no" style={{opacity:0.5}}>БОЛЬ</span></div>
           <Reveal>
@@ -162,11 +169,12 @@ export default function Home() {
                 <div className="h-full rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur">
                   <p className="eyebrow !text-teal-600">Школа и вуз</p>
                   <p className="mt-4 text-xl leading-relaxed !text-navy sm:text-2xl">
-                    Абстрактные графики — но не точка безубыточности твоей шаурмичной.
+                    Точку безубыточности тебя считать научили. Выживать
+                    на рынке — нет.
                   </p>
                   <p className="mt-4 text-[17px] leading-relaxed text-navy/70">
-                    Государство зовёт людей в предприниматели — а считать деньги
-                    не учит никто.
+                    Формулы дают преподы, никогда не строившие бизнес. Рыночные
+                    нюансы в книгах не печатают — за них платят своими деньгами.
                   </p>
                 </div>
               </TiltSpotlight>
@@ -174,13 +182,14 @@ export default function Home() {
             <Reveal delay={120}>
               <TiltSpotlight className="h-full rounded-[var(--radius-lg)]">
                 <div className="h-full rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur">
-                  <p className="eyebrow !text-teal-600">Рынок мотивации</p>
+                  <p className="eyebrow !text-teal-600">Инфоцыгане</p>
                   <p className="mt-4 text-xl leading-relaxed !text-navy sm:text-2xl">
-                    «Успешный успех» создал иллюзию: бизнес — это озарение.
+                    Инфоцыгане продают иллюзию: бизнес — это озарение
+                    и «успешный успех».
                   </p>
                   <p className="mt-4 text-[17px] leading-relaxed text-navy/70">
-                    Про риски, сезонность и кассовый разрыв новичку не рассказывает
-                    никто — пока он не заплатит за это своими деньгами.
+                    Про сезонность, ramp-up и кассовый разрыв у них ни слова —
+                    на иллюзии зарабатывают, на правде нет.
                   </p>
                 </div>
               </TiltSpotlight>
