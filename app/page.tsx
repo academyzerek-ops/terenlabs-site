@@ -244,14 +244,14 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ФОРМАТ — игра с настоящими ставками ============ */}
+      {/* ============ ФОРМАТ — затягивает, а навыки настоящие ============ */}
       <section className="deck py-20">
         <Container>
           <div className="section-no"><span className="no">03</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ФОРМАТ</span></div>
           <SectionHeading
             eyebrow="Как устроено"
-            title="Игра с настоящими ставками"
-            desc="Уровни, ранги и тренажёры затягивают, как игра, — но каждый навык здесь стоит реальных денег."
+            title="Формат, который затягивает"
+            desc="Уровни, ранги и тренажёры — проходишь шаг за шагом, а каждый навык бережёт реальные деньги."
           />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             <Reveal>
@@ -271,7 +271,7 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <h3 className="mt-5 text-2xl text-heading">Уровни, как в игре</h3>
+              <h3 className="mt-5 text-2xl text-heading">Ранг, не сертификат</h3>
               <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">
                 От Ракушки до Кита. Ранг растёт за понимание — его нельзя
                 накликать, можно только заслужить решениями.
