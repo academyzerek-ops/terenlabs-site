@@ -22,11 +22,14 @@ export function Header() {
   const [hidden, setHidden] = useState(false); // прячем при скролле вниз (награды-2025)
 
   useEffect(() => {
-    let lastY = window.scrollY;
+    let lastY = Math.max(0, window.scrollY);
     const onScroll = () => {
-      const y = window.scrollY;
-      // вниз и не у верха — спрятать; вверх — показать
-      setHidden(y > lastY && y > 140);
+      // clamp: резиновый отскок Safari даёт отрицательный scrollY и
+      // микроколебания — без гистерезиса шапка дёргалась непредсказуемо
+      const y = Math.max(0, window.scrollY);
+      const dy = y - lastY;
+      if (Math.abs(dy) < 8) return; // игнорируем дрожание и баунс
+      setHidden(dy > 0 && y > 160);
       lastY = y;
     };
     window.addEventListener("scroll", onScroll, { passive: true });

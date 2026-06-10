@@ -143,18 +143,17 @@ a {
    Liquid Glass — плавающая стеклянная шапка (iOS 26 / Vision)
    ============================================================ */
 .glass-bar {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.14),
-    rgba(255, 255, 255, 0.05)
-  );
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* Тёмное самодостаточное стекло: светлый текст читается над ЛЮБОЙ секцией
+     (страница чередует тёмные «глубины» и светлые «палубы» — прозрачная
+     белёсая подложка давала белое-по-белому на палубах). */
+  background: linear-gradient(180deg, rgba(13, 35, 56, 0.82), rgba(8, 24, 40, 0.7));
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
-    0 10px 36px rgba(6, 24, 42, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 36px rgba(6, 24, 42, 0.35);
   border-radius: 9999px;
 }
 /* верхний жидкий блик-полумесяц */
@@ -164,8 +163,8 @@ a {
   inset: 1px 14px auto 14px;
   height: 44%;
   border-radius: 9999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent);
-  opacity: 0.6;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent);
+  opacity: 0.45;
   pointer-events: none;
 }
 /* светлая тема — белёсое матовое стекло, тёмная граница для контраста */
