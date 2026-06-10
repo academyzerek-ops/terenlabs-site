@@ -199,6 +199,7 @@ export type Level = {
   tag: string;
   color: string;
   tagline: string;
+  metaphor?: string; // почему именно этот персонаж — объяснение-метафора
   archetype?: string;
   locked?: boolean;
   modules: LContentModule[];
