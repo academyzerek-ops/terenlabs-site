@@ -95,7 +95,7 @@ export default function Home() {
             className="eyebrow rise !text-teal"
             style={{ animationDelay: "0ms", fontSize: "0.95rem", letterSpacing: "0.22em" }}
           >
-            EdTech · FinTools · Океан бизнеса
+            EdTech · FinTools · Gamification
           </p>
           <h1
             className="rise mt-6 max-w-4xl !text-foam"
