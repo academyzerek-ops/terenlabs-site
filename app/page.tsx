@@ -98,21 +98,23 @@ export default function Home() {
             EdTech · FinTools · Gamification
           </p>
           <h1
-            className="rise mt-6 max-w-4xl !text-foam"
+            className="rise mt-6 max-w-6xl !text-foam"
             style={{
               animationDelay: "80ms",
-              fontSize: "clamp(2.75rem, 7vw, 5.5rem)",
-              lineHeight: 1.02,
+              fontSize: "clamp(2.2rem, 4.7vw, 4.0rem)",
+              lineHeight: 1.06,
               letterSpacing: "-0.02em",
               textShadow: "0 4px 40px rgba(0,0,0,0.5)",
             }}
           >
-            <span className="word-rise" style={{ animationDelay: "100ms" }}>Глубина</span>{" "}
-            <span className="word-rise" style={{ animationDelay: "240ms" }}>анализа.</span>
+            <span className="word-rise" style={{ animationDelay: "100ms" }}>Единственная</span>{" "}
+            <span className="word-rise" style={{ animationDelay: "220ms" }}>платформа</span>
             <br />
             <span style={{ color: "var(--color-teal)" }}>
-              <span className="word-rise" style={{ animationDelay: "420ms" }}>Сила</span>{" "}
-              <span className="word-rise" style={{ animationDelay: "560ms" }}>результата.</span>
+              <span className="word-rise" style={{ animationDelay: "380ms" }}>обучения</span>{" "}
+              <span className="word-rise" style={{ animationDelay: "500ms" }}>бизнесу</span>{" "}
+              <span className="word-rise" style={{ animationDelay: "620ms" }}>в</span>{" "}
+              <span className="word-rise" style={{ animationDelay: "700ms" }}>Казахстане</span>
             </span>
           </h1>
           {/* подзаголовок — курсивный serif в две строки (просьба Адиля) */}
@@ -126,9 +128,9 @@ export default function Home() {
               textShadow: "0 2px 20px rgba(0,0,0,0.5)",
             }}
           >
-            Не мотивация, а расчёт. Курсы, тесты, кейсы и рабочие финмодели —
+            Говорим о рисках и реальности, а не про «успешный успех» —
             <br className="hidden md:block" />
-            показывают, где ты теряешь деньги и время до того, как вложишься.
+            видишь, где потеряешь деньги и время, до того как вложишься.
           </p>
         </Container>
       </section>
