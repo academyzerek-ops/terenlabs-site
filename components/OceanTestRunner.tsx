@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "./Container";
 import { Button } from "./Button";
 import { OceanTestMeta, OceanQuestion, prepareAttempt } from "@/lib/ocean-tests";
 import { saveAttempt } from "@/lib/memory";
+import { getOceanToken, questionIdHash, submitOceanAttempt } from "@/lib/ocean";
 
 // Прохождение океанского теста (Краб/Барракуда) по канону Mini App:
 // выбор БЕЗ мгновенной подсказки (это не игра в угадайку) → «Дальше» →
 // результат → разбор ТОЛЬКО ошибок (✓ верно / ✗ твой + объяснение).
-// На сайте — анонимно; зачёт в рейтинг и ранг — в Mini App.
+// Вошедшим (TG-виджет/Google/Apple) попытка идёт в зачёт рейтинга,
+// анониму — остаётся на устройстве.
 const LETTERS = ["А", "Б", "В", "Г"];
 
 export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
@@ -19,6 +21,9 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [finished, setFinished] = useState(false);
+  // зачёт в рейтинг: 'saved' — попытка записана, 'anon' — без входа, 'error' — не дошла
+  const [sync, setSync] = useState<"saved" | "anon" | "error" | null>(null);
+  const meta_ = useRef({ attemptId: "", startedAt: "", shownAt: 0, timings: [] as number[] });
 
   // пул грузим на клиенте: рандом сборки не должен попадать в SSR
   useEffect(() => {
@@ -30,6 +35,12 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           const qs = prepareAttempt(pool, 10);
           setQuestions(qs);
           setAnswers(new Array(qs.length).fill(null));
+          meta_.current = {
+            attemptId: crypto.randomUUID(),
+            startedAt: new Date().toISOString(),
+            shownAt: Date.now(),
+            timings: new Array(qs.length).fill(0),
+          };
         }
       })
       .catch(() => alive && setError(true));
@@ -59,8 +70,11 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   const passed = score >= meta.floor;
 
   const next = () => {
+    // время на вопрос: от показа до «Дальше» (для очков «точность × скорость»)
+    meta_.current.timings[idx] = (Date.now() - meta_.current.shownAt) / 1000;
+    meta_.current.shownAt = Date.now();
     if (idx + 1 >= questions.length) {
-      // память: попытка сохраняется локально (аноним тоже); синк — через аккаунт
+      // память устройства — всегда (и анониму)
       saveAttempt({
         slug: meta.slug,
         title: meta.title,
@@ -69,9 +83,47 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
         passed: score >= meta.floor,
         at: new Date().toISOString(),
       });
+      // зачёт в рейтинг — для вошедших (Google/Apple/Telegram-виджет)
+      if (getOceanToken()) {
+        void submitAttempt();
+      } else {
+        setSync("anon");
+      }
       setFinished(true);
     } else {
       setIdx(idx + 1);
+    }
+  };
+
+  // Контракт — зеркало Mini App (ocean.js): level/test из slug,
+  // question_id = SHA-1 хэш, kind/chapter из пула.
+  const submitAttempt = async () => {
+    try {
+      const [level, test] = meta.slug.split("-"); // 'crab-t1' → ['crab','t1']
+      const payload = {
+        client_attempt_id: meta_.current.attemptId,
+        level,
+        test,
+        score,
+        passed: score >= meta.floor,
+        started_at: meta_.current.startedAt,
+        finished_at: new Date().toISOString(),
+        answers: await Promise.all(
+          questions.map(async (qq, i) => ({
+            q_idx: i,
+            question_id: await questionIdHash(qq),
+            kind: (qq as { kind?: string }).kind || "theory",
+            chapter: (qq as { ch?: string }).ch || "unknown",
+            chosen: answers[i],
+            correct: answers[i] === qq.a,
+            time_sec: Number(meta_.current.timings[i]) || 0,
+          }))
+        ),
+      };
+      const ok = await submitOceanAttempt(payload);
+      setSync(ok ? "saved" : "error");
+    } catch {
+      setSync("error");
     }
   };
 
@@ -90,17 +142,26 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
             {passed ? "Порог пройден." : `Порог — ${meta.floor} из ${questions.length}. Ещё заход?`}
           </p>
           <p className="mt-3 text-muted">
-            {passed
-              ? "На сайте результат не записывается. Чтобы балл пошёл в композит и рейтинг «Океана» — пройди тест в Mini App."
-              : "Каждая попытка собирает новые вопросы из пула — зубрёжка не поможет, только понимание."}
+            {sync === "saved"
+              ? "Записано в рейтинг «Океана» — средние считаются по всем попыткам."
+              : sync === "error"
+              ? "Попытка сохранена на устройстве, но до рейтинга не дошла (сеть). Следующая долетит."
+              : "Без входа попытка остаётся на этом устройстве. Войди — и следующая пойдёт в композит и рейтинг."}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Button href="https://t.me/terenlabs_bot" size="lg">
-              Зачесть в рейтинге — Mini App
-            </Button>
+            {sync === "saved" ? (
+              <Button href="/ocean" size="lg">
+                Посмотреть рейтинг
+              </Button>
+            ) : (
+              <Button href="/auth/sign-in" size="lg">
+                Войти — следующая в зачёт
+              </Button>
+            )}
             <button
               onClick={() => {
                 setFinished(false);
+                setSync(null);
                 setIdx(0);
                 setAnswers([]);
                 setQuestions(null);
@@ -110,6 +171,13 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                     const qs = prepareAttempt(pool, 10);
                     setQuestions(qs);
                     setAnswers(new Array(qs.length).fill(null));
+                    // новая попытка = новый id и новые таймеры
+                    meta_.current = {
+                      attemptId: crypto.randomUUID(),
+                      startedAt: new Date().toISOString(),
+                      shownAt: Date.now(),
+                      timings: new Array(qs.length).fill(0),
+                    };
                   });
               }}
               className="btn-press rounded-[var(--radius-tl)] px-5 py-3 text-sm font-medium text-heading ring-1 ring-line transition-colors hover:ring-teal hover:text-teal"

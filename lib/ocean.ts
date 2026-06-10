@@ -82,3 +82,46 @@ export async function loginBridge(): Promise<OceanAuth | null> {
   setOceanToken(out.token);
   return out;
 }
+
+// ── Зачёт попыток с сайта (12_OCEAN.md): юзеры без Telegram (Google/Apple)
+// попадают в рейтинг так же, как Mini App-юзеры. Контракт — зеркало ocean.js.
+
+/** Стабильный 12-hex id вопроса: SHA-1(q + '|' + opts.join('|')), первые 6 байт. */
+export async function questionIdHash(q: { q: string; opts: string[] }): Promise<string> {
+  const data = (q.q || "") + "|" + (q.opts || []).join("|");
+  const buf = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(data));
+  return Array.from(new Uint8Array(buf))
+    .slice(0, 6)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+export type OceanAttemptPayload = {
+  client_attempt_id: string;
+  level: string; // 'crab' | 'barracuda'
+  test: string; // 't1' | 't2' | 't3'
+  score: number;
+  passed: boolean;
+  started_at: string;
+  finished_at: string;
+  answers: {
+    q_idx: number;
+    question_id: string;
+    kind: string;
+    chapter: string;
+    chosen: number | null;
+    correct: boolean;
+    time_sec: number;
+  }[];
+};
+
+/** true = попытка записана в рейтинг (есть токен и бэкенд принял). */
+export async function submitOceanAttempt(payload: OceanAttemptPayload): Promise<boolean> {
+  if (!getOceanToken()) return false;
+  try {
+    await oceanFetch("/attempt", { method: "POST", json: payload });
+    return true;
+  } catch {
+    return false;
+  }
+}
