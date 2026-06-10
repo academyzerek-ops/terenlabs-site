@@ -749,3 +749,74 @@ body.is-light {
   .tilt-card { transform: none; }
   .floaty, .flow-line, .bob { animation: none; }
 }
+
+/* ============================================================
+   СТРАНИЦА «ОКЕАН» (/levels): погружение с атмосферой
+   ============================================================ */
+
+/* Вертикальное течение: свет бежит вниз по линии пути */
+@keyframes tl-flow-v {
+  from { background-position: 0 -100%; }
+  to { background-position: 0 200%; }
+}
+.flow-line-v {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 155, 166, 0.0) 0%,
+    rgba(0, 183, 194, 0.55) 35%,
+    rgba(159, 226, 232, 0.95) 50%,
+    rgba(0, 183, 194, 0.55) 65%,
+    rgba(0, 183, 194, 0.0) 100%
+  ),
+  linear-gradient(180deg, rgba(0, 155, 166, 0.35), rgba(0, 183, 194, 0.18));
+  background-size: 100% 220%, 100% 100%;
+  background-repeat: no-repeat, no-repeat;
+  animation: tl-flow-v 5s linear infinite;
+}
+
+/* Лучи света, уходящие в толщу (видны на средних глубинах) */
+@keyframes tl-ray-sway {
+  0%, 100% { transform: skewX(-14deg) translateX(0); opacity: var(--ray-o, 0.35); }
+  50% { transform: skewX(-11deg) translateX(26px); opacity: calc(var(--ray-o, 0.35) * 0.55); }
+}
+.ocean-ray {
+  position: absolute;
+  top: 0;
+  width: 90px;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.06) 55%, transparent 80%);
+  filter: blur(14px);
+  transform-origin: top center;
+  animation: tl-ray-sway var(--ray-dur, 9s) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* Пульс открытого уровня: медальон дышит светом */
+@keyframes tl-orb-pulse {
+  0%, 100% { box-shadow: 0 0 50px rgba(0, 183, 194, 0.35), 0 10px 36px rgba(6, 24, 42, 0.4); }
+  50% { box-shadow: 0 0 80px rgba(0, 183, 194, 0.6), 0 10px 36px rgba(6, 24, 42, 0.4); }
+}
+.orb-open {
+  animation: tl-orb-pulse 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.orb-locked {
+  filter: saturate(0.35) brightness(0.75);
+}
+
+/* Биолюминесценция дна: мерцающие точки */
+@keyframes tl-bio-blink {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.85; }
+}
+.bio-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120, 240, 250, 0.9), rgba(0, 183, 194, 0.25) 70%, transparent);
+  animation: tl-bio-blink var(--bio-dur, 4s) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: var(--bio-delay, 0s);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-line-v, .ocean-ray, .orb-open, .bio-dot { animation: none; }
+}

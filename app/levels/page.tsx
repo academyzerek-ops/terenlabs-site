@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { Bubbles } from "@/components/Bubbles";
+import { Reveal } from "@/components/Reveal";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
 export const metadata = { title: "Уровни «Океан» — TerenLabs" };
@@ -7,20 +10,64 @@ export const metadata = { title: "Уровни «Океан» — TerenLabs" };
 // Погружение: страница темнеет с глубиной — от мелководья Ракушки к бездне Кита.
 // Зоны метафорические (не бизнес-цифры). Одинакова в обеих темах — это путь, не поверхность.
 const ZONES = ["мелководье", "риф", "толща", "течение", "глубина", "бездна"];
+const METERS = ["0–10 м", "20 м", "50 м", "120 м", "300 м", "1 000 м+"];
+
+// биолюминесценция дна: позиции зашиты (Math.random ломает SSR-гидрацию)
+const BIO_DOTS = [
+  { left: "12%", bottom: "8%", size: 5, dur: "3.8s", delay: "0s" },
+  { left: "28%", bottom: "16%", size: 3, dur: "5.2s", delay: "-1.4s" },
+  { left: "43%", bottom: "6%", size: 4, dur: "4.4s", delay: "-2.8s" },
+  { left: "58%", bottom: "14%", size: 3, dur: "6.1s", delay: "-0.7s" },
+  { left: "71%", bottom: "9%", size: 5, dur: "4.8s", delay: "-3.5s" },
+  { left: "85%", bottom: "18%", size: 3, dur: "5.6s", delay: "-2.1s" },
+  { left: "93%", bottom: "7%", size: 4, dur: "4.1s", delay: "-1.0s" },
+];
 
 export default function LevelsPage() {
   return (
     <div
+      className="relative overflow-hidden"
       style={{
         background:
           "linear-gradient(180deg, #f5f7fa 0%, #d9e8ef 14%, #8fb8cb 32%, #2e5f7d 52%, #0d2b45 74%, #06182a 100%)",
       }}
     >
+      {/* лучи света уходят с поверхности в толщу */}
+      <div className="pointer-events-none absolute inset-x-0 top-[6%] h-[48%]" aria-hidden="true">
+        <span className="ocean-ray left-[12%]" style={{ "--ray-dur": "11s", "--ray-o": 0.4 } as React.CSSProperties} />
+        <span className="ocean-ray left-[34%]" style={{ "--ray-dur": "9s", "--ray-o": 0.28, width: "60px" } as React.CSSProperties} />
+        <span className="ocean-ray left-[58%]" style={{ "--ray-dur": "13s", "--ray-o": 0.35, width: "120px" } as React.CSSProperties} />
+        <span className="ocean-ray left-[81%]" style={{ "--ray-dur": "10s", "--ray-o": 0.25, width: "70px" } as React.CSSProperties} />
+      </div>
+
+      {/* морской снег в нижней половине погружения */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%]" aria-hidden="true">
+        <Bubbles />
+      </div>
+
+      {/* биолюминесценция у дна */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[18%]" aria-hidden="true">
+        {BIO_DOTS.map((d, i) => (
+          <span
+            key={i}
+            className="bio-dot"
+            style={{
+              left: d.left,
+              bottom: d.bottom,
+              width: d.size,
+              height: d.size,
+              "--bio-dur": d.dur,
+              "--bio-delay": d.delay,
+            } as React.CSSProperties}
+          />
+        ))}
+      </div>
+
       <Container className="relative py-16">
         {/* шапка — на светлом мелководье */}
         <div className="max-w-2xl">
-          <p className="eyebrow !text-teal-600">Путь</p>
-          <h1 className="mt-2 text-4xl !text-navy sm:text-5xl">Уровни «Океан»</h1>
+          <p className="eyebrow !text-teal-600">Путь · {LEVELS.length} уровней до открытого океана</p>
+          <h1 className="mt-2 text-4xl !text-navy sm:text-6xl">Уровни «Океан»</h1>
           <p className="mt-4 text-lg leading-relaxed !text-navy/70">
             От мелководья к открытому океану. Каждый уровень — модули, тесты,
             кейсы и обзоры. Проходятся по порядку: чем глубже, тем серьёзнее решения.
@@ -35,15 +82,9 @@ export default function LevelsPage() {
           </p>
         </div>
 
-        {/* линия-течение погружения */}
+        {/* линия-течение погружения: свет бежит вниз */}
         <div className="relative mt-14">
-          <div
-            className="pointer-events-none absolute bottom-8 left-9 top-0 w-[2px] sm:left-1/2 sm:-translate-x-1/2"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,155,166,0.55), rgba(0,183,194,0.5) 50%, rgba(0,183,194,0.25))",
-            }}
-          />
+          <div className="flow-line-v pointer-events-none absolute bottom-8 left-9 top-0 w-[2px] sm:left-1/2 sm:-translate-x-1/2" />
 
           <div className="space-y-12 sm:space-y-14">
             {LEVELS.map((l, i) => {
@@ -52,12 +93,13 @@ export default function LevelsPage() {
               const right = i % 2 === 1;
               return (
                 <div key={l.key} className="relative sm:grid sm:grid-cols-2 sm:gap-14">
-                  {/* орб ранга на линии */}
+                  {/* орб ранга на линии: открытый — дышит светом, закрытый — спит */}
                   <div className="absolute left-9 top-0 z-10 -translate-x-1/2 sm:left-1/2">
                     <div
-                      className={`flex h-20 w-20 items-center justify-center rounded-full border-2 sm:h-32 sm:w-32 ${
+                      className={`floaty flex h-20 w-20 items-center justify-center rounded-full border-2 sm:h-32 sm:w-32 ${
                         deepIdx ? "border-teal/50 bg-navy-900" : "border-white/70 bg-white/80 backdrop-blur"
-                      } shadow-[0_0_50px_rgba(0,183,194,0.35),0_10px_36px_rgba(6,24,42,0.4)]`}
+                      } ${l.locked ? "orb-locked" : "orb-open"} shadow-[0_0_50px_rgba(0,183,194,0.35),0_10px_36px_rgba(6,24,42,0.4)]`}
+                      style={{ "--float-delay": `${i * -0.9}s`, "--float-dur": `${5 + (i % 3)}s` } as React.CSSProperties}
                     >
                       <img
                         src={RANK_IMG[l.key]}
@@ -69,23 +111,33 @@ export default function LevelsPage() {
                     </div>
                   </div>
 
-                  {/* метка зоны глубины — напротив карточки */}
+                  {/* метка зоны и глубина — напротив карточки */}
                   <div
                     className={`hidden items-center sm:flex ${
                       right ? "justify-start pl-20" : "order-2 justify-end pr-20"
                     }`}
                   >
-                    <span
-                      className={`text-sm font-bold uppercase tracking-[0.3em] ${
-                        i < 2 ? "text-navy/45" : i < 4 ? "text-white/55" : "text-foam/40"
-                      }`}
-                    >
-                      {ZONES[i]}
-                    </span>
+                    <div className={right ? "text-left" : "text-right"}>
+                      <span
+                        className={`block text-sm font-bold uppercase tracking-[0.3em] ${
+                          i < 2 ? "text-navy/45" : i < 4 ? "text-white/55" : "text-foam/40"
+                        }`}
+                      >
+                        {ZONES[i]}
+                      </span>
+                      <span
+                        className={`num mt-1 block text-xs font-semibold tracking-[0.18em] ${
+                          i < 2 ? "text-teal-600/70" : "text-teal/60"
+                        }`}
+                      >
+                        {METERS[i]}
+                      </span>
+                    </div>
                   </div>
 
                   {/* карточка уровня */}
                   <div className={`pl-24 sm:pl-0 ${right ? "order-2 sm:pl-20" : "sm:pr-20"}`}>
+                    <Reveal delay={i % 2 === 0 ? 0 : 120}>
                     <Link
                       href={`/levels/${l.key}`}
                       className={`group block rounded-[var(--radius-tl)] border p-7 transition-all hover:-translate-y-1 sm:p-9 ${
@@ -117,6 +169,7 @@ export default function LevelsPage() {
                       <p className={`num mt-1 text-xs ${deepIdx || midIdx ? "text-foam/50" : "text-navy/50"}`}>
                         {l.tag}
                         {l.archetype ? ` · ${l.archetype}` : ""}
+                        <span className="sm:hidden"> · {ZONES[i]}, {METERS[i]}</span>
                       </p>
                       <p
                         className={`mt-3 text-base leading-relaxed sm:text-lg ${
@@ -130,13 +183,21 @@ export default function LevelsPage() {
                       </p>
                       {!l.locked && (
                         <p className={`num mt-4 text-xs ${deepIdx || midIdx ? "text-foam/50" : "text-navy/55"}`}>
-                          {l.modules.length} {plural(l.modules.length, "модуль", "модуля", "модулей")} ·{" "}
-                          {l.testSlugs.length} {plural(l.testSlugs.length, "тест", "теста", "тестов")} ·{" "}
-                          {l.caseSlugs.length + l.reviewSlugs.length}{" "}
-                          {plural(l.caseSlugs.length + l.reviewSlugs.length, "материал", "материала", "материалов")}
+                          {[
+                            l.modules.length > 0 &&
+                              `${l.modules.length} ${plural(l.modules.length, "модуль", "модуля", "модулей")}`,
+                            l.testSlugs.length > 0 &&
+                              `${l.testSlugs.length} ${plural(l.testSlugs.length, "тест", "теста", "тестов")}`,
+                            l.caseSlugs.length + l.reviewSlugs.length > 0 &&
+                              `${l.caseSlugs.length + l.reviewSlugs.length} ${plural(
+                                l.caseSlugs.length + l.reviewSlugs.length, "материал", "материала", "материалов")}`,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ")}
                         </p>
                       )}
                     </Link>
+                    </Reveal>
                   </div>
                 </div>
               );
@@ -144,10 +205,22 @@ export default function LevelsPage() {
           </div>
         </div>
 
-        {/* дно */}
-        <p className="mt-16 text-center text-sm text-foam/45">
-          Дно — это не конец. Это место, откуда видно весь океан.
-        </p>
+        {/* дно: биолюминесценция + старт пути */}
+        <Reveal>
+          <div className="relative mt-20 pb-6 text-center">
+            <p className="mx-auto max-w-md font-[family-name:var(--font-display)] text-xl italic leading-relaxed text-foam/60">
+              Дно — это не конец. Это место, откуда видно весь океан.
+            </p>
+            <div className="mt-8">
+              <Button href="/levels/rakushka" size="lg">
+                Начать с Ракушки
+              </Button>
+            </div>
+            <p className="num mt-4 text-xs text-foam/40">
+              бесплатно · без регистрации · ранг считается с первого теста
+            </p>
+          </div>
+        </Reveal>
       </Container>
     </div>
   );
