@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Container } from "@/components/Container";
+import { TelegramLogin } from "@/components/TelegramLogin";
 import { auth, signIn, providersConfigured } from "@/auth";
 
 export const metadata = { title: "Вход — TerenLabs" };
@@ -24,7 +25,22 @@ export default async function Page() {
             в рейтинге «Океана».
           </p>
 
-          <div className="mt-8 space-y-3">
+          {/* Главная кнопка: аудитория телеграмная, и tg_id совпадает с Mini App —
+              прогресс сходится в один аккаунт автоматически */}
+          <div className="mt-8">
+            <TelegramLogin />
+            <p className="mt-2 text-center text-xs text-foam/45">
+              тот же аккаунт, что в Mini App — прогресс общий
+            </p>
+          </div>
+
+          <div className="my-5 flex items-center gap-3 text-xs text-foam/40">
+            <span className="h-px flex-1 bg-white/10" />
+            или
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+
+          <div className="space-y-3">
             {providersConfigured.google && (
               <form
                 action={async () => {
@@ -60,8 +76,7 @@ export default async function Page() {
             )}
             {!anyProvider && (
               <div className="rounded-[var(--radius-tl)] border border-dashed border-white/20 p-5 text-center text-sm text-foam/60">
-                Вход через Google и Apple появится здесь со дня на день —
-                подключаем ключи.
+                Google и Apple появятся здесь со дня на день — подключаем ключи.
               </div>
             )}
           </div>

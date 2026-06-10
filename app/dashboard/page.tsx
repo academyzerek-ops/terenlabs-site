@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { ProductCard } from "@/components/ProductCard";
 import { MyMemory } from "@/components/MyMemory";
+import { OceanAccount } from "@/components/OceanAccount";
 import { CATALOG } from "@/lib/content";
 import { auth, signOut } from "@/auth";
 
@@ -63,7 +64,7 @@ export default async function Dashboard() {
               href="/auth/sign-in"
               className="group rounded-[var(--radius-tl)] border border-teal/40 bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow)]"
             >
-              <div className="text-heading">Войти — Google или Apple</div>
+              <div className="text-heading">Войти — Telegram, Google или Apple</div>
               <div className="mt-1 max-w-[240px] text-xs text-muted">
                 Статистика, память между устройствами и место в рейтинге «Океана»
               </div>
@@ -74,23 +75,11 @@ export default async function Dashboard() {
           )}
         </div>
 
+        {/* Океан: живая статистика с бэкенда — ранг, очки, стрик, привязка TG */}
+        <OceanAccount nextAuthActive={!!session} />
+
         {/* Память: метрики, продолжить обучение, попытки — реальные данные устройства */}
         <MyMemory />
-
-        {/* Рейтинг */}
-        <section className="mt-14">
-          <h2 className="text-2xl text-heading">Океан</h2>
-          <div className="wave-divider my-5" />
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius-tl)] border border-line bg-card p-6">
-            <p className="max-w-xl text-sm text-muted">
-              Живая таблица мест и механика рейтинга — точность × скорость.
-              Зачёт попыток в рейтинг идёт через Mini App.
-            </p>
-            <Link href="/ocean" className="text-sm font-semibold text-teal-600 hover:text-teal">
-              Открыть рейтинг →
-            </Link>
-          </div>
-        </section>
 
         {/* Рекомендации */}
         <section className="mt-14">

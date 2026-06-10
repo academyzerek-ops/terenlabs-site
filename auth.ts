@@ -19,4 +19,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   pages: { signIn: "/auth/sign-in" },
   trustHost: true,
+  callbacks: {
+    // Для моста Океана (12_OCEAN.md): запоминаем провайдера и его стабильный
+    // id юзера — бэкенду нужен (provider, provider_uid) для identities.
+    jwt({ token, account }) {
+      if (account) {
+        token.oceanProvider = account.provider;
+        token.oceanProviderUid = account.providerAccountId;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      // @ts-expect-error — расширяем сессию полями моста
+      session.oceanProvider = token.oceanProvider;
+      // @ts-expect-error
+      session.oceanProviderUid = token.oceanProviderUid;
+      return session;
+    },
+  },
 });
