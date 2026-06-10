@@ -25,6 +25,9 @@ export function NoaChat() {
   const [busy, setBusy] = useState(false);
   const pathname = usePathname();
   const listRef = useRef<HTMLDivElement>(null);
+  // Во время прохождения теста чата нет: (1) плавающая кнопка перекрывала
+  // «Дальше» на мобиле, (2) ИИ рядом с вопросами — это подсказки в экзамене.
+  const inTest = /^\/tests\/[^/]+\/take/.test(pathname ?? "");
 
   // автоскролл к последнему сообщению
   useEffect(() => {
@@ -119,7 +122,7 @@ export function NoaChat() {
   };
 
   // в плеере курса не показываем — там и так полный экран контента
-  if (pathname.startsWith("/learn/")) return null;
+  if (pathname.startsWith("/learn/") || inTest) return null;
 
   return (
     <>
