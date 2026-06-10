@@ -199,20 +199,7 @@ export default function Home() {
       </section>
 
       {/* ============ КАК МЫ УЧИМ — палуба ============ */}
-      <section className="deck relative overflow-hidden py-20">
-        {/* флаг РК — сильно приглушённый, но заметный: учим на реальности Казахстана */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: "min(78vw, 1100px)",
-            opacity: 0.1,
-            maskImage: "radial-gradient(72% 72% at 50% 50%, #000 55%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(72% 72% at 50% 50%, #000 55%, transparent 100%)",
-          }}
-        >
-          <img src="/brand/kz-flag.svg" alt="" className="h-auto w-full" />
-        </div>
+      <section className="deck py-20">
         <Container>
           <div className="section-no"><span className="no">02</span><span className="ln" /><span className="no" style={{opacity:0.5}}>НАШ ОТВЕТ</span></div>
           <SectionHeading
