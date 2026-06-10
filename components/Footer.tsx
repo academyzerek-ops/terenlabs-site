@@ -18,10 +18,11 @@ const COMPANY = [
 
 export function Footer() {
   return (
-    <footer className="grain-fine relative overflow-hidden bg-navy-900 text-foam/70">
+    // Светлая «палуба»: тёмный текст на пене — по указанию Адиля (2026-06-10)
+    <footer className="relative overflow-hidden border-t border-[#dde4ea] bg-[#f5f7fa] text-[#3d4f5e]">
       <Container className="grid gap-10 py-16 md:grid-cols-4">
         <div className="md:col-span-1">
-          <Logo light />
+          <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed">
             Глубина анализа. Сила результата. EdTech и FinTools для предпринимателей.
           </p>
@@ -32,8 +33,8 @@ export function Footer() {
         <FooterCol title="Правовая информация" links={LEGAL} />
       </Container>
 
-      <div className="border-t border-white/10">
-        <Container className="flex flex-col gap-2 py-6 text-xs text-foam/50 sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-[#dde4ea]">
+        <Container className="flex flex-col gap-2 py-6 text-xs text-[#5b6b78] sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} TerenLabs. Казахстан.</span>
           <span className="num">Интерфейс: RU · KK</span>
         </Container>
@@ -42,7 +43,7 @@ export function Footer() {
       {/* «дно»: имя уходит под воду — обрезается нижним краем футера */}
       <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
         <p
-          className="text-center font-bold leading-none text-foam/[0.05]"
+          className="text-center font-bold leading-none text-[#0d2b45]/[0.05]"
           style={{
             fontFamily: "var(--font-display)",
             fontSize: "clamp(90px, 17vw, 280px)",
@@ -66,7 +67,7 @@ function FooterCol({
 }) {
   return (
     <div>
-      <h3 className="eyebrow !text-foam/40">{title}</h3>
+      <h3 className="eyebrow !text-[#0d2b45]/45">{title}</h3>
       <ul className="mt-4 space-y-2.5 text-sm">
         {links.map((l) => (
           <li key={l.href}>

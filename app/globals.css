@@ -1,18 +1,5 @@
 @import "tailwindcss";
 
-/* ============================================================
-   TerenLabs — Design System
-   Источник правды: ~/Downloads/брендбук/BRAND_SYSTEM.md + brand_tokens.css
-   Принцип: навы #0D2B45 — якорь/доминанта, бирюза #00B7C2 — акцент (не заливка).
-
-   Архитектура цвета — ДВА слоя, не путать:
-   1) Литеральные бренд-константы (navy всегда тёмный, foam всегда светлый) —
-      для поверхностей, одинаковых в обеих темах: футер, hero, тёмные карточки.
-   2) Семантические токены (heading / body / subtle / card / muted / line) —
-      меняются темой. Для всего адаптивного.
-   Запрещено: красить адаптивный текст литеральным цветом и наоборот.
-   ============================================================ */
-
 @theme {
   /* ---- 1. Литеральные бренд-константы (темой НЕ меняются) ---- */
   --color-ink: #0a0a0a;
@@ -70,19 +57,6 @@
   --foreground: #d6e2ec;
 }
 
-/* ---- Светлая тема (опционально, по клику): переопределяются ТОЛЬКО семантические ---- */
-.light {
-  --color-heading: #0d2b45;
-  --color-body: #0a0a0a;
-  --color-subtle: #f5f7fa;
-  --color-card: #ffffff;
-  --color-card-2: #f5f7fa;
-  --color-muted: #5b6b78;
-  --color-line: #dde4ea;
-  --background: #f5f7fa;
-  --foreground: #0a0a0a;
-}
-
 * {
   border-color: var(--color-line);
 }
@@ -116,12 +90,6 @@ a {
   touch-action: manipulation;
 }
 
-/* Логотип авто-переключение по теме (тёмная глубина по умолчанию) */
-.logo-on-light { display: none; }
-.logo-on-dark { display: block; }
-.light .logo-on-light { display: block; }
-.light .logo-on-dark { display: none; }
-
 /* Цифры/данные — табличные цифры, но текстовым шрифтом (без моно) */
 .num {
   font-feature-settings: "tnum" 1;
@@ -143,18 +111,18 @@ a {
    Liquid Glass — плавающая стеклянная шапка (iOS 26 / Vision)
    ============================================================ */
 .glass-bar {
-  /* Тёмное самодостаточное стекло: светлый текст читается над ЛЮБОЙ секцией
-     (страница чередует тёмные «глубины» и светлые «палубы» — прозрачная
-     белёсая подложка давала белое-по-белому на палубах). */
-  background: linear-gradient(180deg, rgba(13, 35, 56, 0.82), rgba(8, 24, 40, 0.7));
+  /* Светлое самодостаточное стекло (указание Адиля 2026-06-10): плотная
+     белёсая подложка + тёмный текст — читается и над тёмной глубиной,
+     и над светлой палубой. Контраст даёт плотность, не прозрачность. */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(244, 248, 250, 0.78));
   -webkit-backdrop-filter: blur(22px) saturate(160%);
   backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(13, 43, 69, 0.12);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-    0 10px 36px rgba(6, 24, 42, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 36px rgba(6, 24, 42, 0.22);
   border-radius: 9999px;
+  color: var(--color-navy);
 }
 /* верхний жидкий блик-полумесяц */
 .glass-bar::before {
@@ -163,17 +131,9 @@ a {
   inset: 1px 14px auto 14px;
   height: 44%;
   border-radius: 9999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent);
-  opacity: 0.45;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), transparent);
+  opacity: 0.6;
   pointer-events: none;
-}
-/* светлая тема — белёсое матовое стекло, тёмная граница для контраста */
-.light .glass-bar {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.42));
-  border-color: rgba(13, 43, 69, 0.1);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 10px 30px rgba(13, 43, 69, 0.1);
 }
 
 /* ---- Навигация: «водяной пузырь» — прозрачное стекло без цвета (iOS/TG/Threads) ---- */
@@ -191,7 +151,7 @@ a {
   letter-spacing: 0.012em;
   line-height: 1;
   white-space: nowrap;
-  color: var(--color-heading);
+  color: var(--color-navy);
   border: 1px solid transparent;
   transition: background 0.35s var(--ease-out-tl), border-color 0.35s var(--ease-out-tl),
     box-shadow 0.35s var(--ease-out-tl), transform 0.25s var(--ease-out-tl);
@@ -200,14 +160,11 @@ a {
 /* прозрачный пузырь: цвет текста НЕ меняется, только стекло */
 .nav-bubble:hover,
 .nav-bubble--active {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
-  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(180deg, rgba(13, 43, 69, 0.08), rgba(13, 43, 69, 0.04));
+  border-color: rgba(13, 43, 69, 0.14);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
-    0 4px 14px rgba(6, 24, 42, 0.18);
-  -webkit-backdrop-filter: blur(10px) saturate(150%);
-  backdrop-filter: blur(10px) saturate(150%);
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 4px 14px rgba(6, 24, 42, 0.12);
   transform: translateY(-1px);
 }
 
@@ -226,20 +183,6 @@ a {
 .nav-bubble:hover::before,
 .nav-bubble--active::before {
   opacity: 0.35;
-}
-
-/* светлая тема — белёсое стекло с тонкой тёмной обводкой */
-.light .nav-bubble:hover,
-.light .nav-bubble--active {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.3));
-  border-color: rgba(13, 43, 69, 0.14);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 4px 14px rgba(13, 43, 69, 0.1);
-}
-.light .nav-bubble:hover::before,
-.light .nav-bubble--active::before {
-  opacity: 0.8;
 }
 
 /* Кинематографичное затемнение hero-видео; на мобиле плотнее — текст лежит прямо на кадре */
@@ -360,9 +303,6 @@ a {
    ПРЕМИУМ-СЛОЙ: глубина, атмосфера, движение
    ============================================================ */
 
-/* Светлая «палуба» — секция-передышка между толщами.
-   Одинакова в ОБЕИХ темах: локально переопределяет семантические токены,
-   поэтому всё содержимое (heading/body/card/muted/line) работает без правок. */
 .deck {
   position: relative;
   --color-heading: #0d2b45;
@@ -375,7 +315,6 @@ a {
   background-color: #f5f7fa;
   color: #1a2630;
 }
-/* на светлой палубе бирюзовый акцент темнее — ради контраста */
 .deck .eyebrow {
   color: var(--color-teal-600);
 }
@@ -432,16 +371,6 @@ a {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset,
     0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 183, 194, 0.15),
     0 12px 40px rgba(0, 183, 194, 0.18);
-}
-/* светлая тема и палуба — мягкие тени без черноты */
-.light .card-premium,
-.deck .card-premium {
-  background: var(--color-card);
-  box-shadow: var(--shadow-tl-sm);
-}
-.light .card-premium:hover,
-.deck .card-premium:hover {
-  box-shadow: var(--shadow-tl-lg);
 }
 
 /* Появление при скролле (JS добавляет .in): подъём из толщи с расфокусом */
@@ -566,9 +495,6 @@ a:active {
   background: radial-gradient(circle, rgba(0, 183, 194, 0.05) 0%, transparent 60%);
   will-change: transform;
 }
-.light .cursor-glow {
-  opacity: 0.5;
-}
 
 /* Линия прогресса скролла под шапкой */
 .scroll-progress {
@@ -633,17 +559,6 @@ a:active {
   .cursor-glow {
     display: none;
   }
-}
-
-
-/* ============================================================
-   Водяной фон: батиметрические контуры (изолинии глубин океана).
-   Едва заметно на светлых поверхностях — текст не страдает.
-   ============================================================ */
-.light body,
-body.is-light {
-  background-image: url("/wave-light.svg");
-  background-attachment: fixed;
 }
 
 /* На палубах (.deck) тот же узор плотнее — секция-передышка «дышит» водой */

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Logo } from "./Logo";
 import { Container } from "./Container";
-import { ThemeToggle } from "./ThemeToggle";
 
 // разделы платформы
 const NAV = [
@@ -57,7 +56,7 @@ export function Header() {
       <div className="glass-bar relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-6">
         <div className="flex items-center gap-8">
           <Link href="/" aria-label="На главную">
-            <Logo auto />
+            <Logo />
           </Link>
 
           <nav className="hidden items-center gap-1.5 lg:flex">
@@ -77,11 +76,9 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
-
           <Link
             href="/dashboard"
-            className="hidden rounded-md px-3 py-2 text-[0.95rem] text-heading hover:text-teal sm:block"
+            className="hidden rounded-md px-3 py-2 text-[0.95rem] text-navy hover:text-teal-600 sm:block"
           >
             Кабинет
           </Link>
@@ -98,9 +95,9 @@ export function Header() {
             aria-label="Меню"
           >
             <div className="space-y-1.5">
-              <span className="block h-0.5 w-6 bg-heading" />
-              <span className="block h-0.5 w-6 bg-heading" />
-              <span className="block h-0.5 w-6 bg-heading" />
+              <span className="block h-0.5 w-6 bg-navy" />
+              <span className="block h-0.5 w-6 bg-navy" />
+              <span className="block h-0.5 w-6 bg-navy" />
             </div>
           </button>
         </div>
@@ -111,12 +108,12 @@ export function Header() {
         <div className="glass-bar mx-3 mt-2 lg:hidden">
           <div className="flex flex-col px-5 py-3">
             {NAV.map((n) => (
-              <Link key={n.href} href={n.href} className="py-2.5 text-heading" onClick={() => setOpen(false)}>
+              <Link key={n.href} href={n.href} className="py-2.5 text-navy" onClick={() => setOpen(false)}>
                 {n.label}
               </Link>
             ))}
             <div className="my-2 h-px bg-line" />
-            <Link href="/dashboard" className="py-2.5 text-heading" onClick={() => setOpen(false)}>
+            <Link href="/dashboard" className="py-2.5 text-navy" onClick={() => setOpen(false)}>
               Кабинет
             </Link>
           </div>

@@ -26,19 +26,6 @@
   margin: 0 auto;
 }
 
-
-.light .case-content {
-  --les-accent: #00b7c2;
-  --les-aqua-deep: #007f87;
-  --les-aqua-soft: rgba(0, 183, 194, 0.1);
-  --les-green: #2ba888;
-  --les-green-soft: rgba(43, 168, 136, 0.1);
-  --les-red: #e85454;
-  --les-red-soft: rgba(232, 84, 84, 0.1);
-  --les-warm: #d4722b;
-  --les-warm-soft: rgba(212, 114, 43, 0.1);
-}
-
 /* ---- карточка-абзац ---- */
 .case-content .c {
   background: var(--les-surface);

@@ -56,13 +56,6 @@ export default function RootLayout({
       lang="ru"
       className={`${playfair.variable} ${sourceSans.variable} ${jetbrains.variable} h-full`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('tl-theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}})();`,
-          }}
-        />
-      </head>
       <body className="flex min-h-full flex-col">
         <Suspense fallback={<div className="h-16" />}>
           <Header />
