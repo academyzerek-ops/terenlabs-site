@@ -8,14 +8,16 @@ import { OceanTestMeta, OceanQuestion, prepareAttempt } from "@/lib/ocean-tests"
 import { saveAttempt } from "@/lib/memory";
 
 // Прохождение океанского теста (Краб/Барракуда) по канону Mini App:
-// 10 вопросов по архетипам, разбор каждой опции после ответа, порог сдачи.
-// На сайте — анонимно; зачёт в рейтинг и ранг — в Mini App (там Telegram-аккаунт).
+// выбор БЕЗ мгновенной подсказки (это не игра в угадайку) → «Дальше» →
+// результат → разбор ТОЛЬКО ошибок (✓ верно / ✗ твой + объяснение).
+// На сайте — анонимно; зачёт в рейтинг и ранг — в Mini App.
+const LETTERS = ["А", "Б", "В", "Г"];
+
 export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   const [questions, setQuestions] = useState<OceanQuestion[] | null>(null);
   const [error, setError] = useState(false);
   const [idx, setIdx] = useState(0);
-  const [picked, setPicked] = useState<number | null>(null);
-  const [score, setScore] = useState(0);
+  const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [finished, setFinished] = useState(false);
 
   // пул грузим на клиенте: рандом сборки не должен попадать в SSR
@@ -24,7 +26,11 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     fetch(meta.pool)
       .then((r) => r.json())
       .then((pool: OceanQuestion[]) => {
-        if (alive) setQuestions(prepareAttempt(pool, 10));
+        if (alive) {
+          const qs = prepareAttempt(pool, 10);
+          setQuestions(qs);
+          setAnswers(new Array(qs.length).fill(null));
+        }
       })
       .catch(() => alive && setError(true));
     return () => {
@@ -48,12 +54,13 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   }
 
   const q = questions[idx];
-  const answered = picked !== null;
+  const picked = answers[idx];
+  const score = questions.reduce((s, qq, i) => s + (answers[i] === qq.a ? 1 : 0), 0);
   const passed = score >= meta.floor;
 
   const next = () => {
     if (idx + 1 >= questions.length) {
-      // память: попытка сохраняется локально (аноним тоже); этап B — синк в аккаунт
+      // память: попытка сохраняется локально (аноним тоже); синк — через аккаунт
       saveAttempt({
         slug: meta.slug,
         title: meta.title,
@@ -65,11 +72,13 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
       setFinished(true);
     } else {
       setIdx(idx + 1);
-      setPicked(null);
     }
   };
 
   if (finished) {
+    const mistakes = questions
+      .map((qq, i) => ({ q: qq, i, chosen: answers[i] }))
+      .filter((m) => m.chosen !== m.q.a);
     return (
       <Container className="py-16">
         <div className="mx-auto max-w-xl text-center">
@@ -93,12 +102,15 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
               onClick={() => {
                 setFinished(false);
                 setIdx(0);
-                setPicked(null);
-                setScore(0);
+                setAnswers([]);
                 setQuestions(null);
                 fetch(meta.pool)
                   .then((r) => r.json())
-                  .then((pool: OceanQuestion[]) => setQuestions(prepareAttempt(pool, 10)));
+                  .then((pool: OceanQuestion[]) => {
+                    const qs = prepareAttempt(pool, 10);
+                    setQuestions(qs);
+                    setAnswers(new Array(qs.length).fill(null));
+                  });
               }}
               className="btn-press rounded-[var(--radius-tl)] px-5 py-3 text-sm font-medium text-heading ring-1 ring-line transition-colors hover:ring-teal hover:text-teal"
             >
@@ -111,6 +123,54 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
             </Link>
           </p>
         </div>
+
+        {/* разбор ошибок — как в Mini App: только промахи, ✓ верно / ✗ твой */}
+        {mistakes.length > 0 && (
+          <div className="mx-auto mt-14 max-w-2xl">
+            <h2 className="text-2xl text-heading">Разбор ошибок</h2>
+            <div className="wave-divider my-5" />
+            <div className="space-y-6">
+              {mistakes.map((m) => (
+                <div key={m.i} className="rounded-[var(--radius-tl)] border border-line bg-card p-6">
+                  <p className="num text-xs font-semibold uppercase tracking-wider text-muted">
+                    Вопрос {m.i + 1}
+                  </p>
+                  <p className="mt-2 leading-relaxed text-heading">{m.q.q}</p>
+                  <ul className="mt-4 space-y-2">
+                    {m.q.opts.map((opt, oi) => {
+                      const right = oi === m.q.a;
+                      const mine = oi === m.chosen;
+                      return (
+                        <li
+                          key={oi}
+                          className={`flex items-start gap-3 rounded-lg border px-4 py-2.5 text-sm leading-relaxed ${
+                            right
+                              ? "border-teal bg-teal/8 text-heading"
+                              : mine
+                              ? "border-[var(--color-danger)] bg-[rgba(180,69,47,0.07)] text-heading"
+                              : "border-line text-muted"
+                          }`}
+                        >
+                          <span className="num mt-0.5 shrink-0 text-xs text-muted">{LETTERS[oi]}</span>
+                          <span className="flex-1">{opt}</span>
+                          {right && <span className="shrink-0 text-xs font-semibold text-teal-600">✓ верно</span>}
+                          {mine && !right && (
+                            <span className="shrink-0 text-xs font-semibold text-[var(--color-danger)]">✗ твой</span>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {(m.q.explanations?.[m.q.a] || m.q.why) && (
+                    <p className="mt-4 rounded-lg bg-subtle p-4 text-sm leading-relaxed text-body">
+                      {m.q.explanations?.[m.q.a] || m.q.why}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </Container>
     );
   }
@@ -135,73 +195,41 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           />
         </div>
 
-        {/* вопрос */}
+        {/* вопрос: выбор можно менять, правильный ответ не подсвечивается */}
         <p className="mt-8 text-lg leading-relaxed text-heading sm:text-xl">{q.q}</p>
         <div className="mt-6 space-y-3">
           {q.opts.map((o, i) => {
-            const state = !answered
-              ? "idle"
-              : i === q.a
-              ? "right"
-              : i === picked
-              ? "wrong"
-              : "dim";
+            const selected = picked === i;
             return (
-              <div key={i}>
-                <button
-                  disabled={answered}
-                  onClick={() => {
-                    setPicked(i);
-                    if (i === q.a) setScore((s) => s + 1);
-                  }}
-                  className={`btn-press flex w-full items-start gap-3 rounded-[var(--radius-tl)] border px-4 py-3 text-left text-[0.95rem] leading-relaxed transition-colors disabled:cursor-default ${
-                    state === "right"
-                      ? "border-teal bg-teal/10 text-heading"
-                      : state === "wrong"
-                      ? "border-[var(--color-danger)] bg-[rgba(180,69,47,0.08)] text-heading"
-                      : state === "dim"
-                      ? "border-line text-muted"
-                      : "border-line bg-card text-heading hover:border-teal/60"
-                  }`}
-                >
-                  <span className="num mt-0.5 shrink-0 text-xs text-muted">
-                    {String.fromCharCode(1040 + i)}
-                  </span>
-                  {o}
-                </button>
-                {/* разбор ИМЕННО этой опции — канон Ноа */}
-                {answered && q.explanations?.[i] && (i === q.a || i === picked) && (
-                  <p
-                    className={`mt-1.5 rounded-lg px-4 py-2 text-sm leading-relaxed ${
-                      i === q.a ? "bg-teal/8 text-teal-600" : "bg-subtle text-muted"
-                    }`}
-                  >
-                    {q.explanations[i]}
-                  </p>
-                )}
-              </div>
+              <button
+                key={i}
+                onClick={() => {
+                  const nextAnswers = [...answers];
+                  nextAnswers[idx] = i;
+                  setAnswers(nextAnswers);
+                }}
+                className={`btn-press flex w-full items-start gap-3 rounded-[var(--radius-tl)] border px-4 py-3 text-left text-[0.95rem] leading-relaxed transition-colors ${
+                  selected
+                    ? "border-teal bg-teal/10 text-heading shadow-[0_0_0_1px_var(--color-teal)]"
+                    : "border-line bg-card text-heading hover:border-teal/60"
+                }`}
+              >
+                <span className="num mt-0.5 shrink-0 text-xs text-muted">{LETTERS[i]}</span>
+                {o}
+              </button>
             );
           })}
         </div>
 
-        {answered && (
-          <>
-            {q.why && (
-              <div className="mt-5 rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-4 text-sm leading-relaxed text-body">
-                <span className="font-semibold text-heading">Суть: </span>
-                {q.why}
-              </div>
-            )}
-            <div className="mt-6 text-right">
-              <button
-                onClick={next}
-                className="btn-press rounded-[var(--radius-tl)] bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600"
-              >
-                {idx + 1 >= questions.length ? "Результат →" : "Дальше →"}
-              </button>
-            </div>
-          </>
-        )}
+        <div className="mt-7 text-right">
+          <button
+            onClick={next}
+            disabled={picked === null}
+            className="btn-press rounded-[var(--radius-tl)] bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600 disabled:cursor-default disabled:opacity-40"
+          >
+            {idx + 1 >= questions.length ? "Завершить тест" : "Дальше"}
+          </button>
+        </div>
       </div>
     </Container>
   );

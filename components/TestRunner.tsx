@@ -6,6 +6,8 @@ import { Container } from "./Container";
 import { Button } from "./Button";
 import { TestQuestion, rankByScore } from "@/lib/learn";
 
+// Механика как в Mini App: выбор без мгновенной подсказки → «Дальше» →
+// результат → разбор только ошибок. Это не игра в угадайку.
 export function TestRunner({
   title,
   questions,
@@ -16,65 +18,117 @@ export function TestRunner({
   backHref?: string;
 }) {
   const [i, setI] = useState(0);
-  const [picked, setPicked] = useState<number | null>(null);
-  const [correct, setCorrect] = useState(0);
+  const [answers, setAnswers] = useState<(number | null)[]>(
+    () => new Array(questions.length).fill(null)
+  );
   const [finished, setFinished] = useState(false);
 
   const q = questions[i];
-  const answered = picked !== null;
+  const picked = answers[i];
   const isLast = i === questions.length - 1;
+  const correct = questions.reduce((s, qq, k) => s + (answers[k] === qq.correct ? 1 : 0), 0);
 
   const next = () => {
-    if (isLast) {
-      setFinished(true);
-    } else {
-      setI(i + 1);
-      setPicked(null);
-    }
+    if (isLast) setFinished(true);
+    else setI(i + 1);
   };
 
   if (finished) {
     const rank = rankByScore(correct, questions.length);
+    const mistakes = questions
+      .map((qq, k) => ({ q: qq, i: k, chosen: answers[k] }))
+      .filter((m) => m.chosen !== m.q.correct);
     const shareText = encodeURIComponent(
       `Прошёл тест «${title}» на TerenLabs — ранг ${rank.name}. Глубина анализа. Сила результата.`
     );
     return (
-      <Container className="flex min-h-[70vh] flex-col items-center justify-center py-20 text-center">
-        <p className="eyebrow">Результат</p>
-        <div
-          className="mt-6 flex h-28 w-28 items-center justify-center rounded-full text-foam"
-          style={{ background: rank.color }}
-        >
-          <span className="num text-3xl">{correct}/{questions.length}</span>
-        </div>
-        <h1 className="mt-6 text-4xl text-heading">Ранг: {rank.name}</h1>
-        <p className="mt-2 text-muted">{rank.meaning}</p>
-        <p className="mt-5 max-w-md text-sm leading-relaxed text-body/70">
-          {correct === questions.length
-            ? "Чисто. Ты держишь цифры в голове — переходи к применению."
-            : correct >= questions.length * 0.6
-            ? "Крепкая база. Добей слабые места — и в применение."
-            : "Есть пробелы. Это нормально: начни с курса по основам, потом вернись."}
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button href="/catalog?type=course">Подобрать курс</Button>
-          <a
-            href={`https://wa.me/?text=${shareText}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-[var(--radius-tl)] px-5 py-2.5 text-sm text-heading ring-1 ring-line transition-colors hover:text-teal hover:ring-teal"
+      <Container className="py-20">
+        <div className="flex flex-col items-center text-center">
+          <p className="eyebrow">Результат</p>
+          <div
+            className="mt-6 flex h-28 w-28 items-center justify-center rounded-full text-foam"
+            style={{ background: rank.color }}
           >
-            Поделиться рангом
-          </a>
+            <span className="num text-3xl">{correct}/{questions.length}</span>
+          </div>
+          <h1 className="mt-6 text-4xl text-heading">Ранг: {rank.name}</h1>
+          <p className="mt-2 text-muted">{rank.meaning}</p>
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-body/70">
+            {correct === questions.length
+              ? "Чисто. Ты держишь цифры в голове — переходи к применению."
+              : correct >= questions.length * 0.6
+              ? "Крепкая база. Добей слабые места — и в применение."
+              : "Есть пробелы. Это нормально: начни с курса по основам, потом вернись."}
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button href="/catalog?type=course">Подобрать курс</Button>
+            <a
+              href={`https://wa.me/?text=${shareText}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-[var(--radius-tl)] px-5 py-2.5 text-sm text-heading ring-1 ring-line transition-colors hover:text-teal hover:ring-teal"
+            >
+              Поделиться рангом
+            </a>
+          </div>
+          <button
+            onClick={() => {
+              setI(0);
+              setAnswers(new Array(questions.length).fill(null));
+              setFinished(false);
+            }}
+            className="mt-6 text-sm text-teal-600 hover:underline"
+          >
+            Пройти заново
+          </button>
         </div>
-        <button
-          onClick={() => {
-            setI(0); setPicked(null); setCorrect(0); setFinished(false);
-          }}
-          className="mt-6 text-sm text-teal-600 hover:underline"
-        >
-          Пройти заново
-        </button>
+
+        {/* разбор ошибок — как в Mini App: только промахи */}
+        {mistakes.length > 0 && (
+          <div className="mx-auto mt-14 max-w-2xl">
+            <h2 className="text-2xl text-heading">Разбор ошибок</h2>
+            <div className="wave-divider my-5" />
+            <div className="space-y-6">
+              {mistakes.map((m) => (
+                <div key={m.i} className="rounded-[var(--radius-tl)] border border-line bg-card p-6">
+                  <p className="num text-xs font-semibold uppercase tracking-wider text-muted">
+                    Вопрос {m.i + 1}
+                  </p>
+                  <p className="mt-2 leading-relaxed text-heading">{m.q.q}</p>
+                  <ul className="mt-4 space-y-2">
+                    {m.q.options.map((opt, oi) => {
+                      const right = oi === m.q.correct;
+                      const mine = oi === m.chosen;
+                      return (
+                        <li
+                          key={oi}
+                          className={`flex items-start gap-3 rounded-lg border px-4 py-2.5 text-sm leading-relaxed ${
+                            right
+                              ? "border-teal bg-teal/8 text-heading"
+                              : mine
+                              ? "border-[var(--color-danger)] bg-[rgba(180,69,47,0.07)] text-heading"
+                              : "border-line text-muted"
+                          }`}
+                        >
+                          <span className="flex-1">{opt}</span>
+                          {right && <span className="shrink-0 text-xs font-semibold text-teal-600">✓ верно</span>}
+                          {mine && !right && (
+                            <span className="shrink-0 text-xs font-semibold text-[var(--color-danger)]">✗ твой</span>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {m.q.explain && (
+                    <p className="mt-4 rounded-lg bg-subtle p-4 text-sm leading-relaxed text-body">
+                      {m.q.explain}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </Container>
     );
   }
@@ -94,29 +148,30 @@ export function TestRunner({
         <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-line">
           <div
             className="h-full rounded-full bg-teal transition-all duration-300"
-            style={{ width: `${((i + (answered ? 1 : 0)) / questions.length) * 100}%` }}
+            style={{ width: `${(i / questions.length) * 100}%` }}
           />
         </div>
       </div>
 
       <h1 className="mt-8 text-2xl text-heading">{q.q}</h1>
 
+      {/* выбор можно менять до «Дальше»; правильный ответ не подсвечивается */}
       <div className="mt-6 space-y-3">
         {q.options.map((o, idx) => {
-          const state = !answered ? "idle" : idx === q.correct ? "right" : idx === picked ? "wrong" : "idle";
+          const selected = picked === idx;
           return (
             <button
               key={idx}
-              disabled={answered}
               onClick={() => {
-                setPicked(idx);
-                if (idx === q.correct) setCorrect((c) => c + 1);
+                const nextAnswers = [...answers];
+                nextAnswers[i] = idx;
+                setAnswers(nextAnswers);
               }}
-              className="w-full rounded-[var(--radius-tl)] border px-4 py-3.5 text-left text-heading transition-colors disabled:cursor-default"
-              style={{
-                borderColor: state === "right" ? "var(--color-teal)" : state === "wrong" ? "var(--color-danger)" : "var(--color-line)",
-                background: state === "right" ? "rgba(0,183,194,.08)" : state === "wrong" ? "rgba(180,69,47,.06)" : "var(--color-card)",
-              }}
+              className={`btn-press w-full rounded-[var(--radius-tl)] border px-4 py-3.5 text-left text-heading transition-colors ${
+                selected
+                  ? "border-teal bg-teal/10 shadow-[0_0_0_1px_var(--color-teal)]"
+                  : "border-line bg-card hover:border-teal/60"
+              }`}
             >
               {o}
             </button>
@@ -124,34 +179,15 @@ export function TestRunner({
         })}
       </div>
 
-      {answered && (
-        <div
-          className="mt-5 rounded-[var(--radius-tl)] border-l-2 p-4 text-sm leading-relaxed"
-          style={{
-            borderColor: picked === q.correct ? "var(--color-teal)" : "var(--color-danger)",
-            background: "var(--color-subtle)",
-          }}
+      <div className="mt-7 flex justify-end">
+        <button
+          onClick={next}
+          disabled={picked === null}
+          className="btn-press rounded-[var(--radius-tl)] bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600 disabled:cursor-default disabled:opacity-40"
         >
-          <span
-            className="font-medium"
-            style={{ color: picked === q.correct ? "var(--color-teal-600)" : "var(--color-danger)" }}
-          >
-            {picked === q.correct ? "Верно. " : "Неверно. "}
-          </span>
-          {q.explain}
-        </div>
-      )}
-
-      {answered && (
-        <div className="mt-7 flex justify-end">
-          <button
-            onClick={next}
-            className="rounded-[var(--radius-tl)] bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600"
-          >
-            {isLast ? "Узнать ранг" : "Дальше →"}
-          </button>
-        </div>
-      )}
+          {isLast ? "Завершить тест" : "Дальше"}
+        </button>
+      </div>
     </Container>
   );
 }
