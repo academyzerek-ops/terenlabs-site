@@ -112,7 +112,16 @@ export default function Home() {
             <br />
             <span style={{ color: "var(--color-teal)" }}>
               <span className="word-rise" style={{ animationDelay: "380ms" }}>обучения</span>{" "}
-              <span className="word-rise" style={{ animationDelay: "500ms" }}>бизнесу</span>{" "}
+              {/* «бизнесу» — главное слово: учим комплексно, не спец-курсам */}
+              <span
+                className="word-rise"
+                style={{
+                  animationDelay: "500ms",
+                  color: "#E8B65C",
+                  fontSize: "1.16em",
+                  textShadow: "0 4px 32px rgba(232,182,92,0.35)",
+                }}
+              >бизнесу</span>{" "}
               <span className="word-rise" style={{ animationDelay: "620ms" }}>в</span>{" "}
               <span className="word-rise" style={{ animationDelay: "700ms" }}>Казахстане</span>
             </span>
