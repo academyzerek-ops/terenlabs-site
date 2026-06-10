@@ -204,7 +204,7 @@ export default function Home() {
           <div className="section-no"><span className="no">02</span><span className="ln" /><span className="no" style={{opacity:0.5}}>НАШ ОТВЕТ</span></div>
           <SectionHeading
             eyebrow="Наш ответ"
-            title="Три «вместо»"
+            title="Учим бизнесу — целиком"
             desc="Миссия TerenLabs — защитить тебя от потери денег на нежизнеспособный бизнес."
           />
           <div className="mt-12 grid gap-8 md:grid-cols-3">
