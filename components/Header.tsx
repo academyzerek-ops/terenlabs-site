@@ -78,15 +78,9 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/dashboard"
-            className="hidden rounded-md px-3 py-2 text-[0.95rem] text-navy hover:text-teal-600 sm:block"
-          >
-            Кабинет
-          </Link>
-          <Link
-            href="/levels"
             className="rounded-[var(--radius-tl)] bg-teal px-4 py-2 text-[0.95rem] font-medium text-white transition-colors hover:bg-teal-600"
           >
-            Начать
+            Кабинет
           </Link>
 
           <button

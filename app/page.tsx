@@ -122,11 +122,8 @@ export default function Home() {
             Не мотивация, а расчёт. Курсы, тесты, кейсы и рабочие финмодели —
             показывают, где ты теряешь деньги и время до того, как вложишься.
           </p>
-          <div className="rise mt-9 flex flex-wrap items-center gap-5" style={{ animationDelay: "240ms" }}>
-            <Button href="/levels" size="lg">
-              Начать путь «Океан»
-            </Button>
-            <a href="#path" className="text-sm font-semibold text-foam/70 transition-colors hover:text-teal">
+          <div className="rise mt-9" style={{ animationDelay: "240ms" }}>
+            <a href="#path" className="text-base font-semibold text-foam/80 transition-colors hover:text-teal">
               Как это работает <span className="bob">↓</span>
             </a>
           </div>
