@@ -48,12 +48,6 @@ const SPEED_RU: Record<string, string> = {
   edge: "на грани времени",
 };
 
-const PERIODS: [string, string][] = [
-  ["all", "За всё время"],
-  ["month", "Месяц"],
-  ["week", "Неделя"],
-];
-
 function days(n: number) {
   const word =
     n % 10 === 1 && n % 100 !== 11
@@ -65,7 +59,6 @@ function days(n: number) {
 }
 
 export function OceanLeaderboard() {
-  const [period, setPeriod] = useState("all");
   const [scope, setScope] = useState<"all" | "region" | "level">("all");
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState(false);
@@ -92,7 +85,7 @@ export function OceanLeaderboard() {
     let alive = true;
     setData(null);
     setError(false);
-    const params = new URLSearchParams({ period });
+    const params = new URLSearchParams({ period: "all" });
     if (scope === "region" && myRegion) params.set("region", myRegion);
     if (scope === "level" && myLevel) params.set("level", myLevel);
     const token = getOceanToken();
@@ -105,7 +98,7 @@ export function OceanLeaderboard() {
     return () => {
       alive = false;
     };
-  }, [period, scope, myRegion, myLevel]);
+  }, [scope, myRegion, myLevel]);
 
   const maxLevelCount = data ? Math.max(1, ...Object.values(data.by_level)) : 1;
   const podium = data?.entries.slice(0, 3) ?? [];
@@ -132,21 +125,6 @@ export function OceanLeaderboard() {
             hint={!authed ? "нужен вход" : undefined}
             onClick={() => setScope("level")}
           />
-        </div>
-        <div className="flex gap-2">
-          {PERIODS.map(([val, label]) => (
-            <button
-              key={val}
-              onClick={() => setPeriod(val)}
-              className={`btn-press rounded-full px-4 py-2 text-sm transition-colors ${
-                period === val
-                  ? "bg-teal text-white"
-                  : "border border-line text-heading hover:border-teal hover:text-teal"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
         </div>
       </div>
 
