@@ -149,13 +149,6 @@ export default function Home() {
         className="relative overflow-hidden"
         style={{ background: "linear-gradient(180deg, #EAF7F8 0%, #D6EFF1 100%)" }}
       >
-        {/* приглушённая пасть акулы: рынок тебя схавает */}
-        <img
-          src="/brand/shark-jaws.svg"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-44 -top-44 hidden w-[640px] max-w-none rotate-12 opacity-[0.2] md:block"
-        />
         <Container className="relative z-10 py-24">
           <div className="section-no"><span className="no">01</span><span className="ln" style={{background:"rgba(13,43,69,0.12)"}} /><span className="no" style={{opacity:0.5}}>БОЛЬ</span></div>
           <Reveal>
