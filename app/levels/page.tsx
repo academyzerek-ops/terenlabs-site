@@ -91,6 +91,41 @@ export default function LevelsPage() {
               const deepIdx = i >= 4; // глубина и бездна — тёмные карты
               const midIdx = i >= 2 && i < 4; // толща/течение — стеклянные
               const right = i % 2 === 1;
+              const isStart = l.key === "rakushka"; // старт даётся автоматом — не акцентируем
+              const isFirstLevel = l.key === "krab"; // первый настоящий уровень — сюда акцент
+
+              if (isStart) {
+                // Ракушка — скромная стартовая отметка на линии, не «уровень для взятия»
+                return (
+                  <div key={l.key} className="relative">
+                    <div className="absolute left-9 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 sm:left-1/2">
+                      <div
+                        className="floaty flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/70 bg-white/85 shadow-[0_8px_24px_rgba(6,24,42,0.25)] backdrop-blur sm:h-20 sm:w-20"
+                        style={{ "--float-dur": "5s" } as React.CSSProperties}
+                      >
+                        <img src={RANK_IMG[l.key]} alt={l.name} width={56} height={56} className="h-9 w-9 object-contain sm:h-14 sm:w-14" />
+                      </div>
+                    </div>
+                    <div className="pl-24 sm:pl-[calc(50%+4rem)]">
+                      <Reveal>
+                        <Link
+                          href={`/levels/${l.key}`}
+                          className="group inline-flex max-w-xl flex-wrap items-center gap-x-3 gap-y-1 rounded-full border border-white/60 bg-white/75 px-5 py-3 shadow-[var(--shadow-tl-sm)] backdrop-blur transition-all hover:-translate-y-0.5 hover:border-teal/60"
+                        >
+                          <span className="font-[family-name:var(--font-display)] text-lg font-bold !text-navy">{l.name}</span>
+                          <span className="rounded-full bg-navy/8 px-2.5 py-0.5 text-[0.7rem] font-semibold text-navy/60">
+                            ты уже здесь — даётся автоматически
+                          </span>
+                          <span className="text-sm font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
+                            Осмотреться →
+                          </span>
+                        </Link>
+                      </Reveal>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <div key={l.key} className="relative sm:grid sm:grid-cols-2 sm:gap-14">
                   {/* орб ранга на линии: открытый — дышит светом, закрытый — спит */}
@@ -160,6 +195,10 @@ export default function LevelsPage() {
                           >
                             закрыт
                           </span>
+                        ) : isFirstLevel ? (
+                          <span className="rounded-full bg-teal px-3 py-1 text-[0.7rem] font-bold uppercase tracking-wide text-white shadow-[0_0_18px_rgba(0,183,194,0.5)]">
+                            начни здесь
+                          </span>
                         ) : (
                           <span className="rounded-full bg-teal/15 px-2.5 py-0.5 text-[0.7rem] font-semibold text-teal">
                             открыт
@@ -179,7 +218,7 @@ export default function LevelsPage() {
                         {l.tagline}
                       </p>
                       <p className="mt-5 text-sm font-semibold text-teal transition-transform group-hover:translate-x-1">
-                        {l.locked ? "Что внутри →" : "Войти на уровень →"}
+                        {l.locked ? "Что внутри →" : isFirstLevel ? "Пройти тест на Краба →" : "Войти на уровень →"}
                       </p>
                       {!l.locked && (
                         <p className={`num mt-4 text-xs ${deepIdx || midIdx ? "text-foam/50" : "text-navy/55"}`}>
@@ -212,12 +251,12 @@ export default function LevelsPage() {
               Дно — это не конец. Это место, откуда видно весь океан.
             </p>
             <div className="mt-8">
-              <Button href="/levels/rakushka" size="lg">
-                Начать с Ракушки
+              <Button href="/levels/krab" size="lg">
+                Пройти тест на Краба
               </Button>
             </div>
             <p className="num mt-4 text-xs text-foam/40">
-              бесплатно · без регистрации · ранг считается с первого теста
+              Ракушка даётся автоматически · ранг растёт с первого теста · бесплатно
             </p>
           </div>
         </Reveal>
