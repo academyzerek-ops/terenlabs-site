@@ -244,14 +244,14 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ФОРМАТ — «Дуолинго в бизнесе» ============ */}
+      {/* ============ ФОРМАТ — игра с настоящими ставками ============ */}
       <section className="deck py-20">
         <Container>
           <div className="section-no"><span className="no">03</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ФОРМАТ</span></div>
           <SectionHeading
             eyebrow="Как устроено"
-            title="«Дуолинго» в бизнесе"
-            desc="Учиться удобно, как в игре, — только ставки настоящие."
+            title="Игра с настоящими ставками"
+            desc="Уровни, ранги и тренажёры затягивают, как игра, — но каждый навык здесь стоит реальных денег."
           />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             <Reveal>
