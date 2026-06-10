@@ -115,18 +115,21 @@ export default function Home() {
               <span className="word-rise" style={{ animationDelay: "560ms" }}>результата.</span>
             </span>
           </h1>
+          {/* подзаголовок — курсивный serif в две строки (просьба Адиля) */}
           <p
-            className="rise mt-7 max-w-xl text-lg leading-relaxed text-foam/80 sm:text-xl"
-            style={{ animationDelay: "160ms", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
+            className="rise mt-8 max-w-4xl font-[family-name:var(--font-display)] italic text-foam/85"
+            style={{
+              animationDelay: "160ms",
+              fontSize: "clamp(1.15rem, 2vw, 1.6rem)",
+              lineHeight: 1.45,
+              letterSpacing: "0.005em",
+              textShadow: "0 2px 20px rgba(0,0,0,0.5)",
+            }}
           >
             Не мотивация, а расчёт. Курсы, тесты, кейсы и рабочие финмодели —
+            <br className="hidden md:block" />
             показывают, где ты теряешь деньги и время до того, как вложишься.
           </p>
-          <div className="rise mt-9" style={{ animationDelay: "240ms" }}>
-            <a href="#path" className="text-base font-semibold text-foam/80 transition-colors hover:text-teal">
-              Как это работает <span className="bob">↓</span>
-            </a>
-          </div>
         </Container>
       </section>
 
