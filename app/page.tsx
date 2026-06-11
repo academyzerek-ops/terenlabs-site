@@ -4,7 +4,6 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Bubbles } from "@/components/Bubbles";
-import { LiveQuiz } from "@/components/LiveQuiz";
 import { Reveal } from "@/components/Reveal";
 import { TiltSpotlight } from "@/components/TiltSpotlight";
 import { MiniModel } from "@/components/MiniModel";
@@ -252,11 +251,6 @@ export default function Home() {
                 деньги в реальном бизнесе. Если математика говорит «не открывай» —
                 мы скажем это прямо.
               </p>
-            </div>
-          </Reveal>
-          <Reveal delay={150}>
-            <div className="mt-14">
-              <LiveQuiz />
             </div>
           </Reveal>
         </Container>
