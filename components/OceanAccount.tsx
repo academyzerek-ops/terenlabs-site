@@ -74,20 +74,12 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
   }, [nextAuthActive, refresh]);
 
   if (!hasToken) {
+    // аноним: тихая строка вместо баннера — не давит, просто объясняет
     return (
-      <div className="mt-10 flex flex-col items-start justify-between gap-4 rounded-[var(--radius-lg)] bg-navy p-7 sm:flex-row sm:items-center">
-        <div>
-          <h2 className="text-xl !text-foam">Твоя статистика появится здесь</h2>
-          <p className="mt-1.5 text-sm text-foam/65">
-            Войди — попытки пойдут в зачёт: уровень, очки, стрик дней и место
-            в рейтинге будут собираться автоматически.
-          </p>
-        </div>
-        <Link
-          href="/auth/sign-in"
-          className="btn-press rounded-full bg-teal px-6 py-3 text-sm font-semibold text-white hover:bg-teal-600"
-        >
-          Войти
+      <div className="inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-line px-5 py-2.5 text-sm text-muted">
+        <span>Попытки идут в зачёт после входа — уровень, очки и место в рейтинге соберутся сами.</span>
+        <Link href="/auth/sign-in" className="font-semibold text-teal-600 transition-colors hover:text-teal">
+          Войти →
         </Link>
       </div>
     );

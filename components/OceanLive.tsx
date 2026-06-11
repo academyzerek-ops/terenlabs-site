@@ -202,7 +202,8 @@ function LiveFeed() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-60" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
         </span>
-        <h2 className="eyebrow !text-teal-600">Сейчас в океане</h2>
+        {/* живая точка уже есть — штрих метки тут лишний */}
+        <h2 className="eyebrow !text-teal-600 [&::before]:hidden">Сейчас в океане</h2>
       </div>
 
       <div className="mt-5 flex-1 space-y-3">
