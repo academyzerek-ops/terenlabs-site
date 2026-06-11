@@ -438,33 +438,82 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ БАННЕР БИЗНЕС-КЛУБА — палуба ============ */}
+      {/* ============ БАННЕР БИЗНЕС-КЛУБА — открытый океан ============ */}
       <section className="deck py-20">
         <Container>
-          <div className="grid items-center gap-8 rounded-[24px] border border-line bg-card p-8 sm:p-12 md:grid-cols-[1fr_200px]">
-            <div>
-              <p className="eyebrow">Вершина пути</p>
-              <h2 className="mt-3 text-3xl text-heading sm:text-4xl">
-                Путь заканчивается стаей
-              </h2>
-              <p className="mt-4 max-w-xl text-muted">
-                Дойди до ранга Акула — и попадёшь в Бизнес-клуб: живые разборы
-                твоих цифр, доска сделок и провалов, доступ к тем, кто уже в
-                открытом океане. Место в стае зарабатывают решениями, а не оплатой.
-              </p>
-              <div className="mt-7">
-                <Button href="/club">Узнать о клубе</Button>
+          <div
+            className="grain-fine relative overflow-hidden rounded-[24px]"
+            style={{
+              background:
+                "radial-gradient(85% 110% at 78% 0%, #143352 0%, transparent 55%), linear-gradient(180deg, #0d2b45 0%, #06182a 100%)",
+            }}
+          >
+            {/* биолюминесценция открытого океана */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2" aria-hidden="true">
+              <span className="bio-dot" style={{ left: "8%", bottom: "18%", width: 5, height: 5, "--bio-dur": "4.2s" } as React.CSSProperties} />
+              <span className="bio-dot" style={{ left: "26%", bottom: "8%", width: 3, height: 3, "--bio-dur": "5.4s", "--bio-delay": "-2s" } as React.CSSProperties} />
+              <span className="bio-dot" style={{ left: "55%", bottom: "14%", width: 4, height: 4, "--bio-dur": "4.8s", "--bio-delay": "-1.2s" } as React.CSSProperties} />
+              <span className="bio-dot" style={{ left: "82%", bottom: "10%", width: 3, height: 3, "--bio-dur": "5.8s", "--bio-delay": "-3.1s" } as React.CSSProperties} />
+            </div>
+
+            <div className="relative z-10 grid items-center gap-10 p-8 sm:p-12 md:grid-cols-[1fr_minmax(0,400px)]">
+              <div>
+                <p className="eyebrow">Вершина пути</p>
+                <h2 className="mt-3 text-3xl !text-foam sm:text-4xl">
+                  Путь заканчивается стаей
+                </h2>
+                <p className="mt-4 max-w-xl leading-relaxed text-foam/70">
+                  Дойди до ранга Акула — и попадёшь в Бизнес-клуб: живые разборы
+                  твоих цифр, доска сделок и провалов, доступ к тем, кто уже в
+                  открытом океане. Место в стае зарабатывают решениями, а не оплатой.
+                </p>
+                <div className="mt-7">
+                  <Button href="/club">Узнать о клубе</Button>
+                </div>
+              </div>
+
+              {/* маршрут рангов: пунктир поднимается от Ракушки к Акуле */}
+              <div className="relative hidden md:block" aria-hidden="true">
+                <svg
+                  viewBox="0 0 400 170"
+                  className="absolute inset-x-0 bottom-6 h-auto w-full"
+                  fill="none"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M 16 150 C 110 150, 200 130, 330 38"
+                    stroke="rgba(159, 226, 232, 0.45)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeDasharray="0.1 13"
+                    className="dive-dots"
+                  />
+                </svg>
+                <div className="relative flex items-end justify-between px-1">
+                  {OCEAN_RANKS.slice(0, 5).map((r, i) => {
+                    const size = [34, 44, 54, 66, 124][i];
+                    const last = i === 4;
+                    return (
+                      <img
+                        key={r.key}
+                        src={r.img}
+                        alt=""
+                        width={size}
+                        height={size}
+                        loading="lazy"
+                        className={`floaty object-contain ${last ? "orb-open rounded-full" : "opacity-80"}`}
+                        style={{
+                          width: size,
+                          height: size,
+                          "--float-delay": `${i * -0.9}s`,
+                          "--float-dur": `${4.5 + i * 0.5}s`,
+                        } as React.CSSProperties}
+                      />
+                    );
+                  })}
+                </div>
               </div>
             </div>
-            <img
-              src="/brand/ranks/akula.png?v=11"
-              alt="Акула"
-              width={192}
-              height={192}
-              loading="lazy"
-              className="floaty mx-auto h-40 w-40 object-contain md:h-48 md:w-48"
-              style={{ "--float-dur": "6s" } as React.CSSProperties}
-            />
           </div>
         </Container>
       </section>
@@ -474,7 +523,26 @@ export default function Home() {
         <Container>
           <Reveal>
           <div className="hero-ocean overflow-hidden rounded-[24px]">
+            <Bubbles />
             <div className="relative z-10 flex flex-col items-center px-8 py-20 text-center">
+              {/* шесть рангов дрейфуют над вопросом — какой из них твой? */}
+              <div className="mb-7 flex items-center justify-center gap-3" aria-hidden="true">
+                {OCEAN_RANKS.map((r, i) => (
+                  <img
+                    key={r.key}
+                    src={r.img}
+                    alt=""
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    className="floaty h-10 w-10 object-contain"
+                    style={{
+                      "--float-delay": `${i * -0.7}s`,
+                      "--float-dur": `${4 + (i % 3) * 0.7}s`,
+                    } as React.CSSProperties}
+                  />
+                ))}
+              </div>
               <h2 className="max-w-2xl text-3xl !text-foam sm:text-4xl">
                 Начни с честного теста — узнай свой ранг
               </h2>
