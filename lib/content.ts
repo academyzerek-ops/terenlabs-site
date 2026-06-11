@@ -215,6 +215,7 @@ export type Level = {
   color: string;
   tagline: string;
   metaphor?: string; // почему именно этот персонаж — объяснение-метафора
+  meaning?: string;  // что уровень означает по навыкам (кратко)
   archetype?: string;
   locked?: boolean;
   modules: LContentModule[];

@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import { Bubbles } from "@/components/Bubbles";
 import { Reveal } from "@/components/Reveal";
 import { LevelsRuler } from "@/components/LevelsRuler";
+import { LevelChar } from "@/components/LevelChar";
 import { LevelCrowd, OceanPulseStrip } from "@/components/OceanPulse";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
@@ -72,13 +73,19 @@ export default function LevelsPage() {
       </div>
 
       <Container className="relative py-16">
-        {/* шапка — на светлом мелководье */}
+        {/* шапка — что такое Океан и зачем эта страница */}
         <div className="max-w-2xl">
-          <p className="eyebrow !text-teal-600">Путь · {LEVELS.length} уровней до открытого океана</p>
-          <h1 className="mt-2 text-4xl !text-navy sm:text-6xl">Уровни «Океан»</h1>
+          <p className="eyebrow !text-teal-600">Система признания знаний</p>
+          <h1 className="mt-2 text-4xl !text-navy sm:text-6xl">Океан</h1>
           <p className="mt-4 text-lg leading-relaxed !text-navy/70">
-            Чем глубже — тем крупнее обитатели и серьёзнее решения. Ранг растёт
-            за понимание: его нельзя накликать, можно только заслужить.
+            Океан — многоуровневая система признания знаний TerenLabs. Почему
+            океан? Потому что уровни здесь живые: каждому соответствует морской
+            обитатель, и чем глубже ныряешь — тем крупнее зверь и серьёзнее
+            решения.
+          </p>
+          <p className="mt-3 text-lg leading-relaxed !text-navy/70">
+            Эта страница — твой штурвал: отслеживай уровень, смотри личную
+            статистику и сравнивай себя с другими в честном рейтинге.
           </p>
           {/* живое соревнование: кто уже в океане и кто впереди */}
           <OceanPulseStrip />
@@ -100,8 +107,9 @@ export default function LevelsPage() {
                   right ? "sm:flex-row-reverse" : ""
                 }`}
               >
-                {/* ПЕРСОНАЖ — герой уровня, растёт с глубиной */}
+                {/* ПЕРСОНАЖ — герой уровня, растёт с глубиной; клик → тесты уровня */}
                 <Reveal className="shrink-0" delay={60}>
+                  <LevelChar locked={!!l.locked} href={`/levels/${l.key}`}>
                   <div className="relative flex items-center justify-center">
                     {/* свечение за персонажем */}
                     <div
@@ -133,13 +141,13 @@ export default function LevelsPage() {
                       } as React.CSSProperties}
                     />
                   </div>
+                  </LevelChar>
                 </Reveal>
 
                 {/* ТЕКСТ — метафора без рамок, свободно на воде */}
                 <Reveal delay={i === 0 ? 0 : 160} className="max-w-xl text-center sm:text-left">
                   <p className={`num text-xs font-bold uppercase tracking-[0.3em] ${dim}`}>
                     {ZONES[i]} · {METERS[i]}
-                    {l.archetype ? ` · ${l.archetype}` : ""}
                   </p>
                   <p className="mt-2.5">
                     {/* живое население уровня — соревновательный сигнал */}
@@ -166,6 +174,12 @@ export default function LevelsPage() {
 
                   {/* метафора: почему именно этот персонаж */}
                   <p className={`mt-4 text-lg leading-relaxed sm:text-xl ${body}`}>{l.metaphor}</p>
+                  {/* что означает уровень по навыкам */}
+                  {l.meaning && (
+                    <p className={`mt-3 border-l-2 border-teal pl-4 text-base leading-relaxed sm:text-lg ${heading}`}>
+                      {l.meaning}
+                    </p>
+                  )}
 
                   {/* что проверяется на уровне + механика очков */}
                   {l.key === "krab" && (
