@@ -6,7 +6,6 @@ import { Reveal } from "@/components/Reveal";
 import { LevelsRuler } from "@/components/LevelsRuler";
 import { OceanLiveToasts } from "@/components/OceanLiveToasts";
 import { LevelChar } from "@/components/LevelChar";
-import { FishSchool } from "@/components/FishSchool";
 import { LevelCrowd, OceanPulseStrip } from "@/components/OceanPulse";
 import { OceanAccount } from "@/components/OceanAccount";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
@@ -51,15 +50,6 @@ export default function LevelsPage() {
         <span className="ocean-ray left-[34%]" style={{ "--ray-dur": "9s", "--ray-o": 0.28, width: "60px" } as React.CSSProperties} />
         <span className="ocean-ray left-[58%]" style={{ "--ray-dur": "13s", "--ray-o": 0.35, width: "120px" } as React.CSSProperties} />
         <span className="ocean-ray left-[81%]" style={{ "--ray-dur": "10s", "--ray-o": 0.25, width: "70px" } as React.CSSProperties} />
-      </div>
-
-      {/* стаи рыб пересекают толщу: наверху — тени, в глубине — отблески */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <FishSchool top="16%" dur={95} delay={-38} opacity={0.13} tone="shadow" />
-        <FishSchool top="31%" dur={70} delay={-12} opacity={0.11} scale={0.7} reverse tone="shadow" />
-        <FishSchool top="47%" dur={115} delay={-64} opacity={0.1} scale={1.25} tone="glow" />
-        <FishSchool top="63%" dur={85} delay={-27} opacity={0.09} scale={0.8} reverse tone="glow" />
-        <FishSchool top="79%" dur={130} delay={-90} opacity={0.07} scale={1.1} tone="glow" />
       </div>
 
       {/* морской снег в нижней половине погружения */}

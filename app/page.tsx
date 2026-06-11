@@ -194,15 +194,6 @@ export default function Home() {
           </div>
         </Container>
 
-        {/* акула-субъект кружит у текста: риски недалеко (Vertex Imagen, вырезана) */}
-        <div className="pointer-events-none absolute -right-6 top-4 hidden w-[430px] lg:block xl:w-[490px]" aria-hidden="true">
-          <img
-            src="/brand/gen/shark-cut.webp?v=lowpoly1"
-            alt=""
-            className="floaty w-full -rotate-[7deg] drop-shadow-[0_30px_45px_rgba(6,24,42,0.35)]"
-            style={{ "--float-dur": "7s" } as React.CSSProperties}
-          />
-        </div>
       </section>
 
       {/* ============ КАК МЫ УЧИМ — палуба ============ */}
@@ -214,14 +205,6 @@ export default function Home() {
             title="Учим бизнесу — целиком"
             desc="Миссия TerenLabs — защитить тебя от потери денег на нежизнеспособный бизнес."
           />
-          {/* капитан-субъект у штурвала смотрит на принципы: за всё отвечаешь ты */}
-          <div className="pointer-events-none absolute right-10 top-0 hidden w-[190px] xl:block 2xl:w-[210px]" aria-hidden="true">
-            <img
-              src="/brand/gen/captain-cut.webp?v=lowpoly1"
-              alt=""
-              className="w-full drop-shadow-[0_26px_38px_rgba(13,43,69,0.3)]"
-            />
-          </div>
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
             {STEPS.map((s, i) => (
