@@ -132,9 +132,11 @@ export function OceanHall() {
 
 function Swimmer({ e, first, idx }: { e: Entry; first: boolean; idx: number }) {
   const lvl = LEVEL_RU[e.level] ?? LEVEL_RU.mollusk;
-  const size = first ? 104 : 72;
+  // ступени пьедестала: №1 выше всех, №2 выше №3
+  const size = e.rank === 1 ? 104 : e.rank === 2 ? 78 : 64;
+  const lift = e.rank === 1 ? "mb-14" : e.rank === 2 ? "mb-7" : "mb-0";
   return (
-    <div className={`flex flex-col items-center ${first ? "" : "mb-1"}`}>
+    <div className={`flex flex-col items-center ${lift}`}>
       <div className="relative flex items-center justify-center">
         {/* свечение за золотом — как за персонажами уровней */}
         <div
