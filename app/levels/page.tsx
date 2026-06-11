@@ -5,7 +5,7 @@ import { Bubbles } from "@/components/Bubbles";
 import { Reveal } from "@/components/Reveal";
 import { LevelsRuler } from "@/components/LevelsRuler";
 import { LevelChar } from "@/components/LevelChar";
-import { OceanLiveBoard } from "@/components/OceanLive";
+import { OceanHall, LevelArrival } from "@/components/OceanLive";
 import { LevelCrowd } from "@/components/OceanPulse";
 import { OceanAccount } from "@/components/OceanAccount";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
@@ -75,24 +75,26 @@ export default function LevelsPage() {
       </div>
 
       <Container className="relative py-16">
-        {/* шапка — что такое Океан и зачем эта страница */}
-        <div className="max-w-2xl">
-          <p className="eyebrow !text-teal-600">Система признания знаний</p>
-          <h1 className="mt-2 text-4xl !text-navy sm:text-6xl">Океан</h1>
-          <p className="mt-4 text-lg leading-relaxed !text-navy/70">
-            Океан — многоуровневая система признания знаний TerenLabs. Почему
-            океан? Потому что уровни здесь живые: каждому соответствует морской
-            обитатель, и чем глубже ныряешь — тем крупнее зверь и серьёзнее
-            решения.
-          </p>
-          <p className="mt-3 text-lg leading-relaxed !text-navy/70">
-            Эта страница — твой штурвал: отслеживай уровень, смотри личную
-            статистику и сравнивай себя с другими в честном рейтинге.
-          </p>
-        </div>
+        {/* шапка: интро слева, зал славы плавает на воде справа — без рамок */}
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)]">
+          <div className="max-w-2xl">
+            <p className="eyebrow !text-teal-600">Система признания знаний</p>
+            <h1 className="mt-2 text-4xl !text-navy sm:text-6xl">Океан</h1>
+            <p className="mt-4 text-lg leading-relaxed !text-navy/70">
+              Океан — многоуровневая система признания знаний TerenLabs. Почему
+              океан? Потому что уровни здесь живые: каждому соответствует морской
+              обитатель, и чем глубже ныряешь — тем крупнее зверь и серьёзнее
+              решения.
+            </p>
+            <p className="mt-3 text-lg leading-relaxed !text-navy/70">
+              Эта страница — твой штурвал: отслеживай уровень, смотри личную
+              статистику и сравнивай себя с другими в честном рейтинге.
+            </p>
+          </div>
 
-        {/* океан живёт: зал славы + лента событий (вместо всплывающих тостов) */}
-        <OceanLiveBoard />
+          {/* лучшие пловцы страны — живут на воде рядом с интро */}
+          <OceanHall />
+        </div>
 
         {/* погружение: персонаж + свободный текст-метафора, без рамок.
             Уровни связаны нитью течения — свет бежит вниз, к следующей глубине */}
@@ -158,6 +160,8 @@ export default function LevelsPage() {
                 <div className="shrink-0">
                   <LevelChar locked={!!l.locked} href={`/levels/${l.key}`}>
                   <div className="relative flex items-center justify-center">
+                    {/* пузырь прибытия: кто последним доплыл до этой глубины */}
+                    <LevelArrival levelKey={l.key} deep={deep} />
                     {/* свечение за персонажем */}
                     <div
                       className="absolute rounded-full"
