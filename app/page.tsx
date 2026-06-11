@@ -159,8 +159,7 @@ export default function Home() {
               Тебя готовили к контрольным — не к кассовым разрывам
             </h2>
           </Reveal>
-          <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-[1fr_380px]">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
             <Reveal>
               <TiltSpotlight className="h-full rounded-[var(--radius-lg)]">
                 <div className="h-full rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur">
@@ -192,24 +191,20 @@ export default function Home() {
               </TiltSpotlight>
             </Reveal>
           </div>
-
-          {/* пасть из глубины: рынок тебя схавает (Vertex Imagen) */}
-          <Reveal delay={200}>
-            <div className="relative h-72 overflow-hidden rounded-[var(--radius-lg)] shadow-[0_24px_60px_rgba(6,24,42,0.35)] lg:h-full lg:min-h-[420px]">
-              <Image
-                src="/brand/gen/jaws.webp"
-                alt="Пасть акулы из глубины — рынок не прощает неподготовленных"
-                fill
-                sizes="(max-width: 1024px) 100vw, 380px"
-                className="object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#04121c]/90 to-transparent p-5">
-                <p className="text-sm font-semibold text-foam">Рынок не ждёт, пока ты доучишься.</p>
-              </div>
-            </div>
-          </Reveal>
-          </div>
         </Container>
+
+        {/* акула-субъект кружит у текста: риски недалеко (Vertex Imagen, вырезана) */}
+        <div className="pointer-events-none absolute -right-6 top-4 hidden w-[430px] lg:block xl:w-[490px]" aria-hidden="true">
+          <img
+            src="/brand/gen/shark-cut.webp"
+            alt=""
+            className="floaty w-full -rotate-[7deg] drop-shadow-[0_30px_45px_rgba(6,24,42,0.35)]"
+            style={{ "--float-dur": "7s" } as React.CSSProperties}
+          />
+          <p className="mt-2 text-center text-xs font-semibold uppercase tracking-[0.22em] text-navy/45">
+            риски всегда рядом
+          </p>
+        </div>
       </section>
 
       {/* ============ КАК МЫ УЧИМ — палуба ============ */}
@@ -221,23 +216,18 @@ export default function Home() {
             title="Учим бизнесу — целиком"
             desc="Миссия TerenLabs — защитить тебя от потери денег на нежизнеспособный бизнес."
           />
-          <div className="mt-12 grid items-stretch gap-8 lg:grid-cols-[380px_1fr]">
-          {/* капитан у штурвала: универсал один отвечает за всё (Vertex Imagen) */}
-          <Reveal>
-            <div className="relative h-72 overflow-hidden rounded-[var(--radius-lg)] shadow-[0_24px_60px_rgba(6,24,42,0.35)] lg:h-full lg:min-h-[480px]">
-              <Image
-                src="/brand/gen/captain.webp"
-                alt="Капитан у штурвала в толще воды — за всё отвечаешь ты"
-                fill
-                sizes="(max-width: 1024px) 100vw, 380px"
-                className="object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#04121c]/90 to-transparent p-5">
-                <p className="text-sm font-semibold text-foam">У штурвала своего дела — только ты.</p>
-              </div>
-            </div>
-          </Reveal>
-          <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-1">
+          {/* капитан-субъект у штурвала смотрит на принципы: за всё отвечаешь ты */}
+          <div className="pointer-events-none absolute right-10 top-0 hidden w-[190px] xl:block 2xl:w-[210px]" aria-hidden="true">
+            <img
+              src="/brand/gen/captain-cut.webp"
+              alt=""
+              className="w-full drop-shadow-[0_26px_38px_rgba(13,43,69,0.3)]"
+            />
+            <p className="mt-2 text-center text-xs font-semibold uppercase tracking-[0.22em] text-navy/45">
+              у штурвала — только ты
+            </p>
+          </div>
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
             {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
             {STEPS.map((s, i) => (
               <Reveal key={s.n} delay={i * 130} className="h-full">
@@ -269,7 +259,6 @@ export default function Home() {
               </TiltSpotlight>
               </Reveal>
             ))}
-          </div>
           </div>
         </Container>
       </section>
