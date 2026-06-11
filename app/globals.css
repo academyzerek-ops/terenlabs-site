@@ -735,3 +735,25 @@ a:active {
 @media (prefers-reduced-motion: reduce) {
   .flow-line-v, .ocean-ray, .orb-open, .bio-dot { animation: none; }
 }
+
+/* ── Живые тосты Океана: всплытие из глубины + пульс медальона ── */
+@keyframes tl-toast-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: none; }
+}
+@keyframes tl-toast-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(16px) scale(0.97); }
+}
+.tl-toast--in { animation: tl-toast-in 0.55s var(--ease-spring) both; }
+.tl-toast--out { animation: tl-toast-out 0.4s var(--ease-out-tl) both; pointer-events: none; }
+
+@keyframes tl-toast-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 183, 194, 0.45); }
+  55% { box-shadow: 0 0 0 9px rgba(0, 183, 194, 0); }
+}
+.tl-toast-glow { border-radius: 50%; animation: tl-toast-glow 2.2s var(--ease-out-tl) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-toast--in, .tl-toast--out, .tl-toast-glow { animation: none; }
+}

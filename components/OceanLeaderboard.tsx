@@ -107,25 +107,40 @@ export function OceanLeaderboard() {
 
   return (
     <div>
-      {/* срезы + период */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-2">
-          <Scope label="Казахстан" active={scope === "all"} onClick={() => setScope("all")} />
-          <Scope
-            label={myRegion ? `Моя область` : "Моя область"}
-            active={scope === "region"}
-            disabled={!authed || !myRegion}
-            hint={!authed ? "нужен вход" : !myRegion ? "укажи область в онбординге" : undefined}
-            onClick={() => setScope("region")}
-          />
-          <Scope
-            label="Мой уровень"
-            active={scope === "level"}
-            disabled={!authed || !myLevel}
-            hint={!authed ? "нужен вход" : undefined}
-            onClick={() => setScope("level")}
-          />
-        </div>
+      {/* срезы — три зачёта, каждый заметен и объяснён */}
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Scope
+          label="Казахстан"
+          sub="вся страна в одном зачёте"
+          active={scope === "all"}
+          onClick={() => setScope("all")}
+        />
+        <Scope
+          label="Моя область"
+          sub={
+            !authed
+              ? "войди — сравним с земляками"
+              : !myRegion
+              ? "укажи область — появятся земляки"
+              : `земляки: ${regionName(myRegion) ?? "твоя область"}`
+          }
+          active={scope === "region"}
+          disabled={!authed || !myRegion}
+          onClick={() => setScope("region")}
+        />
+        <Scope
+          label="Мой уровень"
+          sub={
+            !authed
+              ? "войди — сравним с равными"
+              : myLevel
+              ? `${LEVEL_RU[myLevel]?.name ?? ""} против ${LEVEL_VS[myLevel] ?? "равных"}`
+              : "честная гонка среди равных"
+          }
+          active={scope === "level"}
+          disabled={!authed || !myLevel}
+          onClick={() => setScope("level")}
+        />
       </div>
 
       {/* подпись среза */}
@@ -233,31 +248,33 @@ export function OceanLeaderboard() {
 
 function Scope({
   label,
+  sub,
   active,
   disabled,
-  hint,
   onClick,
 }: {
   label: string;
+  sub: string;
   active: boolean;
   disabled?: boolean;
-  hint?: string;
   onClick: () => void;
 }) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      title={hint}
-      className={`btn-press rounded-full px-4 py-2 text-sm transition-colors ${
+      className={`btn-press rounded-[var(--radius-tl)] border px-5 py-4 text-left transition-all ${
         active
-          ? "bg-navy text-white dark:bg-teal"
+          ? "border-teal bg-teal/10 shadow-[0_0_0_1px_var(--color-teal),0_8px_24px_rgba(0,183,194,0.15)]"
           : disabled
-          ? "border border-line text-muted/50"
-          : "border border-line text-heading hover:border-teal hover:text-teal"
+          ? "border-line opacity-60"
+          : "border-line bg-card hover:-translate-y-0.5 hover:border-teal/60"
       }`}
     >
-      {label}
+      <span className={`block text-base font-semibold ${active ? "text-teal-600" : "text-heading"}`}>
+        {label}
+      </span>
+      <span className="mt-0.5 block text-xs text-muted">{sub}</span>
     </button>
   );
 }

@@ -8,7 +8,7 @@ export const metadata = { title: "Рейтинг «Океан» — TerenLabs" }
 
 // Механика мест — зеркало backend/app/routers/ocean.py (источник правды):
 // rank_score = средняя точность × (60 / среднее время на вопрос), антифрод-пол 5 сек;
-// композит = сумма лучших средних по T1/T2/T3 Краба; пороги сдачи 7/7/6.
+// композит = сумма СРЕДНИХ по T1/T2/T3 уровня; пороги сдачи (по лучшей) 7/7/6.
 export default function OceanPage() {
   return (
     <>
@@ -29,7 +29,8 @@ export default function OceanPage() {
           </h1>
           <p className="rise mt-4 max-w-xl text-lg text-foam/75" style={{ animationDelay: "160ms" }}>
             Место в стае зарабатывают решениями: точность ответов, помноженная
-            на скорость мысли. Это те же данные, что в Mini App — вживую.
+            на скорость мысли. Сравнивай себя по всему Казахстану, со своими
+            земляками по области — и внутри своего уровня.
           </p>
         </Container>
       </section>
@@ -65,9 +66,9 @@ export default function OceanPage() {
               <div className="num text-3xl font-semibold text-[#5468e8]">T1 + T2 + T3</div>
               <h3 className="mt-3 text-lg text-heading">Композит уровня</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                Сумма лучших результатов по трём тестам уровня: Теория,
-                Применение, Анализ. Пороги сдачи — 7, 7 и 6 из 10. Прошёл все
-                три — поднялся на следующий уровень.
+                Сумма средних баллов по трём тестам уровня: Теория, Применение,
+                Анализ — пересдачи наугад витрину не красят. Пороги сдачи
+                7, 7 и 6 из 10: прошёл все три — поднялся на уровень.
               </p>
             </div>
             </Reveal>
@@ -87,13 +88,13 @@ export default function OceanPage() {
             <div>
               <h3 className="text-xl !text-foam sm:text-2xl">Хочешь в таблицу?</h3>
               <p className="mt-2 text-sm text-foam/65">
-                На сайте тесты проходятся анонимно — для зачёта в рейтинг открой
-                «Океан» в Mini App.
+                Войди — и попытки на сайте идут в зачёт. Тот же аккаунт работает
+                в Mini App: прогресс общий, где бы ты ни проходил.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Button href="https://t.me/terenlabs_bot">Открыть Mini App</Button>
-              <Button href="/levels/krab" variant="ghost">Потренироваться →</Button>
+              <Button href="/auth/sign-in">Войти</Button>
+              <Button href="/levels/krab" variant="ghost">Пройти тест Краба →</Button>
             </div>
           </div>
         </Container>

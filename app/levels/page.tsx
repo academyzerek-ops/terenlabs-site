@@ -4,8 +4,10 @@ import { Button } from "@/components/Button";
 import { Bubbles } from "@/components/Bubbles";
 import { Reveal } from "@/components/Reveal";
 import { LevelsRuler } from "@/components/LevelsRuler";
+import { OceanLiveToasts } from "@/components/OceanLiveToasts";
 import { LevelChar } from "@/components/LevelChar";
 import { LevelCrowd, OceanPulseStrip } from "@/components/OceanPulse";
+import { OceanAccount } from "@/components/OceanAccount";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
 export const metadata = { title: "Уровни «Океан» — TerenLabs" };
@@ -40,6 +42,7 @@ export default function LevelsPage() {
       }}
     >
       <LevelsRuler />
+      <OceanLiveToasts />
 
       {/* лучи света уходят с поверхности в толщу */}
       <div className="pointer-events-none absolute inset-x-0 top-[5%] h-[42%]" aria-hidden="true">
@@ -89,6 +92,11 @@ export default function LevelsPage() {
           </p>
           {/* живое соревнование: кто уже в океане и кто впереди */}
           <OceanPulseStrip />
+        </div>
+
+        {/* личная статистика: достижения отслеживаются здесь */}
+        <div className="mt-10 max-w-3xl">
+          <OceanAccount title="Твоя статистика" />
         </div>
 
         {/* погружение: персонаж + свободный текст-метафора, без рамок */}

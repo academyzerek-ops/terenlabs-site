@@ -38,7 +38,7 @@ const LEVEL_IMG: Record<string, string> = Object.fromEntries(
   ])
 );
 
-export function OceanAccount({ nextAuthActive = false }: { nextAuthActive?: boolean }) {
+export function OceanAccount({ nextAuthActive = false, title = "Океан" }: { nextAuthActive?: boolean; title?: string }) {
   const [hasToken, setHasToken] = useState(false);
   const [rank, setRank] = useState<Rank | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -77,10 +77,10 @@ export function OceanAccount({ nextAuthActive = false }: { nextAuthActive?: bool
     return (
       <div className="mt-10 flex flex-col items-start justify-between gap-4 rounded-[var(--radius-lg)] bg-navy p-7 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-xl !text-foam">Океан ждёт</h2>
+          <h2 className="text-xl !text-foam">Твоя статистика появится здесь</h2>
           <p className="mt-1.5 text-sm text-foam/65">
-            Войди — попытки пойдут в зачёт, появится место в рейтинге и
-            статистика, как в Mini App.
+            Войди — попытки пойдут в зачёт: уровень, очки, стрик дней и место
+            в рейтинге будут собираться автоматически.
           </p>
         </div>
         <Link
@@ -98,7 +98,7 @@ export function OceanAccount({ nextAuthActive = false }: { nextAuthActive?: bool
   return (
     <section className="mt-10">
       <div className="flex items-baseline gap-3">
-        <h2 className="text-2xl text-heading">Океан</h2>
+        <h2 className="text-2xl text-heading">{title}</h2>
         <Link href="/ocean" className="text-sm font-semibold text-teal-600 hover:text-teal">
           рейтинг →
         </Link>
