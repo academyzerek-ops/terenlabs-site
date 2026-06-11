@@ -149,7 +149,7 @@ export default function LevelsPage() {
                 {/* нить погружения: течение ведёт от уровня к уровню */}
                 {i > 0 && (
                   <div
-                    className="flow-line-v mx-auto my-8 h-24 w-px opacity-70 sm:my-10 sm:h-36"
+                    className="flow-line-v mx-auto my-5 h-12 w-px opacity-70 sm:my-6 sm:h-16"
                     aria-hidden="true"
                   />
                 )}
@@ -158,8 +158,9 @@ export default function LevelsPage() {
                   right ? "sm:flex-row-reverse" : ""
                 }`}
               >
-                {/* ПЕРСОНАЖ — герой уровня, растёт с глубиной; клик → тесты уровня */}
-                <Reveal className="shrink-0" delay={60}>
+                {/* ПЕРСОНАЖ — герой уровня, растёт с глубиной; клик → тесты уровня.
+                    Без Reveal: уровни видны всегда, никакой пустоты при быстром скролле */}
+                <div className="shrink-0">
                   <LevelChar locked={!!l.locked} href={`/levels/${l.key}`}>
                   <div className="relative flex items-center justify-center">
                     {/* свечение за персонажем */}
@@ -193,10 +194,10 @@ export default function LevelsPage() {
                     />
                   </div>
                   </LevelChar>
-                </Reveal>
+                </div>
 
                 {/* ТЕКСТ — метафора без рамок, свободно на воде */}
-                <Reveal delay={i === 0 ? 0 : 160} className="max-w-xl text-center sm:text-left">
+                <div className="max-w-xl text-center sm:text-left">
                   <p className={`num text-xs font-bold uppercase tracking-[0.3em] ${dim}`}>
                     {ZONES[i]} · {METERS[i]}
                   </p>
@@ -261,7 +262,7 @@ export default function LevelsPage() {
                       </Link>
                     )}
                   </p>
-                </Reveal>
+                </div>
               </div>
               </div>
             );

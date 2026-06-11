@@ -30,7 +30,9 @@ export function Reveal({
           io.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      // срабатывает ЗАРАНЕЕ (за 15% вьюпорта до входа в кадр): при быстром
+      // скролле контент уже виден, а не «зияющая пустота» (Адиль, 2026-06-12)
+      { threshold: 0.01, rootMargin: "0px 0px 15% 0px" }
     );
     io.observe(el);
     return () => io.disconnect();
