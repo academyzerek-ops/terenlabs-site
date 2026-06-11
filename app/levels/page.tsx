@@ -33,22 +33,21 @@ const BIO_DOTS = [
 
 // Маршрут между уровнями: S-кривая точечным пунктиром, как путь на карте
 // погружения — ведёт от персонажа одного уровня к следующему (зигзагом).
-function DivePath({ flip, deep }: { flip: boolean; deep: boolean }) {
-  const d = flip
-    ? "M 620 4 C 620 80, 180 76, 180 152" // от правого персонажа к левому
-    : "M 180 4 C 180 80, 620 76, 620 152"; // от левого к правому
+function DivePath({ fromX, toX, stroke }: { fromX: number; toX: number; stroke: string }) {
+  // концы кривой — под персонажем предыдущего уровня и над следующим
+  const d = `M ${fromX} 2 C ${fromX} 96, ${toX} 64, ${toX} 158`;
   return (
     <svg
-      viewBox="0 0 800 156"
-      className="mx-auto my-3 h-28 w-full max-w-3xl sm:my-4 sm:h-36"
+      viewBox="0 0 1200 160"
+      className="h-32 w-full sm:h-40"
       fill="none"
       aria-hidden="true"
       preserveAspectRatio="xMidYMid meet"
     >
       <path
         d={d}
-        stroke={deep ? "rgba(159, 226, 232, 0.55)" : "rgba(0, 155, 166, 0.5)"}
-        strokeWidth="3.5"
+        stroke={stroke}
+        strokeWidth="4"
         strokeLinecap="round"
         strokeDasharray="0.1 16"
         className="dive-dots"
@@ -56,6 +55,20 @@ function DivePath({ flip, deep }: { flip: boolean; deep: boolean }) {
     </svg>
   );
 }
+
+// x-координаты центров персонажей в viewBox 1200 (персонажи чередуются):
+// левый ~135, правый ~1065; медальон Ракушки в капсуле — у самого левого края
+const CHAR_X = (i: number) => (i % 2 === 1 ? 1065 : 135);
+
+// цвет пунктира по глубине: на светлом мелководье — бирюза, на средней
+// сине-серой воде бирюза тонет — белый, в тёмной толще — светлый циан
+const PATH_STROKE = [
+  "rgba(0, 155, 166, 0.55)", // → Краб (светлая вода)
+  "rgba(255, 255, 255, 0.7)", // → Барракуда (средняя)
+  "rgba(255, 255, 255, 0.6)", // → Дельфин
+  "rgba(159, 226, 232, 0.6)", // → Акула (тёмная)
+  "rgba(159, 226, 232, 0.6)", // → Кит
+];
 
 export default function LevelsPage() {
   return (
@@ -181,7 +194,13 @@ export default function LevelsPage() {
             return (
               <div key={l.key}>
                 {/* маршрут погружения: пунктирная кривая от уровня к уровню */}
-                {i > 0 && <DivePath flip={(i - 1) % 2 === 1} deep={i >= 3} />}
+                {i > 0 && (
+                  <DivePath
+                    fromX={i === 1 ? 75 : CHAR_X(i - 1)}
+                    toX={CHAR_X(i)}
+                    stroke={PATH_STROKE[i - 1]}
+                  />
+                )}
               <div
                 className={`relative flex flex-col items-center gap-8 sm:flex-row sm:gap-16 ${
                   right ? "sm:flex-row-reverse" : ""
