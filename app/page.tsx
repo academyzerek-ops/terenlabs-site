@@ -149,17 +149,53 @@ export default function Home() {
         className="relative overflow-hidden"
         style={{ background: "linear-gradient(180deg, #EAF7F8 0%, #D6EFF1 100%)" }}
       >
+        {/* трещина через всю секцию — кассовый разрыв буквально */}
+        <svg
+          className="pointer-events-none absolute inset-x-0 top-[44%] h-[70px] w-full"
+          viewBox="0 0 1440 70"
+          preserveAspectRatio="none"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0 38 L170 32 L310 46 L455 22 L620 52 L790 28 L905 44 L1060 18 L1230 42 L1340 30 L1440 36"
+            stroke="rgba(13, 43, 69, 0.12)"
+            strokeWidth="2"
+          />
+          <path
+            d="M0 44 L160 40 L300 52 L450 30 L615 58 L785 36 L900 50 L1055 26 L1225 48 L1335 38 L1440 42"
+            stroke="rgba(180, 69, 47, 0.10)"
+            strokeWidth="1.5"
+          />
+        </svg>
         <Container className="relative z-10 py-24">
           <div className="section-no"><span className="no">01</span><span className="ln" style={{background:"rgba(13,43,69,0.12)"}} /><span className="no" style={{opacity:0.5}}>БОЛЬ</span></div>
           <Reveal>
             <h2 className="max-w-3xl text-3xl !text-navy sm:text-5xl">
-              Тебя готовили к контрольным — не к кассовым разрывам
+              Тебя готовили{" "}
+              <span className="whitespace-nowrap line-through decoration-navy/30 decoration-[0.055em]">
+                к контрольным
+              </span>
+              {" "}— не к{" "}
+              <span className="whitespace-nowrap underline decoration-[#b4452f]/45 decoration-wavy decoration-[0.045em] underline-offset-[10px]">
+                кассовым разрывам
+              </span>
             </h2>
           </Reveal>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             <Reveal>
               <TiltSpotlight className="h-full rounded-[var(--radius-lg)]">
-                <div className="h-full rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur">
+                <div
+                  className="relative h-full overflow-hidden rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur md:-rotate-[0.5deg]"
+                  style={{ borderTop: "3px solid rgba(13, 43, 69, 0.3)" }}
+                >
+                  {/* призрак учебника: параграф, по которому готовили */}
+                  <span
+                    className="pointer-events-none absolute -bottom-10 -right-2 font-[family-name:var(--font-display)] text-[170px] font-bold leading-none text-navy/[0.05]"
+                    aria-hidden="true"
+                  >
+                    §
+                  </span>
                   <p className="eyebrow !text-teal-600">Школа и вуз</p>
                   <p className="mt-4 text-xl leading-relaxed !text-navy sm:text-2xl">
                     Точку безубыточности тебя считать научили. Выживать
@@ -174,7 +210,17 @@ export default function Home() {
             </Reveal>
             <Reveal delay={120}>
               <TiltSpotlight className="h-full rounded-[var(--radius-lg)]">
-                <div className="h-full rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur">
+                <div
+                  className="relative h-full overflow-hidden rounded-[var(--radius-lg)] border border-teal/25 bg-white/75 p-8 shadow-[0_12px_36px_rgba(0,127,135,0.10)] backdrop-blur md:rotate-[0.6deg]"
+                  style={{ borderTop: "3px solid rgba(199, 125, 42, 0.55)" }}
+                >
+                  {/* призрак обещанных звёзд успеха */}
+                  <span
+                    className="pointer-events-none absolute -bottom-12 -right-3 font-[family-name:var(--font-display)] text-[170px] font-bold leading-none text-[#c77d2a]/[0.07]"
+                    aria-hidden="true"
+                  >
+                    ★
+                  </span>
                   <p className="eyebrow !text-teal-600">Инфоцыгане</p>
                   <p className="mt-4 text-xl leading-relaxed !text-navy sm:text-2xl">
                     Инфоцыгане продают иллюзию: бизнес — это озарение
