@@ -10,6 +10,7 @@ import { TiltSpotlight } from "@/components/TiltSpotlight";
 import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
 import { OceanLiveToasts } from "@/components/OceanLiveToasts";
+import { OceanNowChip } from "@/components/OceanPulse";
 import {
   STEPS,
   OCEAN_RANKS,
@@ -313,6 +314,8 @@ export default function Home() {
                 От Ракушки до Кита. Ранг растёт за понимание — его нельзя
                 накликать, можно только заслужить решениями.
               </p>
+              {/* живой сигнал соревнования: океан населён прямо сейчас */}
+              <p className="mt-3"><OceanNowChip /></p>
               <span className="mt-4 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">Путь «Океан» →</span>
             </Link>
             </Reveal>

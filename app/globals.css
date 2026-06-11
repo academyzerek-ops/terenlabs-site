@@ -736,6 +736,32 @@ a:active {
   .flow-line-v, .ocean-ray, .orb-open, .bio-dot { animation: none; }
 }
 
+/* Стаи рыб: силуэты медленно пересекают толщу — вода живая, а не пустая.
+   Только transform/opacity; на слабом железе и reduced-motion — скрыты. */
+@keyframes tl-school-drift {
+  from { transform: translateX(-300px); }
+  to { transform: translateX(calc(100vw + 300px)); }
+}
+@keyframes tl-school-drift-rev {
+  from { transform: translateX(calc(100vw + 300px)) scaleX(-1); }
+  to { transform: translateX(-300px) scaleX(-1); }
+}
+.school {
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+  opacity: var(--school-o, 0.1);
+  animation: tl-school-drift var(--school-dur, 80s) linear infinite;
+  animation-delay: var(--school-delay, 0s);
+  will-change: transform;
+}
+.school--rev {
+  animation-name: tl-school-drift-rev;
+}
+@media (prefers-reduced-motion: reduce) {
+  .school { display: none; }
+}
+
 /* ── Живые тосты Океана: всплытие из глубины + пульс медальона ── */
 @keyframes tl-toast-in {
   from { opacity: 0; transform: translateY(24px) scale(0.96); filter: blur(4px); }

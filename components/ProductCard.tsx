@@ -65,14 +65,16 @@ export function ProductCard({ p }: { p: CatalogItem }) {
     <Link
       href={p.href}
       className="card-premium group relative flex flex-col overflow-hidden p-0"
-      style={
-        tint
+      style={{
+        // заглушка читается как «строится»: пунктирная рамка, контент приглушён
+        ...(p.stub ? { borderStyle: "dashed" } : null),
+        ...(tint
           ? {
               backgroundColor: "var(--color-card)",
               backgroundImage: `linear-gradient(0deg, ${tint}, ${tint})`,
             }
-          : undefined
-      }
+          : null),
+      }}
     >
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-4 flex items-center justify-between">
@@ -104,6 +106,21 @@ export function ProductCard({ p }: { p: CatalogItem }) {
         <h3 className="line-clamp-2 min-h-[2.3em] text-2xl leading-[1.15] text-heading">{p.title}</h3>
         <p className="mt-2 line-clamp-2 min-h-[3em] text-[15px] leading-relaxed text-muted">{p.blurb}</p>
 
+        {/* у заглушки пустую середину занимает спокойная волна ожидания */}
+        {p.stub && !p.metric && (
+          <div className="mt-4 flex items-center gap-2.5 text-[13px] text-muted/75">
+            <svg width="26" height="10" viewBox="0 0 26 10" fill="none" aria-hidden="true">
+              <path
+                d="M1 5 C3.5 1.5, 6 1.5, 8.5 5 S 13.5 8.5, 16 5 S 21 1.5, 25 5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                opacity="0.65"
+              />
+            </svg>
+            готовим к выпуску
+          </div>
+        )}
         {p.metric && (
           <div className="mt-4 flex items-baseline gap-2">
             <span className={`num text-3xl font-semibold ${p.type === "finmodel" ? "text-[#1f9e74]" : p.type === "test" ? "text-[#5468e8]" : "text-heading"}`}>{p.metric.value}</span>

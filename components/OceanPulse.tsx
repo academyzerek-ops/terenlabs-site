@@ -72,6 +72,21 @@ export function LevelCrowd({ levelKey, deep }: { levelKey: string; deep?: boolea
   );
 }
 
+/** Компактный живой чип для главной: население океана прямо сейчас. */
+export function OceanNowChip() {
+  const data = usePulse();
+  if (!data || data.total_users === 0) return null;
+  return (
+    <span className="num inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-[0.74rem] font-semibold text-muted">
+      <span className="relative flex h-1.5 w-1.5">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-60" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal" />
+      </span>
+      в океане: {data.total_users} {plural(data.total_users, "человек", "человека", "человек")}
+    </span>
+  );
+}
+
 /** Живая строка соревнования: сколько людей в океане и кто впереди. */
 export function OceanPulseStrip() {
   const data = usePulse();
