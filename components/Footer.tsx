@@ -33,26 +33,31 @@ export function Footer() {
         <FooterCol title="Правовая информация" links={LEGAL} />
       </Container>
 
-      <div className="border-t border-[#dde4ea]">
-        <Container className="flex flex-col gap-2 py-6 text-xs text-[#5b6b78] sm:flex-row sm:items-center sm:justify-between">
+      {/* тёмное «дно» футера: копирайт и имя уходят в глубину
+          (колонки выше остаются на светлой палубе — указание Адиля) */}
+      <div
+        className="relative overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #0d2b45 0%, #06182a 100%)" }}
+      >
+        <Container className="flex flex-col gap-2 py-6 text-xs text-foam/55 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} TerenLabs. Казахстан.</span>
           <span className="num">Интерфейс: RU · KK</span>
         </Container>
-      </div>
 
-      {/* «дно»: имя уходит под воду — обрезается нижним краем футера */}
-      <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
-        <p
-          className="text-center font-bold leading-none text-[#0d2b45]/[0.05]"
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(90px, 17vw, 280px)",
-            marginBottom: "-0.34em",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          TerenLabs
-        </p>
+        {/* имя уходит под воду — обрезается нижним краем футера */}
+        <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
+          <p
+            className="text-center font-bold leading-none text-white/[0.06]"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(90px, 17vw, 280px)",
+              marginBottom: "-0.34em",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            TerenLabs
+          </p>
+        </div>
       </div>
     </footer>
   );
