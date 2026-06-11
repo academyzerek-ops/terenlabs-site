@@ -10,17 +10,7 @@ import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
 import { OceanNowChip } from "@/components/OceanPulse";
 import { OceanFinaleLive } from "@/components/OceanLive";
-import {
-  STEPS,
-  OCEAN_RANKS,
-  CATALOG,
-  COURSES,
-  TESTS,
-  CASES,
-  REVIEWS,
-  plural,
-} from "@/lib/content";
-import { ACADEMY } from "@/lib/learn";
+import { STEPS, OCEAN_RANKS } from "@/lib/content";
 
 // Путь обучения: 3 ступени (кейсы — часть Академии/обучения)
 const PATH = [
@@ -57,15 +47,7 @@ const PATH = [
 ];
 
 export default function Home() {
-  // счётчики пути — из данных (правило: ничего не зашивать руками)
-  const chapterTotal = ACADEMY.reduce((s, t) => s + t.chapterTotal, 0);
-  const liveTests = TESTS.filter((t) => !t.stub);
-  const questionTotal = liveTests.reduce((s, t) => s + (parseInt(t.metric?.value ?? "0") || 0), 0);
-  const pathStats: Record<string, string> = {
-    learn: `${COURSES.length} ${plural(COURSES.length, "курс", "курса", "курсов")} · ${chapterTotal} глав`,
-    check: `${liveTests.length} ${plural(liveTests.length, "тест", "теста", "тестов")} · ${questionTotal} вопросов`,
-    apply: `${CASES.length} кейсов · ${REVIEWS.length} обзоров`,
-  };
+  // счётчики контента на главной не показываем — числа меняются (правило Адиля)
   return (
     <>
       {/* Глубиномер: метры растут по мере скролла — «глубина анализа» буквально */}
@@ -292,7 +274,7 @@ export default function Home() {
               {
                 href: "/catalog?type=case",
                 title: "Истории, не определения",
-                desc: `${CASES.length} разборов того, как теряют деньги. Чужие ошибки дешевле своих — учись на них.`,
+                desc: "Разборы того, как теряют деньги. Чужие ошибки дешевле своих — учись на них.",
                 cta: "К кейсам",
                 visual: null,
               },
@@ -403,12 +385,7 @@ export default function Home() {
                       ))}
                     </ul>
 
-                    {/* живой счётчик содержимого — из данных */}
-                    <p className="num mt-5 border-t border-line pt-4 text-lg font-semibold text-heading">
-                      {pathStats[step.key]}
-                    </p>
-
-                    <span className="mt-5 inline-block text-base font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
+                    <span className="mt-6 inline-block border-t border-line pt-4 text-base font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
                       {step.cta} →
                     </span>
                   </div>
