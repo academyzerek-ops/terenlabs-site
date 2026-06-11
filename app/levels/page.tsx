@@ -336,9 +336,6 @@ export default function LevelsPage() {
                 Пройти тест на Краба
               </Button>
             </div>
-            <p className="num mt-4 text-xs text-foam/40">
-              Ракушка даётся автоматически · ранг растёт с первого теста · бесплатно
-            </p>
           </div>
         </Reveal>
       </Container>
