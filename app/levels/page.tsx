@@ -31,6 +31,32 @@ const BIO_DOTS = [
   { left: "93%", bottom: "7%", size: 4, dur: "4.1s", delay: "-1.0s" },
 ];
 
+// Маршрут между уровнями: S-кривая точечным пунктиром, как путь на карте
+// погружения — ведёт от персонажа одного уровня к следующему (зигзагом).
+function DivePath({ flip, deep }: { flip: boolean; deep: boolean }) {
+  const d = flip
+    ? "M 620 4 C 620 80, 180 76, 180 152" // от правого персонажа к левому
+    : "M 180 4 C 180 80, 620 76, 620 152"; // от левого к правому
+  return (
+    <svg
+      viewBox="0 0 800 156"
+      className="mx-auto my-3 h-28 w-full max-w-3xl sm:my-4 sm:h-36"
+      fill="none"
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <path
+        d={d}
+        stroke={deep ? "rgba(159, 226, 232, 0.55)" : "rgba(0, 155, 166, 0.5)"}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        strokeDasharray="0.1 16"
+        className="dive-dots"
+      />
+    </svg>
+  );
+}
+
 export default function LevelsPage() {
   return (
     <div
@@ -154,13 +180,8 @@ export default function LevelsPage() {
             }
             return (
               <div key={l.key}>
-                {/* нить погружения: течение ведёт от уровня к уровню */}
-                {i > 0 && (
-                  <div
-                    className="flow-line-v mx-auto my-5 h-12 w-px opacity-70 sm:my-6 sm:h-16"
-                    aria-hidden="true"
-                  />
-                )}
+                {/* маршрут погружения: пунктирная кривая от уровня к уровню */}
+                {i > 0 && <DivePath flip={(i - 1) % 2 === 1} deep={i >= 3} />}
               <div
                 className={`relative flex flex-col items-center gap-8 sm:flex-row sm:gap-16 ${
                   right ? "sm:flex-row-reverse" : ""

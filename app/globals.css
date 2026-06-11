@@ -748,6 +748,17 @@ a:active {
 @media (prefers-reduced-motion: reduce) {
   .flow-line-v, .ocean-ray, .orb-open, .bio-dot { animation: none; }
 }
+
+/* Маршрут погружения: точки пунктира медленно плывут вниз по кривой */
+@keyframes tl-dive-dots {
+  to { stroke-dashoffset: -16.1; }
+}
+.dive-dots {
+  animation: tl-dive-dots 2.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dive-dots { animation: none; }
+}
 /* ── Живые тосты Океана: всплытие из глубины + пульс медальона ── */
 @keyframes tl-toast-in {
   from { opacity: 0; transform: translateY(24px) scale(0.96); filter: blur(4px); }
