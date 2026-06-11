@@ -26,6 +26,10 @@
       {
         "id": "course-marketing",
         "title": "Маркетинг малого бизнеса"
+      },
+      {
+        "id": "course-legal",
+        "title": "Юридическая грамотность"
       }
     ],
     "testSlugs": [

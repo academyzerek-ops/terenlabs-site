@@ -114,12 +114,19 @@
       '</button>';
     document.body.appendChild(aibar);
 
-    // Aibar handlers — открывают Mini App с deep-link
+    // Aibar handlers — открывают Mini App с deep-link.
+    // Путь строим от текущего URL: контент лежит на разной глубине
+    // (academy/<модуль>/глава.html — 4 уровня, cases/case-NNN.html — 3),
+    // хардкод '../../../../' с кейсов вёл на несуществующий /shell → 404.
+    var shellUrl = window.location.pathname.replace(/\/content\/.*$/, '/shell/app.html');
     aibar.querySelector('.les-aibar-icon').addEventListener('click', function(){
-      window.location.href = '../../../../shell/app.html?drawer=1';
+      window.location.href = shellUrl + '?drawer=1';
     });
     aibar.querySelector('.les-aibar-pill').addEventListener('click', function(){
-      window.location.href = '../../../../shell/app.html?chat=1';
+      // from = заголовок страницы: чат передаст его бэку как context.title,
+      // и retrieval сместится к материалу, который человек сейчас читает.
+      var from = encodeURIComponent((document.title || '').slice(0, 90));
+      window.location.href = shellUrl + '?chat=1' + (from ? '&from=' + from : '');
     });
 
     // 3) Inject swipe-стрелки (только если есть куда идти)

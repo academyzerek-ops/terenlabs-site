@@ -578,6 +578,12 @@ html[data-mod] .lb.purple{color:var(--les-accent);background:var(--les-aqua-soft
   background:transparent;pointer-events:none;
   max-width:460px;margin:0 auto;
 }
+/* Scrim: текст под баром гаснет в фон, а не просвечивает сквозь pill */
+.les-aibar::before{
+  content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:100vw;height:130px;z-index:-1;pointer-events:none;
+  background:linear-gradient(to top,var(--les-bg) 0%,var(--les-bg) 28%,transparent 100%);
+}
 .les-aibar > *{pointer-events:auto}
 .les-aibar-icon{
   flex-shrink:0;width:42px;height:42px;border-radius:50%;

@@ -50,8 +50,13 @@ function transformEmbedded(html, { keepLocalScripts = false } = {}) {
 }
 
 // ---------- 1. АКАДЕМИЯ ----------
-const appHtml = read(path.join(SRC, "shell/app.html"));
+// ACADEMY_DATA переехал из shell/app.html в shell/app.js (2026-06) — берём откуда есть
+const shellJs = path.join(SRC, "shell/app.js");
+const appHtml = fs.existsSync(shellJs) && read(shellJs).includes("var ACADEMY_DATA = {")
+  ? read(shellJs)
+  : read(path.join(SRC, "shell/app.html"));
 const adStart = appHtml.indexOf("var ACADEMY_DATA = {");
+if (adStart === -1) throw new Error("ACADEMY_DATA не найден ни в shell/app.js, ни в shell/app.html");
 const adSlice = appHtml.slice(adStart + "var ACADEMY_DATA = ".length);
 // найти закрывающую скобку объекта по балансу
 let depth = 0, end = 0;
@@ -68,6 +73,7 @@ const TRACKS = {
   // у маркетинга/финансов нет hero-артов глав — карточке каталога даём тематический арт
   mkt: { slug: "course-marketing", topic: "Маркетинг", fallbackImg: "/lessons/fund_m2-ch04_store-maze.jpg" },
   fin: { slug: "course-finance", topic: "Финансы", fallbackImg: "/lessons/fund_m5-ch05_coin-mountain.jpg" },
+  legal: { slug: "course-legal", topic: "Бизнес" },
 };
 
 const academy = [];
@@ -177,8 +183,13 @@ report.counts.oceanPools = OCEAN_TESTS.length;
 
 // ---------- 5. PRODUCTS.JSON ----------
 const products = JSON.parse(read(path.join(SITE, "content/products.json")));
+// океан-тесты регенерируются ниже — старые копии не оставляем (иначе дубликаты slug при повторном прогоне)
+const oceanSlugs = new Set(OCEAN_TESTS.map((t) => t.slug));
 const keep = products.filter(
-  (p) => p.type === "finmodel" || p.type === "test" || (p.type === "case" && p.slug === "case-marketplace")
+  (p) =>
+    (p.type === "finmodel" ||
+      (p.type === "test" && !oceanSlugs.has(p.slug)) ||
+      (p.type === "case" && p.slug === "case-marketplace"))
 );
 const plural = (n, one, few, many) => {
   const m10 = n % 10, m100 = n % 100;

@@ -26,7 +26,9 @@ for (const p of products) {
   const key = `${p.type}:${p.slug}`;
   if (slugs.has(key)) errors.push(`${id}: дубликат slug`);
   slugs.add(key);
-  if (p.type === "test" && !p.stub && !p.bank) errors.push(`${id}: непустой тест без поля bank`);
+  // океан-тесты (badge «Океан») работают от пулов /ocean-pools/*.json, банк им не нужен
+  if (p.type === "test" && !p.stub && !p.bank && p.badge !== "Океан")
+    errors.push(`${id}: непустой тест без поля bank`);
 }
 
 // --- уровни ---
