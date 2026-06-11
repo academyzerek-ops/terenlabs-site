@@ -178,6 +178,105 @@ function Swimmer({ e, first, idx }: { e: Entry; first: boolean; idx: number }) {
   );
 }
 
+/* ── Финал главной: гонка уже идёт — пьедестал и события на тёмной глубине ── */
+
+export function OceanFinaleLive() {
+  const [data, setData] = useState<LbData | null>(null);
+  const [events, setEvents] = useState<ActEntry[]>([]);
+
+  useEffect(() => {
+    fetch(`${OCEAN_API}/leaderboard?period=all`)
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => {});
+    getActivity().then((all) => setEvents(all.slice(0, 2)));
+  }, []);
+
+  const podium = data?.entries.slice(0, 3) ?? [];
+  if (podium.length === 0) return null;
+
+  return (
+    <div>
+      {/* пьедестал ступенями: золото в центре выше всех */}
+      <div className="flex items-end justify-center gap-7 sm:gap-10">
+        {[podium[1], podium[0], podium[2]].map((e, slot) => {
+          if (!e) return null;
+          const lvl = LEVEL_RU[e.level] ?? LEVEL_RU.mollusk;
+          const size = e.rank === 1 ? 96 : e.rank === 2 ? 70 : 58;
+          const lift = e.rank === 1 ? "mb-12" : e.rank === 2 ? "mb-6" : "mb-0";
+          return (
+            <div key={e.rank} className={`flex flex-col items-center ${lift}`}>
+              <div className="relative flex items-center justify-center">
+                <div
+                  className="absolute rounded-full"
+                  style={{
+                    width: size * 1.5,
+                    height: size * 1.5,
+                    background: `radial-gradient(circle, rgba(0,183,194,${e.rank === 1 ? 0.4 : 0.18}) 0%, transparent 70%)`,
+                    filter: "blur(6px)",
+                  }}
+                  aria-hidden="true"
+                />
+                <img
+                  src={lvl.img}
+                  alt={lvl.name}
+                  width={size}
+                  height={size}
+                  loading="lazy"
+                  className="floaty relative object-contain drop-shadow-[0_16px_32px_rgba(2,10,18,0.6)]"
+                  style={{
+                    width: size,
+                    height: size,
+                    "--float-delay": `${slot * -1.2}s`,
+                    "--float-dur": `${4.5 + slot * 0.7}s`,
+                  } as React.CSSProperties}
+                />
+              </div>
+              <span className={`num mt-2 font-bold ${e.rank === 1 ? "text-base text-teal" : "text-xs text-foam/40"}`}>
+                #{e.rank}
+              </span>
+              <span className={`max-w-[110px] truncate font-semibold text-foam ${e.rank === 1 ? "text-lg" : "text-sm"}`}>
+                {e.name}
+              </span>
+              <span className="num text-xs text-foam/50">
+                {e.composite} очк · {lvl.name}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* последние события — океан живёт прямо сейчас */}
+      {events.length > 0 && (
+        <div className="mt-9 flex flex-col items-center gap-2">
+          {events.map((e, i) => {
+            const lvl = LEVEL_RU[e.level];
+            if (!lvl) return null;
+            return (
+              <div
+                key={`${e.name}-${e.when}`}
+                className="flex items-center gap-2.5 rounded-full border border-white/12 bg-white/[0.06] py-1.5 pl-2 pr-4 backdrop-blur-sm"
+              >
+                <img src={lvl.img} alt="" width={26} height={26} className="h-[26px] w-[26px] object-contain" />
+                <span className="text-sm text-foam/80">
+                  {e.name} — теперь {lvl.name}
+                </span>
+                <span className="num text-xs text-foam/40">{timeAgo(e.when)}</span>
+                {i === 0 && (
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-60" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal" />
+                  </span>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ── Пузырь у уровня: кто последним доплыл до этой глубины ── */
 
 export function LevelArrival({ levelKey, deep }: { levelKey: string; deep?: boolean }) {

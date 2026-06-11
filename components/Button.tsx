@@ -2,8 +2,9 @@ import Link from "next/link";
 
 type Variant = "primary" | "secondary" | "ghost";
 
+// система форм: интерактив = pill (как навигация), поверхности = 24px
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-[var(--radius-tl)] font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:opacity-50";
 
 const sizes = {
   md: "px-5 py-2.5 text-[0.95rem]",

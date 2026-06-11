@@ -9,6 +9,7 @@ import { TiltSpotlight } from "@/components/TiltSpotlight";
 import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
 import { OceanNowChip } from "@/components/OceanPulse";
+import { OceanFinaleLive } from "@/components/OceanLive";
 import {
   STEPS,
   OCEAN_RANKS,
@@ -150,7 +151,6 @@ export default function Home() {
         style={{ background: "linear-gradient(180deg, #EAF7F8 0%, #D6EFF1 100%)" }}
       >
         <Container className="relative z-10 py-24">
-          <div className="section-no"><span className="no">01</span><span className="ln" style={{background:"rgba(13,43,69,0.12)"}} /><span className="no" style={{opacity:0.5}}>БОЛЬ</span></div>
           <Reveal>
             <h2 className="max-w-3xl text-3xl !text-navy sm:text-5xl">
               Тебя готовили к контрольным — не к кассовым разрывам
@@ -195,44 +195,60 @@ export default function Home() {
       {/* ============ КАК МЫ УЧИМ — палуба ============ */}
       <section className="deck py-20">
         <Container>
-          <div className="section-no"><span className="no">02</span><span className="ln" /><span className="no" style={{opacity:0.5}}>НАШ ОТВЕТ</span></div>
           <SectionHeading
-            eyebrow="Наш ответ"
             title="Учим бизнесу — целиком"
             desc="Миссия TerenLabs — защитить тебя от потери денег на нежизнеспособный бизнес."
           />
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
-            {STEPS.map((s, i) => (
-              <Reveal key={s.n} delay={i * 130} className="h-full">
-              <TiltSpotlight className="h-full rounded-[var(--radius-tl)]">
-              <div
-                className="group relative h-full overflow-hidden rounded-[var(--radius-tl)] border border-white/10 p-7 shadow-[var(--shadow-tl)]"
-                style={{ background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)" }}
-              >
-                {/* тематический кадр растворяется в толще справа */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-3/5">
-                  <Image
-                    src={s.img}
-                    alt=""
-                    fill
-                    sizes="(max-width: 768px) 60vw, 30vw"
-                    className="object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
-                    style={{
-                      maskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
-                      WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 65%)",
-                    }}
-                  />
-                </div>
-                <div className="relative">
-                  <span className="num text-4xl font-semibold text-teal">{s.n}</span>
-                  <h3 className="mt-4 text-xl !text-foam">{s.title}</h3>
-                  <p className="mt-2 max-w-[75%] text-sm leading-relaxed text-foam/65">{s.desc}</p>
-                </div>
-              </div>
-              </TiltSpotlight>
-              </Reveal>
-            ))}
+          {/* асимметричное бенто: первый принцип — главный, занимает высоту двух */}
+          <div className="mt-12 grid gap-5 md:grid-cols-12">
+            {STEPS.map((s, i) => {
+              const big = i === 0;
+              return (
+                <Reveal
+                  key={s.n}
+                  delay={i * 120}
+                  className={big ? "md:col-span-7 md:row-span-2" : "md:col-span-5"}
+                >
+                  <TiltSpotlight className="h-full rounded-[var(--radius-lg)]">
+                    <div
+                      className={`group relative flex h-full flex-col justify-end overflow-hidden rounded-[var(--radius-lg)] border border-white/10 shadow-[var(--shadow-tl)] ${
+                        big ? "min-h-[420px] p-9" : "min-h-[200px] p-7"
+                      }`}
+                      style={{ background: "linear-gradient(180deg, #0d2b45 0%, #081b2e 100%)" }}
+                    >
+                      {/* кадр растворяется в толще: у главной — сверху, у малых — справа */}
+                      <div
+                        className={`pointer-events-none absolute ${
+                          big ? "inset-x-0 top-0 h-3/4" : "inset-y-0 right-0 w-1/2"
+                        }`}
+                      >
+                        <Image
+                          src={s.img}
+                          alt=""
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover opacity-45 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04] group-hover:opacity-65"
+                          style={{
+                            maskImage: big
+                              ? "linear-gradient(180deg, black 30%, transparent 100%)"
+                              : "linear-gradient(90deg, transparent 0%, black 70%)",
+                            WebkitMaskImage: big
+                              ? "linear-gradient(180deg, black 30%, transparent 100%)"
+                              : "linear-gradient(90deg, transparent 0%, black 70%)",
+                          }}
+                        />
+                      </div>
+                      <div className="relative">
+                        <h3 className={`!text-foam ${big ? "text-3xl" : "text-xl"}`}>{s.title}</h3>
+                        <p className={`mt-2.5 leading-relaxed text-foam/70 ${big ? "max-w-md text-base" : "max-w-[80%] text-sm"}`}>
+                          {s.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </TiltSpotlight>
+                </Reveal>
+              );
+            })}
           </div>
         </Container>
       </section>
@@ -242,7 +258,6 @@ export default function Home() {
         <Container className="relative z-10 py-24 sm:py-28">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
-              <p className="eyebrow">Наша ценность</p>
               <h2 className="mt-4 text-3xl !text-foam sm:text-5xl" style={{ fontStyle: "italic" }}>
                 «Лучше отговорить тебя от плохой идеи, чем продать надежду»
               </h2>
@@ -259,72 +274,72 @@ export default function Home() {
       {/* ============ ФОРМАТ — затягивает, а навыки настоящие ============ */}
       <section className="deck py-20">
         <Container>
-          <div className="section-no"><span className="no">03</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ФОРМАТ</span></div>
           <SectionHeading
-            eyebrow="Как устроено"
             title="Формат, который затягивает"
             desc="Уровни, ранги и тренажёры — проходишь шаг за шагом, а каждый навык бережёт реальные деньги."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            <Reveal>
-            <Link href="/levels" className="card-premium group flex h-full flex-col p-7">
-              <div className="flex items-center gap-1.5">
-                {/* медальоны дрейфуют в толще воды — фазы сдвинуты, как живая стая */}
-                {OCEAN_RANKS.map((r, i) => (
-                  <img
-                    key={r.key}
-                    src={r.img}
-                    alt={r.name}
-                    width={44}
-                    height={44}
-                    loading="lazy"
-                    className="floaty h-11 w-11 object-contain"
-                    style={{ "--float-delay": `${i * -0.7}s`, "--float-dur": `${4 + (i % 3) * 0.6}s` } as React.CSSProperties}
-                  />
-                ))}
-              </div>
-              <h3 className="mt-5 text-2xl text-heading">Ранг, не сертификат</h3>
-              <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">
-                От Ракушки до Кита. Ранг растёт за понимание — его нельзя
-                накликать, можно только заслужить решениями.
-              </p>
-              {/* живой сигнал соревнования: океан населён прямо сейчас */}
-              <p className="mt-3"><OceanNowChip /></p>
-              <span className="mt-4 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">Путь «Океан» →</span>
-            </Link>
-            </Reveal>
-            <Reveal delay={130}>
-            <Link href="/catalog?type=case" className="card-premium group flex h-full flex-col overflow-hidden p-0">
-              <div className="relative aspect-[16/8] overflow-hidden">
-                <Image src="/lessons/arch_m7-ch01_breached-hull.jpg" alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 to-transparent" />
-              </div>
-              <div className="flex flex-1 flex-col p-7 pt-5">
-                <h3 className="text-2xl text-heading">Истории, не определения</h3>
-                <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">
-                  {CASES.length} разборов того, как теряют деньги. Чужие ошибки
-                  дешевле своих — учись на них.
-                </p>
-                <span className="mt-4 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">К кейсам →</span>
-              </div>
-            </Link>
-            </Reveal>
-            <Reveal delay={260}>
-            <Link href="/finmodels/finmodel-cafe" className="card-premium group flex h-full flex-col overflow-hidden p-0">
-              <div className="relative aspect-[16/8] overflow-hidden">
-                <Image src="/lessons/fund_m2-ch08_algorithm-tunnel.jpg" alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 to-transparent" />
-              </div>
-              <div className="flex flex-1 flex-col p-7 pt-5">
-                <h3 className="text-2xl text-heading">Тренажёр, не лекция</h3>
-                <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">
-                  Тесты нельзя угадать, финмодель считает твои цифры.
-                  Знание проверяется делом, а не конспектом.
-                </p>
-                <span className="mt-4 text-[15px] font-semibold text-teal-600 transition-transform group-hover:translate-x-1">Открыть демо →</span>
-              </div>
-            </Link>
-            </Reveal>
+          {/* редакционный список вместо третьей подряд сетки карточек:
+              строки с воздухом, ховер сдвигает строку и зажигает стрелку */}
+          <div className="mt-10 border-t border-line">
+            {[
+              {
+                href: "/levels",
+                title: "Ранг, не сертификат",
+                desc: "От Ракушки до Кита. Ранг растёт за понимание — его нельзя накликать, можно только заслужить решениями.",
+                cta: "Путь «Океан»",
+                visual: "ranks" as const,
+              },
+              {
+                href: "/catalog?type=case",
+                title: "Истории, не определения",
+                desc: `${CASES.length} разборов того, как теряют деньги. Чужие ошибки дешевле своих — учись на них.`,
+                cta: "К кейсам",
+                visual: null,
+              },
+              {
+                href: "/finmodels/finmodel-cafe",
+                title: "Тренажёр, не лекция",
+                desc: "Тесты нельзя угадать, финмодель считает твои цифры. Знание проверяется делом, а не конспектом.",
+                cta: "Открыть демо",
+                visual: null,
+              },
+            ].map((row, i) => (
+              <Reveal key={row.href} delay={i * 100}>
+                <Link
+                  href={row.href}
+                  className="group grid items-center gap-x-10 gap-y-3 border-b border-line py-9 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white/60 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)_auto] md:px-4 md:hover:px-6"
+                >
+                  <h3 className="text-2xl text-heading transition-colors group-hover:text-teal-600 sm:text-3xl">
+                    {row.title}
+                  </h3>
+                  <div>
+                    <p className="text-[15.5px] leading-relaxed text-muted">{row.desc}</p>
+                    {row.visual === "ranks" && (
+                      <div className="mt-3 flex items-center gap-2">
+                        {OCEAN_RANKS.map((r, j) => (
+                          <img
+                            key={r.key}
+                            src={r.img}
+                            alt={r.name}
+                            width={34}
+                            height={34}
+                            loading="lazy"
+                            className="floaty h-[34px] w-[34px] object-contain"
+                            style={{ "--float-delay": `${j * -0.7}s`, "--float-dur": `${4 + (j % 3) * 0.6}s` } as React.CSSProperties}
+                          />
+                        ))}
+                        <span className="ml-2"><OceanNowChip /></span>
+                      </div>
+                    )}
+                  </div>
+                  {/* стрелка в собственном круге — кнопка-в-кнопке */}
+                  <span className="hidden h-12 w-12 items-center justify-center rounded-full border border-line text-lg text-muted transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:border-teal group-hover:bg-teal group-hover:text-white md:flex">
+                    →
+                  </span>
+                  <span className="text-[15px] font-semibold text-teal-600 md:hidden">{row.cta} →</span>
+                </Link>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -332,7 +347,6 @@ export default function Home() {
       {/* ============ ПУТЬ ОБУЧЕНИЯ — палуба ============ */}
       <section id="path" className="deck py-24">
         <Container>
-          <div className="section-no"><span className="no">04</span><span className="ln" /><span className="no" style={{opacity:0.5}}>РАЗДЕЛЫ</span></div>
           <div className="max-w-2xl">
             <h2 className="text-3xl sm:text-4xl">От ракушки до акулы бизнеса</h2>
             <p className="mt-3 text-xl font-semibold text-teal-600 sm:text-2xl">
@@ -411,7 +425,6 @@ export default function Home() {
         <Bubbles />
         <Container className="relative z-10 grid items-center gap-12 py-24 md:grid-cols-2">
           <div>
-            <div className="section-no"><span className="no">05</span><span className="ln" /><span className="no" style={{opacity:0.5}}>ИНСТРУМЕНТ</span></div>
           <SectionHeading
               light
               eyebrow="Наш инструмент"
@@ -432,6 +445,41 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* ============ ФИНАЛ: гонка уже идёт — океан во всю ширину ============ */}
+      <section
+        className="grain-fine relative overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(70% 90% at 50% 0%, #11314e 0%, transparent 55%), linear-gradient(180deg, #0d2b45 0%, #050f1c 100%)",
+        }}
+      >
+        <Bubbles />
+        <Container className="relative z-10 py-24 text-center sm:py-32">
+          <Reveal>
+            <h2 className="mx-auto max-w-2xl text-3xl !text-foam sm:text-5xl">
+              В океане уже идёт гонка
+            </h2>
+            <p className="mx-auto mt-4 max-w-lg text-lg leading-relaxed text-foam/70">
+              Каждый тест двигает таблицу. Займи своё место.
+            </p>
+          </Reveal>
+
+          {/* живой пьедестал + последние события — настоящие данные рейтинга */}
+          <Reveal delay={140}>
+            <div className="mt-14">
+              <OceanFinaleLive />
+            </div>
+          </Reveal>
+
+          <Reveal delay={220}>
+            <div className="mt-12">
+              <Button href="/levels/krab" size="lg" className="shadow-[0_8px_36px_rgba(0,183,194,0.4)]">
+                Пройти тест на Краба
+              </Button>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
     </>
   );
 }
