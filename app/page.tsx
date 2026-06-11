@@ -201,9 +201,6 @@ export default function Home() {
             className="floaty w-full -rotate-[7deg] drop-shadow-[0_30px_45px_rgba(6,24,42,0.35)]"
             style={{ "--float-dur": "7s" } as React.CSSProperties}
           />
-          <p className="mt-2 text-center text-xs font-semibold uppercase tracking-[0.22em] text-navy/45">
-            риски всегда рядом
-          </p>
         </div>
       </section>
 
@@ -223,9 +220,6 @@ export default function Home() {
               alt=""
               className="w-full drop-shadow-[0_26px_38px_rgba(13,43,69,0.3)]"
             />
-            <p className="mt-2 text-center text-xs font-semibold uppercase tracking-[0.22em] text-navy/45">
-              у штурвала — только ты
-            </p>
           </div>
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {/* тёмные нави-карты на светлой палубе — контраст к фото-карточкам пути */}
