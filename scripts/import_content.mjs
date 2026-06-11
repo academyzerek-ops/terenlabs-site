@@ -210,7 +210,8 @@ const courseProducts = academy.map((a) => ({
 }));
 const caseProducts = cases.map((c) => ({
   type: "case", slug: c.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
-  title: c.title, blurb: c.sub.replace(/^✍️\s*/, ""), badge: c.kind || "Кейс",
+  // листовые эмодзи в начале подзаголовка (✍️, 📰, …) на сайте рендерятся тофу-квадратом
+  title: c.title, blurb: c.sub.replace(/^[\p{Extended_Pictographic}️‍\s]+/u, ""), badge: c.kind || "Кейс",
   ico: c.ico || null, // эмодзи кейса для тайла каталога
 }));
 const reviewProducts = reviews.map((r) => {
@@ -226,7 +227,8 @@ const reviewProducts = reviews.map((r) => {
     title: r.title,
     blurb: r.sub || "Разбор ниши на цифрах: рынок, экономика, риски",
     badge: "Обзор",
-    img: hasHero ? heroPath : null, // фото ниши (из самого обзора) для карточки
+    // фото ниши из самого обзора; без него — тематический фолбэк, а не серая дыра
+    img: hasHero ? heroPath : "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
   };
 });
 write(
