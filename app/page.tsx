@@ -9,7 +9,6 @@ import { Reveal } from "@/components/Reveal";
 import { TiltSpotlight } from "@/components/TiltSpotlight";
 import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
-import { OceanLiveToasts } from "@/components/OceanLiveToasts";
 import { OceanNowChip } from "@/components/OceanPulse";
 import {
   STEPS,
@@ -71,8 +70,6 @@ export default function Home() {
     <>
       {/* Глубиномер: метры растут по мере скролла — «глубина анализа» буквально */}
       <DepthGauge />
-      {/* живые события Океана: «Оксана — теперь Барракуда» */}
-      <OceanLiveToasts />
       {/* ============ HERO — океан ============ */}
       <section className="vignette relative min-h-[88vh] overflow-hidden">
         <video

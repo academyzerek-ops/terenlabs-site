@@ -4,9 +4,9 @@ import { Button } from "@/components/Button";
 import { Bubbles } from "@/components/Bubbles";
 import { Reveal } from "@/components/Reveal";
 import { LevelsRuler } from "@/components/LevelsRuler";
-import { OceanLiveToasts } from "@/components/OceanLiveToasts";
 import { LevelChar } from "@/components/LevelChar";
-import { LevelCrowd, OceanPulseStrip } from "@/components/OceanPulse";
+import { OceanLiveBoard } from "@/components/OceanLive";
+import { LevelCrowd } from "@/components/OceanPulse";
 import { OceanAccount } from "@/components/OceanAccount";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
@@ -42,7 +42,6 @@ export default function LevelsPage() {
       }}
     >
       <LevelsRuler />
-      <OceanLiveToasts />
 
       {/* лучи света уходят с поверхности в толщу */}
       <div className="pointer-events-none absolute inset-x-0 top-[5%] h-[42%]" aria-hidden="true">
@@ -90,12 +89,13 @@ export default function LevelsPage() {
             Эта страница — твой штурвал: отслеживай уровень, смотри личную
             статистику и сравнивай себя с другими в честном рейтинге.
           </p>
-          {/* живое соревнование: кто уже в океане и кто впереди */}
-          <OceanPulseStrip />
         </div>
 
+        {/* океан живёт: зал славы + лента событий (вместо всплывающих тостов) */}
+        <OceanLiveBoard />
+
         {/* личная статистика: достижения отслеживаются здесь */}
-        <div className="mt-10 max-w-3xl">
+        <div className="mt-5 max-w-3xl">
           <OceanAccount title="Твоя статистика" />
         </div>
 
@@ -109,6 +109,41 @@ export default function LevelsPage() {
             const heading = deep ? "!text-foam" : "!text-navy";
             const body = deep ? "text-foam/75" : "text-navy/75";
             const dim = deep ? "text-foam/45" : "text-navy/50";
+            // Ракушка — старт, не уровень: компактная капсула, без сцены
+            if (l.key === "rakushka") {
+              return (
+                <div
+                  key={l.key}
+                  className="flex max-w-2xl flex-col items-start gap-4 rounded-[var(--radius-lg)] border border-navy/10 bg-white/55 p-5 backdrop-blur sm:flex-row sm:items-center sm:gap-6 sm:p-6"
+                >
+                  <img
+                    src={RANK_IMG[l.key]}
+                    alt={l.name}
+                    width={72}
+                    height={72}
+                    className="floaty h-16 w-16 shrink-0 object-contain sm:h-[72px] sm:w-[72px]"
+                  />
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <h2 className="text-2xl !text-navy">{l.name}</h2>
+                      <span className="rounded-full bg-navy/10 px-3 py-1 text-[0.7rem] font-semibold text-navy/60">
+                        старт · даётся автоматически
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-navy/70">
+                      Появился в океане — уже Ракушка. Настоящий путь начинается
+                      с первого теста.
+                    </p>
+                  </div>
+                  <Link
+                    href="/levels/rakushka"
+                    className="shrink-0 text-sm font-semibold text-teal-600 transition-colors hover:text-teal sm:ml-auto"
+                  >
+                    Осмотреться →
+                  </Link>
+                </div>
+              );
+            }
             return (
               <div key={l.key}>
                 {/* нить погружения: течение ведёт от уровня к уровню */}
@@ -176,11 +211,6 @@ export default function LevelsPage() {
                         начни здесь
                       </span>
                     )}
-                    {l.key === "rakushka" && (
-                      <span className={`rounded-full px-3 py-1 text-[0.7rem] font-semibold ${deep ? "bg-white/10 text-foam/60" : "bg-navy/10 text-navy/60"}`}>
-                        даётся автоматически
-                      </span>
-                    )}
                     {l.locked && (
                       <span className={`rounded-full px-3 py-1 text-[0.7rem] font-semibold ${deep ? "bg-white/10 text-foam/55" : "bg-navy/10 text-navy/55"}`}>
                         закрыт
@@ -203,7 +233,7 @@ export default function LevelsPage() {
                       очки места = точность × скорость · пороги сдачи 7 / 7 / 6 из 10
                     </p>
                   )}
-                  {!l.locked && l.key !== "rakushka" && (
+                  {!l.locked && (
                     <p className={`num mt-2 text-sm ${dim}`}>
                       {[
                         l.modules.length > 0 &&
@@ -227,7 +257,7 @@ export default function LevelsPage() {
                         href={`/levels/${l.key}`}
                         className="text-base font-semibold text-teal transition-colors hover:text-teal-200"
                       >
-                        {l.locked ? "Что внутри →" : l.key === "rakushka" ? "Осмотреться →" : "Войти на уровень →"}
+                        {l.locked ? "Что внутри →" : "Войти на уровень →"}
                       </Link>
                     )}
                   </p>
