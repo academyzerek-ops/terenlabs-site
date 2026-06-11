@@ -119,10 +119,10 @@ export function OceanHall() {
         ) : (
           <>
             в океане {data?.total_users} {plural(data?.total_users ?? 0, "человек", "человека", "человек")} ·{" "}
-            <Link href="/auth/sign-in" className="font-semibold text-teal-600 hover:text-teal">
-              войди
+            <Link href="/levels/krab" className="font-semibold text-teal-600 hover:text-teal">
+              начни изучение
             </Link>{" "}
-            — узнаешь своё место
+            — и стань лидером
           </>
         )}
       </p>

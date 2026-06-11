@@ -80,17 +80,36 @@ export default function LevelsPage() {
           <div className="max-w-2xl">
             <p className="eyebrow !text-teal-600">Пищевая цепочка знаний</p>
             <h1 className="mt-2 text-4xl !text-navy sm:text-6xl">Океан</h1>
-            <p className="mt-4 text-lg leading-relaxed !text-navy/70">
-              Здесь не выдают сертификаты — здесь зарабатывают место в пищевой
-              цепочке. Шесть зверей, от Ракушки на мелководье до Кита в бездне.
-              Тест не угадаешь, очки не накликаешь, ранг не купишь — только
-              решения.
+
+            {/* манифест-лид: крупный serif, не абзац-кирпич */}
+            <p
+              className="mt-6 font-[family-name:var(--font-display)] text-[1.45rem] italic leading-snug !text-navy sm:text-[1.75rem]"
+              style={{ textWrap: "balance" }}
+            >
+              Здесь не выдают сертификаты —{" "}
+              <span className="text-teal-600">
+                здесь зарабатывают место в&nbsp;пищевой цепочке
+              </span>
+              .
             </p>
-            <p className="mt-3 text-lg leading-relaxed !text-navy/70">
-              Чем глубже ныряешь, тем крупнее зверь и серьёзнее деньги. И ты
-              здесь не один: рейтинг показывает, кто впереди — по Казахстану,
-              по твоей области, среди равных по уровню.
+
+            <p className="mt-4 max-w-xl text-lg leading-relaxed !text-navy/70">
+              Шесть зверей — от Ракушки на мелководье до Кита в бездне. Чем
+              глубже ныряешь, тем крупнее зверь и серьёзнее деньги. Рядом плывут
+              другие: рейтинг покажет, кто впереди — по стране, по области,
+              среди равных.
             </p>
+
+            {/* правила океана — литания тремя штрихами, как клятва ныряльщика */}
+            <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-2.5 font-[family-name:var(--font-mono)] text-[0.74rem] font-bold uppercase tracking-[0.15em]">
+              <span className="text-navy/55">тест не угадаешь</span>
+              <span className="h-px w-7 bg-teal/50" aria-hidden="true" />
+              <span className="text-navy/55">очки не накликаешь</span>
+              <span className="h-px w-7 bg-teal/50" aria-hidden="true" />
+              <span className="text-navy/55">ранг не купишь</span>
+              <span className="h-px w-7 bg-teal/50" aria-hidden="true" />
+              <span className="text-teal-600">только решения</span>
+            </div>
           </div>
 
           {/* лучшие пловцы страны — живут на воде рядом с интро */}
