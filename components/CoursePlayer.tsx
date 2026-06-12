@@ -43,7 +43,8 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
   const go = (i: number) => setCurrent(Math.max(0, Math.min(flat.length - 1, i)));
 
   return (
-    <div className="grid h-[calc(100dvh-65px)] grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[320px_1fr] lg:grid-rows-1">
+    // панель шире: названия глав не влезали в 320px (Адиль), тексту главы места хватает
+    <div className="grid h-[calc(100dvh-65px)] grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[400px_1fr] lg:grid-rows-1 xl:grid-cols-[440px_1fr]">
       {/* Дерево курса */}
       <aside className="flex min-h-0 flex-col border-r border-line bg-subtle">
         <div className="border-b border-line p-5">
@@ -97,7 +98,8 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
                         >
                           {complete ? "✓" : ""}
                         </span>
-                        <span className="truncate">{s.title}</span>
+                        {/* длинные названия переносятся, а не обрезаются многоточием */}
+                        <span className="min-w-0 flex-1 leading-snug">{s.title}</span>
                         <KindTag kind={s.kind} />
                       </button>
                     );
