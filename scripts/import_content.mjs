@@ -42,6 +42,9 @@ function transformEmbedded(html, { keepLocalScripts = false } = {}) {
   out = out.replace(/src="(\.\.\/)+design-system\//g, 'src="/academy-assets/');
   out = out.replace(/src="\/frontend\/_assets\/academy_hero\//g, 'src="/academy-assets/hero/');
   out = out.replace(/src="(\.\.\/)+_assets\/niche_hero\//g, 'src="/academy-assets/niche_hero/');
+  // карточки «Реальный кейс» в главах: относительная ссылка Mini App → страница кейса
+  // на сайте; window.top — глава живёт в iframe плеера курса
+  out = out.replace(/location\.href='(\.\.\/)+cases\/(case-\d+)\.html'/g, "window.top.location.href='/cases/$2'");
   // десктопная надстройка сайта — после родных стилей
   out = out.replace("</head>", '<link rel="stylesheet" href="/embed-web.css">\n</head>');
   // прочие неизвестные /frontend/ ссылки — в отчёт
@@ -124,7 +127,10 @@ for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort
   const ico = pick(/<span class="hero-ico">([^<]*)<\/span>/);
   const titleHtml = pick(/<h1>([\s\S]*?)<\/h1>/);
   const title = titleHtml.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-  const sub = pick(/<p class="hero-sub">([\s\S]*?)<\/p>/).replace(/<[^>]+>/g, "").trim();
+  const sub = pick(/<p class="hero-sub">([\s\S]*?)<\/p>/)
+    .replace(/<[^>]+>/g, "")
+    .replace(/^[\p{Extended_Pictographic}️‍\s]+/u, "") // эмодзи рендерятся тофу-квадратом
+    .trim();
   // тело: содержимое <main> без hero-блока и скриптов
   let body = (html.match(/<main class="page">([\s\S]*?)<\/main>/) || [, ""])[1];
   body = body.replace(/<div class="hero">[\s\S]*?<\/div>\s*/, "");
