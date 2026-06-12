@@ -294,3 +294,92 @@
 @media (prefers-reduced-motion: reduce) {
   .c.next-card.case-link, .c.next-card.case-link .next-card-arr { transition: none !important; }
 }
+
+/* ============================================================
+   Десктоп v3: обложка главы, пулл-цитаты с кавычкой, выводы
+   на полную ширину. Только ≥768px, мобильная вёрстка не тронута.
+   ============================================================ */
+@media (min-width: 768px) {
+  /* — 1. Обложка: заголовок ложится на кадр главы (только где кадр есть) — */
+  .les-hero-img {
+    aspect-ratio: 21 / 10;
+    display: block;
+  }
+  .les-hero-img + .hero {
+    position: relative;
+    z-index: 2;
+    margin-top: -210px;
+    padding: 120px 56px 30px;
+    background: linear-gradient(180deg, transparent 0%, rgba(4, 14, 26, 0.62) 38%, rgba(4, 14, 26, 0.92) 100%);
+    border-radius: 0 0 18px 18px;
+    text-align: left;
+  }
+  .les-hero-img + .hero h1 {
+    color: #fff;
+    font-size: clamp(32px, 3.6vw, 44px);
+    line-height: 1.16;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+    max-width: 26ch;
+    margin-inline: 0;
+  }
+  .les-hero-img + .hero .hero-sub {
+    color: rgba(245, 247, 250, 0.8);
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  /* — 2. Пулл-цитата: serif с большой кавычкой на полях — */
+  .pq {
+    position: relative;
+    margin: 36px calc(-1 * clamp(8px, 3vw, 34px)) 30px;
+    padding: 44px 48px 34px 92px;
+  }
+  .pq::before {
+    content: "«";
+    position: absolute;
+    left: 22px;
+    top: 2px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 110px;
+    line-height: 1;
+    color: rgba(0, 183, 194, 0.4);
+    pointer-events: none;
+  }
+  .pq p {
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.35;
+    letter-spacing: 0.002em;
+  }
+
+  /* — 3. Цветные блоки-выводы и takeaway: шире колонки, твёрдая метка — */
+  .c.al, .c.ag, .c.ao, .c.ar {
+    margin-left: calc(-1 * clamp(8px, 3vw, 34px));
+    margin-right: calc(-1 * clamp(8px, 3vw, 34px));
+    padding: 28px 34px;
+    border-radius: 16px;
+  }
+  .c.al p, .c.ag p, .c.ao p, .c.ar p {
+    font-size: 17px;
+    line-height: 1.75;
+  }
+  .tk {
+    margin-left: calc(-1 * clamp(8px, 3vw, 34px));
+    margin-right: calc(-1 * clamp(8px, 3vw, 34px));
+    padding: 34px 38px;
+    border-radius: 16px;
+  }
+  .lb {
+    letter-spacing: 0.2em;
+    font-size: 11.5px;
+  }
+}
+
+/* шов обложки: у кадра под плашкой заголовка не должно быть нижних скруглений */
+@media (min-width: 768px) {
+  .les-hero-img:has(+ .hero) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
