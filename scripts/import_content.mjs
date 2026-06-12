@@ -46,7 +46,7 @@ function transformEmbedded(html, { keepLocalScripts = false } = {}) {
   // на сайте; window.top — глава живёт в iframe плеера курса
   out = out.replace(/location\.href='(\.\.\/)+cases\/(case-\d+)\.html'/g, "window.top.location.href='/cases/$2'");
   // десктопная надстройка сайта — после родных стилей
-  out = out.replace("</head>", '<link rel="stylesheet" href="/embed-web.css">\n</head>');
+  out = out.replace("</head>", '<link rel="stylesheet" href="/embed-web.css?v=2">\n</head>');
   // прочие неизвестные /frontend/ ссылки — в отчёт
   for (const m of out.matchAll(/(?:src|href)="(\/frontend\/[^"]+)"/g)) report.unknownAssets.add(m[1]);
   return out;
