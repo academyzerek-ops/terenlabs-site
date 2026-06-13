@@ -819,3 +819,13 @@ a:active {
 @media (prefers-reduced-motion: reduce) {
   .bub-trail { animation: none; opacity: 0; }
 }
+
+/* Пины кейсов на карте: мягкий пульс */
+@keyframes case-pin-pulse {
+  0%   { transform: scale(0.6); opacity: 0.5; }
+  70%  { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="case-pin-pulse"] { animation: none !important; }
+}

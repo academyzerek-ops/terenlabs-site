@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShowMoreGrid } from "@/components/ShowMoreGrid";
 import { CaseGrid } from "@/components/CaseGrid";
-import { CaseUniverse } from "@/components/CaseUniverse";
+import { CaseGlobeHero } from "@/components/CaseGlobeHero";
 import { CATALOG } from "@/lib/content";
 import type { ProductType } from "@/lib/content";
 
@@ -99,21 +99,14 @@ export default async function CatalogPage({
         </Container>
       </section>
 
+      {/* кейсы: глобус-герой с пинами по городам, сетка ниже для поиска */}
+      {t === "case" && <CaseGlobeHero />}
+
       <div className="deck py-14">
         <Container>
           {t === "case" ? (
-            <>
-              {/* вселенная историй: успехи всплывают, провалы тонут (идея Адиля) */}
-              <CaseUniverse
-                items={items
-                  .filter((p) => !p.stub)
-                  .map((p) => ({ slug: p.slug, title: p.title, badge: p.badge ?? null, href: p.href }))}
-              />
-              {/* кейсы: цветные фильтры по исходу (красный/зелёный/жёлтый) */}
-              <div className="mt-12">
-                <CaseGrid items={items} />
-              </div>
-            </>
+            /* кейсы: цветные фильтры по исходу (красный/зелёный/жёлтый) */
+            <CaseGrid items={items} />
           ) : items.length > 0 ? (
             <ShowMoreGrid items={items} />
           ) : (
