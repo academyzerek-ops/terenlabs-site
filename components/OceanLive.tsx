@@ -79,14 +79,15 @@ export function OceanBubbles() {
       .catch(() => {});
   }, []);
 
-  // раскладка пузырьков: позиция/размер/темп детерминированы индексом (без скачков)
+  // раскладка: равномерно по ширине (имена не слипаются), темп вразнобой
+  const n = Math.max(1, people.length);
   const bubbles: Bubble[] = people.map((p, i) => ({
     name: p.name,
     level: p.level,
-    left: 8 + ((i * 9.5 + (i % 3) * 7) % 84), // разнесены по ширине
-    size: 52 + ((i * 7) % 26), // 52..78px
+    left: 6 + ((i + 0.5) / n) * 84, // равные «дорожки» всплытия
+    size: 52 + ((i * 7) % 24), // 52..76px
     dur: 11 + ((i * 3) % 8), // 11..19s — разная скорость всплытия
-    delay: -(i * 1.7), // стартуют вразнобой
+    delay: -(i * 2.3), // стартуют вразнобой
   }));
 
   return (
@@ -113,30 +114,15 @@ export function OceanBubbles() {
               ["--bub-x" as string]: `${(i % 2 ? 1 : -1) * (10 + (i % 3) * 6)}px`,
             }}
           >
-            <div
-              className="relative flex flex-col items-center"
-              style={{ width: b.size }}
-            >
-              {/* стеклянный пузырь */}
-              <span
-                className="relative grid place-items-center rounded-full"
-                style={{
-                  width: b.size,
-                  height: b.size,
-                  background:
-                    "radial-gradient(circle at 32% 28%, rgba(255,255,255,0.55), rgba(180,235,245,0.12) 42%, rgba(0,150,170,0.05) 70%, transparent 75%)",
-                  border: "1px solid rgba(190,240,250,0.35)",
-                  boxShadow:
-                    "inset 0 2px 8px rgba(255,255,255,0.35), inset 0 -6px 12px rgba(0,80,100,0.25), 0 0 18px rgba(0,183,194,0.18)",
-                }}
-              >
-                {lvl && (
-                  <img src={lvl.img} alt="" width={b.size * 0.6} height={b.size * 0.6}
-                    className="object-contain opacity-90" style={{ width: b.size * 0.6, height: b.size * 0.6 }} />
-                )}
-              </span>
+            <div className="relative flex flex-col items-center" style={{ width: b.size }}>
+              {/* без оболочки — сам медальон-пузырь всплывает */}
+              {lvl && (
+                <img src={lvl.img} alt="" width={b.size} height={b.size}
+                  className="object-contain drop-shadow-[0_0_14px_rgba(0,183,194,0.25)]"
+                  style={{ width: b.size, height: b.size }} />
+              )}
               {/* имя под пузырём */}
-              <span className="mt-1.5 max-w-[110px] truncate text-center text-[13px] font-semibold text-foam"
+              <span className="mt-1 max-w-[110px] truncate text-center text-[13px] font-semibold text-foam"
                 style={{ textShadow: "0 2px 10px rgba(2,10,18,0.9)" }}>
                 {b.name}
               </span>
