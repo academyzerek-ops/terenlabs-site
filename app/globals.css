@@ -759,18 +759,6 @@ a:active {
 @media (prefers-reduced-motion: reduce) {
   .dive-dots { animation: none; }
 }
-/* Вселенная кейсов: точки-истории мерцают как биолюминесценция */
-@keyframes tl-star-blink {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.45; }
-}
-.case-star {
-  animation: tl-star-blink var(--star-dur, 4s) cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  animation-delay: var(--star-delay, 0s);
-}
-@media (prefers-reduced-motion: reduce) {
-  .case-star { animation: none; }
-}
 
 /* ── Живые тосты Океана: всплытие из глубины + пульс медальона ── */
 @keyframes tl-toast-in {

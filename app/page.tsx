@@ -10,6 +10,7 @@ import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
 import { OceanNowChip } from "@/components/OceanPulse";
 import { OceanFinaleLive } from "@/components/OceanLive";
+import { OceanBackground } from "@/components/OceanBackground";
 import { STEPS, OCEAN_RANKS } from "@/lib/content";
 
 // Путь обучения: 3 ступени (кейсы — часть Академии/обучения)
@@ -52,18 +53,10 @@ export default function Home() {
     <>
       {/* Глубиномер: метры растут по мере скролла — «глубина анализа» буквально */}
       <DepthGauge />
-      {/* ============ HERO — океан ============ */}
+      {/* ============ HERO — океан (живой WebGL-фон) ============ */}
       <section className="vignette relative min-h-[88vh] overflow-hidden">
-        <video
-          className="hero-parallax pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/brand/ocean-evolution-poster.jpg?v=6"
-        >
-          <source src="/brand/ocean-evolution.mp4?v=6" type="video/mp4" />
-        </video>
+        {/* WebGL-глубина: толща воды, морской снег, лучи света */}
+        <OceanBackground />
         {/* кинематографичное затемнение: по краям и в глубину снизу (на мобиле плотнее) */}
         <div className="hero-shade absolute inset-0 z-0" />
         <div

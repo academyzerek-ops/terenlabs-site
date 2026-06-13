@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { createElement, useEffect, useRef, useState } from "react";
 
 /**
  * Премиум scroll-reveal: блок всплывает при появлении в зоне видимости.
@@ -38,13 +38,15 @@ export function Reveal({
     return () => io.disconnect();
   }, []);
 
-  return (
-    <Tag
-      ref={ref}
-      className={`reveal ${seen ? "in" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </Tag>
+  // createElement вместо JSX: @react-three/fiber расширяет глобальные JSX-типы,
+  // из-за чего полиморфный <Tag> со spread'ом props схлопывается в never.
+  return createElement(
+    Tag,
+    {
+      ref,
+      className: `reveal ${seen ? "in" : ""} ${className}`,
+      style: { transitionDelay: `${delay}ms` },
+    },
+    children
   );
 }
