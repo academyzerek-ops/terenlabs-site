@@ -40,9 +40,25 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: "TerenLabs",
     type: "website",
+    locale: "ru_RU",
     title: "TerenLabs — Глубина анализа. Сила результата.",
     description:
       "EdTech и FinTools для предпринимателей: курсы, тесты, кейсы, обзоры и интерактивные финмодели.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "TerenLabs — обучение бизнесу в Казахстане",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TerenLabs — Глубина анализа. Сила результата.",
+    description:
+      "EdTech и FinTools для предпринимателей: курсы, тесты, кейсы, обзоры и интерактивные финмодели.",
+    images: ["/og-image.jpg"],
   },
 };
 
