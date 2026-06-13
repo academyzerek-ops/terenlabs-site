@@ -781,34 +781,3 @@ a:active {
 @media (prefers-reduced-motion: reduce) {
   .tl-toast--in, .tl-toast--out, .tl-toast-glow { animation: none; }
 }
-
-/* ============================================================
-   ГЛАВНАЯ-ПОГРУЖЕНИЕ: один WebGL-океан за всей страницей, секции —
-   тёмное стекло поверх него, текст светлый. Только на .ocean-page,
-   общий .deck на других страницах не трогаем.
-   ============================================================ */
-.ocean-page .deck,
-.ocean-page .atmo,
-.ocean-page .deep {
-  background: rgba(6, 22, 40, 0.42) !important;
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  --color-heading: #eef4f9;
-  --color-body: #d6e2ec;
-  --color-muted: #9fb6c6;
-  --color-line: rgba(120, 180, 210, 0.18);
-  --color-card: rgba(13, 43, 69, 0.55);
-  --color-card-2: rgba(20, 51, 82, 0.55);
-  color: #d6e2ec;
-}
-/* убираем светлые подложки-узоры палубы — океан и так под ней */
-.ocean-page .deck::after { display: none; }
-.ocean-page .deck .eyebrow { color: var(--color-teal); }
-/* заголовки на палубе были тёмными — на стекле делаем светлыми */
-.ocean-page .deck h1, .ocean-page .deck h2, .ocean-page .deck h3,
-.ocean-page .deck .text-heading, .ocean-page .deck .text-navy { color: #eef4f9 !important; }
-/* карточки-стекло вместо белых */
-.ocean-page .card-premium {
-  background: linear-gradient(180deg, rgba(20,51,82,0.6), rgba(9,27,46,0.6));
-  border-color: rgba(120,180,210,0.18);
-}

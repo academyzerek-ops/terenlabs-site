@@ -92,7 +92,7 @@ export function OceanHall() {
   return (
     <div className="hidden lg:block">
       <div className="flex items-baseline justify-center gap-5">
-        <h2 className="eyebrow !text-teal-600">Зал славы</h2>
+        <h2 className="eyebrow !text-teal">Зал славы</h2>
         <Link href="/ocean" className="text-sm font-semibold text-teal-600 transition-colors hover:text-teal">
           вся таблица →
         </Link>
@@ -105,14 +105,14 @@ export function OceanHall() {
         )}
       </div>
 
-      <p className="num mt-7 text-center text-sm text-navy/60">
+      <p className="num mt-7 text-center text-sm text-foam/65">
         {data?.me ? (
           <>
-            Ты — <strong className="text-navy">#{data.me.rank}</strong> из {data.scope_total} по Казахстану
+            Ты — <strong className="text-foam">#{data.me.rank}</strong> из {data.scope_total} по Казахстану
             {regionRank && (
               <>
                 {" · "}
-                <strong className="text-navy">#{regionRank.rank}</strong> · {regionName(regionRank.code)}
+                <strong className="text-foam">#{regionRank.rank}</strong> · {regionName(regionRank.code)}
               </>
             )}
           </>
@@ -165,13 +165,13 @@ function Swimmer({ e, first, idx }: { e: Entry; first: boolean; idx: number }) {
           } as React.CSSProperties}
         />
       </div>
-      <span className={`num mt-2 font-bold ${first ? "text-base text-teal-600" : "text-xs text-navy/45"}`}>
+      <span className={`num mt-2 font-bold ${first ? "text-base text-teal" : "text-xs text-foam/45"}`}>
         #{e.rank}
       </span>
-      <span className={`max-w-[120px] truncate font-semibold text-navy ${first ? "text-lg" : "text-sm"}`}>
+      <span className={`max-w-[120px] truncate font-semibold text-foam ${first ? "text-lg" : "text-sm"}`}>
         {e.name}
       </span>
-      <span className="num text-xs text-navy/55">
+      <span className="num text-xs text-foam/55">
         {e.composite} очк · {lvl.name}
       </span>
     </div>

@@ -10,7 +10,6 @@ import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
 import { OceanNowChip } from "@/components/OceanPulse";
 import { OceanFinaleLive } from "@/components/OceanLive";
-import { OceanBackground } from "@/components/OceanBackground";
 import { STEPS, OCEAN_RANKS } from "@/lib/content";
 
 // Путь обучения: 3 ступени (кейсы — часть Академии/обучения)
@@ -51,14 +50,29 @@ export default function Home() {
   // счётчики контента на главной не показываем — числа меняются (правило Адиля)
   return (
     <>
-      {/* ОДИН WebGL-океан за всей страницей — камера летит вглубь по скроллу */}
-      <OceanBackground />
-      {/* весь контент плывёт поверх океана */}
-      <div className="ocean-page relative z-10">
       {/* Глубиномер: метры растут по мере скролла — «глубина анализа» буквально */}
       <DepthGauge />
-      {/* ============ HERO ============ */}
+      {/* ============ HERO — океан ============ */}
       <section className="vignette relative min-h-[88vh] overflow-hidden">
+        <video
+          className="hero-parallax pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/brand/ocean-evolution-poster.jpg?v=6"
+        >
+          <source src="/brand/ocean-evolution.mp4?v=6" type="video/mp4" />
+        </video>
+        {/* кинематографичное затемнение: по краям и в глубину снизу (на мобиле плотнее) */}
+        <div className="hero-shade absolute inset-0 z-0" />
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            background:
+              "radial-gradient(70% 60% at 22% 45%, transparent 0%, rgba(6,24,42,0.35) 100%)",
+          }}
+        />
         <Container className="relative z-10 flex min-h-[88vh] flex-col justify-center py-28">
           <p
             className="eyebrow rise !text-teal"
@@ -113,11 +127,14 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ БОЛЬ — карточки-стекло поверх океана ============ */}
-      <section className="relative overflow-hidden">
+      {/* ============ БОЛЬ — светлая бирюза: контраст к тёмному hero ============ */}
+      <section
+        className="relative overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #EAF7F8 0%, #D6EFF1 100%)" }}
+      >
         <Container className="relative z-10 py-24">
           <Reveal>
-            <h2 className="max-w-3xl text-3xl !text-foam sm:text-5xl">
+            <h2 className="max-w-3xl text-3xl !text-navy sm:text-5xl">
               Тебя готовили к контрольным — не к кассовым разрывам
             </h2>
           </Reveal>
@@ -440,7 +457,6 @@ export default function Home() {
           </Reveal>
         </Container>
       </section>
-      </div>
     </>
   );
 }

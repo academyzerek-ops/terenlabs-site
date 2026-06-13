@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
-import { Bubbles } from "@/components/Bubbles";
 import { Reveal } from "@/components/Reveal";
 import { LevelsRuler } from "@/components/LevelsRuler";
 import { LevelChar } from "@/components/LevelChar";
 import { OceanHall, LevelArrival } from "@/components/OceanLive";
 import { LevelCrowd } from "@/components/OceanPulse";
 import { OceanAccount } from "@/components/OceanAccount";
+import { OceanBackground } from "@/components/OceanBackground";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
 export const metadata = { title: "Уровни «Океан» — TerenLabs" };
@@ -72,30 +72,13 @@ const PATH_STROKE = [
 
 export default function LevelsPage() {
   return (
-    <div
-      id="dive-wrap"
-      className="relative overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(180deg, #f5f7fa 0%, #d9e8ef 12%, #8fb8cb 28%, #2e5f7d 48%, #0d2b45 70%, #050f1c 100%)",
-      }}
-    >
+    <>
+      {/* живой WebGL-океан за всей страницей — камера летит вглубь по скроллу */}
+      <OceanBackground />
+      <div id="dive-wrap" className="relative z-10 overflow-hidden">
       <LevelsRuler />
 
-      {/* лучи света уходят с поверхности в толщу */}
-      <div className="pointer-events-none absolute inset-x-0 top-[5%] h-[42%]" aria-hidden="true">
-        <span className="ocean-ray left-[12%]" style={{ "--ray-dur": "11s", "--ray-o": 0.4 } as React.CSSProperties} />
-        <span className="ocean-ray left-[34%]" style={{ "--ray-dur": "9s", "--ray-o": 0.28, width: "60px" } as React.CSSProperties} />
-        <span className="ocean-ray left-[58%]" style={{ "--ray-dur": "13s", "--ray-o": 0.35, width: "120px" } as React.CSSProperties} />
-        <span className="ocean-ray left-[81%]" style={{ "--ray-dur": "10s", "--ray-o": 0.25, width: "70px" } as React.CSSProperties} />
-      </div>
-
-      {/* морской снег в нижней половине погружения */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%]" aria-hidden="true">
-        <Bubbles />
-      </div>
-
-      {/* биолюминесценция у дна */}
+      {/* биолюминесценция у дна (поверх WebGL — мерцающие точки на самом дне) */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[14%]" aria-hidden="true">
         {BIO_DOTS.map((d, i) => (
           <span
@@ -118,25 +101,25 @@ export default function LevelsPage() {
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)]">
           <div className="max-w-2xl">
             <p className="eyebrow !text-teal-600">Система признания знаний</p>
-            <h1 className="mt-2 text-4xl !text-navy sm:text-6xl">Океан</h1>
+            <h1 className="mt-2 text-4xl !text-foam sm:text-6xl">Океан</h1>
 
             {/* текст Адиля дословно; «интересная подача» — только типографикой:
                 первая фраза — serif-лид, дальше обычный текст */}
             <p
-              className="mt-6 font-[family-name:var(--font-display)] text-[1.4rem] italic leading-snug !text-navy sm:text-[1.65rem]"
+              className="mt-6 font-[family-name:var(--font-display)] text-[1.4rem] italic leading-snug !text-foam sm:text-[1.65rem]"
               style={{ textWrap: "balance" }}
             >
               Океан — многоуровневая{" "}
-              <span className="text-teal-600">система признания знаний</span>{" "}
+              <span className="text-teal">система признания знаний</span>{" "}
               TerenLabs.
             </p>
 
-            <p className="mt-4 text-lg leading-relaxed !text-navy/70">
+            <p className="mt-4 text-lg leading-relaxed !text-foam/75">
               Почему океан? Потому что уровни здесь живые: каждому соответствует
               морской обитатель, и чем глубже ныряешь — тем крупнее зверь и
               серьёзнее решения.
             </p>
-            <p className="mt-3 text-lg leading-relaxed !text-navy/70">
+            <p className="mt-3 text-lg leading-relaxed !text-foam/75">
               Эта страница — твой штурвал: отслеживай уровень, смотри личную
               статистику и сравнивай себя с другими в честном рейтинге.
             </p>
@@ -150,7 +133,7 @@ export default function LevelsPage() {
             Уровни связаны нитью течения — свет бежит вниз, к следующей глубине */}
         <div className="mt-10 sm:mt-16">
           {LEVELS.map((l, i) => {
-            const deep = i >= 3; // на тёмной воде — светлый текст
+            const deep = true; // вся страница на тёмном WebGL-океане — текст светлый
             const right = i % 2 === 1; // персонаж справа/слева попеременно
             const size = SIZE[i];
             const heading = deep ? "!text-foam" : "!text-navy";
@@ -161,7 +144,7 @@ export default function LevelsPage() {
               return (
                 <div
                   key={l.key}
-                  className="flex max-w-2xl flex-col items-start gap-4 rounded-[var(--radius-lg)] border border-navy/10 bg-white/55 p-5 backdrop-blur sm:flex-row sm:items-center sm:gap-6 sm:p-6"
+                  className="flex max-w-2xl flex-col items-start gap-4 rounded-[var(--radius-lg)] border border-white/12 bg-white/[0.06] p-5 backdrop-blur sm:flex-row sm:items-center sm:gap-6 sm:p-6"
                 >
                   <img
                     src={RANK_IMG[l.key]}
@@ -172,12 +155,12 @@ export default function LevelsPage() {
                   />
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <h2 className="text-2xl !text-navy">{l.name}</h2>
-                      <span className="rounded-full bg-navy/10 px-3 py-1 text-[0.7rem] font-semibold text-navy/60">
+                      <h2 className="text-2xl !text-foam">{l.name}</h2>
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-[0.7rem] font-semibold text-foam/60">
                         старт · даётся автоматически
                       </span>
                     </div>
-                    <p className="mt-1.5 text-[15px] leading-relaxed text-navy/70">
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-foam/70">
                       Появился в океане — уже Ракушка. Настоящий путь начинается
                       с первого теста.
                     </p>
@@ -339,6 +322,7 @@ export default function LevelsPage() {
           </div>
         </Reveal>
       </Container>
-    </div>
+      </div>
+    </>
   );
 }
