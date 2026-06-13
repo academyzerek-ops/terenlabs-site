@@ -2,8 +2,106 @@
 
 import { Suspense, useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { OceanLife } from "./OceanLife";
+
+// каустика у поверхности: рябь света на воде, как смотришь снизу вверх
+function makeCaustic(): THREE.Texture {
+  const s = 256;
+  const c = document.createElement("canvas");
+  c.width = c.height = s;
+  const ctx = c.getContext("2d")!;
+  const img = ctx.createImageData(s, s);
+  for (let y = 0; y < s; y++) {
+    for (let x = 0; x < s; x++) {
+      const u = (x / s) * Math.PI * 2 * 3;
+      const v = (y / s) * Math.PI * 2 * 3;
+      let n =
+        Math.sin(u) * Math.cos(v) +
+        Math.sin(u * 1.7 + 1.3) * Math.cos(v * 1.3) +
+        Math.sin(u * 0.6 - 0.7) * Math.cos(v * 2.1);
+      n = Math.pow(Math.max(0, n / 3 + 0.4), 3.2); // острые яркие жилки
+      const i = (y * s + x) * 4;
+      img.data[i] = 150 * n;
+      img.data[i + 1] = 240 * n;
+      img.data[i + 2] = 255 * n;
+      img.data[i + 3] = 255 * Math.min(1, n * 1.4);
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(2, 2);
+  return tex;
+}
+
+// морское дно: песчано-рифовая поверхность в бездне, видна в конце погружения
+function makeSeabed(): THREE.Texture {
+  const s = 512;
+  const c = document.createElement("canvas");
+  c.width = c.height = s;
+  const ctx = c.getContext("2d")!;
+  // базовый тёмный сине-зелёный песок с градиентом глубины
+  const g = ctx.createLinearGradient(0, 0, 0, s);
+  g.addColorStop(0, "#0a3045");
+  g.addColorStop(0.5, "#0c283a");
+  g.addColorStop(1, "#06151f");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, s, s);
+  // песчаные дюны-полосы + биолюминесцентные крапинки
+  for (let i = 0; i < 2600; i++) {
+    const x = Math.random() * s, y = Math.random() * s;
+    const glow = Math.random() < 0.04;
+    ctx.fillStyle = glow
+      ? `rgba(120,235,245,${0.3 + Math.random() * 0.5})`
+      : `rgba(${20 + Math.random() * 30},${50 + Math.random() * 40},${60 + Math.random() * 40},${Math.random() * 0.4})`;
+    const r = glow ? 1 + Math.random() * 2 : 0.6 + Math.random() * 1.8;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(4, 4);
+  return tex;
+}
+
+function Seabed() {
+  const tex = useMemo(makeSeabed, []);
+  return (
+    <mesh position={[0, -24, -210]} rotation={[-Math.PI / 2.15, 0, 0]}>
+      <planeGeometry args={[260, 160]} />
+      <meshBasicMaterial map={tex} transparent opacity={0.95} depthWrite={false} fog />
+    </mesh>
+  );
+}
+
+function Caustics() {
+  const tex = useMemo(makeCaustic, []);
+  const mat = useRef<THREE.MeshBasicMaterial>(null);
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    tex.offset.x = Math.sin(t * 0.05) * 0.3 + t * 0.012;
+    tex.offset.y = t * 0.02;
+    if (mat.current) mat.current.opacity = 0.32 + Math.sin(t * 0.4) * 0.05;
+  });
+  return (
+    <mesh position={[0, 22, -10]} rotation={[-0.55, 0, 0]}>
+      <planeGeometry args={[150, 90]} />
+      <meshBasicMaterial
+        ref={mat}
+        map={tex}
+        transparent
+        opacity={0.32}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+        side={THREE.DoubleSide}
+        toneMapped={false}
+      />
+    </mesh>
+  );
+}
 
 // Сквозной WebGL-океан: ОДИН фон на всю страницу. Камера летит вглубь по
 // мере скролла — частицы, лучи и биолюминесценция сменяются по глубине.
@@ -158,13 +256,16 @@ function DiveRig({ scroll }: { scroll: React.RefObject<number> }) {
   useFrame((state) => {
     const t = state.clock.elapsedTime;
     // целевой z: от +6 (поверхность) до -210 (бездна) по скроллу
-    target.current = 6 - (scroll.current ?? 0) * 216;
+    const sc = scroll.current ?? 0;
+    target.current = 6 - sc * 220;
     camera.position.z += (target.current - camera.position.z) * 0.05;
     const tx = Math.sin(t * 0.08) * 2 + mouse.current.x * 2.5;
     const ty = Math.cos(t * 0.1) * 1.2 - mouse.current.y * 1.6;
     camera.position.x += (tx - camera.position.x) * 0.03;
     camera.position.y += (ty - camera.position.y) * 0.03;
-    camera.lookAt(0, camera.position.y * 0.3, camera.position.z - 20);
+    // ближе ко дну камера опускает взгляд — становится видно риф и песок
+    const lookY = camera.position.y * 0.3 - Math.max(0, sc - 0.7) * 60;
+    camera.lookAt(0, lookY, camera.position.z - 20);
   });
   return null;
 }
@@ -190,14 +291,30 @@ export function OceanScene() {
       style={{ position: "fixed", inset: 0 }}
     >
       <fog attach="fog" args={["#04101d", 16, 64]} />
+      {/* каустика — рябь света у поверхности */}
+      <Caustics />
+      {/* морское дно с рифом — видно в конце погружения */}
+      <Seabed />
       {/* мелкий планктон-пыль (приглушённо, фоном) */}
       <DepthField count={count} scroll={scroll} />
       <LightShafts scroll={scroll} />
-      {/* живые существа: рыбы, медузы, осьминог, кораллы по глубине */}
+      {/* живые существа: рыбы, медузы, скат, осьминог, кит, кораллы по глубине */}
       <Suspense fallback={null}>
         <OceanLife />
       </Suspense>
       <DiveRig scroll={scroll} />
+      {/* свечение биолюминесценции + виньетка — кинематографичность */}
+      <EffectComposer>
+        {/* мягкое свечение, не выпячивает (Адиль) */}
+        <Bloom
+          intensity={0.4}
+          luminanceThreshold={0.55}
+          luminanceSmoothing={0.6}
+          mipmapBlur
+          radius={0.6}
+        />
+        <Vignette eskil={false} offset={0.28} darkness={0.7} />
+      </EffectComposer>
     </Canvas>
   );
 }

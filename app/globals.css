@@ -781,3 +781,10 @@ a:active {
 @media (prefers-reduced-motion: reduce) {
   .tl-toast--in, .tl-toast--out, .tl-toast-glow { animation: none; }
 }
+
+/* Читаемость текста над живым WebGL-океаном: мягкая «субтитровая» тень,
+   светлый текст не сливается с движущейся водой и существами */
+.dive-readable, .dive-readable h1, .dive-readable h2, .dive-readable h3,
+.dive-readable p, .dive-readable span, .dive-readable a {
+  text-shadow: 0 2px 14px rgba(2, 10, 18, 0.8), 0 1px 4px rgba(2, 10, 18, 0.9);
+}

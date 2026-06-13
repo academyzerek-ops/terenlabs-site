@@ -96,7 +96,7 @@ export default function LevelsPage() {
         ))}
       </div>
 
-      <Container className="relative py-16">
+      <Container className="dive-readable relative py-16">
         {/* шапка: интро слева, зал славы плавает на воде справа — без рамок */}
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)]">
           <div className="max-w-2xl">
