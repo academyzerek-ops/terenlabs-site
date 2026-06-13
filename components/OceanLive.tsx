@@ -58,6 +58,107 @@ function getActivity(): Promise<ActEntry[]> {
   return actCache;
 }
 
+/* ── Пузырьки людей: каждый активный в океане всплывает пузырём с именем,
+      как газ со дна. Только имена, без мест. Последние — всегда новые. ── */
+
+type Bubble = { name: string; level: string; left: number; size: number; dur: number; delay: number };
+
+export function OceanBubbles() {
+  const [people, setPeople] = useState<{ name: string; level: string }[]>([]);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const headers = getOceanToken() ? { Authorization: `web ${getOceanToken()}` } : undefined;
+    fetch(`${OCEAN_API}/leaderboard?period=all`, { headers })
+      .then((r) => r.json())
+      .then((d: LbData) => {
+        setTotal(d.total_users || 0);
+        // последние/активные — до 10 имён, без мест
+        setPeople((d.entries || []).slice(0, 10).map((e) => ({ name: e.name, level: e.level })));
+      })
+      .catch(() => {});
+  }, []);
+
+  // раскладка пузырьков: позиция/размер/темп детерминированы индексом (без скачков)
+  const bubbles: Bubble[] = people.map((p, i) => ({
+    name: p.name,
+    level: p.level,
+    left: 8 + ((i * 9.5 + (i % 3) * 7) % 84), // разнесены по ширине
+    size: 52 + ((i * 7) % 26), // 52..78px
+    dur: 11 + ((i * 3) % 8), // 11..19s — разная скорость всплытия
+    delay: -(i * 1.7), // стартуют вразнобой
+  }));
+
+  return (
+    <div className="relative hidden h-[460px] w-full lg:block" aria-hidden={people.length === 0}>
+      {/* заголовок-метка */}
+      <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap">
+        <span className="eyebrow !text-teal">Кто в океане сейчас</span>
+        <Link href="/ocean" className="text-sm font-semibold text-teal transition-colors hover:text-teal-200">
+          рейтинг →
+        </Link>
+      </div>
+
+      {/* поле всплывающих пузырьков */}
+      {bubbles.map((b, i) => {
+        const lvl = LEVEL_RU[b.level];
+        return (
+          <div
+            key={`${b.name}-${i}`}
+            className="ocean-bubble absolute bottom-0"
+            style={{
+              left: `${b.left}%`,
+              ["--bub-dur" as string]: `${b.dur}s`,
+              ["--bub-delay" as string]: `${b.delay}s`,
+              ["--bub-x" as string]: `${(i % 2 ? 1 : -1) * (10 + (i % 3) * 6)}px`,
+            }}
+          >
+            <div
+              className="relative flex flex-col items-center"
+              style={{ width: b.size }}
+            >
+              {/* стеклянный пузырь */}
+              <span
+                className="relative grid place-items-center rounded-full"
+                style={{
+                  width: b.size,
+                  height: b.size,
+                  background:
+                    "radial-gradient(circle at 32% 28%, rgba(255,255,255,0.55), rgba(180,235,245,0.12) 42%, rgba(0,150,170,0.05) 70%, transparent 75%)",
+                  border: "1px solid rgba(190,240,250,0.35)",
+                  boxShadow:
+                    "inset 0 2px 8px rgba(255,255,255,0.35), inset 0 -6px 12px rgba(0,80,100,0.25), 0 0 18px rgba(0,183,194,0.18)",
+                }}
+              >
+                {lvl && (
+                  <img src={lvl.img} alt="" width={b.size * 0.6} height={b.size * 0.6}
+                    className="object-contain opacity-90" style={{ width: b.size * 0.6, height: b.size * 0.6 }} />
+                )}
+              </span>
+              {/* имя под пузырём */}
+              <span className="mt-1.5 max-w-[110px] truncate text-center text-[13px] font-semibold text-foam"
+                style={{ textShadow: "0 2px 10px rgba(2,10,18,0.9)" }}>
+                {b.name}
+              </span>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* строка-итог снизу */}
+      {total > 0 && (
+        <p className="num absolute bottom-[-8px] left-1/2 -translate-x-1/2 whitespace-nowrap text-center text-sm text-foam/70"
+          style={{ textShadow: "0 2px 10px rgba(2,10,18,0.9)" }}>
+          в океане {total} {plural(total, "человек", "человека", "человек")} ·{" "}
+          <Link href="/levels/krab" className="font-semibold text-teal hover:text-teal-200">
+            начни изучение
+          </Link>
+        </p>
+      )}
+    </div>
+  );
+}
+
 /* ── Зал славы: три пловца на воде, без карточек — справа от интро ── */
 
 export function OceanHall() {

@@ -788,3 +788,20 @@ a:active {
 .dive-readable p, .dive-readable span, .dive-readable a {
   text-shadow: 0 2px 14px rgba(2, 10, 18, 0.8), 0 1px 4px rgba(2, 10, 18, 0.9);
 }
+
+/* Пузырьки людей в океане: всплывают со дна как газ, по кругу */
+@keyframes ocean-bubble-rise {
+  0%   { transform: translateY(40px) translateX(0); opacity: 0; }
+  8%   { opacity: 1; }
+  50%  { transform: translateY(-230px) translateX(var(--bub-x, 8px)); }
+  92%  { opacity: 1; }
+  100% { transform: translateY(-460px) translateX(0); opacity: 0; }
+}
+.ocean-bubble {
+  animation: ocean-bubble-rise var(--bub-dur, 14s) ease-in-out infinite;
+  animation-delay: var(--bub-delay, 0s);
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ocean-bubble { animation: none; opacity: 1; }
+}

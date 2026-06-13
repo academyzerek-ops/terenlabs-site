@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { LevelsRuler } from "@/components/LevelsRuler";
 import { LevelChar } from "@/components/LevelChar";
-import { OceanHall, LevelArrival } from "@/components/OceanLive";
+import { OceanBubbles, LevelArrival } from "@/components/OceanLive";
 import { LevelCrowd } from "@/components/OceanPulse";
 import { OceanAccount } from "@/components/OceanAccount";
 import { OceanBackground } from "@/components/OceanBackground";
@@ -125,8 +125,8 @@ export default function LevelsPage() {
             </p>
           </div>
 
-          {/* лучшие пловцы страны — живут на воде рядом с интро */}
-          <OceanHall />
+          {/* активные в океане — всплывают пузырьками, как газ со дна */}
+          <OceanBubbles />
         </div>
 
         {/* погружение: персонаж + свободный текст-метафора, без рамок.
