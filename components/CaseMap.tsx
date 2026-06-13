@@ -89,7 +89,7 @@ export function CaseMap() {
         <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[#e8604f]" /> провал</span>
         <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[#2fc394]" /> успех</span>
         <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[#e3b65c]" /> опыт</span>
-        <span className="ml-auto text-foam/45">{CASES.length} кейсов на карте · наведись или нажми</span>
+        <span className="ml-auto text-foam/45">реальные бизнесы по всему миру · наведись или нажми</span>
       </div>
     </div>
   );

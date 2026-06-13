@@ -10,6 +10,11 @@ const eslintConfig = [
     rules: {
       "react-hooks/purity": "warn",
       "react-hooks/set-state-in-effect": "warn",
+      // Three.js/R3F работают через мутацию объектов в render-loop —
+      // правила иммутабельности/мемоизации компилятора тут неприменимы
+      "react-hooks/immutability": "warn",
+      "react-hooks/use-memo": "warn",
+      "react-hooks/refs": "warn",
     },
   },
   {
