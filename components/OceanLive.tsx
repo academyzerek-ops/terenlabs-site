@@ -115,6 +115,24 @@ export function OceanBubbles() {
             }}
           >
             <div className="relative flex flex-col items-center" style={{ width: b.size }}>
+              {/* шлейф мелких пузыриков снизу — как газ за всплывающим */}
+              <span className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2" aria-hidden="true">
+                {[0, 1, 2, 3, 4].map((k) => (
+                  <span
+                    key={k}
+                    className="bub-trail absolute rounded-full"
+                    style={{
+                      left: `${(k % 2 ? 1 : -1) * (3 + k * 2)}px`,
+                      width: 6 - k,
+                      height: 6 - k,
+                      background:
+                        "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.8), rgba(150,225,235,0.35) 55%, transparent 75%)",
+                      ["--trail-delay" as string]: `${k * 0.5 + (i % 3) * 0.3}s`,
+                      ["--trail-dur" as string]: `${2.2 + (k % 3) * 0.6}s`,
+                    }}
+                  />
+                ))}
+              </span>
               {/* без оболочки — сам медальон-пузырь всплывает */}
               {lvl && (
                 <img src={lvl.img} alt="" width={b.size} height={b.size}

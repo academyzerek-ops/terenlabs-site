@@ -805,3 +805,17 @@ a:active {
 @media (prefers-reduced-motion: reduce) {
   .ocean-bubble { animation: none; opacity: 1; }
 }
+
+/* Шлейф пузыриков за всплывающим медальоном — мелкие газовые пузырьки */
+@keyframes bub-trail-rise {
+  0%   { transform: translateY(14px) scale(0.5); opacity: 0; }
+  25%  { opacity: 0.85; }
+  100% { transform: translateY(-30px) scale(1); opacity: 0; }
+}
+.bub-trail {
+  animation: bub-trail-rise var(--trail-dur, 2.5s) ease-in infinite;
+  animation-delay: var(--trail-delay, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bub-trail { animation: none; opacity: 0; }
+}
