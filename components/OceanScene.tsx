@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useRef, useState, useEffect } from "react";
+import { Suspense, useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { OceanLife } from "./OceanLife";
 
 // Сквозной WebGL-океан: ОДИН фон на всю страницу. Камера летит вглубь по
 // мере скролла — частицы, лучи и биолюминесценция сменяются по глубине.
@@ -89,7 +90,7 @@ function DepthField({ count, scroll }: { count: number; scroll: React.RefObject<
       </bufferGeometry>
       <pointsMaterial
         map={sprite}
-        size={0.7}
+        size={0.45}
         sizeAttenuation
         vertexColors
         transparent
@@ -171,11 +172,11 @@ function DiveRig({ scroll }: { scroll: React.RefObject<number> }) {
 export function OceanScene() {
   const scroll = useScrollProgress();
   const [reduced, setReduced] = useState(false);
-  const [count, setCount] = useState(3200);
+  const [count, setCount] = useState(1100);
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    if (window.innerWidth < 768) setCount(1400);
+    if (window.innerWidth < 768) setCount(500);
   }, []);
 
   if (reduced) return null;
@@ -188,9 +189,14 @@ export function OceanScene() {
       frameloop="always"
       style={{ position: "fixed", inset: 0 }}
     >
-      <fog attach="fog" args={["#04101d", 14, 60]} />
+      <fog attach="fog" args={["#04101d", 16, 64]} />
+      {/* мелкий планктон-пыль (приглушённо, фоном) */}
       <DepthField count={count} scroll={scroll} />
       <LightShafts scroll={scroll} />
+      {/* живые существа: рыбы, медузы, осьминог, кораллы по глубине */}
+      <Suspense fallback={null}>
+        <OceanLife />
+      </Suspense>
       <DiveRig scroll={scroll} />
     </Canvas>
   );
