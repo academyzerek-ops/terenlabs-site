@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShowMoreGrid } from "@/components/ShowMoreGrid";
 import { CaseGrid } from "@/components/CaseGrid";
-import { CaseGlobeHero } from "@/components/CaseGlobeHero";
 import { CATALOG } from "@/lib/content";
 import type { ProductType } from "@/lib/content";
 
@@ -98,9 +97,6 @@ export default async function CatalogPage({
           <p className="rise mt-4 max-w-xl text-lg leading-relaxed text-foam/80 sm:text-xl" style={{ animationDelay: "160ms" }}>{s.desc}</p>
         </Container>
       </section>
-
-      {/* кейсы: глобус-герой с пинами по городам, сетка ниже для поиска */}
-      {t === "case" && <CaseGlobeHero />}
 
       <div className="deck py-14">
         <Container>
