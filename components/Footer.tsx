@@ -4,7 +4,7 @@ import { Container } from "./Container";
 import { PRODUCT_TYPES } from "@/lib/content";
 
 const LEGAL = [
-  { label: "Оферта (RU · KK)", href: "/legal/offer" },
+  { label: "Пользовательское соглашение", href: "/legal/offer" },
   { label: "Политика конфиденциальности", href: "/legal/privacy" },
   { label: "Сведения об образовательной организации", href: "/legal/info" },
 ];
