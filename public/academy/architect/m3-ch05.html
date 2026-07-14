@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
 <title>Искусство убийства: Как данные заставляют уничтожить свой продукт (Кейс Instagram)</title>
-<meta name="description" content="Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и игр…">
+<meta name="description" content="Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
 <meta property="og:title" content="Искусство убийства: Как данные заставляют уничтожить свой продукт (Кейс Instagram)">
-<meta property="og:description" content="Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и игр…">
+<meta property="og:description" content="Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и…">
+<meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m3-ch05.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m3-ch05.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/academy-assets/lessons.css?v=6">
-<meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m3-ch05.webp">
-<link rel="stylesheet" href="/embed-web.css?v=3">
+<link rel="stylesheet" href="/academy-assets/lessons.css?v=11">
+<link rel="stylesheet" href="/embed-web.css?v=9">
 </head>
 <body>
 <main class="page">
@@ -24,61 +25,116 @@
   <div class="hero">
     <h1>Искусство убийства: Как данные заставляют уничтожить свой продукт (Кейс Instagram)</h1>
   </div>
+
   <div class="c al">
     <p class="dropcap">Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и игры. Я захвачу всех пользователей». На практике это приводит к тому, что система не решает ни одну задачу хорошо и рушится под тяжестью собственного кода.</p>
+  </div>
+
+  <div class="pq"><p>Фокус — это не философия минимализма, это результат жесткого когортного анализа.</p></div>
+
+  <div class="c">
     <p>Инфобизнесмены говорят: «Нужно уметь фокусироваться». Архитектор говорит иначе: <strong>Фокус — это не философия минимализма, это результат жесткого когортного анализа</strong> (сравнения групп пользователей, пришедших в разное время: кто остался, кто ушел и почему).</p>
     <p>Разберем этот механизм на примере самого известного разворота (Pivot) в истории IT.</p>
   </div>
-  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
-  <div class="c ao">
-    <div class="lb orange">Burbn: Перегруженный комбайн с финансированием</div>
+
+  <div class="c al">
+    <div class="lb purple">Burbn: Перегруженный комбайн с финансированием</div>
     <p>В 2010 году Кевин Систром и Майк Кригер делают приложение <em>Burbn</em>. Это классический комбайн: чекины в барах (как у Foursquare), планы встреч, система баллов, элементы игры и публикация фото.</p>
     <p>Венчурные фонды (среди них Andreessen Horowitz) вложили в этот стартап $500 000 посевных инвестиций (Seed-раунд). Проблема в том, что приложение не росло. Пользователи скачивали его, видели стену из непонятных функций и уходили — отток стремился к 100%.</p>
+  </div>
+
+  <div class="fs">
+    <div class="fc"><span class="fc-ico">💰</span><div class="fc-txt"><strong>$500 000</strong> seed-раунда от венчурных фондов, среди них Andreessen Horowitz.</div></div>
+    <div class="fc"><span class="fc-ico">🧩</span><div class="fc-txt">Чекины, планы встреч, баллы, игры и фото — всё в одном перегруженном комбайне.</div></div>
+    <div class="fc"><span class="fc-ico">📉</span><div class="fc-txt">Отток стремился к <strong>100%</strong>: скачали, увидели стену функций — ушли.</div></div>
+  </div>
+
+  <div class="c">
     <p>Большинство основателей в этой точке начинают тратить инвесторские деньги на рекламу или добавляют еще больше функций. Систром и Кригер поступили как Архитекторы.</p>
   </div>
+
   <div class="c al">
     <div class="lb purple">Великая чистка: Поиск Ключевого действия (Core Action)</div>
     <p>Они остановили маркетинг и залезли в базу данных. Они начали анализировать поведение тех немногих пользователей, которые всё-таки оставались в приложении.</p>
     <p>Данные показали аномалию. Никто не пользовался чекинами, баллами и планировщиком. Но все постоянно загружали фотографии и накладывали на них фильтры.</p>
   </div>
-  <div class="ins"><span class="ins-ico">💡</span><p><strong>Инсайт Архитектора: Pivot на основе данных</strong> Основатели не "угадали", что нужно оставить. Они выявили <strong>Ключевое действие (Core Action)</strong>, за которое держалась аудитория. Pivot (Разворот) — это не когда ты бросаешь один бизнес и начинаешь другой. Pivot — это когда ты берешь одну работающую функцию из старого бизнеса и строишь вокруг нее новую архитектуру.</p></div>
+
+  <div class="ins">
+    <span class="ins-ico">💡</span>
+    <p>Основатели не "угадали", что нужно оставить. Они выявили <strong>Ключевое действие (Core Action)</strong>, за которое держалась аудитория. Pivot (Разворот) — это не когда ты бросаешь один бизнес и начинаешь другой. Pivot — это когда ты берешь одну работающую функцию из старого бизнеса и строишь вокруг нее новую архитектуру.</p>
+  </div>
+
   <div class="c">
     <p>Они приняли жесткое архитектурное решение: вырезать 90% кода, выбросить год работы и оставить только ленту, фильтры и кнопку "Опубликовать". Они убили Burbn и 6 октября 2010 года запустили <em>Instagram</em>.</p>
+  </div>
+
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">6 октября 2010</div><div class="tl-txt">Запуск <em>Instagram</em> — лента, фильтры, кнопка «Опубликовать». В первый день — 25 000 пользователей.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">Через 2 месяца</div><div class="tl-txt"><strong>1 миллион</strong> пользователей. Тайминг совпал с выходом iPhone 4: хорошая камера в кармане.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">Апрель 2012</div><div class="tl-txt">Facebook покупает Instagram. Объявленная сумма сделки (M&amp;A) — <strong>$1 миллиард</strong>.</div></div>
+  </div>
+
+  <div class="c">
     <p>В первый день пришло 25 000 пользователей. Через два месяца — миллион. Запуск совпал с выходом iPhone 4 (идеальный тайминг: хорошая камера в кармане), и социальная механика мгновенно создала сетевой эффект (Network Effect).</p>
     <p>В апреле 2012 года Facebook купил Instagram. Объявленная сумма сделки (M&amp;A) составила $1 миллиард (фактически, из-за падения акций FB, Систром и инвесторы получили около $715 миллионов).</p>
   </div>
+
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Архитектурный цикл: Bundling and Unbundling</div>
     <p>Самый ценный урок этой истории кроется в ее финале.</p>
     <p>Систром и Кригер покинули компанию в 2018 году из-за конфликта с Марком Цукербергом. Если ты откроешь Instagram сегодня, ты увидишь: Stories, Reels, Shopping, Direct, каналы авторов и алгоритмическую ленту. Сегодняшний Instagram — это ровно тот перегруженный комбайн, от которого Систром бежал в 2010 году.</p>
+    <p><strong>Почему так произошло?</strong> Это макроэкономический закон <em>Bundling and Unbundling (Укрупнение и разукрупнение)</em>, описанный Джимом Барксдейлом.</p>
   </div>
-  <div class="c ag">
-    <div class="lb green">Почему так произошло?</div>
-    <p>Это макроэкономический закон <em>Bundling and Unbundling (Укрупнение и разукрупнение)</em>, описанный Джимом Барксдейлом.</p>
-    <ol><li><strong>Фаза Unbundling (Разукрупнение):</strong> Чтобы пробить рынок и захватить аудиторию, продукт должен быть узким и снайперски точным (как ранний Instagram или Kaspi, который начинался только с кредитов).</li><li><strong>Фаза Bundling (Укрупнение):</strong> Когда аудитория захвачена (сотни миллионов пользователей), корпорации нужно удерживать их внутри и увеличивать LTV (Lifetime Value — доход с одного клиента за всё время). Система начинает обрастать функциями, превращаясь в суперапп.</li></ol>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico">🎯</span>
+      <div class="vs-t">Unbundling (Разукрупнение)</div>
+      <div class="vs-d">Чтобы пробить рынок и захватить аудиторию, продукт должен быть узким и снайперски точным — как ранний Instagram или Kaspi, начинавшийся только с кредитов.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico">📦</span>
+      <div class="vs-t">Bundling (Укрупнение)</div>
+      <div class="vs-d">Когда аудитория захвачена, корпорации нужно удерживать её внутри и растить LTV. Система обрастает функциями, превращаясь в суперапп.</div>
+    </div>
   </div>
-  <div class="pq">
+
+  <div class="c">
+    <p>1. <strong>Фаза Unbundling (Разукрупнение):</strong> Чтобы пробить рынок и захватить аудиторию, продукт должен быть узким и снайперски точным (как ранний Instagram или Kaspi, который начинался только с кредитов). 2. <strong>Фаза Bundling (Укрупнение):</strong> Когда аудитория захвачена (сотни миллионов пользователей), корпорации нужно удерживать их внутри и увеличивать LTV (Lifetime Value — доход с одного клиента за всё время). Система начинает обрастать функциями, превращаясь в суперапп.</p>
     <p>Если ты строишь суперапп с первого дня, ты проиграешь, потому что пользователь не поймет твою ценность. Если ты не превратишься в суперапп на этапе масштабирования, тебя сожрут конкуренты-экосистемы.</p>
   </div>
+
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
   <div class="tk">
-    <span class="tk-badge">Главное из главы</span>
+    <span class="tk-badge">Что вынести</span>
+    <h3>Что вынести из этой главы</h3>
     <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Не угадывай, а анализируй когорты.</strong> Никакая интуиция не заменит анализ базы данных. Если твой продукт не летит, найди тех 5% пользователей, которые остались, и посмотри, какую именно кнопку они нажимают каждый день. Это и есть твой будущий бизнес.</span></div>
     <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Пивот (Pivot) — это норма.</strong> Выкинуть год работы и миллионы тенге ради одной рабочей функции — это не провал, это жесткое архитектурное решение. Провал — это продолжать финансировать мертвого "комбайна".</span></div>
     <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Цикличность сложности.</strong> Простота — это инструмент захвата рынка. Сложность — это инструмент удержания рынка. Фокус, который помог тебе стартовать, неизбежно придется размывать, когда ты начнешь строить экосистему.</span></div>
   </div>
+
+  <a class="case-cta" href="../../cases/case-056.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Разворот за две недели</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
+
   <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p class="dropcap">Кейс Instagram показал нам, как умение убивать собственные идеи на основе метрик создает продукты с миллиардной капитализацией. Мы увидели, что фокус — это временный инструмент захвата аудитории.</p>
+    <p>Кейс Instagram показал нам, как умение убивать собственные идеи на основе метрик создает продукты с миллиардной капитализацией. Мы увидели, что фокус — это временный инструмент захвата аудитории.</p>
     <p>На этом мы закрываем урок о запуске без ресурсов: ты умеешь проверять спрос деньгами, раскручивать маховик платформы, отличать тест от системы и резать лишнее. Но даже идеальный продукт мертв, пока о нем не знают. В следующем уроке мы переходим к маркетингу и бренду: разберем, как компании продают не товар, а эмоции, статус и идентичность — от Red Bull до Nike.</p>
   </div>
+
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m3-ch05"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='m3-ch04.html'">← Назад</button>
-  <button class="nb nb-next" onclick="location.href='m4-ch00.html'">Урок 4 →</button>
+  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=3'">← Содержание</button>
+  <button class="nb nb-next" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=3'">Содержание →</button>
 </div>
+<script src="/review-enhance.js?v=3" defer></script>
 </body>
 </html>

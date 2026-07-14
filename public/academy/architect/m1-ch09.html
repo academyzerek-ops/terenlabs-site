@@ -3,67 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
 <title>От ручного привода к сделке на миллиард: Иллюзии успешного &quot;Экзита&quot;</title>
-<meta name="description" content="В Главе 0 мы коротко упоминали Zappos как эталон старта без капитальных затрат. Ник Свинмурн доказал спрос, фотографируя чужие кроссовки в ТЦ и отправляя и…">
+<meta name="description" content="В Главе 0 мы коротко упоминали Zappos как эталон старта без капитальных затрат. Ник Свинмурн доказал спрос, фотографируя чужие кроссовки в ТЦ и отправляя…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
 <meta property="og:title" content="От ручного привода к сделке на миллиард: Иллюзии успешного &quot;Экзита&quot;">
-<meta property="og:description" content="В Главе 0 мы коротко упоминали Zappos как эталон старта без капитальных затрат. Ник Свинмурн доказал спрос, фотографируя чужие кроссовки в ТЦ и отправляя и…">
+<meta property="og:description" content="В Главе 0 мы коротко упоминали Zappos как эталон старта без капитальных затрат. Ник Свинмурн доказал спрос, фотографируя чужие кроссовки в ТЦ и отправляя…">
+<meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m1-ch09.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m1-ch09.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/academy-assets/lessons.css?v=6">
-<meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m1-ch09.webp">
-<link rel="stylesheet" href="/embed-web.css?v=3">
+<link rel="stylesheet" href="/academy-assets/lessons.css?v=11">
+<link rel="stylesheet" href="/embed-web.css?v=9">
 </head>
 <body>
 <main class="page">
   <img class="les-hero-img" src="/academy-assets/hero/architect/m1-ch09.webp" alt="" loading="eager" decoding="async">
   <div class="hero">
-    <h1>От ручного привода к сделке на миллиард: Иллюзии успешного &quot;Экзита&quot;</h1>
+    <h1>От ручного привода к сделке на миллиард: Иллюзии успешного "Экзита"</h1>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <p class="dropcap">В Главе 0 мы коротко упоминали Zappos как эталон старта без капитальных затрат. Ник Свинмурн доказал спрос, фотографируя чужие кроссовки в ТЦ и отправляя их почтой (это называется <strong>Консьерж-MVP</strong> — ручная имитация сервиса до его постройки). В Главе 8 мы обсуждали, как проверять гипотезы через Smoke-тест.</p>
-    <p>Теперь пришло время посмотреть на эти процессы глазами состоявшегося Архитектора. Главное правило: <strong>"Делай руками" работает только на первых 100 клиентах. Если ты продолжишь делать всё руками на тысячном клиенте — твоя система рухнет, а ты выгоришь.</strong></p>
+    <p>Теперь пришло время посмотреть на эти процессы глазами состоявшегося Архитектора.</p>
   </div>
-  <div class="c">
+
+  <div class="pq"><p>«Делай руками» работает только на первых 100 клиентах. Если ты продолжишь делать всё руками на тысячном клиенте — твоя система рухнет, а ты выгоришь.</p></div>
+
+  <div class="c al">
     <div class="lb purple">Переход от MVP к Операционной Архитектуре</div>
     <p>Свинмурн запустил Zappos в 1999-м, работая в ноль или минус, чтобы доказать юнит-экономику. В том же году в компанию через фонд Venture Frogs зашел Тони Шей, вложив полмиллиона долларов, а вскоре он встал у руля как CEO.</p>
     <p>Именно Шей совершил системный переход от кустарного стартапа к корпорации. Первые годы они использовали <em>дропшиппинг</em> (поставщики отправляли товар напрямую клиенту). Но Шей понял: Архитектор не может строить бизнес с легендарным сервисом, если логистику контролирует кто-то другой. В 2003 году он принял жесткое решение: отказаться от легкой посреднической модели и вложить деньги в <strong>собственные огромные склады</strong> в Кентукки.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico">📦</span>
+      <div class="vs-t">Дропшиппинг</div>
+      <div class="vs-d">Лёгкий старт без капзатрат. Но качество и скорость — в чужих руках.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico">🏭</span>
+      <div class="vs-t">Свои склады</div>
+      <div class="vs-d">Риск капитальных затрат. Зато тотальный контроль над сервисом.</div>
+    </div>
+  </div>
+
+  <div class="c">
     <p>Они взяли на себя риски капитальных затрат, но получили тотальный контроль над качеством и скоростью доставки. Это решение сделало Zappos компанией с лучшим сервисом в мире обуви.</p>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Слияние и поглощение (M&amp;A): Сделка с Amazon</div>
     <p>В 2009 году произошло то, о чем мечтает большинство стартаперов: Zappos был поглощен корпорацией Amazon за $1,2 миллиарда.</p>
+  </div>
+
+  <div class="fs">
+    <div class="fc"><span class="fc-ico">💰</span><div class="fc-txt"><strong>$1,2 млрд</strong> — сумма поглощения Zappos корпорацией Amazon в 2009-м.</div></div>
+    <div class="fc"><span class="fc-ico">📰</span><div class="fc-txt">В прессе это подавалось как <strong>триумф</strong>. Архитектор читает контракт иначе.</div></div>
+    <div class="fc"><span class="fc-ico">✂️</span><div class="fc-txt">После сделки машина Безоса начала <strong>срезать</strong> «неэффективные» расходы.</div></div>
+  </div>
+
+  <div class="c">
     <p>В прессе это подавалось как триумф. Но Архитектор должен уметь читать контракты и понимать разницу между "бумажными миллиардами" и реальной властью.</p>
     <p>Когда ты продаешь свой бизнес стратегическому инвестору (корпорации), ты теряешь контроль над архитектурой. Шей гордился уникальной корпоративной культурой Zappos ("Доставляя счастье"), но как только компания стала подразделением Amazon, прагматичная машина Безоса начала постепенно срезать "неэффективные" расходы — в том числе щедрые программы возврата и культурные инициативы.</p>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Ловушка успешного "Экзита" (Exit — продажа компании)</div>
     <p>А теперь давай посмотрим на реальную цену этой миллиардной сделки для ее создателей.</p>
-    <ol><li><strong>Изобретатель vs. Владелец (Снова).</strong> Основатель Ник Свинмурн ушел из компании в 2006 году, за три года до сделки с Amazon. Он получил свою долю, но миллиардером не стал. Его состояние — десятки миллионов. Большие деньги забирает тот, кто управляет ростом до самого конца.</li><li><strong>Трагедия CEO.</strong> Тони Шей, главный архитектор триумфа Zappos, оставался у руля до 2020 года. Пресса любила называть его миллиардером, но на момент смерти его состояние оценивали примерно в $840 млн — даже не миллиард, вопреки легенде. В августе 2020 года он ушел с поста CEO, а в ноябре того же года погиб при пожаре. Близкие позже рассказывали, что последний год его жизни был омрачен депрессией и зависимостью.</li></ol>
   </div>
-  <div class="ins"><span class="ins-ico">💡</span><p><strong>Жесткий инсайт Архитектора</strong> Успешный экзит (продажа компании) и счастливая жизнь основателя — это не синонимы. Часто основатель, который продал дело всей своей жизни корпорации, теряет смысл существования, даже имея на счету сотни миллионов.</p></div>
+
+  <div class="ex" onclick="this.classList.toggle('open')">
+    <div class="ex-h">
+      <span class="ex-q">Изобретатель vs. Владелец (Снова)</span>
+      <span class="ex-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="ex-b">
+      <p>Основатель Ник Свинмурн ушел из компании в 2006 году, за три года до сделки с Amazon. Он получил свою долю, но миллиардером не стал. Его состояние — десятки миллионов. Большие деньги забирает тот, кто управляет ростом до самого конца.</p>
+    </div>
+  </div>
+
+  <div class="ex" onclick="this.classList.toggle('open')">
+    <div class="ex-h">
+      <span class="ex-q">Трагедия CEO</span>
+      <span class="ex-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="ex-b">
+      <p>Тони Шей, главный архитектор триумфа Zappos, оставался у руля до 2020 года. Пресса любила называть его миллиардером, но на момент смерти его состояние оценивали примерно в $840 млн — даже не миллиард, вопреки легенде. В августе 2020 года он ушел с поста CEO, а в ноябре того же года погиб при пожаре. Близкие позже рассказывали, что последний год его жизни был омрачен депрессией и зависимостью.</p>
+    </div>
+  </div>
+
+  <div class="ins">
+    <span class="ins-ico">💡</span>
+    <p>Успешный экзит (продажа компании) и счастливая жизнь основателя — это не синонимы. Часто основатель, который продал дело всей своей жизни корпорации, теряет смысл существования, даже имея на счету сотни миллионов.</p>
+  </div>
+
+  <a class="case-cta" href="../../cases/case-003.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Продали больше, чем смогли</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
+
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
   <div class="tk">
-    <span class="tk-badge">Главное из главы</span>
+    <span class="tk-badge">Что вынести</span>
+    <h3>Три закона перехода от MVP к активу</h3>
     <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Не масштабируется в начале → Масштабируется потом.</strong> Консьерж-MVP и посредничество (перепродажа чужого без склада) — это отличный старт. Но если ты не перейдешь на собственные операционные рельсы (свои склады, свои курьеры, жесткий контроль качества), ты не построишь системный актив.</span></div>
     <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Ты не можешь делегировать репутацию.</strong> Если ты продаешь чужой товар по дропшиппингу, и поставщик присылает брак — репутационный удар принимаешь ты. Взрослая система всегда стремится замкнуть ключевые точки контакта с клиентом на себя.</span></div>
     <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>M&amp;A — это продажа независимости.</strong> Продажа компании корпорации за миллиард — это не хэппи-энд, это конец твоего влияния на продукт. В малом бизнесе закон тот же: продал контрольную долю — отдал право решать. Будь готов к тому, что покупатель оптимизирует и уничтожит ту самую культуру, которую ты строил годами.</span></div>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p class="dropcap">История Zappos учит нас тому, как важен своевременный переход от кустарных тестов к жесткой операционной базе, и показывает обратную сторону продажи бизнеса корпорациям.</p>
-    <p>Остался последний закон этого урока — цена ошибки. В следующей главе разберем, почему 51 провал подряд в одной индустрии — это рабочая стратегия, а в другой — гарантированное банкротство. На примере студии, которая чуть не закрылась за месяц до своего главного хита.</p>
+    <p>История Zappos учит нас тому, как важен своевременный переход от кустарных тестов к жесткой операционной базе, и показывает обратную сторону продажи бизнеса корпорациям.</p>
   </div>
+
+  <div class="pq"><p class="nextup">В следующей главе разберем, почему 51 провал подряд в одной индустрии — это рабочая стратегия, а в другой — гарантированное банкротство. На примере студии, которая чуть не закрылась за месяц до своего главного хита.</p></div>
+
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m1-ch09"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='m1-ch08.html'">← Назад</button>
-  <button class="nb nb-next" onclick="location.href='m1-ch10.html'">Глава 11 →</button>
+  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=1'">← Содержание</button>
+  <button class="nb nb-next" onclick="location.href='m1-ch10.html'">Дальше →</button>
 </div>
+<script src="/review-enhance.js?v=3" defer></script>
 </body>
 </html>

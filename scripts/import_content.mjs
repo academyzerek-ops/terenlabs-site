@@ -9,8 +9,11 @@
 // ============================================================
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
-const SRC = "/Users/adil/Documents/TerenLabs/frontend";
+// Источник переопределяется: TL_SRC=/path/to/worktree/frontend node scripts/import_content.mjs
+// (рабочая копия основного репо может стоять на другой ветке — импортируем из origin/main)
+const SRC = process.env.TL_SRC || "/Users/adil/Documents/TerenLabs/frontend";
 const SITE = path.resolve(import.meta.dirname, "..");
 
 const report = { missingChapters: [], missingHero: [], unknownAssets: new Set(), counts: {} };
@@ -46,10 +49,20 @@ function transformEmbedded(html, { keepLocalScripts = false } = {}) {
   // на сайте; window.top — глава живёт в iframe плеера курса
   out = out.replace(/location\.href='(\.\.\/)+cases\/(case-\d+)\.html'/g, "window.top.location.href='/cases/$2'");
   // десктопная надстройка сайта — после родных стилей
-  out = out.replace("</head>", '<link rel="stylesheet" href="/embed-web.css?v=3">\n</head>');
+  out = out.replace("</head>", '<link rel="stylesheet" href="/embed-web.css?v=9">\n</head>');
   // прочие неизвестные /frontend/ ссылки — в отчёт
   for (const m of out.matchAll(/(?:src|href)="(\/frontend\/[^"]+)"/g)) report.unknownAssets.add(m[1]);
   return out;
+}
+
+// Последний абзац-крючок «В следующей главе…/Что будет дальше» → класс nextup
+// (forward-карточка в embed-web.css). Меняем только тег <p>, текст не трогаем.
+function markNextup(html) {
+  const re = /<p>(?:\s*<(?:strong|span|em|b)[^>]*>\s*)?(?:В\s+следующ|Что будет дальше)/g;
+  let last = null, m;
+  while ((m = re.exec(html)) !== null) last = m;
+  if (!last) return html;
+  return html.slice(0, last.index) + '<p class="nextup">' + html.slice(last.index + 3);
 }
 
 // ---------- 1. АКАДЕМИЯ ----------
@@ -95,7 +108,8 @@ for (const [key, t] of Object.entries(ACADEMY_DATA)) {
         return { title, file, missing: true };
       }
       // копия главы с трансформацией
-      write(path.join(SITE, "public/academy", folder, file + ".html"), transformEmbedded(read(srcFile)));
+      write(path.join(SITE, "public/academy", folder, file + ".html"),
+        markNextup(transformEmbedded(read(srcFile))).replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>'));
       chapterTotal++;
       const hero = path.join(SRC, "_assets/academy_hero", folder, file + ".webp");
       const hasHero = fs.existsSync(hero);
@@ -114,9 +128,15 @@ report.counts.chapters = academy.reduce((s, a) => s + a.chapterTotal, 0);
 fs.cpSync(path.join(SRC, "design-system"), path.join(SITE, "public/academy-assets"), { recursive: true });
 fs.cpSync(path.join(SRC, "_assets/academy_hero"), path.join(SITE, "public/academy-assets/hero"), { recursive: true });
 fs.cpSync(path.join(SRC, "_assets/niche_hero"), path.join(SITE, "public/academy-assets/niche_hero"), { recursive: true });
+fs.cpSync(path.join(SRC, "_assets/cases_hero"), path.join(SITE, "public/academy-assets/cases_hero"), { recursive: true });
 
 // ---------- 2. КЕЙСЫ ----------
 const casesDir = path.join(SRC, "content/ru/cases");
+// эмодзи кейсов теперь нет в main HTML (заменены hero-картинкой) — сохраняем из прошлого cases.json
+const prevIco = {};
+try {
+  for (const c of JSON.parse(read(path.join(SITE, "content/cases.json")))) if (c.ico) prevIco[c.slug] = c.ico;
+} catch {}
 const cases = [];
 for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort()) {
   const slug = f.replace(".html", "");
@@ -124,7 +144,8 @@ for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort
   const pick = (re) => (html.match(re) || [, ""])[1].trim();
   const badge = pick(/<span class="hdr-badge">([^<]*)<\/span>/); // «Кейс · Провал»
   const mod = pick(/<span class="hdr-mod">([^<]*)<\/span>/); // «Кофейня · Уральск»
-  const ico = pick(/<span class="hero-ico">([^<]*)<\/span>/);
+  const ico = pick(/<span class="hero-ico">([^<]*)<\/span>/) || prevIco[slug] || "";
+  const image = `/academy-assets/cases_hero/${slug}.webp?v=1`;
   const titleHtml = pick(/<h1>([\s\S]*?)<\/h1>/);
   const title = titleHtml.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
   const sub = pick(/<p class="hero-sub">([\s\S]*?)<\/p>/)
@@ -133,10 +154,11 @@ for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort
     .trim();
   // тело: содержимое <main> без hero-блока и скриптов
   let body = (html.match(/<main class="page">([\s\S]*?)<\/main>/) || [, ""])[1];
+  body = body.replace(/<img class="les-hero-img"[\s\S]*?>\s*/, ""); // hero-картинка идёт отдельным полем image
   body = body.replace(/<div class="hero">[\s\S]*?<\/div>\s*/, "");
   body = body.replace(/<script[\s\S]*?<\/script>/g, "");
   for (const m of body.matchAll(/(?:src|href)="(\/frontend\/[^"]+|\.\.[^"]+)"/g)) report.unknownAssets.add(m[1]);
-  cases.push({ slug, title, titleHtml, sub, ico, badge, mod, kind: badge.split("·").pop().trim(), body: body.trim() });
+  cases.push({ slug, title, titleHtml, sub, ico, image, badge, mod, kind: badge.split("·").pop().trim(), body: body.trim() });
 }
 write(path.join(SITE, "content/cases.json"), JSON.stringify(cases, null, 1));
 report.counts.cases = cases.length;
@@ -155,32 +177,44 @@ for (const f of fs.readdirSync(nichesDir).filter((x) => x.endsWith(".html")).sor
     .replace(/<[^>]+>/g, "")
     .replace(/\s+/g, " ")
     .trim();
-  write(path.join(SITE, "public/reviews-html", slug + ".html"), transformEmbedded(html, { keepLocalScripts: true }));
+  // эффекты обзоров: пончик-hover, count-up, появление блоков
+  const embedded = transformEmbedded(html, { keepLocalScripts: true })
+    .replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>');
+  write(path.join(SITE, "public/reviews-html", slug + ".html"), embedded);
   reviews.push({ slug, title, sub, file: `/reviews-html/${slug}.html` });
 }
 write(path.join(SITE, "content/reviews.json"), JSON.stringify(reviews, null, 1));
 report.counts.reviews = reviews.length;
 
-// ---------- 4. ОКЕАН: пулы тестов Краб/Барракуда ----------
-// Канон Mini App: тест = 10 вопросов, по 1 случайному из каждого архетипа.
-// Пороги сдачи: T1≥7, T2≥7, T3≥6 (см. backend/app/routers/ocean.py).
+// ---------- 4. ОКЕАН: пулы закрытых тестов Краб/Барракуда ----------
+// Канон Mini App (v9.2, июль 2026): тест = 10 вопросов, по 1 из каждого архетипа.
+// Краб — по типу (Теория/Расчёты/Универсальный), Барракуда — по ДИСЦИПЛИНАМ
+// (Финансы/Маркетинг/Менеджмент/Право + бонусный Универсальный, не гейтит уровень).
+// Пулы в клиенте БЕЗ ответов — правильность и разбор считает сервер (/attempt).
+// Пороги: TEST_FLOORS в frontend/products/ocean.js (t3=6, остальные 7).
 const OCEAN_TESTS = [
-  { slug: "crab-t1", rank: "Краб", tag: "T2", pool: "crab.t1", title: "Краб · Теория", floor: 7 },
-  { slug: "crab-t2", rank: "Краб", tag: "T2", pool: "crab.t2", title: "Краб · Применение", floor: 7 },
-  { slug: "crab-t3", rank: "Краб", tag: "T2", pool: "crab.t3", title: "Краб · Анализ", floor: 6 },
-  { slug: "barracuda-t1", rank: "Барракуда", tag: "T3", pool: "barracuda.t1", title: "Барракуда · Теория", floor: 7 },
-  { slug: "barracuda-t2", rank: "Барракуда", tag: "T3", pool: "barracuda.t2", title: "Барракуда · Применение", floor: 7 },
-  { slug: "barracuda-t3", rank: "Барракуда", tag: "T3", pool: "barracuda.t3", title: "Барракуда · Анализ", floor: 6 },
+  { slug: "crab-t1", rank: "Краб", tag: "T2", pool: "crab.t1", title: "Краб · Теория", topic: "Бизнес", floor: 7 },
+  { slug: "crab-t2", rank: "Краб", tag: "T2", pool: "crab.t2", title: "Краб · Расчёты", topic: "Финансы", floor: 7 },
+  { slug: "crab-t3", rank: "Краб", tag: "T2", pool: "crab.t3", title: "Краб · Универсальный", topic: "Бизнес", floor: 6 },
+  { slug: "barracuda-fin", rank: "Барракуда", tag: "T3", pool: "barracuda.fin", title: "Барракуда · Финансы", topic: "Финансы", floor: 7 },
+  { slug: "barracuda-mkt", rank: "Барракуда", tag: "T3", pool: "barracuda.mkt", title: "Барракуда · Маркетинг", topic: "Маркетинг", floor: 7 },
+  { slug: "barracuda-mgmt", rank: "Барракуда", tag: "T3", pool: "barracuda.mgmt", title: "Барракуда · Менеджмент", topic: "Управление", floor: 7 },
+  { slug: "barracuda-law", rank: "Барракуда", tag: "T3", pool: "barracuda.law", title: "Барракуда · Право", topic: "Бизнес", floor: 7 },
+  { slug: "barracuda-universal", rank: "Барракуда", tag: "T3", pool: "barracuda.universal", title: "Барракуда · Универсальный", topic: "Бизнес", floor: 7 },
 ];
+// старые пулы (barracuda.t1-t3 и полные с ответами) — снести, чтобы не текли ответы
+fs.rmSync(path.join(SITE, "public/ocean-pools"), { recursive: true, force: true });
 const oceanTestProducts = [];
 for (const t of OCEAN_TESTS) {
   const src = path.join(SRC, "products/ocean-assets", t.pool + ".json");
   const pool = JSON.parse(read(src));
+  if (pool.some((q) => q.a !== undefined || q.explanations))
+    throw new Error(`пул ${t.pool} содержит ответы — на сайт кладём только stripped-версии`);
   write(path.join(SITE, "public/ocean-pools", t.pool + ".json"), JSON.stringify(pool));
   oceanTestProducts.push({
-    type: "test", slug: t.slug, level: t.tag, topic: "Бизнес", stage: "Проверка", free: true,
+    type: "test", slug: t.slug, level: t.tag, topic: t.topic, stage: "Проверка", free: true,
     title: t.title,
-    blurb: `10 вопросов — по одному из каждой темы уровня. Порог сдачи: ${t.floor} из 10.`,
+    blurb: `10 вопросов — по одному из каждой темы уровня. Порог сдачи: ${t.floor} из 10. Результат считает сервер «Океана».`,
     metric: { value: String(pool.length), label: "вопросов в пуле" },
     badge: "Океан",
   });
@@ -189,12 +223,13 @@ report.counts.oceanPools = OCEAN_TESTS.length;
 
 // ---------- 5. PRODUCTS.JSON ----------
 const products = JSON.parse(read(path.join(SITE, "content/products.json")));
-// океан-тесты регенерируются ниже — старые копии не оставляем (иначе дубликаты slug при повторном прогоне)
-const oceanSlugs = new Set(OCEAN_TESTS.map((t) => t.slug));
+// океан-тесты регенерируются выше — старые копии не оставляем (в т.ч. снятые с прода
+// barracuda-t1..t3: набор тестов уровня меняется, «чужих» crab-*/barracuda-* не держим)
+const isOceanSlug = (s) => /^(crab|barracuda)-/.test(s);
 const keep = products.filter(
   (p) =>
     (p.type === "finmodel" ||
-      (p.type === "test" && !oceanSlugs.has(p.slug)) ||
+      (p.type === "test" && !isOceanSlug(p.slug)) ||
       (p.type === "case" && p.slug === "case-marketplace"))
 );
 const plural = (n, one, few, many) => {
@@ -218,7 +253,8 @@ const caseProducts = cases.map((c) => ({
   type: "case", slug: c.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
   // листовые эмодзи в начале подзаголовка (✍️, 📰, …) на сайте рендерятся тофу-квадратом
   title: c.title, blurb: c.sub.replace(/^[\p{Extended_Pictographic}️‍\s]+/u, ""), badge: c.kind || "Кейс",
-  ico: c.ico || null, // эмодзи кейса для тайла каталога
+  ico: c.ico || null, // эмодзи кейса (фолбэк, если нет кадра)
+  img: c.image || null, // кинокадр кейса → постер-тайл каталога (как у обзоров)
 }));
 const reviewProducts = reviews.map((r) => {
   const base = r.slug.replace("review-", "");
@@ -234,7 +270,7 @@ const reviewProducts = reviews.map((r) => {
     blurb: r.sub || "Разбор ниши на цифрах: рынок, экономика, риски",
     badge: "Обзор",
     // фото ниши из самого обзора; без него — тематический фолбэк, а не серая дыра
-    img: hasHero ? heroPath : "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
+    img: hasHero ? `${heroPath}?v=3` : "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
   };
 });
 write(
@@ -246,6 +282,20 @@ write(
   )
 );
 report.counts.products = keep.length + courseProducts.length + caseProducts.length + reviewProducts.length;
+
+// ---------- 6. ТЕМАТИЧЕСКИЕ ЭЛЕМЕНТЫ ОБЗОРОВ (фоны A) ----------
+// Для каждой ниши догенерить недостающие /elements/<code>_a.png|_b.png
+// (оборудование + расходники). Идемпотентно: готовые пропускаются, новая ниша
+// получает промпты от Gemini. Не валит импорт, если генерация недоступна.
+try {
+  const elemScript = "/Users/adil/Documents/TerenLabs/scripts/gen_review_elements.py";
+  if (fs.existsSync(elemScript)) {
+    console.log("→ обзорные элементы: проверяю/догенериваю…");
+    execFileSync("python3", [elemScript], { stdio: "inherit", timeout: 50 * 60 * 1000 });
+  }
+} catch (e) {
+  console.warn("⚠ генерация обзорных элементов пропущена:", e.message);
+}
 
 // ---------- ОТЧЁТ ----------
 console.log("counts:", report.counts);

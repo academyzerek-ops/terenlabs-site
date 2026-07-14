@@ -1,0 +1,242 @@
+20:43:42 === старт: 56 ниш × 2 = 112 картинок ===
+20:43:55 [1/112] accounting_a: ok  (ok=1 fail=0)
+20:44:07 [2/112] accounting_b: ok  (ok=2 fail=0)
+20:44:20 [3/112] autoparts_a: ok  (ok=3 fail=0)
+20:44:22   retry autoparts_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:45:50 [4/112] autoparts_b: ok  (ok=4 fail=0)
+20:46:03 [5/112] autoservice_a: ok  (ok=5 fail=0)
+20:46:16 [6/112] autoservice_b: ok  (ok=6 fail=0)
+20:46:28 [7/112] barber_a: ok  (ok=7 fail=0)
+20:46:30   retry barber_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:47:58 [8/112] barber_b: ok  (ok=8 fail=0)
+20:48:11 [9/112] beauty_a: ok  (ok=9 fail=0)
+20:48:13   retry beauty_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:49:41 [10/112] beauty_b: ok  (ok=10 fail=0)
+20:49:53 [11/112] browlash_a: ok  (ok=11 fail=0)
+20:50:06 [12/112] browlash_b: ok  (ok=12 fail=0)
+20:50:18 [13/112] buildmat_a: ok  (ok=13 fail=0)
+20:50:20   retry buildmat_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:51:47 [14/112] buildmat_b: ok  (ok=14 fail=0)
+20:52:00 [15/112] canteen_a: ok  (ok=15 fail=0)
+20:52:12 [16/112] canteen_b: ok  (ok=16 fail=0)
+20:52:24 [17/112] cargo_a: ok  (ok=17 fail=0)
+20:52:26   retry cargo_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:53:54 [18/112] cargo_b: ok  (ok=18 fail=0)
+20:54:07 [19/112] carpetclean_a: ok  (ok=19 fail=0)
+20:54:18 [20/112] carpetclean_b: ok  (ok=20 fail=0)
+20:54:20   retry carwash_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:55:47 [21/112] carwash_a: ok  (ok=21 fail=0)
+20:56:00 [22/112] carwash_b: ok  (ok=22 fail=0)
+20:56:12 [23/112] catering_a: ok  (ok=23 fail=0)
+20:56:14   retry catering_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:57:41 [24/112] catering_b: ok  (ok=24 fail=0)
+20:57:54 [25/112] cinema_a: ok  (ok=25 fail=0)
+20:58:06 [26/112] cinema_b: ok  (ok=26 fail=0)
+20:58:19 [27/112] clean_a: ok  (ok=27 fail=0)
+20:58:21   retry clean_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+20:59:48 [28/112] clean_b: ok  (ok=28 fail=0)
+21:00:01 [29/112] coffee_a: ok  (ok=29 fail=0)
+21:00:14 [30/112] coffee_b: ok  (ok=30 fail=0)
+21:00:16   retry compclub_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:01:44 [31/112] compclub_a: ok  (ok=31 fail=0)
+21:01:56 [32/112] compclub_b: ok  (ok=32 fail=0)
+21:02:09 [33/112] confection_a: ok  (ok=33 fail=0)
+21:02:11   retry confection_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:03:38 [34/112] confection_b: ok  (ok=34 fail=0)
+21:03:51 [35/112] cosmetology_a: ok  (ok=35 fail=0)
+21:04:04 [36/112] cosmetology_b: ok  (ok=36 fail=0)
+21:04:16 [37/112] crossfit_a: ok  (ok=37 fail=0)
+21:04:28 [38/112] crossfit_b: ok  (ok=38 fail=0)
+21:04:30   retry dental_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:05:57 [39/112] dental_a: ok  (ok=39 fail=0)
+21:06:09 [40/112] dental_b: ok  (ok=40 fail=0)
+21:06:21 [41/112] detailing_a: ok  (ok=41 fail=0)
+21:06:23   retry detailing_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:07:50 [42/112] detailing_b: ok  (ok=42 fail=0)
+21:08:04 [43/112] doner_a: ok  (ok=43 fail=0)
+21:08:16 [44/112] doner_b: ok  (ok=44 fail=0)
+21:08:18   retry driving_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:09:45 [45/112] driving_a: ok  (ok=45 fail=0)
+21:09:58 [46/112] driving_b: ok  (ok=46 fail=0)
+21:10:10 [47/112] dryclean_a: ok  (ok=47 fail=0)
+21:10:12   retry dryclean_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:11:42 [48/112] dryclean_b: ok  (ok=48 fail=0)
+21:11:56 [49/112] epilation_a: ok  (ok=49 fail=0)
+21:12:08 [50/112] epilation_b: ok  (ok=50 fail=0)
+21:12:10   retry evaluation_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:13:37 [51/112] evaluation_a: ok  (ok=51 fail=0)
+21:13:49 [52/112] evaluation_b: ok  (ok=52 fail=0)
+21:14:02 [53/112] fastfood_a: ok  (ok=53 fail=0)
+21:14:15 [54/112] fastfood_b: ok  (ok=54 fail=0)
+21:14:26 [55/112] fitness_a: ok  (ok=55 fail=0)
+21:14:28   retry fitness_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:15:56 [56/112] fitness_b: ok  (ok=56 fail=0)
+21:16:08 [57/112] flowers_a: ok  (ok=57 fail=0)
+21:16:20 [58/112] flowers_b: ok  (ok=58 fail=0)
+21:16:31 [59/112] footballschool_a: ok  (ok=59 fail=0)
+21:16:33   retry footballschool_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:18:01 [60/112] footballschool_b: ok  (ok=60 fail=0)
+21:18:13 [61/112] fruitsvegs_a: ok  (ok=61 fail=0)
+21:18:14   retry fruitsvegs_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:19:42 [62/112] fruitsvegs_b: ok  (ok=62 fail=0)
+21:19:54 [63/112] furniture_a: ok  (ok=63 fail=0)
+21:20:06 [64/112] furniture_b: ok  (ok=64 fail=0)
+21:20:19 [65/112] grocery_a: ok  (ok=65 fail=0)
+21:20:21   retry grocery_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:21:49 [66/112] grocery_b: ok  (ok=66 fail=0)
+21:22:01 [67/112] groupfitness_a: ok  (ok=67 fail=0)
+21:22:14 [68/112] groupfitness_b: ok  (ok=68 fail=0)
+21:22:26 [69/112] hotel_a: ok  (ok=69 fail=0)
+21:22:28   retry hotel_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:23:55 [70/112] hotel_b: ok  (ok=70 fail=0)
+21:24:10 [71/112] kidscenter_a: ok  (ok=71 fail=0)
+21:24:12   retry kidscenter_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:25:39 [72/112] kidscenter_b: ok  (ok=72 fail=0)
+21:25:52 [73/112] kindergarten_a: ok  (ok=73 fail=0)
+21:26:05 [74/112] kindergarten_b: ok  (ok=74 fail=0)
+21:26:18 [75/112] loftfurniture_a: ok  (ok=75 fail=0)
+21:26:31 [76/112] loftfurniture_b: ok  (ok=76 fail=0)
+21:26:33   retry manicure_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:28:01 [77/112] manicure_a: ok  (ok=77 fail=0)
+21:28:13 [78/112] manicure_b: ok  (ok=78 fail=0)
+21:28:26 [79/112] martialarts_a: ok  (ok=79 fail=0)
+21:28:28   retry martialarts_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:29:55 [80/112] martialarts_b: ok  (ok=80 fail=0)
+21:30:07 [81/112] massage_a: ok  (ok=81 fail=0)
+21:30:09   retry massage_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:31:37 [82/112] massage_b: ok  (ok=82 fail=0)
+21:31:50 [83/112] meatshop_a: ok  (ok=83 fail=0)
+21:32:04 [84/112] meatshop_b: ok  (ok=84 fail=0)
+21:32:16 [85/112] notary_a: ok  (ok=85 fail=0)
+21:32:17   retry notary_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:33:45 [86/112] notary_b: ok  (ok=86 fail=0)
+21:33:58 [87/112] optics_a: ok  (ok=87 fail=0)
+21:34:10 [88/112] optics_b: ok  (ok=88 fail=0)
+21:34:22 [89/112] petshop_a: ok  (ok=89 fail=0)
+21:34:35 [90/112] petshop_b: ok  (ok=90 fail=0)
+21:34:37   retry pharmacy_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:36:06 [91/112] pharmacy_a: ok  (ok=91 fail=0)
+21:36:18 [92/112] pharmacy_b: ok  (ok=92 fail=0)
+21:36:19   retry pizza_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:37:47 [93/112] pizza_a: ok  (ok=93 fail=0)
+21:37:59 [94/112] pizza_b: ok  (ok=94 fail=0)
+21:38:12 [95/112] pvz_a: ok  (ok=95 fail=0)
+21:38:14   retry pvz_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:39:41 [96/112] pvz_b: ok  (ok=96 fail=0)
+21:39:54 [97/112] realtor_a: ok  (ok=97 fail=0)
+21:40:07 [98/112] realtor_b: ok  (ok=98 fail=0)
+21:40:21 [99/112] repair_phone_a: ok  (ok=99 fail=0)
+21:40:23   retry repair_phone_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:41:50 [100/112] repair_phone_b: ok  (ok=100 fail=0)
+21:42:03 [101/112] semifood_a: ok  (ok=101 fail=0)
+21:42:15 [102/112] semifood_b: ok  (ok=102 fail=0)
+21:42:27 [103/112] sushi_a: ok  (ok=103 fail=0)
+21:42:29   retry sushi_b att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:43:58 [104/112] sushi_b: ok  (ok=104 fail=0)
+21:44:10 [105/112] tailor_a: ok  (ok=105 fail=0)
+21:44:22 [106/112] tailor_b: ok  (ok=106 fail=0)
+21:44:24   retry tireservice_a att1: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for a
+21:45:52 [107/112] tireservice_a: ok  (ok=107 fail=0)
+21:46:04 [108/112] tireservice_b: ok  (ok=108 fail=0)
+21:46:17 [109/112] waterplant_a: ok  (ok=109 fail=0)
+21:46:31 [110/112] waterplant_b: ok  (ok=110 fail=0)
+21:46:31 [111/112] bubbletea_a: skip  (ok=110 fail=0)
+21:46:31 [112/112] bubbletea_b: skip  (ok=110 fail=0)
+21:46:31 === готово: ok=110 fail=0 skip=2 ===
+03:27:43 === ниш всего: 57 · нужно догенерить: 1 ===
+03:27:44   ! Gemini не дал промпты для bakery: 'candidates'
+03:27:44 [bakery] нет промптов — пропуск (добавь в PROMPTS или проверь GEMINI_API_KEY)
+03:27:44 === готово: ok=0 fail=2 skip=0 ===

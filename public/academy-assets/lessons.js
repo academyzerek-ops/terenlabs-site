@@ -234,4 +234,114 @@
   });
 
   function isPrevFinish(href){ return href && href.indexOf('shell/app.html') !== -1; }
+
+  // ══════ ЭФФЕКТЫ: scroll-reveal + count-up + haptic(аккордеон) + нудж-карусели ══════
+  // hover-подсветка — чистый CSS (lessons.css). Всё уважает prefers-reduced-motion.
+  ready(function(){
+    var page = document.querySelector('main.page');
+    if (!page) return;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    // Сборщик дробит числа по тысячным группам на отдельные .cu
+    // («750 000» → data-to="750" + data-to="000»). Группа «000» крутилась к нулю
+    // и выводила «750 0» вместо «750 000». Склеиваем группы обратно в одно целое
+    // число — toLocaleString отрисует его красиво («750 000»).
+    (function mergeThousands(){
+      [].slice.call(page.querySelectorAll('.cu')).forEach(function(a){
+        if (!a.parentNode || a.getAttribute('data-merged')) return;
+        var digits = (a.getAttribute('data-to') || '').replace(/\D/g, '');
+        var n = a.nextSibling;
+        while (n) {
+          if (n.nodeType === 3) { if (/\S/.test(n.textContent)) break; n = n.nextSibling; continue; }
+          if (n.nodeType === 1 && n.classList && n.classList.contains('cu') &&
+              /^\d{3}$/.test((n.getAttribute('data-to') || '').trim())) {
+            digits += (n.getAttribute('data-to') || '').trim();
+            var s = a.nextSibling;
+            while (s && s !== n) { var nx = s.nextSibling; s.parentNode.removeChild(s); s = nx; }
+            var after = n.nextSibling;
+            n.setAttribute('data-merged', '1');
+            n.parentNode.removeChild(n);
+            n = after; continue;
+          }
+          break;
+        }
+        a.setAttribute('data-to', digits);
+      });
+    })();
+    function cu(el){
+      var to = parseFloat(el.getAttribute('data-to')) || 0,
+          suf = el.getAttribute('data-suf') || '', dur = 850, t0 = null;
+      function step(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur),
+            v = Math.round(to * (1 - Math.pow(1 - p, 3)));
+        el.textContent = v.toLocaleString('ru-RU') + suf;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    if (reduce) {
+      // без анимации — сразу финальные значения (иначе счётчики остаются «0»)
+      [].slice.call(document.querySelectorAll('.cu')).forEach(function(el){
+        var to = parseFloat(el.getAttribute('data-to')) || 0;
+        el.textContent = to.toLocaleString('ru-RU') + (el.getAttribute('data-suf') || '');
+      });
+    }
+    if (!reduce && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-reveal');
+      var sel = '.c,.vs,.fla,.fs,.tl,.ins,.ex,.tk,.qt,.div';
+      var blocks = [].slice.call(page.children).filter(function(el){ return el.matches && el.matches(sel); });
+      blocks.forEach(function(b){ b.classList.add('rv'); });
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+      blocks.forEach(function(b){ io.observe(b); });
+      // safety: что бы ни пошло не так — через 2.5с показать ВСЁ (контент не должен остаться скрытым)
+      setTimeout(function(){ blocks.forEach(function(b){ b.classList.add('in'); }); }, 2500);
+      var io2 = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if (e.isIntersecting){ cu(e.target); io2.unobserve(e.target); } });
+      }, {threshold:0.7});
+      [].slice.call(document.querySelectorAll('.cu')).forEach(function(n){ io2.observe(n); });
+      var io3 = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if (!e.isIntersecting) return;
+          var el = e.target; io3.unobserve(el);
+          if (el.scrollWidth > el.clientWidth + 8){
+            setTimeout(function(){
+              el.scrollTo({left:40, behavior:'smooth'});
+              setTimeout(function(){ el.scrollTo({left:0, behavior:'smooth'}); }, 500);
+            }, 280);
+          }
+        });
+      }, {threshold:0.55});
+      [].slice.call(document.querySelectorAll('.fs')).forEach(function(el){ io3.observe(el); });
+    }
+    // вибрация при раскрытии аккордеона (переиспользуем haptic выше)
+    [].slice.call(document.querySelectorAll('.ex')).forEach(function(ex){
+      ex.addEventListener('click', function(){ try { haptic('light'); } catch(e){} });
+    });
+  });
+})();
+
+/* Деттеренты копирования уроков Академии — подключаем общий no-copy.js
+   (уроки грузят lessons.js, так не трогаем защищённый академ-HTML). */
+(function(){try{var s=document.createElement('script');s.src='/frontend/_assets/no-copy.js?v=1';document.head.appendChild(s);}catch(e){}})();
+
+/* Кнопка «назад» на кейс-странице: если на кейс пришли из главы Академии
+   (?from=lesson или referrer содержит /academy/) — подписываем «В главу».
+   Действие оставляем history.back() — оно возвращает в ту же главу с позицией
+   прокрутки. Иначе (пришли из списка кейсов) — подпись «Кейсы» без изменений. */
+(function(){
+  try {
+    if (location.pathname.indexOf('/cases/') === -1) return;
+    var back = document.querySelector('.hdr-back');
+    if (!back) return;
+    var fromLesson = false;
+    try { fromLesson = new URLSearchParams(location.search).get('from') === 'lesson'; } catch(e){}
+    if (!fromLesson && (document.referrer || '').indexOf('/academy/') !== -1) fromLesson = true;
+    if (!fromLesson) return;
+    var svg = back.querySelector('svg');
+    back.textContent = '';
+    if (svg) back.appendChild(svg);
+    back.appendChild(document.createTextNode('В главу'));
+  } catch(e){}
 })();

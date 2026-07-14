@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
 <title>Золотое сечение бизнеса: Уравнение LTV и CAC</title>
-<meta name="description" content="В прошлой главе мы разобрали маржинальность одной сделки. Но Архитектор не мыслит разовыми сделками. Бизнес — это не продажа товара, это покупка денежных п…">
+<meta name="description" content="В прошлой главе мы разобрали маржинальность одной сделки. Но Архитектор не мыслит разовыми сделками. Бизнес — это не продажа товара, это покупка денежных…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
 <meta property="og:title" content="Золотое сечение бизнеса: Уравнение LTV и CAC">
-<meta property="og:description" content="В прошлой главе мы разобрали маржинальность одной сделки. Но Архитектор не мыслит разовыми сделками. Бизнес — это не продажа товара, это покупка денежных п…">
+<meta property="og:description" content="В прошлой главе мы разобрали маржинальность одной сделки. Но Архитектор не мыслит разовыми сделками. Бизнес — это не продажа товара, это покупка денежных…">
 <meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m6-ch02.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m6-ch02.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/academy-assets/lessons.css?v=6">
-<link rel="stylesheet" href="/embed-web.css?v=3">
+<link rel="stylesheet" href="/academy-assets/lessons.css?v=11">
+<link rel="stylesheet" href="/embed-web.css?v=9">
 </head>
 <body>
 <main class="page">
@@ -24,70 +25,129 @@
   <div class="hero">
     <h1>Золотое сечение бизнеса: Уравнение LTV и CAC</h1>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <p class="dropcap">В прошлой главе мы разобрали маржинальность одной сделки. Но Архитектор не мыслит разовыми сделками. Бизнес — это не продажа товара, это покупка денежных потоков клиента.</p>
     <p>Чтобы понять, работает ли твоя модель, сведи два показателя:</p>
   </div>
+
   <div class="vs">
     <div class="vs-i gold">
-      <div class="vs-d"><strong>CAC (Customer Acquisition Cost, стоимость привлечения клиента)</strong> — сколько денег (реклама + зарплаты продавцов) ты тратишь, чтобы один незнакомый человек стал твоим клиентом.</div>
+      <span class="vs-ico">💸</span>
+      <div class="vs-t">CAC (Customer Acquisition Cost)</div>
+      <div class="vs-d">Стоимость привлечения клиента — сколько денег (реклама + зарплаты продавцов) ты тратишь, чтобы один незнакомый человек стал твоим клиентом.</div>
     </div>
     <div class="vs-i paper">
-      <div class="vs-d"><strong>LTV (Lifetime Value, пожизненная ценность клиента)</strong> — сколько <em>маржинальной прибыли</em> (а не выручки!) этот клиент принесёт тебе за всё время, пока не уйдёт.</div>
+      <span class="vs-ico">💰</span>
+      <div class="vs-t">LTV (Lifetime Value)</div>
+      <div class="vs-d">Пожизненная ценность клиента — сколько <em>маржинальной прибыли</em> (а не выручки!) этот клиент принесёт тебе за всё время, пока не уйдёт.</div>
     </div>
   </div>
+
   <div class="c">
     <p>Это работает в любом бизнесе. Кофейня: привлечь нового гостя акцией стоило 2 000 ₸ (CAC). Гость ходит к тебе год, оставляя по 1 000 ₸ маржи в месяц — его LTV около 12 000 ₸. Уравнение сошлось. А если гость пришёл за скидкой один раз и исчез — ты заплатил 2 000 ₸ за 1 000 ₸ маржи.</p>
   </div>
-  <div class="c ag">
-    <div class="lb green">Норматив LTV / CAC: что считать запасом</div>
+
+  <div class="c al">
+    <div class="lb purple">Норматив LTV / CAC: что считать запасом</div>
     <p>Если твой LTV равен твоему CAC, ты работаешь в ноль — и это ещё без учёта постоянных расходов. В венчурной индустрии принят норматив: LTV должен превышать CAC <strong>минимум в 3 раза</strong>. Это именно венчурная норма для быстрорастущих стартапов, а не закон природы. Но логика запаса касается всех: реклама дорожает каждый год, клиенты уходят быстрее, чем ты планировал в таблице. Для малого бизнеса честная формулировка такая: LTV должен превышать CAC с запасом, который покрывает ошибки прогноза и оставляет прибыль. Двукратный запас — минимум, при котором можно спать спокойно; тройной — уровень, при котором модель выдерживает шоки.</p>
   </div>
-  <div class="c ao">
-    <div class="lb orange">Ловушка разовых продаж: Кейс Casper</div>
+
+  <div class="fla">
+    <div class="fla-lbl">Золотое сечение бизнеса</div>
+    <div class="fla-eq">LTV <span class="op">/</span> CAC ≥ <span class="cu" data-to="3">0</span></div>
+    <div class="fla-note">Это венчурный норматив, а не закон природы. Для малого бизнеса минимум — двукратный запас, тройной — уровень, при котором модель выдерживает шоки.</div>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Ловушка разовых продаж: Кейс Casper</div>
     <p>Бренд <em>Casper</em> производил матрасы и продавал их напрямую покупателям через интернет. На старте компания привлекла сотни миллионов долларов инвестиций, в 2020 году вышла на биржу.</p>
     <p>В чём была ошибка модели? Матрас — товар, который человек покупает раз в 10 лет. LTV клиента фактически равнялся марже с одной продажи. При этом, чтобы выделиться на переполненном рынке, Casper тратил гигантские бюджеты на рекламу — CAC постоянно рос. Отношение LTV к CAC устремилось к единице. Модель не сошлась. Деньги инвесторов сгорели, акции упали, и компанию выкупили за малую долю прежней оценки.</p>
   </div>
-  <div class="ins"><span class="ins-ico">💡</span><p><strong>Как смотрит Архитектор: Удержание решает</strong> Кейс Casper показывает: если твой продукт покупают один раз (ремонт квартир, матрасы, свадебные платья), дорогая платная реклама почти никогда не окупается. Такая модель живёт на дешёвых каналах: рекомендации, поисковый трафик, репутация. А если ты хочешь активно покупать рекламу — продукт должен возвращать клиента: подписка, абонемент, регулярные покупки.</p></div>
-  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
+  <div class="ins">
+    <span class="ins-ico">💡</span>
+    <p>Кейс Casper показывает: если твой продукт покупают один раз (ремонт квартир, матрасы, свадебные платья), дорогая платная реклама почти никогда не окупается. Такая модель живёт на дешёвых каналах: рекомендации, поисковый трафик, репутация. А если ты хочешь активно покупать рекламу — продукт должен возвращать клиента: подписка, абонемент, регулярные покупки.</p>
+  </div>
+
   <div class="c al">
     <div class="lb purple">Взлом CAC: Виральная петля Dropbox</div>
     <p>Если привлечение стоит слишком дорого, можно не «оптимизировать рекламу», а поменять саму механику привлечения.</p>
     <p>Мы уже упоминали запуск <em>Dropbox</em>. На старте они покупали контекстную рекламу в Google. Привлечение одного платящего пользователя стоило $233–388, а LTV был около $99. Модель была глубоко убыточной.</p>
     <p>Что сделал основатель Дрю Хьюстон? Он внедрил <strong>виральную петлю</strong> — механику, где клиенты сами приводят новых: «Приведи друга и получи 500 Мб места бесплатно (и ты, и друг)». Пользователи стали рекламным каналом. CAC рухнул почти до нуля: каждый старый пользователь приводил в среднем больше одного нового. Dropbox вырос в многомиллиардную компанию без рекламных бюджетов. Бытовая версия той же механики — «приведи друга, и вам обоим скидка» в фитнес-зале или у репетитора.</p>
   </div>
-  <div class="c ag">
-    <div class="lb green">Считаем на примере: подписка и срок окупаемости</div>
+
+  <div class="c al">
+    <div class="lb purple">Считаем на примере: подписка и срок окупаемости</div>
     <p>Посчитаем экономику для софта по подписке для компаний.</p>
-    <ol><li><strong>Расчёт CAC:</strong> в прошлом месяце ты потратил $10 000 на рекламу и $5 000 на зарплату менеджера по продажам. Закрыто 15 новых клиентов.</li></ol>
-    <p>CAC = $15 000 / 15 = <strong>$1 000</strong> за клиента.</p>
-    <ol><li><strong>Расчёт LTV:</strong> подписка стоит $200 в месяц. Маржинальность — 80%, то есть $160 «чистыми» с платежа. По истории прошлых клиентов ты знаешь, что клиент живёт с тобой в среднем 24 месяца.</li></ol>
-    <p>LTV = $160 × 24 = <strong>$3 840</strong>.</p>
-    <ol><li><strong>Соотношение:</strong> LTV/CAC = 3 840 / 1 000 ≈ <strong>3,8</strong>. Модель жизнеспособна с запасом.</li></ol>
   </div>
+
+  <div class="fla">
+    <div class="fla-lbl">Шаг 1. Расчёт CAC</div>
+    <div class="fla-eq"><span class="cu" data-to="15">0</span> <span class="cu" data-to="000">0</span> <span class="op">/</span> <span class="cu" data-to="15">0</span> <span class="op">=</span> <span class="cu" data-to="1">0</span> <span class="cu" data-to="000">0</span></div>
+    <div class="fla-note">В прошлом месяце ты потратил $10 000 на рекламу и $5 000 на зарплату менеджера по продажам. Закрыто 15 новых клиентов. CAC = $1 000 за клиента.</div>
+  </div>
+
+  <div class="fla">
+    <div class="fla-lbl">Шаг 2. Расчёт LTV</div>
+    <div class="fla-eq"><span class="cu" data-to="160">0</span> <span class="op">×</span> <span class="cu" data-to="24">0</span> <span class="op">=</span> <span class="cu" data-to="3">0</span> <span class="cu" data-to="840">0</span></div>
+    <div class="fla-note">Подписка стоит $200 в месяц. Маржинальность — 80%, то есть $160 «чистыми» с платежа. Клиент живёт с тобой в среднем 24 месяца. LTV = $3 840.</div>
+  </div>
+
+  <div class="fla">
+    <div class="fla-lbl">Шаг 3. Соотношение</div>
+    <div class="fla-eq"><span class="cu" data-to="3">0</span> <span class="cu" data-to="840">0</span> <span class="op">/</span> <span class="cu" data-to="1">0</span> <span class="cu" data-to="000">0</span> <span class="op">=</span> 3,8</div>
+    <div class="fla-note">LTV/CAC ≈ 3,8 — модель жизнеспособна с запасом.</div>
+  </div>
+
   <div class="c">
-    <div class="lb red">Скрытая угроза: срок окупаемости клиента (Payback Period).</div>
-    <p>Новичок останавливается на этом расчёте и идёт открывать шампанское. Архитектор задаёт ещё один вопрос: за сколько месяцев клиент вернёт те $1 000, что потрачены на его привлечение? $1 000 (CAC) / $160 (маржа в месяц) = <strong>6,25 месяца</strong>.</p>
+    <p><strong>Скрытая угроза: срок окупаемости клиента (Payback Period).</strong> Новичок останавливается на этом расчёте и идёт открывать шампанское. Архитектор задаёт ещё один вопрос: за сколько месяцев клиент вернёт те $1 000, что потрачены на его привлечение?</p>
+  </div>
+
+  <div class="fla">
+    <div class="fla-lbl">Срок окупаемости (Payback Period)</div>
+    <div class="fla-eq"><span class="cu" data-to="1">0</span> <span class="cu" data-to="000">0</span> <span class="op">/</span> <span class="cu" data-to="160">0</span> <span class="op">=</span> 6,25</div>
+    <div class="fla-note">$1 000 (CAC) / $160 (маржа в месяц) = 6,25 месяца. Полгода ты кредитуешь клиента своими деньгами.</div>
+  </div>
+
+  <div class="c">
     <p>Полгода ты кредитуешь клиента своими деньгами. Если у тебя нет денежного запаса, чтобы прожить этот разрыв, ты обанкротишься <em>до</em> того, как клиент принесёт свой LTV.</p>
   </div>
+
+  <a class="case-cta" href="../../cases/case-069.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Клиент пришёл один раз</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
+
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
   <div class="tk">
-    <span class="tk-badge">Главное из главы</span>
+    <span class="tk-badge">Что вынести</span>
+    <h3>Что вынести из этой главы</h3>
     <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>LTV должен превышать CAC с запасом.</strong> «Минимум 3 к 1» — венчурный норматив, но смысл универсален: если запаса нет, ты фактически спонсируешь рекламные площадки из своего кармана.</span></div>
     <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Считай CAC полностью.</strong> Это не только бюджет на рекламу. Это зарплаты маркетологов и продавцов, стоимость сервисов рассылок, расходы на PR.</span></div>
     <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Контролируй срок окупаемости.</strong> Даже при отличном LTV долгая окупаемость привлечения означает, что тебе нужен большой запас денег, чтобы пережить кассовый разрыв.</span></div>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p class="dropcap">Мы разобрали базовое уравнение бизнеса. Удержание клиента важнее привлечения, а кассовый разрыв способен убить даже перспективную модель.</p>
+    <p>Мы разобрали базовое уравнение бизнеса. Удержание клиента важнее привлечения, а кассовый разрыв способен убить даже перспективную модель.</p>
+  </div>
+
+  <div class="pq"><p class="nextup">В следующей главе — стратегия выхода на рынок (Go-To-Market): почему дорогие корпоративные контракты не продаются через Инстаграм и как канал продаж зависит от среднего чека.</p></div>
+
+  <div class="c">
     <p>Но где брать клиентов? Как выбрать канал продаж, который не сожжёт бюджет? В следующей главе мы разбираем стратегию выхода на рынок (Go-To-Market) и архитектуру каналов: почему дорогие корпоративные контракты не продаются через Инстаграм и как канал продаж зависит от среднего чека.</p>
   </div>
+
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m6-ch02"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='m6-ch01.html'">← Назад</button>
-  <button class="nb nb-next" onclick="location.href='m6-ch03.html'">Глава 3 →</button>
+  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=6'">← Содержание</button>
+  <button class="nb nb-next" onclick="location.href='m6-ch03.html'">Дальше →</button>
 </div>
+<script src="/review-enhance.js?v=3" defer></script>
 </body>
 </html>

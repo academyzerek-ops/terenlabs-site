@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
 <title>Цена провала (Cost of Failure): Почему 51 ошибка в IT и 51 ошибка в оффлайне стоят по-разному</title>
-<meta name="description" content="Мы много говорили о том, как опасно влюбляться в одну идею и один продукт. Теперь давай посмотрим на стратегию, которая математически строится на провалах …">
+<meta name="description" content="Мы много говорили о том, как опасно влюбляться в одну идею и один продукт. Теперь давай посмотрим на стратегию, которая математически строится на провалах…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
 <meta property="og:title" content="Цена провала (Cost of Failure): Почему 51 ошибка в IT и 51 ошибка в оффлайне стоят по-разному">
-<meta property="og:description" content="Мы много говорили о том, как опасно влюбляться в одну идею и один продукт. Теперь давай посмотрим на стратегию, которая математически строится на провалах …">
+<meta property="og:description" content="Мы много говорили о том, как опасно влюбляться в одну идею и один продукт. Теперь давай посмотрим на стратегию, которая математически строится на провалах…">
+<meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m1-ch10.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m1-ch10.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/academy-assets/lessons.css?v=6">
-<meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m1-ch10.webp">
-<link rel="stylesheet" href="/embed-web.css?v=3">
+<link rel="stylesheet" href="/academy-assets/lessons.css?v=11">
+<link rel="stylesheet" href="/embed-web.css?v=9">
 </head>
 <body>
 <main class="page">
@@ -24,54 +25,116 @@
   <div class="hero">
     <h1>Цена провала (Cost of Failure): Почему 51 ошибка в IT и 51 ошибка в оффлайне стоят по-разному</h1>
   </div>
-  <div class="c">
-    <p class="dropcap">Мы много говорили о том, как опасно влюбляться в одну идею и один продукт. Теперь давай посмотрим на стратегию, которая математически строится на провалах — <strong>венчурную модель разработки</strong> (венчур — это бизнес на рискованных ставках, где один успех окупает серию провалов).</p>
+
+  <div class="c al">
+    <p class="dropcap">Мы много говорили о том, как опасно влюбляться в одну идею и один продукт. Теперь давай посмотрим на стратегию, которая математически строится на провалах — <strong>венчурную модель разработки</strong> (венчур — это бизнес на рискованных шагах, где один успех окупает серию провалов).</p>
     <p>Со стороны кажется, что успех — это когда ты придумал гениальную игру, выпустил ее и стал миллиардером. Архитектор знает: успех — это когда у тебя хватило денег пережить 50 провалов, чтобы 51-я попытка окупила всё. Но этот закон работает далеко не в каждой нише.</p>
     <p>Чтобы понять разницу между упрямством и итерационным тестированием, разберем кейс студии Rovio и феномен Angry Birds.</p>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Финская студия на грани: R&amp;D длиной в 6 лет</div>
     <p>2009 год, Финляндия. Студия Rovio работает уже 6 лет. На их банковском счету пусто, а в портфолио — <strong>51 провалившаяся мобильная игра</strong>. Ни одна из них не стала хитом. Студия балансирует на грани банкротства.</p>
+  </div>
+
+  <div class="fs">
+    <div class="fc"><span class="fc-ico">📅</span><div class="fc-txt"><strong>6 лет</strong> R&amp;D до первого хита. Шесть лет на грани банкротства.</div></div>
+    <div class="fc"><span class="fc-ico">🎮</span><div class="fc-txt"><strong>51 провалившаяся игра</strong> в портфолио. Ни одна не стала хитом.</div></div>
+    <div class="fc"><span class="fc-ico">💸</span><div class="fc-txt">Счёт <strong>пустой</strong>. Студия балансирует на грани банкротства.</div></div>
+  </div>
+
+  <div class="c">
     <p>На этом этапе 99% людей закрыли бы компанию с мыслью: «Мы не умеем делать игры». Но Rovio действовала как Архитектор. Эта 51 игра не была слепым упрямством. Это был жесткий <strong>цикл обратной связи</strong>. Они тестировали разные платформы (Java, Symbian), разные механики и способы монетизации. К 2009 году у них накопилась уникальная интуиция по мобильному рынку, за которую они заплатили годами выживания.</p>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Рождение 52-й игры: Дизайн через ограничения</div>
     <p>В 2009 году Apple развивает App Store. Rovio нужна игра, идеально подходящая под тач-скрин iPhone. У них нет денег на сложную графику.</p>
-    <ul><li><strong>Механика:</strong> Рогатка и баллистика (идеально для свайпа пальцем).</li><li><strong>Дизайн через ограничения:</strong> Круглые птицы без крыльев (дешевле отрисовывать, легче программировать физику качения).</li><li><strong>Сеттинг:</strong> Зеленые свиньи-враги (по словам разработчиков, образ подсказали новости весны 2009 года, когда весь мир обсуждал свиной грипп).</li></ul>
+    <p><em> <strong>Механика:</strong> Рогатка и баллистика (идеально для свайпа пальцем). </em> <strong>Дизайн через ограничения:</strong> Круглые птицы без крыльев (дешевле отрисовывать, легче программировать физику качения). * <strong>Сеттинг:</strong> Зеленые свиньи-враги (по словам разработчиков, образ подсказали новости весны 2009 года, когда весь мир обсуждал свиной грипп).</p>
     <p>В декабре 2009 выходит Angry Birds. И это не был взрыв «за одну ночь».</p>
   </div>
-  <div class="ins"><span class="ins-ico">💡</span><p><strong>Инсайт Архитектора: Хак алгоритмов</strong> У Rovio не было миллионных бюджетов на рекламу в США. Они использовали алгоритмический арбитраж. Они начали бить в маленькие рынки (Финляндия, Швеция, Дания). Занять там топ-1 было дешево. Но алгоритмы Apple видели, что игра держится в европейских топах, и начали органически продвигать ее на глобальных витринах. До вершины американского чарта игра добиралась еще много месяцев.</p></div>
-  <div class="c">
+
+  <div class="ins">
+    <span class="ins-ico">💡</span>
+    <p>У Rovio не было миллионных бюджетов на рекламу в США. Они использовали алгоритмический арбитраж. Они начали бить в маленькие рынки (Финляндия, Швеция, Дания). Занять там топ-1 было дешево. Но алгоритмы Apple видели, что игра держится в европейских топах, и начали органически продвигать ее на глобальных витринах. До вершины американского чарта игра добиралась еще много месяцев.</p>
+  </div>
+
+  <div class="c al">
     <div class="lb purple">Ошибка перевода: Почему этот опыт убьет классический бизнес</div>
     <p>Венчурные инвесторы любят фразу: «Ошибайся быстро, ошибайся часто». Но Архитектор обязан понимать ключевую метрику: <strong>Cost of Failure (стоимость одной ошибки)</strong>.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico">💻</span>
+      <div class="vs-t">IT и сервисы</div>
+      <div class="vs-d">Cost of Failure — месяц работы двух программистов с зарплатой и пиццей. 51 попытка по карману.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico">🏗️</span>
+      <div class="vs-t">Оффлайн в Казахстане</div>
+      <div class="vs-d">Одна ошибка — аренда, ремонт, оборудование, лицензии — стоит миллионы тенге. Банкротство на третьей попытке.</div>
+    </div>
+  </div>
+
+  <div class="c">
     <p>В IT-индустрии, геймдеве или сервисах по подписке стоимость одной ошибки — это месяц работы двух программистов с зарплатой и пиццей. В этой нише ты можешь и должен позволить себе 51 попытку.</p>
     <p>Но если ты перенесешь эту венчурную философию на оффлайн-рынок Казахстана (строительство, общепит, ритейл), ты обанкротишься на третьей попытке. В реальном секторе одна ошибка (аренда, ремонт, оборудование, лицензии) стоит миллионы тенге. Здесь тактика «сделай 50 плохих ресторанов, чтобы 51-й выстрелил» — это прямой путь в долговую яму. В реальном секторе нужно возвращаться к инструментам Главы 8 (Smoke-тесты) и Главы 9 (Консьерж-MVP), чтобы снизить стоимость ошибки до минимума перед стартом.</p>
   </div>
+
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Ловушка одного хита: Проклятие Rovio</div>
     <p>Angry Birds принесла студии миллиарды скачиваний и выход на биржу (IPO) в 2017 году с оценкой около $1 млрд. Звучит как абсолютная победа. Но что было дальше?</p>
     <p>С 2017 по 2023 год Rovio выпустила десятки игр. Ни одна из них (включая продолжения про птиц) даже близко не подошла к успеху оригинала. Рынок захватили другие механики (Candy Crush, Brawl Stars, Genshin Impact). Акционеры требовали нового чуда, а студия оказалась в заложниках у одного устаревающего бренда.</p>
+  </div>
+
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2009</div><div class="tl-txt">Декабрь — выходит Angry Birds. Не взрыв «за ночь», а медленный подъём через европейские топы.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2017</div><div class="tl-txt">IPO с оценкой около <strong>$1 млрд</strong>. Звучит как абсолютная победа.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2017–2023</div><div class="tl-txt">Десятки новых игр. Ни одна не подошла к успеху оригинала. Студия — заложник одного бренда.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2023</div><div class="tl-txt">Август — Sega поглощает Rovio за <strong>$776 млн</strong>. Дешевле, чем на IPO.</div></div>
+  </div>
+
+  <div class="c">
     <p>В августе 2023 года японская корпорация Sega поглотила (M&amp;A) студию Rovio за $776 миллионов — <strong>дешевле, чем компания стоила на IPO 6 лет назад</strong>. За шесть лет на бирже бизнес не вырос, а сжался.</p>
   </div>
+
+  <a class="case-cta" href="../../cases/case-060.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Три провала подряд</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
+
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
   <div class="tk">
-    <span class="tk-badge">Главное из главы</span>
+    <span class="tk-badge">Что вынести</span>
+    <h3>Что вынести из главы</h3>
     <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Отличай R&amp;D от провала.</strong> Серия неудач имеет смысл только в том случае, если после каждого падения ты забираешь данные. 51 попытка без анализа — это глупость. 51 попытка с тестированием гипотез — это накопление системного опыта.</span></div>
     <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Считай Cost of Failure.</strong> Прежде чем принимать венчурную философию «быстрых ошибок», посчитай стоимость одной попытки в твоей индустрии. Если она слишком высока — ищи способы тестировать гипотезы на бумаге, а не на бетоне.</span></div>
     <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Один хит — это не бизнес-система.</strong> Если ты нащупал золотую жилу, твоя главная архитектурная задача на следующий день — начать строить вторую. Бизнес, держащийся на одном продукте, — это не корпорация, это лотерейный билет, у которого есть срок годности.</span></div>
   </div>
-  <div class="c">
+
+  <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p class="dropcap">Мы увидели, как система цикличных тестов способна привести к миллиардному продукту, и как отсутствие диверсификации может заморозить капитализацию на годы.</p>
+    <p>Мы увидели, как система цикличных тестов способна привести к миллиардному продукту, и как отсутствие диверсификации может заморозить капитализацию на годы.</p>
+  </div>
+
+  <div class="pq"><p>Один хит — это не бизнес-система. Это лотерейный билет с истекающим сроком годности.</p></div>
+
+  <div class="c">
     <p>На этом урок об источниках идей закончен. Ты знаешь, откуда берутся идеи, как их проверять и почему продукт — еще не бизнес. В следующем уроке мы поднимаемся на уровень стратегии. Начнем с самой дорогой стратегической ошибки в истории: как Yahoo, лидер интернета с капитализацией $100 миллиардов, своими руками вскормил Google — и потерял всё.</p>
   </div>
+
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m1-ch10"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='m1-ch09.html'">← Назад</button>
-  <button class="nb nb-next" onclick="location.href='m2-ch01.html'">Урок 2 →</button>
+  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=1'">← Содержание</button>
+  <button class="nb nb-next" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=1'">Содержание →</button>
 </div>
+<script src="/review-enhance.js?v=3" defer></script>
 </body>
 </html>
