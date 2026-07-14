@@ -13,7 +13,6 @@ const NAV = [
   { label: "Кейсы", href: "/catalog?type=case" },
   { label: "Аналитика", href: "/catalog?type=review" },
   { label: "Финпродукты", href: "/catalog?type=finmodel" },
-  { label: "Бизнес-клуб", href: "/club" },
 ];
 
 export function Header() {

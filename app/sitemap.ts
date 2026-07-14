@@ -4,7 +4,7 @@ import { SITE_URL as BASE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Только страницы с реальным контентом. Заглушки <Placeholder> «раздел готовится»
-  // (about/experts/contacts/b2b/club/blog/legal/*) в sitemap НЕ выдаём, чтобы Google
+  // (about/experts/contacts/b2b/blog/legal/*) в sitemap НЕ выдаём, чтобы Google
   // не индексировал пустышки. Вернуть сюда, когда наполнятся (legal/* — после оферты/политики).
   const staticPages = [
     "", "/catalog", "/free", "/ocean", "/levels",
