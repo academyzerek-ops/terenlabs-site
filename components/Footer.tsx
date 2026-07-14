@@ -6,7 +6,6 @@ import { PRODUCT_TYPES } from "@/lib/content";
 const LEGAL = [
   { label: "Пользовательское соглашение", href: "/legal/offer" },
   { label: "Политика конфиденциальности", href: "/legal/privacy" },
-  { label: "Сведения об образовательной организации", href: "/legal/info" },
 ];
 
 const COMPANY = [

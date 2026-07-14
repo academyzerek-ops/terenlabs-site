@@ -33,9 +33,9 @@ export default function Page() {
             <p>
               Настоящее соглашение регулирует использование сервиса <strong>TerenLabs</strong>{" "}
               (Республика Казахстан), работающего как Telegram Mini App через бота{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">@terenlabs_bot</a>.
-              Начиная пользоваться приложением, вы подтверждаете, что прочитали и принимаете эти
-              условия и{" "}
+              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">@terenlabs_bot</a>{" "}
+              и как веб-сайт TerenLabs. Начиная пользоваться приложением или сайтом, вы
+              подтверждаете, что прочитали и принимаете эти условия и{" "}
               <Link href="/legal/privacy" className="text-teal-600 hover:text-teal">
                 Политику конфиденциальности
               </Link>
@@ -98,7 +98,10 @@ export default function Page() {
             <p>
               Отдельные продукты (например, финансовая модель, бизнес-план) предоставляются на
               платной основе. Стоимость и порядок получения указываются в приложении в момент
-              заказа. Условия оплаты и возврата уточняются при запуске приёма платежей.
+              заказа. Оплата принимается через платёжный сервис Tribute; доступ к купленному
+              продукту привязывается к вашему Telegram-аккаунту. По вопросам оплаты и возврата
+              напишите через раздел «Связь» или боту{" "}
+              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">@terenlabs_bot</a>.
             </p>
           </Sec>
 
