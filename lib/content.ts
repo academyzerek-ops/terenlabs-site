@@ -224,10 +224,6 @@ export type Level = {
   testSlugs: string[];
   caseSlugs: string[];
   reviewSlugs: string[];
-  /** Открытые тесты уровня (Дельфин/Акула): ответ своими словами, оценивает
-   *  TEREN-AI на сервере — на сайте показываем состав, сдача в Mini App. */
-  openTests?: { id: string; name: string; cat?: string; qCount: number }[];
-  openTestsNote?: string;
 };
 
 export const LEVELS = levelsJson as Level[];

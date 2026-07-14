@@ -239,6 +239,24 @@ const OCEAN_TESTS = [
   { slug: "barracuda-law", rank: "Барракуда", tag: "T3", pool: "barracuda.law", title: "Барракуда · Право", topic: "Бизнес", floor: 7 },
   { slug: "barracuda-universal", rank: "Барракуда", tag: "T3", pool: "barracuda.universal", title: "Барракуда · Универсальный", topic: "Бизнес", floor: 7 },
 ];
+// Открытые тесты (Дельфин/Акула): ответ своими словами, TEREN-AI оценивает по
+// рубрике на сервере (/attempt_open и /attempt_shark). Дельфин — 5 из пула,
+// Акула — 10 вопросов кейса по порядку, с общей виньеткой.
+const OCEAN_OPEN_TESTS = [
+  { slug: "dolphin-case1", rank: "Дельфин", tag: "T4", pool: "dolphin.case1", title: "Дельфин · Деньги под контролем", topic: "Финансы", qCount: 5 },
+  { slug: "dolphin-case2", rank: "Дельфин", tag: "T4", pool: "dolphin.case2", title: "Дельфин · Право и партнёрство", topic: "Бизнес", qCount: 5 },
+  { slug: "dolphin-case3", rank: "Дельфин", tag: "T4", pool: "dolphin.case3", title: "Дельфин · Рост и метрики", topic: "Маркетинг", qCount: 5 },
+  ...[
+    ["SHARK-CASE-01", "Пекарня"], ["SHARK-CASE-02", "Корпусная мебель"], ["SHARK-CASE-03", "Розлив воды"],
+    ["SHARK-CASE-05", "Мини-маркет"], ["SHARK-CASE-06", "Аптека"], ["SHARK-CASE-07", "Селлер на маркетплейсе"],
+    ["SHARK-CASE-08", "Салон красоты"], ["SHARK-CASE-09", "Фитнес-зал"], ["SHARK-CASE-10", "Кинотеатр"],
+    ["SHARK-CASE-04", "Столовая"], ["SHARK-CASE-11", "Фастфуд-кафе"], ["SHARK-CASE-12", "Кофейня с посадкой"],
+  ].map(([id, name]) => ({
+    slug: `shark-${id}`, rank: "Акула", tag: "T5", pool: `shark.${id}`,
+    title: `Акула · ${name}`, topic: "Бизнес", qCount: 10,
+  })),
+];
+
 // старые пулы (barracuda.t1-t3 и полные с ответами) — снести, чтобы не текли ответы
 fs.rmSync(path.join(SITE, "public/ocean-pools"), { recursive: true, force: true });
 const oceanTestProducts = [];
@@ -256,7 +274,22 @@ for (const t of OCEAN_TESTS) {
     badge: "Океан",
   });
 }
-report.counts.oceanPools = OCEAN_TESTS.length;
+for (const t of OCEAN_OPEN_TESTS) {
+  const src = path.join(SRC, "products/ocean-assets", t.pool + ".json");
+  const pool = JSON.parse(read(src));
+  write(path.join(SITE, "public/ocean-pools", t.pool + ".json"), JSON.stringify(pool));
+  const isShark = t.rank === "Акула";
+  oceanTestProducts.push({
+    type: "test", slug: t.slug, level: t.tag, topic: t.topic, stage: "Проверка", free: true,
+    title: t.title,
+    blurb: isShark
+      ? `Финальный кейс «Океана»: ${t.qCount} открытых вопросов по порядку, отвечаешь своими словами — TEREN-AI оценивает по рубрике. Порог 7 из 10.`
+      : `Открытый кейс: ${t.qCount} вопросов, отвечаешь своими словами — TEREN-AI оценивает по рубрике. Порог 7 из 10.`,
+    metric: { value: String(pool.length), label: isShark ? "вопросов в кейсе" : "вопросов в пуле" },
+    badge: "Океан",
+  });
+}
+report.counts.oceanPools = OCEAN_TESTS.length + OCEAN_OPEN_TESTS.length;
 
 // ---------- 5. PRODUCTS.JSON ----------
 const products = JSON.parse(read(path.join(SITE, "content/products.json")));

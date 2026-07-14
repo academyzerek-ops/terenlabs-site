@@ -78,32 +78,20 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
                 href={t.stub ? undefined : t.href}
                 stub={t.stub}
                 title={t.title}
-                meta={t.stub ? "скоро" : t.questions?.length ? `${t.questions.length} вопросов` : "10 вопросов из пула"}
+                meta={
+                  t.stub
+                    ? "скоро"
+                    : t.questions?.length
+                    ? `${t.questions.length} вопросов`
+                    : t.metric
+                    ? `${t.metric.value} ${t.metric.label}`
+                    : "10 вопросов из пула"
+                }
                 cta={t.stub ? undefined : "Пройти →"}
               />
             ))}
           </div>
         </Block>
-
-        {lvl.openTests && lvl.openTests.length > 0 && (
-          <Block title="Открытые кейсы" count={lvl.openTests.length}>
-            {lvl.openTestsNote && (
-              <p className="mb-5 max-w-2xl text-sm leading-relaxed text-muted">{lvl.openTestsNote}</p>
-            )}
-            <div className="grid gap-4 sm:grid-cols-3">
-              {lvl.openTests.map((t) => (
-                <Card
-                  key={t.id}
-                  title={t.name}
-                  meta={`${t.cat ? `${t.cat} · ` : ""}${t.qCount} ${plural(t.qCount, "вопрос", "вопроса", "вопросов")} · оценивает TEREN-AI`}
-                />
-              ))}
-            </div>
-            <div className="mt-6">
-              <Button href="https://t.me/terenlabs_bot">Сдать в Mini App →</Button>
-            </div>
-          </Block>
-        )}
 
         <Block title="Кейсы" count={items.cases.length}>
           <div className="grid gap-4 sm:grid-cols-2">

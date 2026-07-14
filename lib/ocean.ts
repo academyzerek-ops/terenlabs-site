@@ -108,14 +108,22 @@ export type OceanAttemptPayload = {
   }[];
 };
 
-/** Разбор одного вопроса от сервера (индексы — исходные, до перемешивания). */
+/** Разбор одного вопроса от сервера. Closed: индексы исходные (до перемешивания).
+ *  Open (Дельфин/Акула): баллы по рубрике + фидбек TEREN-AI. */
 export type OceanReviewItem = {
   q_idx: number;
   question_id: string;
-  chosen: number | null;
-  correct: boolean;
-  correct_index: number;
+  // closed
+  chosen?: number | null;
+  correct?: boolean;
+  correct_index?: number;
   explanation?: string;
+  // open
+  open?: boolean;
+  awarded?: number;
+  max?: number;
+  criteria?: { awarded: number; max: number; note: string }[];
+  feedback?: string;
 };
 
 export type OceanAttemptResult = {
@@ -137,6 +145,44 @@ export async function submitOceanAttempt(
   if (!getOceanToken()) return null;
   try {
     return await oceanFetch<OceanAttemptResult>("/attempt", { method: "POST", json: payload });
+  } catch {
+    return null;
+  }
+}
+
+// ── Открытые тесты (Дельфин/Акула) — зеркало submitOpenAttempt из ocean.js:
+// ответы своими словами, TEREN-AI оценивает по рубрике на сервере (5 вызовов
+// Gemini на попытку у Дельфина, 10 у Акулы — поэтому строго после входа).
+// Акула сдаётся в /attempt_shark (тело без level, test = id кейса).
+
+export type OceanOpenPayload = {
+  client_attempt_id: string;
+  level: string; // 'dolphin' | 'shark'
+  test: string; // 'case1'.. | 'SHARK-CASE-01'..
+  started_at: string;
+  finished_at: string;
+  answers: { question_id: string; text: string }[];
+};
+
+export async function submitOpenOceanAttempt(
+  payload: OceanOpenPayload
+): Promise<OceanAttemptResult | null> {
+  if (!getOceanToken()) return null;
+  const isShark = payload.level === "shark";
+  const body = isShark
+    ? {
+        client_attempt_id: payload.client_attempt_id,
+        test: payload.test,
+        started_at: payload.started_at,
+        finished_at: payload.finished_at,
+        answers: payload.answers,
+      }
+    : payload;
+  try {
+    return await oceanFetch<OceanAttemptResult>(isShark ? "/attempt_shark" : "/attempt_open", {
+      method: "POST",
+      json: body,
+    });
   } catch {
     return null;
   }
