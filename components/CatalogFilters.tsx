@@ -13,12 +13,14 @@ const CATEGORIES = {
     { id: "all", label: "Все" },
     { id: "T1", label: "Уровень T1" },
     { id: "T2", label: "Уровень T2" },
+    { id: "T3", label: "Уровень T3" },
   ],
+  // кейсы — как в Mini App (#cases-filter): Все · Красный · Жёлтый · Зелёный
   case: [
     { id: "all", label: "Все" },
-    { id: "Успех", label: "ЗЕЛЕНЫЕ" },
-    { id: "Разбор", label: "ЖЕЛТЫЕ" },
-    { id: "Провал", label: "КРАСНЫЕ" },
+    { id: "r", label: "Красный" },
+    { id: "y", label: "Жёлтый" },
+    { id: "g", label: "Зелёный" },
   ],
   review: [
     { id: "all", label: "Все" },

@@ -2,55 +2,31 @@ import Link from "next/link";
 import { CatalogItem } from "@/lib/content";
 import lessons from "@/content/case-lessons.json";
 
-// Карточка кейса как «досье»: вердикт исхода + крафтовый заголовок-история
-// (сумма уже вшита в него), а спрятанный урок выезжает на hover.
-// blurb у кейса — мета-строка «авторский · Уральск · 19 млн ₸».
+// Карточка кейса — данные как в витрине Mini App (#cases-list):
+// цвет-тэг Красный/Жёлтый/Зелёный, гео-флаг, короткий заголовок с em-акцентом
+// и выжимка. Дизайн «досье» (корешок, тон) — сайтовый; спрятанный урок на hover.
 
 type Lesson = { label: string; text: string };
 const LESSONS = lessons as Record<string, Lesson>;
 
 type Tone = { label: string; color: string; edge: string; tint: string; fieldHover: string };
 
-function toneOf(badge?: string): Tone {
-  if (badge === "Провал")
-    return {
-      label: "КРАСНЫЙ",
-      color: "#FF4D4D", // Vivid Red
-      edge: "#FF4D4D",
-      tint: "rgba(255,77,77,0.08)",
-      fieldHover: "rgba(255,77,77,0.15)",
-    };
-  if (badge === "Успех")
-    return {
-      label: "ЗЕЛЕНЫЙ",
-      color: "#00E676", // Vivid Green
-      edge: "#00E676",
-      tint: "rgba(0,230,118,0.08)",
-      fieldHover: "rgba(0,230,118,0.15)",
-    };
-  return {
-    label: "ЖЕЛТЫЙ",
-    color: "#FFD600", // Vivid Yellow
-    edge: "#FFD600",
-    tint: "rgba(255,214,0,0.08)",
-    fieldHover: "rgba(255,214,0,0.15)",
-  };
-}
+const TONES: Record<"r" | "y" | "g", Tone> = {
+  r: { label: "Красный", color: "#FF4D4D", edge: "#FF4D4D", tint: "rgba(255,77,77,0.08)", fieldHover: "rgba(255,77,77,0.15)" },
+  g: { label: "Зелёный", color: "#00E676", edge: "#00E676", tint: "rgba(0,230,118,0.08)", fieldHover: "rgba(0,230,118,0.15)" },
+  y: { label: "Жёлтый", color: "#FFD600", edge: "#FFD600", tint: "rgba(255,214,0,0.08)", fieldHover: "rgba(255,214,0,0.15)" },
+};
 
-// денежная часть мета-строки (₸/$/млн/тыс/%); остальное — источник + город
-const MONEY_RE = /(₸|\$|млн|тыс|%)/i;
-function splitMeta(blurb: string) {
-  const parts = blurb.split("·").map((s) => s.trim()).filter(Boolean);
-  const moneyIdx = parts.findIndex((p) => MONEY_RE.test(p));
-  const money = moneyIdx >= 0 ? parts[moneyIdx] : null;
-  const context = parts.filter((_, i) => i !== moneyIdx);
-  return { money, context };
+// цвет исхода: тэг витрины Mini App — канон; бейдж кейса — фолбэк
+export function caseTag(p: { tag?: "r" | "y" | "g" | null; badge?: string }): "r" | "y" | "g" {
+  if (p.tag) return p.tag;
+  if (p.badge === "Провал") return "r";
+  if (p.badge === "Успех") return "g";
+  return "y";
 }
 
 export function CaseCard({ p }: { p: CatalogItem }) {
-  const tone = toneOf(p.badge);
-  const { money, context } = splitMeta(p.blurb);
-  const place = context.length > 1 ? context[context.length - 1] : context[0] ?? null;
+  const tone = TONES[caseTag(p)];
   const lesson = LESSONS[p.slug] ?? null;
 
   return (
@@ -72,43 +48,42 @@ export function CaseCard({ p }: { p: CatalogItem }) {
       />
 
       <div className="flex flex-1 flex-col p-6 pl-7">
-        {/* шапка: эмодзи-ниша + вердикт (mono) · тема справа */}
+        {/* шапка — как в Mini App: цвет-тэг слева · гео-флаг справа */}
         <div className="mb-4 flex items-center justify-between">
-          <span className="flex items-center gap-2.5">
-            {p.ico && (
-              <span
-                className="flex h-9 w-9 items-center justify-center rounded-full text-lg"
-                style={{ background: tone.tint, boxShadow: `inset 0 0 0 1px ${tone.edge}40` }}
-              >
-                {p.ico}
-              </span>
-            )}
-            <span
-              className="num text-[0.7rem] font-bold uppercase tracking-[0.14em]"
-              style={{ color: tone.color }}
-            >
-              {tone.label}
-            </span>
+          <span
+            className="num text-[0.7rem] font-bold uppercase tracking-[0.14em]"
+            style={{ color: tone.color }}
+          >
+            {tone.label}
           </span>
-          {p.topic && (
-            <span className="num text-[0.68rem] font-medium uppercase tracking-[0.1em] text-muted/65">
-              {p.topic}
+          {p.loc && (
+            <span className="num text-[0.72rem] font-medium tracking-[0.06em] text-muted/75">
+              {p.loc}
             </span>
           )}
         </div>
 
-        {/* заголовок-история (Playfair, сумма уже вшита) */}
-        <h3 className="line-clamp-3 text-[1.35rem] font-semibold leading-[1.16] text-heading">
-          {p.title}
-        </h3>
+        {/* заголовок витрины Mini App — с em-акцентом */}
+        {p.titleHtml ? (
+          <h3
+            className="case-title-em line-clamp-3 text-[1.35rem] font-semibold leading-[1.16] text-heading"
+            dangerouslySetInnerHTML={{ __html: p.titleHtml }}
+          />
+        ) : (
+          <h3 className="line-clamp-3 text-[1.35rem] font-semibold leading-[1.16] text-heading">
+            {p.title}
+          </h3>
+        )}
+
+        {/* выжимка кейса — из витрины Mini App */}
+        {p.blurb && (
+          <p className="mt-2.5 line-clamp-3 text-sm leading-relaxed text-muted">{p.blurb}</p>
+        )}
 
         <div className="flex-1" />
 
-        {/* подвал по умолчанию: город + сумма-леджер · стрелка */}
-        <div className="case-foot mt-5 flex items-center justify-between border-t border-line/70 pt-3.5 transition-opacity duration-300 group-hover:opacity-0">
-          <span className="num text-xs text-muted">
-            {[place, money].filter(Boolean).join("  ·  ") || "Кейс"}
-          </span>
+        {/* подвал: стрелка разбора */}
+        <div className="case-foot mt-5 flex items-center justify-end border-t border-line/70 pt-3.5 transition-opacity duration-300 group-hover:opacity-0">
           <span
             className="flex items-center gap-1.5 text-[13px] font-semibold transition-transform group-hover:translate-x-1"
             style={{ color: tone.color }}

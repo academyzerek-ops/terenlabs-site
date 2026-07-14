@@ -131,6 +131,9 @@ export type CatalogItem = {
   stub?: boolean;
   img?: string | null; // визуал карточки каталога (обзоры/курсы)
   ico?: string | null; // эмодзи-тайл (кейсы)
+  titleHtml?: string | null; // заголовок карточки с <span class="em"> — витрина Mini App (кейсы)
+  tag?: "r" | "y" | "g" | null; // цвет исхода кейса из витрины Mini App
+  loc?: string | null; // гео кейса «🇰🇿 KZ» из витрины Mini App
   interactive?: boolean;
   metric?: { value: string; label: string };
   bank?: string;

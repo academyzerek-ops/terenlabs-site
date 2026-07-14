@@ -1,28 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { CaseCard } from "./CaseCard";
+import { CaseCard, caseTag } from "./CaseCard";
 import { CatalogItem, plural } from "@/lib/content";
 
 // Порция выдачи: 90 кейсов одной лентой не показываем
 const CHUNK = 24;
 
-// Кейсы: цветовая система исходов + фильтры с подписями.
-// 🔴 Провал — неудачные действия · 🟢 Успех — удачные решения ·
-// 🟡 Опыт — нейтральное: не убыток и не успех, просто опыт (Разбор/Тренажёр)
-type Outcome = "all" | "fail" | "win" | "exp";
+// Кейсы: фильтры — как в Mini App (#cases-filter): Все · Красный · Жёлтый · Зелёный.
+// Цвет исхода каждого кейса — тэг витрины Mini App (caseTag).
+type Outcome = "all" | "r" | "y" | "g";
 
 export function outcomeOf(p: CatalogItem): Exclude<Outcome, "all"> {
-  if (p.badge === "Провал") return "fail";
-  if (p.badge === "Успех") return "win";
-  return "exp";
+  return caseTag(p);
 }
 
 const FILTERS: { key: Outcome; label: string; dot?: string; activeBg?: string }[] = [
-  { key: "all", label: "Все кейсы" },
-  { key: "fail", label: "Неудачные действия", dot: "#d04f33", activeBg: "rgba(208,79,51,0.14)" },
-  { key: "win", label: "Удачные решения", dot: "#1f9e74", activeBg: "rgba(31,158,116,0.14)" },
-  { key: "exp", label: "Просто опыт", dot: "#d4a82b", activeBg: "rgba(212,168,43,0.16)" },
+  { key: "all", label: "Все" },
+  { key: "r", label: "Красный", dot: "#d04f33", activeBg: "rgba(208,79,51,0.14)" },
+  { key: "y", label: "Жёлтый", dot: "#d4a82b", activeBg: "rgba(212,168,43,0.16)" },
+  { key: "g", label: "Зелёный", dot: "#1f9e74", activeBg: "rgba(31,158,116,0.14)" },
 ];
 
 export function CaseGrid({ items }: { items: CatalogItem[] }) {

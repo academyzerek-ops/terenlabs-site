@@ -855,6 +855,12 @@ a:active {
   .case-lesson { transition: opacity 200ms; transform: none; }
   .case-card:hover .case-lesson { transform: none; }
 }
+/* em-акцент в заголовке кейса — как в Mini App (.case-title .em: italic + янтарь) */
+.case-title-em .em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-warn);
+}
 
 /* ============================================================
    UNDERWATER REFRACTION — эффект плавающего текста (Волна 4)

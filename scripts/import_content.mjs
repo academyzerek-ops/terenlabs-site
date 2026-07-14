@@ -137,6 +137,29 @@ const prevIco = {};
 try {
   for (const c of JSON.parse(read(path.join(SITE, "content/cases.json")))) if (c.ico) prevIco[c.slug] = c.ico;
 } catch {}
+
+// Канон карточек — витрина Mini App (shell/app.html #cases-list): цвет-тэг
+// r/y/g, гео-флаг, короткий заголовок с <span class="em">-акцентом, выжимка
+// и КУРАТОРСКИЙ ПОРЯДОК. Site рендерит карточки из этих полей, а не из hero кейса.
+const miniCards = new Map(); // slug → {tag, loc, cardTitleHtml, excerpt, order}
+{
+  const appHtml2 = read(path.join(SRC, "shell/app.html"));
+  const re = /<div class="case ([gyr])" data-tag="[gyr]" onclick="window\.location\.href='\.\.\/content\/ru\/cases\/(case-\d+)\.html'">([\s\S]*?)<\/p><\/div>/g;
+  let m, order = 0;
+  while ((m = re.exec(appHtml2)) !== null) {
+    const [, tag, slug, body] = m;
+    const pick2 = (r) => (body.match(r) || [, ""])[1].trim();
+    miniCards.set(slug, {
+      tag,
+      loc: pick2(/<span class="case-loc">([^<]*)<\/span>/),
+      cardTitleHtml: pick2(/<h3 class="case-title">([\s\S]*?)<\/h3>/),
+      excerpt: pick2(/<p class="case-excerpt">([\s\S]*?)$/).replace(/<[^>]+>/g, "").trim(),
+      order: order++,
+    });
+  }
+  if (miniCards.size === 0) throw new Error("витрина кейсов Mini App не найдена в shell/app.html");
+}
+
 const cases = [];
 for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort()) {
   const slug = f.replace(".html", "");
@@ -158,8 +181,22 @@ for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort
   body = body.replace(/<div class="hero">[\s\S]*?<\/div>\s*/, "");
   body = body.replace(/<script[\s\S]*?<\/script>/g, "");
   for (const m of body.matchAll(/(?:src|href)="(\/frontend\/[^"]+|\.\.[^"]+)"/g)) report.unknownAssets.add(m[1]);
-  cases.push({ slug, title, titleHtml, sub, ico, image, badge, mod, kind: badge.split("·").pop().trim(), body: body.trim() });
+  const card = miniCards.get(slug);
+  if (!card) report.missingChapters.push(`витрина Mini App без карточки: ${slug}`);
+  cases.push({
+    slug, title, titleHtml, sub, ico, image, badge, mod,
+    kind: badge.split("·").pop().trim(),
+    // поля карточки — из витрины Mini App
+    tag: card?.tag ?? null,
+    loc: card?.loc ?? null,
+    cardTitleHtml: card?.cardTitleHtml ?? null,
+    excerpt: card?.excerpt ?? null,
+    order: card?.order ?? 9999,
+    body: body.trim(),
+  });
 }
+// порядок ленты = кураторский порядок витрины Mini App
+cases.sort((a, b) => a.order - b.order);
 write(path.join(SITE, "content/cases.json"), JSON.stringify(cases, null, 1));
 report.counts.cases = cases.length;
 
@@ -251,8 +288,13 @@ const courseProducts = academy.map((a) => ({
 }));
 const caseProducts = cases.map((c) => ({
   type: "case", slug: c.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
-  // листовые эмодзи в начале подзаголовка (✍️, 📰, …) на сайте рендерятся тофу-квадратом
-  title: c.title, blurb: c.sub.replace(/^[\p{Extended_Pictographic}️‍\s]+/u, ""), badge: c.kind || "Кейс",
+  // карточка — как в Mini App: короткий заголовок с em-акцентом, выжимка, цвет-тэг, гео
+  title: (c.cardTitleHtml || c.title).replace(/<[^>]+>/g, ""),
+  titleHtml: c.cardTitleHtml || null,
+  blurb: c.excerpt || c.sub.replace(/^[\p{Extended_Pictographic}️‍\s]+/u, ""),
+  badge: c.kind || "Кейс",
+  tag: c.tag || null, // r | y | g — цвет исхода из витрины Mini App
+  loc: c.loc || null, // «🇰🇿 KZ»
   ico: c.ico || null, // эмодзи кейса (фолбэк, если нет кадра)
   img: c.image || null, // кинокадр кейса → постер-тайл каталога (как у обзоров)
 }));

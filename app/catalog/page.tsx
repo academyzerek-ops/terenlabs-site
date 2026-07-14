@@ -83,12 +83,10 @@ export default async function CatalogPage({
     if (!typeMatch) return false;
     if (f === "all") return true;
     
-    // Для кейсов фильтруем по результату (нужно достать из CASE_DOCS или bank)
+    // Кейсы — цвет исхода как в Mini App: тэг витрины r/y/g (бейдж — фолбэк)
     if (t === "case") {
-       // В CATALOG для кейсов нет напрямую kind, но можно попробовать найти в CASE_DOCS 
-       // Для скорости здесь просто проверяем вхождение или тему
-       // Кейсы фильтруем по результату (Провал/Успех)
-       return p.badge === f || p.topic.includes(f); 
+      const tag = p.tag ?? (p.badge === "Провал" ? "r" : p.badge === "Успех" ? "g" : "y");
+      return tag === f;
     }
     
     // Для обзоров
@@ -100,13 +98,9 @@ export default async function CatalogPage({
   });
 
   
-  // Перемешиваем элементы, чтобы не было застоя авторских в начале
-  
-  // Перемешиваем элементы только для Кейсов и Аналитики, чтобы не было застоя
-  // Академию (модули) оставляем в строгом порядке обучения
-  const shuffledItems = (t === "case" || t === "review") 
-    ? [...items].sort(() => Math.random() - 0.5)
-    : items;
+  // Кейсы — кураторский порядок витрины Mini App (не перемешивать).
+  // Аналитику перемешиваем, чтобы не было застоя; Академия — в порядке обучения.
+  const shuffledItems = t === "review" ? [...items].sort(() => Math.random() - 0.5) : items;
 
 
   return (

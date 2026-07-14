@@ -4,6 +4,14 @@ import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CatalogItem } from "@/lib/content";
+import { caseTag } from "./CaseCard";
+
+// цвет-тэги исходов кейса — палитра витрины Mini App (.case-tag r/y/g)
+const CASE_TONES = {
+  r: { label: "Красный", color: "#FF6B6B" },
+  y: { label: "Жёлтый", color: "#FFD600" },
+  g: { label: "Зелёный", color: "#00E676" },
+} as const;
 
 /**
  * SpatialCatalog v3 — Native Precision & Performance.
@@ -179,12 +187,29 @@ export function SpatialCatalog({ items }: { items: CatalogItem[] }) {
                     )}
                   </div>
 
-                  {item.badge && (
-                    <div className="absolute right-6 top-6">
-                      <div className="rounded-xl border border-white/10 bg-black/40 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-foam/40 backdrop-blur-sm">
-                        {item.badge}
+                  {item.type === "case" ? (
+                    // кейс — как в Mini App: цвет-тэг исхода + гео-флаг
+                    <div className="absolute inset-x-6 top-6 flex items-center justify-between">
+                      <div
+                        className="rounded-xl border border-white/10 bg-black/40 px-2 py-1 text-[9px] font-bold uppercase tracking-widest backdrop-blur-sm"
+                        style={{ color: CASE_TONES[caseTag(item)].color }}
+                      >
+                        {CASE_TONES[caseTag(item)].label}
                       </div>
+                      {item.loc && (
+                        <span className="num text-[10px] font-medium tracking-[0.06em] text-foam/60">
+                          {item.loc}
+                        </span>
+                      )}
                     </div>
+                  ) : (
+                    item.badge && (
+                      <div className="absolute right-6 top-6">
+                        <div className="rounded-xl border border-white/10 bg-black/40 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-foam/40 backdrop-blur-sm">
+                          {item.badge}
+                        </div>
+                      </div>
+                    )
                   )}
                 </div>
               </div>
