@@ -26,7 +26,8 @@ export function ProductPage({ p }: { p: Product }) {
       ? { href: `/learn/${p.slug}`, label: p.stub ? "Открыть демо обучения" : "Начать обучение" }
       : p.free
       ? { href: "/catalog", label: "Открыть" }
-      : { href: "/checkout", label: "Получить доступ" };
+      : // платные продукты продаются в Mini App (Tribute-чекаут привязан к Telegram-аккаунту)
+        { href: "https://t.me/terenlabs_bot", label: "Купить в Mini App" };
 
   return (
     <article>
@@ -65,7 +66,7 @@ export function ProductPage({ p }: { p: Product }) {
               </Button>
               {!p.free && (
                 <p className="mt-3 text-center text-xs text-foam/45">
-                  Оплата: Kaspi · рассрочка · карта
+                  Оплата картой любой страны — Tribute в Telegram
                 </p>
               )}
             </aside>
@@ -90,11 +91,11 @@ export function ProductPage({ p }: { p: Product }) {
           <Block title="Эксперт">
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-b from-teal to-teal-600 font-bold text-white">
-                N
+                AI
               </div>
               <div>
-                <div className="text-heading">Ноа · наставник TerenLabs</div>
-                <div className="text-sm text-muted">Практик, говорит числами</div>
+                <div className="text-heading">TEREN-AI · наставник TerenLabs</div>
+                <div className="text-sm text-muted">Считает, а не мотивирует — отвечает по базе знаний</div>
               </div>
             </div>
           </Block>

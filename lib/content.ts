@@ -18,10 +18,10 @@ export const PRODUCT_TYPES: Record<
   ProductType,
   { label: string; one: string; path: string; href: string; blurb: string }
 > = {
-  course: { label: "Курсы", one: "Курс", path: "/courses", href: "/catalog?type=course", blurb: "Системное обучение от мелководья к открытому океану" },
+  course: { label: "Академия", one: "Глава", path: "/courses", href: "/catalog?type=course", blurb: "Коротко, просто и по делу — без лишней теории" },
   test: { label: "Тесты", one: "Тест", path: "/tests", href: "/catalog?type=test", blurb: "Проверь себя — честно и с разбором каждого ответа" },
-  case: { label: "Кейсы", one: "Кейс", path: "/cases", href: "/catalog?type=case", blurb: "Реальные бизнес-ситуации с расчётом риска" },
-  review: { label: "Обзоры бизнеса", one: "Обзор", path: "/reviews", href: "/catalog?type=review", blurb: "Разбор ниш на цифрах, а не на историях" },
+  case: { label: "Кейсы", one: "Кейс", path: "/cases", href: "/catalog?type=case", blurb: "Чужой опыт как способ учиться на не своих деньгах" },
+  review: { label: "Аналитика малого бизнеса", one: "Аналитика", path: "/reviews", href: "/catalog?type=review", blurb: "Вникаем в реальный сектор и смотрим риски" },
   finmodel: { label: "Финмодели", one: "Финмодель", path: "/finmodels", href: "/catalog?type=finmodel", blurb: "Рабочие модели и бизнес-планы под твой проект" },
 };
 
@@ -31,7 +31,7 @@ export const STAGES = ["Обучение", "Проверка", "Применен
 export const INTENTS = [
   { key: "learn", title: "Учиться", desc: "Курсы и навыки от основ до масштаба", href: "/catalog?type=course" },
   { key: "check", title: "Проверить себя", desc: "Тесты с честным разбором и рангом", href: "/catalog?type=test" },
-  { key: "apply", title: "Применить в деле", desc: "Кейсы, обзоры, финмодели под задачу", href: "/catalog?type=finmodel" },
+  { key: "apply", title: "Применить в деле", desc: "Кейсы, аналитика, финмодели под задачу", href: "/catalog?type=finmodel" },
 ];
 
 // ?v=2 — cache-bust после перенарезки иконок (браузер кэширует по имени файла)
@@ -83,8 +83,8 @@ export const plural = (n: number, one: string, few: string, many: string) => {
 // Баннер-цифры (доказательства в тоне Ноа) — счётчики ИЗ ДАННЫХ, не зашитые
 export const PROOF_STATS = [
   {
-    value: "−1.4 млн ₸",
-    label: "цена ошибки, которую демо-финмодель кофейни ловит до открытия",
+    value: "−1.2 млн ₸",
+    label: "средняя цена ошибки новичка на старте, которую ловит расчет", 
   },
   {
     value: String(T1_A04_QUESTIONS.length),
@@ -109,8 +109,7 @@ export const HOOKS = [
   { tag: "Кейс · Алматы", accent: "danger", hook: "Раскрутил точку — её забрал арендодатель", payoff: "Весь трафик был чужой. На чьей земле строишь бизнес ты?", cta: "Читать кейс", href: "/cases/case-017", img: "/lessons/arch_m7-ch01_breached-hull.jpg" },
   { tag: "Кейс · Уральск", accent: "danger", hook: "Окупаемость с 10 до 25 лет", payoff: "Две девальвации растянули срок в 2,5 раза. Риск был в расчётах с самого начала.", cta: "Читать кейс", href: "/cases/case-016", img: "/lessons/fund_m6-ch02_risk-vs-fog.jpg" },
   { tag: "Тест · Время", accent: "teal", hook: "Сам уберусь — сэкономлю 2 000 ₸", payoff: "А потеряешь 6 000. Узнай, видишь ли ты цену своего часа.", cta: "Пройти тест", href: "/tests/t1-a04/take", img: "/lessons/fund_m3-ch03_hours-ceiling_v2.jpg" },
-  { tag: "Финмодель · Кофейня", accent: "danger", hook: "−1.4 млн ₸ до открытия", payoff: "Точка ещё не работает, а модель уже показывает минус. Почему?", cta: "Открыть модель", href: "/finmodels/finmodel-cafe", img: "/lessons/arch_m6-ch01_unit-econ-scale_v2.jpg" },
-];
+  ];
 
 // ---- Банки вопросов (slug → вопросы). Новые банки регистрировать здесь. ----
 const BANKS: Record<string, TestQuestion[]> = {
@@ -170,7 +169,7 @@ export const CASES = CATALOG.filter((x) => x.type === "case");
 export const REVIEWS = CATALOG.filter((x) => x.type === "review");
 export const COURSES = CATALOG.filter((x) => x.type === "course");
 
-export const FEATURED: CatalogItem[] = ["finmodel-cafe", "t1-a04", "case-marketplace", "review-coffee"]
+export const FEATURED: CatalogItem[] = ["t1-a04", "case-marketplace", "review-coffee"]
   .map((s) => CATALOG.find((x) => x.slug === s))
   .filter(Boolean) as CatalogItem[];
 
@@ -191,7 +190,7 @@ export const COLLECTIONS = [
   },
   {
     title: "Применить в деле",
-    hook: "Кейсы, обзоры и финмодели — инструменты под твою задачу",
+    hook: "Кейсы, аналитика и финмодели — инструменты под твою задачу",
     img: "/lessons/mgmt_m1-ch03_captain-bridge.jpg",
     filter: (x: CatalogItem) => ["case", "finmodel", "review"].includes(x.type),
     href: "/catalog?type=finmodel",
@@ -222,6 +221,10 @@ export type Level = {
   testSlugs: string[];
   caseSlugs: string[];
   reviewSlugs: string[];
+  /** Открытые тесты уровня (Дельфин/Акула): ответ своими словами, оценивает
+   *  TEREN-AI на сервере — на сайте показываем состав, сдача в Mini App. */
+  openTests?: { id: string; name: string; cat?: string; qCount: number }[];
+  openTestsNote?: string;
 };
 
 export const LEVELS = levelsJson as Level[];

@@ -83,45 +83,61 @@ export async function loginBridge(): Promise<OceanAuth | null> {
   return out;
 }
 
-// ── Зачёт попыток с сайта (12_OCEAN.md): юзеры без Telegram (Google/Apple)
-// попадают в рейтинг так же, как Mini App-юзеры. Контракт — зеркало ocean.js.
-
-/** Стабильный 12-hex id вопроса: SHA-1(q + '|' + opts.join('|')), первые 6 байт. */
-export async function questionIdHash(q: { q: string; opts: string[] }): Promise<string> {
-  const data = (q.q || "") + "|" + (q.opts || []).join("|");
-  const buf = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(data));
-  return Array.from(new Uint8Array(buf))
-    .slice(0, 6)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-}
+// ── Сдача попыток с сайта (12_OCEAN.md): контракт — зеркало ocean.js v9.2.
+// Ответов в клиентском пуле больше нет: балл, passed и разбор ошибок считает
+// СЕРВЕР по скрытому ключу (question_id = id вопроса из пула, chosen = исходный
+// индекс опции до перемешивания). score/passed в payload — заглушки, сервер
+// пересчитывает авторитетно.
 
 export type OceanAttemptPayload = {
   client_attempt_id: string;
   level: string; // 'crab' | 'barracuda'
-  test: string; // 't1' | 't2' | 't3'
-  score: number;
-  passed: boolean;
+  test: string; // 't1'..'t3' | 'fin' | 'mkt' | 'mgmt' | 'law' | 'universal'
+  score: number; // 0 — сервер пересчитает
+  passed: boolean; // false — сервер пересчитает
   started_at: string;
   finished_at: string;
   answers: {
     q_idx: number;
-    question_id: string;
+    question_id: string; // id вопроса из пула
     kind: string;
     chapter: string;
-    chosen: number | null;
-    correct: boolean;
+    chosen: number | null; // ИСХОДНЫЙ индекс опции (через _orig)
+    correct: boolean; // фолбэк, для closed игнорируется сервером
     time_sec: number;
   }[];
 };
 
-/** true = попытка записана в рейтинг (есть токен и бэкенд принял). */
-export async function submitOceanAttempt(payload: OceanAttemptPayload): Promise<boolean> {
-  if (!getOceanToken()) return false;
+/** Разбор одного вопроса от сервера (индексы — исходные, до перемешивания). */
+export type OceanReviewItem = {
+  q_idx: number;
+  question_id: string;
+  chosen: number | null;
+  correct: boolean;
+  correct_index: number;
+  explanation?: string;
+};
+
+export type OceanAttemptResult = {
+  attempt_id: number;
+  saved: boolean;
+  score: number; // авторитетный балл /10
+  passed: boolean;
+  review: OceanReviewItem[];
+  progress: Record<string, Record<string, unknown>>;
+  cooldowns: Record<string, string>;
+  stats: { byTest?: Record<string, unknown> };
+  composite: Record<string, unknown>;
+};
+
+/** Результат сервера или null (нет токена / сеть). Без сервера балла нет. */
+export async function submitOceanAttempt(
+  payload: OceanAttemptPayload
+): Promise<OceanAttemptResult | null> {
+  if (!getOceanToken()) return null;
   try {
-    await oceanFetch("/attempt", { method: "POST", json: payload });
-    return true;
+    return await oceanFetch<OceanAttemptResult>("/attempt", { method: "POST", json: payload });
   } catch {
-    return false;
+    return null;
   }
 }

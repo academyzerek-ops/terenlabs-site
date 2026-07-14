@@ -1,18 +1,23 @@
 // Океанские тесты Краба и Барракуды — пулы импортированы из Mini App
 // (scripts/import_content.mjs ← frontend/products/ocean-assets/*.json).
-// Канон: тест = 10 вопросов, по 1 случайному из каждого архетипа; пороги T1/T2 ≥7, T3 ≥6.
+// Канон v9.2 (июль 2026): тест = 10 вопросов, по 1 случайному из каждого архетипа.
+// Краб — по типу вопроса (Теория/Расчёты/Универсальный), Барракуда — по дисциплинам
+// (Финансы/Маркетинг/Менеджмент/Право + бонусный Универсальный).
+// В клиентском пуле НЕТ правильных ответов — правильность, балл и разбор ошибок
+// считает сервер «Океана» (POST /attempt), как в Mini App.
 
 export type OceanQuestion = {
   id: string;
   q: string;
   opts: string[];
-  a: number; // индекс правильного
-  archetype?: number;
-  why?: string;
-  explanations?: string[]; // разбор каждой опции
-  calc?: string;
+  kind?: string; // theory | calc | mixed
+  ch?: string; // глава-источник
+  archetype?: number | string;
   difficulty?: string;
   category?: string;
+  /** Карта перемешивания опций: _orig[отображаемый индекс] = исходный индекс.
+   *  Появляется после prepareAttempt; сервер ждёт ИСХОДНЫЙ индекс ответа. */
+  _orig?: number[];
 };
 
 export type OceanTestMeta = {
@@ -26,32 +31,42 @@ export type OceanTestMeta = {
 
 export const OCEAN_TESTS: Record<string, OceanTestMeta> = {
   "crab-t1": { slug: "crab-t1", title: "Краб · Теория", rank: "Краб", rankKey: "krab", pool: "/ocean-pools/crab.t1.json", floor: 7 },
-  "crab-t2": { slug: "crab-t2", title: "Краб · Применение", rank: "Краб", rankKey: "krab", pool: "/ocean-pools/crab.t2.json", floor: 7 },
-  "crab-t3": { slug: "crab-t3", title: "Краб · Анализ", rank: "Краб", rankKey: "krab", pool: "/ocean-pools/crab.t3.json", floor: 6 },
-  "barracuda-t1": { slug: "barracuda-t1", title: "Барракуда · Теория", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.t1.json", floor: 7 },
-  "barracuda-t2": { slug: "barracuda-t2", title: "Барракуда · Применение", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.t2.json", floor: 7 },
-  "barracuda-t3": { slug: "barracuda-t3", title: "Барракуда · Анализ", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.t3.json", floor: 6 },
+  "crab-t2": { slug: "crab-t2", title: "Краб · Расчёты", rank: "Краб", rankKey: "krab", pool: "/ocean-pools/crab.t2.json", floor: 7 },
+  "crab-t3": { slug: "crab-t3", title: "Краб · Универсальный", rank: "Краб", rankKey: "krab", pool: "/ocean-pools/crab.t3.json", floor: 6 },
+  "barracuda-fin": { slug: "barracuda-fin", title: "Барракуда · Финансы", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.fin.json", floor: 7 },
+  "barracuda-mkt": { slug: "barracuda-mkt", title: "Барракуда · Маркетинг", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.mkt.json", floor: 7 },
+  "barracuda-mgmt": { slug: "barracuda-mgmt", title: "Барракуда · Менеджмент", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.mgmt.json", floor: 7 },
+  "barracuda-law": { slug: "barracuda-law", title: "Барракуда · Право", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.law.json", floor: 7 },
+  "barracuda-universal": { slug: "barracuda-universal", title: "Барракуда · Универсальный", rank: "Барракуда", rankKey: "barrakuda", pool: "/ocean-pools/barracuda.universal.json", floor: 7 },
 };
 
-// Сборка попытки по канону Mini App (prepareAttempt из ocean.html):
-// по 1 случайному вопросу из каждого архетипа; перемешать опции, пересчитав индекс ответа.
+const shuffle = <T,>(arr: T[]): T[] => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+// Перемешать опции, запомнив карту (зеркало shuffleOptions из ocean.js):
+// ответа в пуле нет, сервер сверяет по исходному индексу через _orig.
+function shuffleOptions(q: OceanQuestion): OceanQuestion {
+  const order = shuffle(q.opts.map((_, i) => i));
+  return { ...q, opts: order.map((i) => q.opts[i]), _orig: order };
+}
+
+// Сборка попытки по канону Mini App (prepareAttempt из ocean.js):
+// по 1 случайному вопросу из каждого архетипа; добор рандомом, если архетипов < count.
 export function prepareAttempt(pool: OceanQuestion[], count = 10): OceanQuestion[] {
-  const byArchetype = new Map<number, OceanQuestion[]>();
+  const byArchetype = new Map<string, OceanQuestion[]>();
   for (const q of pool) {
     if (q.archetype === undefined || q.archetype === null) continue;
-    const arr = byArchetype.get(q.archetype) ?? [];
+    const key = String(q.archetype);
+    const arr = byArchetype.get(key) ?? [];
     arr.push(q);
-    byArchetype.set(q.archetype, arr);
+    byArchetype.set(key, arr);
   }
-
-  const shuffle = <T,>(arr: T[]): T[] => {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
 
   let picked: OceanQuestion[];
   if (byArchetype.size < 2) {
@@ -78,14 +93,5 @@ export function prepareAttempt(pool: OceanQuestion[], count = 10): OceanQuestion
     }
   }
 
-  // перемешать опции, сохранив привязку правильного ответа и разборов
-  return picked.slice(0, count).map((q) => {
-    const order = shuffle(q.opts.map((_, i) => i));
-    return {
-      ...q,
-      opts: order.map((i) => q.opts[i]),
-      a: order.indexOf(q.a),
-      explanations: q.explanations ? order.map((i) => q.explanations![i]) : undefined,
-    };
-  });
+  return picked.slice(0, count).map(shuffleOptions);
 }

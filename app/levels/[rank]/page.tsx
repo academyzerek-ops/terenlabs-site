@@ -85,6 +85,26 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
           </div>
         </Block>
 
+        {lvl.openTests && lvl.openTests.length > 0 && (
+          <Block title="Открытые кейсы" count={lvl.openTests.length}>
+            {lvl.openTestsNote && (
+              <p className="mb-5 max-w-2xl text-sm leading-relaxed text-muted">{lvl.openTestsNote}</p>
+            )}
+            <div className="grid gap-4 sm:grid-cols-3">
+              {lvl.openTests.map((t) => (
+                <Card
+                  key={t.id}
+                  title={t.name}
+                  meta={`${t.cat ? `${t.cat} · ` : ""}${t.qCount} ${plural(t.qCount, "вопрос", "вопроса", "вопросов")} · оценивает TEREN-AI`}
+                />
+              ))}
+            </div>
+            <div className="mt-6">
+              <Button href="https://t.me/terenlabs_bot">Сдать в Mini App →</Button>
+            </div>
+          </Block>
+        )}
+
         <Block title="Кейсы" count={items.cases.length}>
           <div className="grid gap-4 sm:grid-cols-2">
             {items.cases.map((c) => (
