@@ -124,7 +124,7 @@ export type OceanAttemptResult = {
   score: number; // авторитетный балл /10
   passed: boolean;
   review: OceanReviewItem[];
-  progress: Record<string, Record<string, unknown>>;
+  progress: Record<string, Record<string, { passed?: boolean } | number>>;
   cooldowns: Record<string, string>;
   stats: { byTest?: Record<string, unknown> };
   composite: Record<string, unknown>;
@@ -140,4 +140,72 @@ export async function submitOceanAttempt(
   } catch {
     return null;
   }
+}
+
+// ── Прогресс/гейты/кулдауны — зеркало ocean.js (levelProgress/isLevelUnlocked/
+// isTestOnCooldown). Источник — GET /me/progress того же бэка.
+
+export type OceanProgress = {
+  progress: Record<string, Record<string, { passed?: boolean } | number>>;
+  cooldowns: Record<string, string>; // 'crab.t1' → ISO-время окончания кулдауна
+  seen_questions: string[]; // виденные question_id — сэмплинг предпочитает новые
+  composite: Record<string, unknown>;
+  is_admin?: boolean; // админ заходит в любой уровень (тест/QA)
+};
+
+export async function fetchOceanProgress(): Promise<OceanProgress | null> {
+  if (!getOceanToken()) return null;
+  try {
+    return await oceanFetch<OceanProgress>("/me/progress");
+  } catch {
+    return null;
+  }
+}
+
+/** Тест сдан: payload бэка {passed} или legacy 0/20. */
+export function isTestPassed(p: OceanProgress | null, level: string, test: string): boolean {
+  const v = p?.progress?.[level]?.[test];
+  if (v && typeof v === "object") return Boolean(v.passed);
+  return (Number(v) || 0) >= 20;
+}
+
+// Набор тестов уровня — канон TESTS из ocean.js (locked не учитываются)
+export const LEVEL_TESTS: Record<string, string[]> = {
+  crab: ["t1", "t2", "t3"],
+  barracuda: ["fin", "mkt", "mgmt", "law", "universal"],
+  dolphin: ["case1", "case2", "case3"],
+};
+
+export function levelDone(p: OceanProgress | null, level: string): boolean {
+  const tests = LEVEL_TESTS[level];
+  if (!tests?.length) return false;
+  return tests.every((t) => isTestPassed(p, level, t));
+}
+
+/** Уровень открыт: Ракушка/Краб — всем; дальше — когда пройден предыдущий. */
+export function isLevelUnlocked(p: OceanProgress | null, level: string): boolean {
+  if (p?.is_admin) return true;
+  if (level === "mollusk" || level === "crab") return true;
+  if (level === "whale") return levelDone(p, "shark");
+  const order = ["crab", "barracuda", "dolphin", "shark"];
+  const idx = order.indexOf(level);
+  if (idx <= 0) return true;
+  return levelDone(p, order[idx - 1]);
+}
+
+/** Мс до конца кулдауна теста (0 — можно сдавать). */
+export function cooldownLeftMs(cooldowns: Record<string, string> | undefined, level: string, test: string): number {
+  const iso = cooldowns?.[`${level}.${test}`];
+  if (!iso) return 0;
+  return Math.max(0, new Date(iso).getTime() - Date.now());
+}
+
+/** «2 ч 15 мин» — человекочитаемый остаток кулдауна. */
+export function formatCooldown(ms: number): string {
+  const min = Math.ceil(ms / 60000);
+  if (min < 60) return `${min} мин`;
+  const h = Math.floor(min / 60);
+  if (h < 24) return `${h} ч${min % 60 ? ` ${min % 60} мин` : ""}`;
+  const d = Math.floor(h / 24);
+  return `${d} д${h % 24 ? ` ${h % 24} ч` : ""}`;
 }

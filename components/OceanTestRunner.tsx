@@ -4,27 +4,51 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "./Container";
 import { Button } from "./Button";
-import { OceanTestMeta, OceanQuestion, prepareAttempt } from "@/lib/ocean-tests";
+import { OceanTestMeta, OceanQuestion, prepareAttempt, OCEAN_TESTS } from "@/lib/ocean-tests";
 import { saveAttempt } from "@/lib/memory";
-import { getOceanToken, submitOceanAttempt, OceanAttemptResult } from "@/lib/ocean";
+import {
+  getOceanToken,
+  submitOceanAttempt,
+  OceanAttemptResult,
+  OceanProgress,
+  fetchOceanProgress,
+  isTestPassed,
+  isLevelUnlocked,
+  cooldownLeftMs,
+  formatCooldown,
+} from "@/lib/ocean";
 
-// Прохождение океанского теста (Краб/Барракуда) по канону Mini App v9.2:
+// Прохождение океанского теста (Краб/Барракуда) — зеркало Mini App v9.2:
 // выбор БЕЗ мгновенной подсказки (это не игра в угадайку) → «Дальше» → сервер
 // считает балл по скрытому ключу → результат + разбор ТОЛЬКО ошибок.
-// Ответов в клиентском пуле нет, поэтому попытка возможна только со входом
-// (TG-виджет/Google/Apple) — как в Mini App, где вход есть всегда.
+// Гейты и кулдауны — те же, что в ocean.js: уровень открыт после предыдущего,
+// T3 Краба ждёт T1+T2, после провала — кулдаун с сервера, сэмплинг предпочитает
+// невиденные вопросы (seen_questions). Ответов в клиентском пуле нет, поэтому
+// попытка возможна только со входом — как в Mini App, где вход есть всегда.
 const LETTERS = ["А", "Б", "В", "Г"];
 
 type Phase = "intro" | "quiz" | "checking" | "result" | "submit-error";
 
+const PREV_LEVEL: Record<string, { key: string; name: string } | undefined> = {
+  barracuda: { key: "krab", name: "Краб" },
+};
+
 export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
-  const [questions, setQuestions] = useState<OceanQuestion[] | null>(null);
+  const level = meta.slug.split("-")[0]; // 'crab' | 'barracuda'
+  const test = meta.slug.split("-").slice(1).join("-");
+
+  const [pool, setPool] = useState<OceanQuestion[] | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [authed, setAuthed] = useState<boolean | null>(null); // null до маунта (SSR)
+  const [progress, setProgress] = useState<OceanProgress | null>(null);
+  const [progressReady, setProgressReady] = useState(false);
   const [phase, setPhase] = useState<Phase>("intro");
+  const [questions, setQuestions] = useState<OceanQuestion[] | null>(null);
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [result, setResult] = useState<OceanAttemptResult | null>(null);
+  // кулдаун этого теста (мс осталось) — с /me/progress или из ответа /attempt
+  const [cooldownMs, setCooldownMs] = useState(0);
   const meta_ = useRef({ attemptId: "", startedAt: "", shownAt: 0, timings: [] as number[] });
 
   // вход мог случиться в соседней вкладке — слушаем океан-событие
@@ -35,29 +59,56 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     return () => window.removeEventListener("tl-ocean-auth", sync);
   }, []);
 
+  // прогресс/кулдауны/seen — с сервера (только для вошедших)
+  useEffect(() => {
+    if (authed === null) return;
+    if (!authed) {
+      setProgressReady(true);
+      return;
+    }
+    let alive = true;
+    fetchOceanProgress().then((p) => {
+      if (!alive) return;
+      setProgress(p);
+      setCooldownMs(cooldownLeftMs(p?.cooldowns, level, test));
+      setProgressReady(true);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [authed, level, test]);
+
   // пул грузим на клиенте: рандом сборки не должен попадать в SSR
-  const loadQuestions = () => {
-    setQuestions(null);
+  useEffect(() => {
+    let alive = true;
     fetch(meta.pool)
       .then((r) => r.json())
-      .then((pool: OceanQuestion[]) => {
-        const qs = prepareAttempt(pool, 10);
-        setQuestions(qs);
-        setAnswers(new Array(qs.length).fill(null));
-        meta_.current = {
-          attemptId: crypto.randomUUID(),
-          startedAt: new Date().toISOString(),
-          shownAt: Date.now(),
-          timings: new Array(qs.length).fill(0),
-        };
-      })
-      .catch(() => setLoadError(true));
+      .then((p: OceanQuestion[]) => alive && setPool(p))
+      .catch(() => alive && setLoadError(true));
+    return () => {
+      alive = false;
+    };
+  }, [meta.pool]);
+
+  const startAttempt = () => {
+    if (!pool) return;
+    const seen = new Set(progress?.seen_questions ?? []);
+    const qs = prepareAttempt(pool, 10, seen);
+    setQuestions(qs);
+    setAnswers(new Array(qs.length).fill(null));
+    setIdx(0);
+    setResult(null);
+    meta_.current = {
+      attemptId: crypto.randomUUID(),
+      startedAt: new Date().toISOString(),
+      shownAt: Date.now(),
+      timings: new Array(qs.length).fill(0),
+    };
+    setPhase("quiz");
   };
-  useEffect(loadQuestions, [meta.pool]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitAttempt = async (qs: OceanQuestion[], ans: (number | null)[]) => {
     setPhase("checking");
-    const [level, test] = [meta.slug.split("-")[0], meta.slug.split("-").slice(1).join("-")];
     const remote = await submitOceanAttempt({
       client_attempt_id: meta_.current.attemptId,
       level,
@@ -90,6 +141,13 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
       passed: remote.passed,
       at: new Date().toISOString(),
     });
+    // сервер вернул свежие кулдауны/прогресс — обновляем гейты без перезагрузки
+    setCooldownMs(cooldownLeftMs(remote.cooldowns, level, test));
+    setProgress((p) =>
+      p
+        ? { ...p, progress: { ...p.progress, ...remote.progress }, cooldowns: remote.cooldowns }
+        : p
+    );
     setResult(remote);
     setPhase("result");
   };
@@ -106,13 +164,6 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     }
   };
 
-  const restart = () => {
-    setPhase("quiz");
-    setIdx(0);
-    setResult(null);
-    loadQuestions();
-  };
-
   if (loadError) {
     return (
       <Container className="py-24 text-center">
@@ -121,17 +172,25 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     );
   }
 
-  // ── интро: правила + гейт входа (балл считает сервер) ──
+  // ── интро: правила + гейты (вход → уровень → T1/T2 → кулдаун) ──
   if (phase === "intro") {
+    // гейт уровня: Барракуда открыта после Краба (зеркало isLevelUnlocked)
+    const levelLocked = authed === true && progressReady && !isLevelUnlocked(progress, level);
+    // гейт теста: T3 Краба ждёт T1+T2 (зеркало isTestLocked)
+    const missing = (meta.requires ?? []).filter((r) => !isTestPassed(progress, level, r));
+    const testLocked = authed === true && progressReady && missing.length > 0;
+    const onCooldown = authed === true && progressReady && cooldownMs > 0;
+    const prev = PREV_LEVEL[level];
+
     return (
       <Container className="py-16">
         <div className="mx-auto max-w-xl text-center">
           <p className="eyebrow">{meta.title}</p>
           <h1 className="mt-3 text-3xl text-heading sm:text-4xl">10 вопросов. Порог — {meta.floor} из 10.</h1>
           <p className="mt-4 leading-relaxed text-muted">
-            По одному вопросу из каждой темы уровня, варианты перемешаны. Подсказок по ходу нет —
-            это не игра в угадайку. Балл и разбор ошибок считает сервер «Океана», попытка идёт
-            в твой рейтинг — тот же зачёт, что в Mini App.
+            По одному вопросу из каждой темы уровня, варианты перемешаны, пересдача даёт другие
+            вопросы. Подсказок по ходу нет — это не игра в угадайку. Балл и разбор ошибок считает
+            сервер «Океана», попытка идёт в твой рейтинг — тот же зачёт, что в Mini App.
           </p>
           {authed === false ? (
             <>
@@ -145,14 +204,42 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                 </Button>
               </div>
             </>
+          ) : levelLocked ? (
+            <>
+              <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
+                Уровни «Океан» проходятся по порядку: «{meta.rank}» открывается после того, как
+                сданы все тесты уровня «{prev?.name ?? "предыдущего"}».
+              </p>
+              <div className="mt-6">
+                <Button href={`/levels/${prev?.key ?? "krab"}`} size="lg">
+                  К тестам уровня «{prev?.name ?? "Краб"}»
+                </Button>
+              </div>
+            </>
+          ) : testLocked ? (
+            <>
+              <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
+                «Универсальный» открывается после «Теории» и «Расчётов» — сначала сдай{" "}
+                {missing.map((r) => OCEAN_TESTS[`${level}-${r}`]?.title.split("·")[1]?.trim() || r).join(" и ")}.
+              </p>
+              <div className="mt-6">
+                <Button href={`/levels/${meta.rankKey}`} size="lg">
+                  К тестам уровня «{meta.rank}»
+                </Button>
+              </div>
+            </>
+          ) : onCooldown ? (
+            <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
+              ⏱ Пересдача через {formatCooldown(cooldownMs)} — выборка вопросов будет другой.
+            </p>
           ) : (
             <div className="mt-8">
               <button
-                onClick={() => setPhase("quiz")}
-                disabled={!questions || authed === null}
+                onClick={startAttempt}
+                disabled={!pool || authed === null || !progressReady}
                 className="btn-press rounded-full bg-teal px-7 py-3.5 text-base font-medium text-white shadow-[var(--shadow-tl-sm)] transition-all hover:bg-teal-600 disabled:cursor-default disabled:opacity-50"
               >
-                {questions ? "Начать тест" : "Собираю вопросы из пула…"}
+                {pool && progressReady ? "Начать тест" : "Собираю вопросы из пула…"}
               </button>
             </div>
           )}
@@ -214,6 +301,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     const passed = result.passed;
     const mistakes = result.review.filter((r) => !r.correct);
     const byIdx = new Map(questions.map((q, i) => [i, q]));
+    const retryBlocked = !passed && cooldownMs > 0;
     return (
       <Container className="py-16">
         <div className="mx-auto max-w-xl text-center">
@@ -223,21 +311,27 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
             <span className="text-3xl text-muted"> / {questions.length}</span>
           </div>
           <p className={`mt-4 text-xl font-semibold ${passed ? "text-teal-600" : "text-heading"}`}>
-            {passed ? "Порог пройден." : `Порог — ${meta.floor} из ${questions.length}. Ещё заход?`}
+            {passed ? "Порог пройден." : `Меньше ${meta.floor} из ${questions.length} — попытка не засчитана.`}
           </p>
           <p className="mt-3 text-muted">
-            Записано в рейтинг «Океана» — средние считаются по всем попыткам.
+            {passed
+              ? "Записано в рейтинг «Океана» — средние считаются по всем попыткам."
+              : retryBlocked
+              ? `⏱ Пересдача через ${formatCooldown(cooldownMs)} — выборка вопросов будет другой.`
+              : "Можно сразу пересдать — выборка вопросов будет другой."}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Button href="/ocean" size="lg">
               Посмотреть рейтинг
             </Button>
-            <button
-              onClick={restart}
-              className="btn-press rounded-[var(--radius-tl)] px-5 py-3 text-sm font-medium text-heading ring-1 ring-line transition-colors hover:ring-teal hover:text-teal"
-            >
-              Новая попытка
-            </button>
+            {!retryBlocked && (
+              <button
+                onClick={startAttempt}
+                className="btn-press rounded-[var(--radius-tl)] px-5 py-3 text-sm font-medium text-heading ring-1 ring-line transition-colors hover:ring-teal hover:text-teal"
+              >
+                Новая попытка
+              </button>
+            )}
           </div>
           <p className="mt-6 text-sm">
             <Link href="/ocean" className="text-teal-600 hover:text-teal">
