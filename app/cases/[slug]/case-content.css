@@ -21,9 +21,93 @@
   --les-red-soft: rgba(255, 107, 107, 0.12);
   --les-warm: #e8a05c;
   --les-warm-soft: rgba(232, 160, 92, 0.14);
+  --les-surface-2: color-mix(in srgb, var(--les-surface) 82%, var(--les-aqua-soft));
 
   max-width: 800px;
   margin: 0 auto;
+}
+
+/* ---- TAKEAWAY: «Главное из кейса» (крупный блок-вывод, как у обзоров) ---- */
+.case-content .tk {
+  position: relative;
+  overflow: hidden;
+  background: var(--les-surface-2);
+  border: 1.5px solid var(--les-aqua-deep);
+  border-radius: 16px;
+  padding: 24px 22px;
+  margin: 34px 0;
+  box-shadow: 0 8px 30px var(--les-aqua-soft);
+}
+.case-content .tk::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--les-aqua-deep), var(--les-green), var(--les-aqua-deep));
+  background-size: 200% 100%;
+  animation: tk-sh 4s ease-in-out infinite;
+}
+@keyframes tk-sh {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.case-content .tk-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--les-aqua-deep);
+  background: var(--les-aqua-soft);
+  padding: 6px 12px;
+  border-radius: 7px;
+  margin-bottom: 18px;
+}
+.case-content .tk h3 {
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 1.25;
+  color: var(--les-text);
+  margin-bottom: 16px;
+  letter-spacing: -0.018em;
+}
+.case-content .tk h3 .hl {
+  color: var(--les-aqua-deep);
+  font-style: italic;
+  font-weight: 500;
+}
+.case-content .tk-pt {
+  display: flex;
+  gap: 13px;
+  margin-bottom: 15px;
+  align-items: flex-start;
+}
+.case-content .tk-pt:last-child { margin-bottom: 0; }
+.case-content .tk-n {
+  flex: 0 0 auto;
+  min-width: 27px;
+  height: 27px;
+  border-radius: 8px;
+  background: var(--les-aqua-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--les-aqua-deep);
+  margin-top: 1px;
+  font-variant-numeric: tabular-nums;
+}
+.case-content .tk-t {
+  font-size: 16px;
+  color: var(--les-text-2);
+  line-height: 1.62;
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-content .tk::before { animation: none; }
 }
 
 /* ---- карточка-абзац ---- */

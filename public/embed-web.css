@@ -11,6 +11,166 @@
     padding: 48px 56px 110px;
   }
 
+  /* обзоры (hero = .phero): картинка в край + все блоки одной ширины, ровный левый край */
+  .page:has(.phero) {
+    max-width: 1320px;
+    padding: 0 52px 96px;
+  }
+  /* все блоки — одной ширины (гасим разнобой боковых margin) */
+  .page:has(.phero) > * {
+    margin-inline: 0;
+  }
+  /* hero-картинка — честно от края до края контента (full-bleed во всю ширину iframe) */
+  .page:has(.phero) .phero {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: 0;
+    margin-bottom: 26px;
+    border: none;
+    border-radius: 0;
+    aspect-ratio: 21 / 9;
+  }
+  /* единый горизонтальный отступ текста во всех блоках → ровный левый край */
+  /* карточки — внутренний отступ 28px (текст карточки); проза и секц-заголовки — по краю колонки */
+  .page:has(.phero) .c.al,
+  .page:has(.phero) .c.ag,
+  .page:has(.phero) .c.ao,
+  .page:has(.phero) .c.ar,
+  .page:has(.phero) .tldr,
+  .page:has(.phero) .pq,
+  .page:has(.phero) .ins,
+  .page:has(.phero) .risk {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  /* в обзорах акцентные карточки/takeaway НЕ вырываются шире колонки — ровно по ширине */
+  .page:has(.phero) .c.al,
+  .page:has(.phero) .c.ag,
+  .page:has(.phero) .c.ao,
+  .page:has(.phero) .c.ar,
+  .page:has(.phero) .tk,
+  .page:has(.phero) .pq {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  /* текст на картинке (бейдж/заголовок/подзаголовок) выравниваем по контенту (52px) */
+  .page:has(.phero) .phero-in {
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-bottom: 24px;
+  }
+  /* инфографика: бары/спарклайны не на всю ширину — короче и плотнее, лейблы не скомканы */
+  .page:has(.phero) .bars {
+    max-width: 600px;
+  }
+  .page:has(.phero) .bar {
+    grid-template-columns: 140px 1fr 64px;
+    gap: 14px;
+  }
+  .page:has(.phero) .bar-t { height: 22px; }
+  /* пончик + легенда: компактно, проценты не улетают в край */
+  .page:has(.phero) .donut-wrap {
+    max-width: 640px;
+    justify-content: flex-start;
+    gap: 40px;
+    margin-right: auto;
+  }
+  .page:has(.phero) .donut { width: 188px; height: 188px; }
+  .page:has(.phero) .leg { flex: 0 1 380px; }
+  /* hover-подсветка легенды (синхронно с сегментом пончика, ставится из review-enhance.js) */
+  .page:has(.phero) .leg-i { transition: opacity .2s ease, color .2s ease; }
+  .page:has(.phero) .leg-i.leg-hot { color: var(--les-text); font-weight: 600; }
+  .page:has(.phero) .leg-i.leg-hot .leg-v { color: var(--les-aqua-deep); }
+  .page:has(.phero) .leg-i.leg-dim { opacity: 0.4; }
+  /* CTA-карточки (Финмодель / Бизнес-план) — реакция на hover */
+  .page:has(.phero) .cta {
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .page:has(.phero) .cta:hover {
+    transform: translateY(-4px);
+    border-color: var(--les-aqua);
+    box-shadow: 0 22px 48px -24px rgba(0, 0, 0, .55), inset 0 0 0 1px var(--les-aqua);
+  }
+  .page:has(.phero) .cta-btn {
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .page:has(.phero) .cta:hover .cta-btn {
+    filter: brightness(1.08);
+    box-shadow: 0 10px 24px -10px var(--les-aqua-deep);
+  }
+  .page:has(.phero) .cta-btn:hover { transform: translateY(-1px); }
+
+  /* ══ B: меньше «коробочности», больше воздуха (только обзоры) ══ */
+  /* акцентные карточки → акцентные абзацы: заливка вдвое тише, грань-акцент остаётся */
+  .page:has(.phero) .c.al { background: color-mix(in srgb, var(--les-aqua-soft) 42%, transparent); }
+  .page:has(.phero) .c.ag { background: color-mix(in srgb, var(--les-green-soft) 42%, transparent); }
+  .page:has(.phero) .c.ao { background: color-mix(in srgb, var(--les-warm-soft) 42%, transparent); }
+  .page:has(.phero) .c.ar { background: color-mix(in srgb, var(--les-red-soft) 42%, transparent); }
+  .page:has(.phero) .c.al,
+  .page:has(.phero) .c.ag,
+  .page:has(.phero) .c.ao,
+  .page:has(.phero) .c.ar {
+    border-radius: 10px;
+    margin-top: 26px;
+    margin-bottom: 26px;
+  }
+  /* TL;DR — плоский мягкий тон без рамки */
+  .page:has(.phero) .tldr {
+    background: color-mix(in srgb, var(--les-aqua-soft) 55%, transparent);
+    border: none;
+  }
+  /* колонка ключа шире: «1 500–2 500» влезает в строку (на десктопе место есть) */
+  .page:has(.phero) .tldr-k { flex-basis: 162px; }
+  /* KPI-плитки: убираем рамки/заливку, разделяем воздухом и тонкими линиями */
+  .page:has(.phero) .stat4 {
+    gap: 0;
+    border-top: 0.5px solid var(--les-border-2);
+    margin: 26px 0;
+  }
+  .page:has(.phero) .stat4 .nb {
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--les-border-2);
+    border-radius: 0;
+    padding: 24px 16px;
+  }
+  .page:has(.phero) .stat4 .nb:nth-child(even) {
+    border-left: 0.5px solid var(--les-border-2);
+  }
+  /* трёхблочная стат-сетка — так же открыто */
+  .page:has(.phero) .nb-grid { gap: 0; border-top: 0.5px solid var(--les-border-2); }
+  .page:has(.phero) .nb-grid .nb {
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--les-border-2);
+    border-radius: 0;
+  }
+  .page:has(.phero) .nb-grid .nb + .nb { border-left: 0.5px solid var(--les-border-2); }
+  /* риск/сценарий — мягче тень, тоньше присутствие коробки */
+  .page:has(.phero) .risk { box-shadow: none; }
+  /* больше воздуха между крупными блоками */
+  .page:has(.phero) .ins,
+  .page:has(.phero) .bars,
+  .page:has(.phero) .donut-wrap { margin-top: 30px; margin-bottom: 30px; }
+
+  /* ══ академия → подача как у обзоров: акцентные каллауты тише, больше воздуха (фон светлый НЕ трогаем) ══ */
+  .page:has(.les-hero-img) .c.al { background: color-mix(in srgb, var(--les-aqua-soft) 55%, transparent); }
+  .page:has(.les-hero-img) .c.ag { background: color-mix(in srgb, var(--les-green-soft) 55%, transparent); }
+  .page:has(.les-hero-img) .c.ao { background: color-mix(in srgb, var(--les-warm-soft) 55%, transparent); }
+  .page:has(.les-hero-img) .c.ar { background: color-mix(in srgb, var(--les-red-soft) 55%, transparent); }
+  .page:has(.les-hero-img) .c.al,
+  .page:has(.les-hero-img) .c.ag,
+  .page:has(.les-hero-img) .c.ao,
+  .page:has(.les-hero-img) .c.ar { border-radius: 12px; margin-top: 28px; margin-bottom: 28px; }
+  .page:has(.les-hero-img) .ins,
+  .page:has(.les-hero-img) .pq,
+  .page:has(.les-hero-img) .tk { margin-top: 30px; margin-bottom: 30px; }
+  /* number-bomb сетка (если есть в главе) — открыть линиями */
+  .page:has(.les-hero-img) .nb-grid { gap: 0; border-top: 0.5px solid var(--les-border-2); }
+  .page:has(.les-hero-img) .nb-grid .nb { background: transparent; border: none; border-bottom: 0.5px solid var(--les-border-2); border-radius: 0; }
+  .page:has(.les-hero-img) .nb-grid .nb + .nb { border-left: 0.5px solid var(--les-border-2); }
+
   /* hero-кадр и заголовок главы */
   .les-hero-img {
     aspect-ratio: 21 / 9;
@@ -34,7 +194,7 @@
 
   /* обычные карточки-абзацы превращаются в текущую прозу;
      карточный вид остаётся только у акцентных блоков */
-  .c:not(.al):not(.ag):not(.ao):not(.ar):not(.next-card):not(.paper) {
+  .c:not(.al):not(.ag):not(.ao):not(.ar):not(.next-card):not(.nextup):not(.paper) {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -327,6 +487,45 @@
     margin-inline: 0;
     text-align: left;
   }
+  /* full-bleed обложка академии — во всю ширину, как у обзоров; заголовок по контенту */
+  .page:has(.les-hero-img) .les-hero-img {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    border: none;
+    border-radius: 0;
+    aspect-ratio: 21 / 9;
+  }
+  .page:has(.les-hero-img) .les-hero-img + .hero {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    border-radius: 0;
+    padding-left: calc((100vw - 980px) / 2 + 56px);
+    padding-right: calc((100vw - 980px) / 2 + 56px);
+    margin-bottom: 26px; /* контент не прилипает к обложке */
+  }
+  /* выводы-инсайт (💡) — заметно крупнее body, это «главное» */
+  .page:has(.les-hero-img) .ins p { font-size: 20px; font-weight: 500; line-height: 1.6; }
+  .page:has(.les-hero-img) .ins { padding: 26px 28px; }
+  /* лейблы абзацев на светлом фоне — контрастные (бирюзовые сливались) */
+  .page:has(.les-hero-img) .lb { color: var(--les-text); font-weight: 800; }
+  /* проза выровнена по ширине (с переносами для русского — без огромных дыр) */
+  .page:has(.les-hero-img) .c p { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+  /* «В следующей главе…» → forward-карточка: отделена от прозы, ведёт дальше */
+  .page:has(.les-hero-img) p.nextup {
+    margin: 38px 0 14px;
+    padding: 20px 24px;
+    background: color-mix(in srgb, var(--les-aqua-soft) 50%, transparent);
+    border-left: 3px solid var(--les-aqua-deep);
+    border-radius: 12px;
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+    font-size: 16.5px;
+    color: var(--les-text-2);
+  }
+  .page:has(.les-hero-img) p.nextup strong { color: var(--les-text); }
 
   /* — 2. Пулл-цитата: serif с большой кавычкой на полях — */
   .pq {

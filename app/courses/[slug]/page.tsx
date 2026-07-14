@@ -6,6 +6,8 @@ import { ProductPage } from "@/components/ProductPage";
 import { getItem, plural, COURSES } from "@/lib/content";
 import { getTrack } from "@/lib/learn";
 import { itemMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { courseJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return COURSES.map((c) => ({ slug: c.slug }));
@@ -25,10 +27,23 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return (
     <>
+      <JsonLd
+        data={[
+          courseJsonLd({
+            name: track.title,
+            description: track.subtitle,
+            path: `/courses/${track.slug}`,
+          }),
+          breadcrumbJsonLd([
+            { name: "Курсы", path: "/catalog?type=course" },
+            { name: track.title, path: `/courses/${track.slug}` },
+          ]),
+        ]}
+      />
       {/* Хедер курса — глубина */}
       <section className="hero-ocean">
         <Container className="relative z-10 py-16">
-          <nav className="mb-5 text-sm text-foam/50">
+          <nav className="mb-5 text-sm text-foam/50" aria-label="Хлебные крошки">
             <Link href="/catalog?type=course" className="hover:text-teal">Курсы</Link>
             <span className="mx-2">/</span>
             <span>{track.title}</span>

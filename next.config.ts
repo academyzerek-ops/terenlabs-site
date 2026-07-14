@@ -27,9 +27,27 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
 
+  // Tree-shaking тяжёлого 3D/анимационного стека: импортируется только реально
+  // используемое из баррелей (drei/three/postprocessing/motion) → меньше клиент-бандл.
+  experimental: {
+    optimizePackageImports: [
+      "@react-three/drei",
+      "@react-three/fiber",
+      "@react-three/postprocessing",
+      "three",
+      "postprocessing",
+      "motion",
+    ],
+  },
+
   // next/image: современные форматы → меньший вес на отдаче
   images: {
     formats: ["image/avif", "image/webp"],
+    // разрешаем версионные локальные картинки (?v=N) — кэш-бастинг hero обзоров/кейсов
+    localPatterns: [
+      { pathname: "/**", search: "" },
+      { pathname: "/academy-assets/**" },
+    ],
   },
 
   async headers() {
@@ -41,6 +59,9 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          // HSTS: защита OAuth-сессии (next-auth) от downgrade/SSL-stripping.
+          // Безопасно: по HTTP браузеры заголовок игнорируют.
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
           { key: "Content-Security-Policy", value: csp },
         ],
       },

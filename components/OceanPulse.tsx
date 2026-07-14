@@ -40,7 +40,12 @@ let cache: Promise<PulseData | null> | null = null;
 function getData(): Promise<PulseData | null> {
   cache ??= fetch(API)
     .then((r) => (r.ok ? r.json() : null))
-    .catch(() => null);
+    .catch(() => null)
+    .then((d) => {
+      // не «отравляем» кэш ошибкой: при null сбрасываем — следующий потребитель ретрайнет
+      if (d == null) cache = null;
+      return d;
+    });
   return cache;
 }
 

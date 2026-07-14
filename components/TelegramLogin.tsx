@@ -6,8 +6,8 @@ import { loginTelegram } from "@/lib/ocean";
 
 // Официальный Telegram Login Widget. Тот же tg_id, что в Mini App —
 // аккаунт сходится в один автоматически (12_OCEAN.md).
-// ⚠️ Виджет работает только на домене из BotFather /setdomain —
-// на localhost кнопка не отрисуется (это нормально для dev).
+// ⚠️ Виджет рисуется ТОЛЬКО на домене, прописанном в @BotFather → /setdomain.
+// На localhost и на «чужом» домене Telegram кнопку не отрендерит (это by design).
 const BOT = process.env.NEXT_PUBLIC_TG_BOT ?? "terenlabs_bot";
 
 declare global {
@@ -20,6 +20,8 @@ export function TelegramLogin() {
   const holder = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [err, setErr] = useState<string | null>(null);
+  // loading → ready (виджет отрисовался) | failed (за таймаут не появился iframe)
+  const [status, setStatus] = useState<"loading" | "ready" | "failed">("loading");
 
   useEffect(() => {
     const el = holder.current;
@@ -44,14 +46,29 @@ export function TelegramLogin() {
     s.setAttribute("data-request-access", "write");
     el.appendChild(s);
 
+    // Telegram при успехе вставляет <iframe> в holder. Если за 3.5с его нет —
+    // домен не прописан в BotFather или нет сети → показываем подсказку,
+    // а не пустоту (раньше область просто оставалась пустой).
+    const t = setTimeout(() => {
+      setStatus(el.querySelector("iframe") ? "ready" : "failed");
+    }, 3500);
+
     return () => {
+      clearTimeout(t);
+      el.querySelectorAll("script, iframe").forEach((n) => n.remove()); // чистим вставленное
       delete window.onTelegramAuth;
     };
   }, [router]);
 
   return (
     <div>
-      <div ref={holder} className="flex justify-center" />
+      <div ref={holder} className="flex min-h-[48px] justify-center" />
+      {status === "failed" && (
+        <p className="mt-1 text-center text-xs leading-relaxed text-foam/45">
+          Кнопка Telegram не загрузилась. Обнови страницу. Если не помогает — домен
+          сайта нужно добавить в&nbsp;@BotFather&nbsp;→&nbsp;/setdomain.
+        </p>
+      )}
       {err && <p className="mt-2 text-center text-xs text-[var(--color-danger)]">{err}</p>}
     </div>
   );

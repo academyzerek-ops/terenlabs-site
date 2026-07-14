@@ -10,6 +10,9 @@ import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
 import { OceanNowChip } from "@/components/OceanPulse";
 import { OceanFinaleLive } from "@/components/OceanLive";
+import { LandingTest } from "@/components/LandingTest";
+import { PreceptsSection } from "@/components/PreceptsSection";
+import { WordDrum } from "@/components/WordDrum";
 import { STEPS, OCEAN_RANKS } from "@/lib/content";
 
 // Путь обучения: 3 ступени (кейсы — часть Академии/обучения)
@@ -37,9 +40,9 @@ const PATH = [
   {
     key: "apply",
     title: "Применять",
-    sub: "Обзоры и расчёты",
-    desc: "Обзоры рынков и финмодели: подставь свои цифры — увидишь свой риск.",
-    items: ["Обзоры бизнеса", "Финмодели и расчёты"],
+    sub: "Аналитика и расчёты",
+    desc: "Аналитика малого бизнеса и финмодели: подставь свои цифры — увидишь свой риск.",
+    items: ["Аналитика малого бизнеса", "Финмодели и расчёты"],
     href: "/catalog?type=finmodel",
     cta: "К инструментам",
     img: "/lessons/arch_m6-ch01_unit-econ-scale_v2.jpg",
@@ -60,6 +63,7 @@ export default function Home() {
           muted
           loop
           playsInline
+          aria-hidden="true"
           poster="/brand/ocean-evolution-poster.jpg?v=6"
         >
           <source src="/brand/ocean-evolution.mp4?v=6" type="video/mp4" />
@@ -86,7 +90,7 @@ export default function Home() {
               animationDelay: "80ms",
               fontSize: "clamp(2.2rem, 4.7vw, 4.0rem)",
               lineHeight: 1.06,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.01em",
               textShadow: "0 4px 40px rgba(0,0,0,0.5)",
             }}
           >
@@ -123,6 +127,17 @@ export default function Home() {
             Говорим о рисках и реальности, а не про «успешный успех» —
             <br className="hidden md:block" />
             видишь, где потеряешь деньги и время, до того как вложишься.
+          </p>
+          {/* Барабан: что внутри платформы — крутится по очереди */}
+          <p className="rise mt-9 flex items-center gap-4" style={{ animationDelay: "300ms" }}>
+            <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-foam/45">
+              Внутри
+            </span>
+            <WordDrum
+              words={["Академия", "Финмодель", "Аналитика бизнеса", "Бизнес-план"]}
+              height={56}
+              className="text-[clamp(1.7rem,3.2vw,2.5rem)] font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
+            />
           </p>
         </Container>
       </section>
@@ -178,6 +193,7 @@ export default function Home() {
       <section className="deck py-20">
         <Container>
           <SectionHeading
+            number="01"
             title="Учим бизнесу — целиком"
             desc="Миссия TerenLabs — защитить тебя от потери денег на нежизнеспособный бизнес."
           />
@@ -236,19 +252,26 @@ export default function Home() {
       </section>
 
       {/* ============ МАНИФЕСТ + ЖИВОЙ ВОПРОС (Brilliant: продукт и есть демо) ============ */}
-      <section className="deep grain-fine relative">
-        <Container className="relative z-10 py-24 sm:py-28">
+      <section className="deep grain-fine relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,183,194,0.05),transparent_70%)]" />
+        <Container className="relative z-10 py-24 sm:py-32">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
-              <h2 className="mt-4 text-3xl !text-foam sm:text-5xl" style={{ fontStyle: "italic" }}>
+              <p className="eyebrow !text-teal/60 mb-6">Манифест TerenLabs</p>
+              <h2 className="mt-4 text-3xl !text-foam sm:text-5xl leading-[1.1]" style={{ fontStyle: "italic" }}>
                 «Лучше отговорить тебя от плохой идеи, чем продать надежду»
               </h2>
-              <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-foam/70">
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-foam/70">
                 Здесь больно и сложно — но это единственный способ не потерять
                 деньги в реальном бизнесе. Если математика говорит «не открывай» —
                 мы скажем это прямо.
               </p>
             </div>
+          </Reveal>
+
+          {/* Живой вопрос теста (Brilliant-move: продукт и есть демо) */}
+          <Reveal delay={200}>
+            <LandingTest />
           </Reveal>
         </Container>
       </section>
@@ -257,6 +280,7 @@ export default function Home() {
       <section className="deck py-20">
         <Container>
           <SectionHeading
+            number="02"
             title="Формат, который затягивает"
             desc="Уровни, ранги и тренажёры — проходишь шаг за шагом, а каждый навык бережёт реальные деньги."
           />
@@ -279,7 +303,7 @@ export default function Home() {
                 visual: null,
               },
               {
-                href: "/finmodels/finmodel-cafe",
+                href: "/catalog?type=finmodel",
                 title: "Тренажёр, не лекция",
                 desc: "Тесты нельзя угадать, финмодель считает твои цифры. Знание проверяется делом, а не конспектом.",
                 cta: "Открыть демо",
@@ -397,6 +421,9 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* ============ 5 НАСТАВЛЕНИЙ — липкие карточки ============ */}
+      <PreceptsSection />
+
       {/* ============ ДИФФЕРЕНЦИАТОР — финмодели ============ */}
       <section className="hero-ocean grain-fine">
         <Bubbles />
@@ -405,11 +432,12 @@ export default function Home() {
           <SectionHeading
               light
               eyebrow="Наш инструмент"
-              title="Финмодель, которая считает за тебя"
+              number="03"
+            title="Финмодель, которая считает за тебя"
               desc="Меняешь допущения — цифры пересчитываются вживую. P&L, cash flow, точка безубыточности. Экспорт в Excel. Это не лекция, а рабочий инструмент."
             />
             <div className="mt-8">
-              <Button href="/finmodels/finmodel-cafe" size="lg">
+              <Button href="/catalog?type=finmodel" size="lg">
                 Открыть демо финмодели
               </Button>
             </div>

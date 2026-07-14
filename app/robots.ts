@@ -1,15 +1,15 @@
 import type { MetadataRoute } from "next";
-
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://terenlabs.cc";
+import { SITE_URL } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      // служебные и приватные разделы ботам не нужны
+      // служебные и приватные разделы ботам не нужны (префикс без слэша
+      // покрывает и сам путь, и вложенные)
       disallow: ["/api/", "/dashboard", "/checkout", "/auth/"],
     },
-    sitemap: `${BASE}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

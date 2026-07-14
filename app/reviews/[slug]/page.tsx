@@ -4,6 +4,8 @@ import { ContentSidebar } from "@/components/ContentSidebar";
 import { getItem, REVIEWS } from "@/lib/content";
 import { getReviewDoc, REVIEW_DOCS } from "@/lib/reviews-data";
 import { itemMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return REVIEWS.map((r) => ({ slug: r.slug }));
@@ -24,6 +26,19 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   if (doc) {
     return (
       <div className="grid h-[calc(100dvh-65px)] grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[320px_1fr] lg:grid-rows-1">
+        <JsonLd
+          data={[
+            articleJsonLd({
+              headline: doc.title,
+              description: p.blurb,
+              path: `/reviews/${slug}`,
+            }),
+            breadcrumbJsonLd([
+              { name: "Обзоры ниш", path: "/catalog?type=review" },
+              { name: doc.title, path: `/reviews/${slug}` },
+            ]),
+          ]}
+        />
         <ContentSidebar
           title="Обзоры ниш"
           backHref="/catalog?type=review"

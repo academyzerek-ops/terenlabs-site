@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
 import { CATALOG, LEVELS } from "@/lib/content";
-
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://terenlabs.cc";
+import { SITE_URL as BASE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Только страницы с реальным контентом. Заглушки <Placeholder> «раздел готовится»
+  // (about/experts/contacts/b2b/club/blog/legal/*) в sitemap НЕ выдаём, чтобы Google
+  // не индексировал пустышки. Вернуть сюда, когда наполнятся (legal/* — после оферты/политики).
   const staticPages = [
-    "", "/catalog", "/free", "/ocean", "/levels", "/about", "/experts",
-    "/contacts", "/b2b", "/club", "/blog",
-    "/legal/offer", "/legal/privacy", "/legal/info",
+    "", "/catalog", "/free", "/ocean", "/levels",
   ].map((p) => ({
     url: `${BASE}${p || "/"}`,
     changeFrequency: "weekly" as const,

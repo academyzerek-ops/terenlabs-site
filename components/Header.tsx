@@ -11,7 +11,7 @@ const NAV = [
   { label: "Океан", href: "/levels" },
   { label: "Академия", href: "/catalog?type=course" },
   { label: "Кейсы", href: "/catalog?type=case" },
-  { label: "Обзоры", href: "/catalog?type=review" },
+  { label: "Аналитика", href: "/catalog?type=review" },
   { label: "Финпродукты", href: "/catalog?type=finmodel" },
   { label: "Бизнес-клуб", href: "/club" },
 ];

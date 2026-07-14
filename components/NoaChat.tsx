@@ -25,6 +25,7 @@ export function NoaChat() {
   const [busy, setBusy] = useState(false);
   const pathname = usePathname();
   const listRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   // Во время прохождения теста чата нет: (1) плавающая кнопка перекрывала
   // «Дальше» на мобиле, (2) ИИ рядом с вопросами — это подсказки в экзамене.
   const inTest = /^\/tests\/[^/]+\/take/.test(pathname ?? "");
@@ -33,6 +34,46 @@ export function NoaChat() {
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [msgs, open]);
+
+  // a11y-модалка: при открытии — фокус в поле ввода; Esc закрывает; Tab заперт
+  // внутри диалога; при закрытии фокус возвращается на вызвавший элемент.
+  useEffect(() => {
+    if (!open) return;
+    const dialog = dialogRef.current;
+    const prevFocused = document.activeElement as HTMLElement | null;
+    const focusables = () =>
+      dialog
+        ? Array.from(
+            dialog.querySelectorAll<HTMLElement>(
+              'button, textarea, input, a[href], [tabindex]:not([tabindex="-1"])',
+            ),
+          ).filter((el) => !el.hasAttribute("disabled"))
+        : [];
+    (dialog?.querySelector<HTMLElement>("textarea") ?? focusables()[0])?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const f = focusables();
+      if (f.length === 0) return;
+      const firstEl = f[0];
+      const lastEl = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      prevFocused?.focus?.();
+    };
+  }, [open]);
 
   // последнее AI-сообщение печатается посимвольно: target набегает из стрима,
   // интервал раскрывает текст порциями — живая «печать» вместо вываливания разом
@@ -144,8 +185,10 @@ export function NoaChat() {
       {/* панель чата */}
       {open && (
         <div
+          ref={dialogRef}
           className="fixed inset-x-0 bottom-0 z-50 flex h-[78vh] flex-col overflow-hidden rounded-t-[20px] border border-line bg-card shadow-[var(--shadow-tl-lg)] sm:inset-x-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[20px]"
           role="dialog"
+          aria-modal="true"
           aria-label="Чат TEREN-AI"
           style={{ overscrollBehavior: "contain" }}
         >

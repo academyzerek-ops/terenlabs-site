@@ -155,9 +155,11 @@ export function OceanLeaderboard() {
       )}
 
       {error && (
-        <p className="mt-10 text-center text-muted">Рейтинг сейчас недоступен — попробуй позже.</p>
+        <p role="alert" className="mt-10 text-center text-muted">Рейтинг сейчас недоступен — попробуй позже.</p>
       )}
-      {!data && !error && <p className="mt-10 text-center text-muted">Загружаю рейтинг…</p>}
+      {!data && !error && (
+        <p role="status" aria-live="polite" className="mt-10 text-center text-muted">Загружаю рейтинг…</p>
+      )}
 
       {data && (
         <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_320px]">
@@ -263,6 +265,7 @@ function Scope({
     <button
       onClick={onClick}
       disabled={disabled}
+      aria-pressed={active}
       className={`btn-press rounded-[var(--radius-tl)] border px-5 py-4 text-left transition-all ${
         active
           ? "border-teal bg-teal/10 shadow-[0_0_0_1px_var(--color-teal),0_8px_24px_rgba(0,183,194,0.15)]"

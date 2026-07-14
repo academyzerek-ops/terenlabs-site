@@ -239,7 +239,7 @@ export default function LevelsPage() {
                     <LevelCrowd levelKey={l.key} deep={deep} />
                   </p>
                   <div className="mt-2 flex flex-wrap items-baseline justify-center gap-3 sm:justify-start">
-                    <h2 className={`text-4xl sm:text-5xl ${heading}`}>{l.name}</h2>
+                    <h2 className={`text-4xl sm:text-5xl ${heading} ${i <= 2 ? "refract-low" : i <= 4 ? "refract-mid" : "refract-deep"}`}>{l.name}</h2>
                     {l.key === "krab" && (
                       <span className="rounded-full bg-teal px-3 py-1 text-[0.7rem] font-bold uppercase tracking-wide text-white shadow-[0_0_18px_rgba(0,183,194,0.5)]">
                         начни здесь

@@ -6,6 +6,9 @@ import { Header } from "@/components/Header";
 import { FooterGate } from "@/components/FooterGate";
 import { NoaChat } from "@/components/NoaChat";
 import { ScrollFX } from "@/components/ScrollFX";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/site";
+import { organizationJsonLd } from "@/lib/jsonld";
 
 // Дисплей/заголовки — Playfair Display (глубина, премиум)
 const playfair = Playfair_Display({
@@ -15,10 +18,11 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-// Текст/интерфейс — Source Sans 3
+// Текст/интерфейс — Source Sans 3 (явные веса — иначе тянутся ВСЕ, лишний вес шрифта)
 const sourceSans = Source_Sans_3({
   variable: "--font-source",
   subsets: ["latin", "cyrillic"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
@@ -30,7 +34,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://terenlabs.cc"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "TerenLabs — Глубина анализа. Сила результата.",
     template: "%s", // дочерние страницы сами добавляют «— TerenLabs»
@@ -73,10 +77,13 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSans.variable} ${jetbrains.variable} h-full`}
     >
       <body className="flex min-h-full flex-col">
+        <JsonLd data={organizationJsonLd()} />
+        {/* a11y: первый фокусируемый — пропуск навигации к содержимому (WCAG 2.4.1) */}
+        <a href="#main" className="skip-link">Перейти к содержимому</a>
         <Suspense fallback={<div className="h-16" />}>
           <Header />
         </Suspense>
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">{children}</main>
         <Suspense fallback={null}>
           <FooterGate />
         </Suspense>

@@ -145,7 +145,14 @@ export function TestRunner({
           <span>{title}</span>
           <span className="num">{i + 1} / {questions.length}</span>
         </div>
-        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-line">
+        <div
+          className="mt-2 h-1.5 overflow-hidden rounded-full bg-line"
+          role="progressbar"
+          aria-label="Прогресс теста"
+          aria-valuenow={i}
+          aria-valuemin={0}
+          aria-valuemax={questions.length}
+        >
           <div
             className="h-full rounded-full bg-teal transition-all duration-300"
             style={{ width: `${(i / questions.length) * 100}%` }}
@@ -156,12 +163,14 @@ export function TestRunner({
       <h1 className="mt-8 text-2xl text-heading">{q.q}</h1>
 
       {/* выбор можно менять до «Дальше»; правильный ответ не подсвечивается */}
-      <div className="mt-6 space-y-3">
+      <div className="mt-6 space-y-3" role="radiogroup" aria-label="Варианты ответа">
         {q.options.map((o, idx) => {
           const selected = picked === idx;
           return (
             <button
               key={idx}
+              role="radio"
+              aria-checked={selected}
               onClick={() => {
                 const nextAnswers = [...answers];
                 nextAnswers[i] = idx;

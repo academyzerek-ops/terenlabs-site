@@ -69,6 +69,7 @@ function makeSeabed(): THREE.Texture {
 
 function Seabed() {
   const tex = useMemo(makeSeabed, []);
+  useEffect(() => () => tex.dispose(), [tex]); // освобождаем GPU-текстуру при анмаунте
   return (
     <mesh position={[0, -24, -210]} rotation={[-Math.PI / 2.15, 0, 0]}>
       <planeGeometry args={[260, 160]} />
@@ -79,6 +80,7 @@ function Seabed() {
 
 function Caustics() {
   const tex = useMemo(makeCaustic, []);
+  useEffect(() => () => tex.dispose(), [tex]); // освобождаем GPU-текстуру при анмаунте
   const mat = useRef<THREE.MeshBasicMaterial>(null);
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -147,6 +149,7 @@ function makeSprite(): THREE.Texture {
 function DepthField({ count, scroll }: { count: number; scroll: React.RefObject<number> }) {
   const ref = useRef<THREE.Points>(null);
   const sprite = useMemo(makeSprite, []);
+  useEffect(() => () => sprite.dispose(), [sprite]); // освобождаем GPU-текстуру при анмаунте
   const DEPTH = 260; // длина толщи по z
 
   const { positions, colors } = useMemo(() => {
@@ -215,6 +218,7 @@ function LightShafts({ scroll }: { scroll: React.RefObject<number> }) {
     ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
     return new THREE.CanvasTexture(c);
   }, []);
+  useEffect(() => () => tex.dispose(), [tex]); // освобождаем GPU-текстуру при анмаунте
 
   useFrame((state) => {
     if (!group.current) return;
@@ -274,10 +278,19 @@ export function OceanScene() {
   const scroll = useScrollProgress();
   const [reduced, setReduced] = useState(false);
   const [count, setCount] = useState(1100);
+  // Пауза рендера при скрытой вкладке: WebGL-цикл (Bloom + ~1100 частиц + меши)
+  // не должен жечь GPU/батарею в фоне. frameloop="never" останавливает RAF.
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     if (window.innerWidth < 768) setCount(500);
+  }, []);
+
+  useEffect(() => {
+    const onVis = () => setVisible(!document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
   if (reduced) return null;
@@ -287,7 +300,7 @@ export function OceanScene() {
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       dpr={[1, 1.75]}
       camera={{ position: [0, 0, 6], fov: 62 }}
-      frameloop="always"
+      frameloop={visible ? "always" : "never"}
       style={{ position: "fixed", inset: 0 }}
     >
       <fog attach="fog" args={["#04101d", 16, 64]} />

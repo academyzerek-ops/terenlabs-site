@@ -57,19 +57,28 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
               <span>Прогресс</span>
               <span className="num">{progress}%</span>
             </div>
-            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-line">
+            <div
+              className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-line"
+              role="progressbar"
+              aria-label="Прогресс курса"
+              aria-valuenow={progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
               <div className="h-full rounded-full bg-teal transition-all duration-500" style={{ width: `${progress}%` }} />
             </div>
           </div>
           <button
             onClick={() => setNavOpen((v) => !v)}
+            aria-expanded={navOpen}
+            aria-controls="course-nav"
             className="mt-4 w-full rounded-lg border border-line py-2 text-sm text-heading lg:hidden"
           >
             {navOpen ? "Скрыть содержание" : "Содержание курса"}
           </button>
         </div>
 
-        <nav className={`${navOpen ? "block" : "hidden"} min-h-0 flex-1 overflow-y-auto p-3 lg:block`}>
+        <nav id="course-nav" aria-label="Содержание курса" className={`${navOpen ? "block" : "hidden"} min-h-0 flex-1 overflow-y-auto p-3 lg:block`}>
           {course.modules.map((m) => (
             <div key={m.id} className="mb-4">
               <p className="eyebrow px-2">{m.title}</p>
@@ -83,11 +92,13 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
                       <button
                         key={s.id}
                         onClick={() => { go(idx); setNavOpen(false); }}
+                        aria-current={active ? "step" : undefined}
                         className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors ${
                           active ? "bg-teal text-white" : "text-heading hover:bg-card"
                         }`}
                       >
                         <span
+                          aria-hidden="true"
                           className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border text-[0.6rem] ${
                             complete
                               ? "border-teal bg-teal text-white"
@@ -98,6 +109,7 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
                         >
                           {complete ? "✓" : ""}
                         </span>
+                        {complete && <span className="sr-only">пройдено: </span>}
                         {/* длинные названия переносятся, а не обрезаются многоточием */}
                         <span className="min-w-0 flex-1 leading-snug">{s.title}</span>
                         <KindTag kind={s.kind} />

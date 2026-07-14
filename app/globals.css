@@ -90,6 +90,30 @@ a {
   touch-action: manipulation;
 }
 
+/* a11y: единый видимый фокус для клавиатуры (раньше местами outline:none без замены) */
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* a11y: skip-link «Перейти к содержимому» — скрыт, пока не получит фокус по Tab */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  z-index: 1000;
+  padding: 10px 16px;
+  background: var(--color-teal);
+  color: #04222a;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: top 0.15s var(--ease-out-tl);
+}
+.skip-link:focus {
+  top: 12px;
+}
+
 /* Цифры/данные — табличные цифры, но текстовым шрифтом (без моно) */
 .num {
   font-feature-settings: "tnum" 1;
@@ -818,4 +842,52 @@ a:active {
 }
 @media (prefers-reduced-motion: reduce) {
   .bub-trail { animation: none; opacity: 0; }
+}
+
+/* Кейсы-досье: цветовое поле исхода углубляется на hover (как разделы Stripe Press) */
+.case-card {
+  background-image: linear-gradient(0deg, var(--field, transparent), var(--field, transparent));
+}
+.case-card:hover {
+  background-image: linear-gradient(0deg, var(--field-hover, transparent), var(--field-hover, transparent));
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-lesson { transition: opacity 200ms; transform: none; }
+  .case-card:hover .case-lesson { transform: none; }
+}
+
+/* ============================================================
+   UNDERWATER REFRACTION — эффект плавающего текста (Волна 4)
+   ============================================================ */
+@keyframes tl-refract {
+  0%, 100% { transform: scale(1) skew(0deg); filter: blur(0px); }
+  50% { transform: scale(1.01) skew(0.4deg); filter: blur(0.4px); }
+}
+
+.refract-low {
+  animation: tl-refract 4s ease-in-out infinite;
+}
+
+.refract-mid {
+  animation: tl-refract 3s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+.refract-deep {
+  animation: tl-refract 2.5s ease-in-out infinite;
+  animation-delay: -0.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .refract-low, .refract-mid, .refract-deep { animation: none; }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

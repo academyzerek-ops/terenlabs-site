@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ProductCard } from "./ProductCard";
+import { CaseCard } from "./CaseCard";
 import { CatalogItem, plural } from "@/lib/content";
 
 // Порция выдачи: 90 кейсов одной лентой не показываем
@@ -69,7 +69,7 @@ export function CaseGrid({ items }: { items: CatalogItem[] }) {
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((p) => (
-          <ProductCard key={`${p.type}-${p.slug}`} p={p} />
+          <CaseCard key={`${p.type}-${p.slug}`} p={p} />
         ))}
       </div>
       {rest > 0 && (

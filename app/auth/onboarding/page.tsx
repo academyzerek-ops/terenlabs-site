@@ -104,7 +104,7 @@ export default function OnboardingPage() {
             </label>
           </div>
 
-          {err && <p className="mt-4 text-sm text-[var(--color-danger)]">{err}</p>}
+          {err && <p role="alert" className="mt-4 text-sm text-[var(--color-danger)]">{err}</p>}
 
           <button
             onClick={submit}

@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { OceanAmbient } from "./OceanAmbient";
 
 // ОДИН WebGL-океан фиксирован за всей страницей. Контент скроллится поверх,
 // камера летит вглубь. До загрузки и при reduced-motion — градиент глубины.
@@ -20,6 +21,7 @@ export function OceanBackground() {
         }}
       />
       <OceanScene />
+      <OceanAmbient />
     </div>
   );
 }

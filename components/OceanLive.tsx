@@ -52,9 +52,15 @@ function timeAgo(iso: string): string {
 let actCache: Promise<ActEntry[]> | null = null;
 function getActivity(): Promise<ActEntry[]> {
   actCache ??= fetch(`${OCEAN_API}/activity?limit=20`)
-    .then((r) => r.json())
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`); // не парсить error-страницу как JSON
+      return r.json();
+    })
     .then((d) => (d.entries || []) as ActEntry[])
-    .catch(() => []);
+    .catch(() => {
+      actCache = null; // ошибка сети/сервера — не кэшируем пустоту, дать ретрай
+      return [] as ActEntry[];
+    });
   return actCache;
 }
 
