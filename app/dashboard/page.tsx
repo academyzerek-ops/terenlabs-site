@@ -9,7 +9,7 @@ import { auth, signOut } from "@/auth";
 export const metadata = { title: "Личный кабинет — TerenLabs" };
 
 // Кабинет работает и анониму (локальная память устройства).
-// Вход (Google/Apple) добавляет профиль; этап B — синк памяти и рейтинг «Океана».
+// Вход через Telegram добавляет профиль; прогресс общий с Mini App.
 export default async function Dashboard() {
   const session = await auth();
   const recommendations = CATALOG.filter((p) => !p.stub && p.type !== "case").slice(0, 3);
@@ -64,7 +64,7 @@ export default async function Dashboard() {
               href="/auth/sign-in"
               className="group rounded-[var(--radius-tl)] border border-teal/40 bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow)]"
             >
-              <div className="text-heading">Войти — Telegram, Google или Apple</div>
+              <div className="text-heading">Войти через Telegram</div>
               <div className="mt-1 max-w-[240px] text-xs text-muted">
                 Статистика, память между устройствами и место в рейтинге «Океана»
               </div>
