@@ -35,6 +35,17 @@ export function NoaChat() {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [msgs, open]);
 
+  // мобильный шит: пока чат открыт — фон не скроллится (иначе страница
+  // гуляет под панелью и выглядит криво)
+  useEffect(() => {
+    if (!open || window.innerWidth >= 640) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   // a11y-модалка: при открытии — фокус в поле ввода; Esc закрывает; Tab заперт
   // внутри диалога; при закрытии фокус возвращается на вызвавший элемент.
   useEffect(() => {
@@ -186,7 +197,7 @@ export function NoaChat() {
       {open && (
         <div
           ref={dialogRef}
-          className="fixed inset-x-0 bottom-0 z-50 flex h-[78vh] flex-col overflow-hidden rounded-t-[20px] border border-line bg-card shadow-[var(--shadow-tl-lg)] sm:inset-x-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[20px]"
+          className="fixed inset-x-0 bottom-0 z-50 flex h-[78dvh] flex-col overflow-hidden rounded-t-[20px] border border-line bg-card shadow-[var(--shadow-tl-lg)] sm:inset-x-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[20px]"
           role="dialog"
           aria-modal="true"
           aria-label="Чат TEREN-AI"
@@ -255,7 +266,7 @@ export function NoaChat() {
               rows={1}
               placeholder="Спроси про бизнес…"
               aria-label="Вопрос для TEREN-AI"
-              className="max-h-28 flex-1 resize-none rounded-xl border border-line bg-subtle px-3.5 py-2.5 text-sm text-body outline-none transition-colors placeholder:text-muted focus-visible:border-teal"
+              className="max-h-28 flex-1 resize-none rounded-xl border border-line bg-subtle px-3.5 py-2.5 text-[16px] sm:text-sm text-body outline-none transition-colors placeholder:text-muted focus-visible:border-teal"
             />
             <button
               type="submit"

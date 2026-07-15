@@ -8,6 +8,7 @@ import { OceanBubbles, LevelArrival } from "@/components/OceanLive";
 import { LevelCrowd } from "@/components/OceanPulse";
 import { OceanAccount } from "@/components/OceanAccount";
 import { OceanBackground } from "@/components/OceanBackground";
+import { LevelStatusChip, ContinueCta } from "@/components/OceanPath";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
 export const metadata = { title: "Уровни «Океан» — TerenLabs" };
@@ -240,11 +241,9 @@ export default function LevelsPage() {
                   </p>
                   <div className="mt-2 flex flex-wrap items-baseline justify-center gap-3 sm:justify-start">
                     <h2 className={`text-4xl sm:text-5xl ${heading} ${i <= 2 ? "refract-low" : i <= 4 ? "refract-mid" : "refract-deep"}`}>{l.name}</h2>
-                    {l.key === "krab" && (
-                      <span className="rounded-full bg-teal px-3 py-1 text-[0.7rem] font-bold uppercase tracking-wide text-white shadow-[0_0_18px_rgba(0,183,194,0.5)]">
-                        начни здесь
-                      </span>
-                    )}
+                    {/* вошедшему — «✓ пройден»/«ты здесь» по его прогрессу, анониму —
+                        «начни здесь» на Крабе (как раньше) */}
+                    <LevelStatusChip levelKey={l.key} />
                     {l.locked && (
                       <span className={`rounded-full px-3 py-1 text-[0.7rem] font-semibold ${deep ? "bg-white/10 text-foam/55" : "bg-navy/10 text-navy/55"}`}>
                         закрыт
@@ -285,7 +284,7 @@ export default function LevelsPage() {
 
                   <p className="mt-5">
                     {l.key === "krab" ? (
-                      <Button href="/levels/krab">Пройти тест на Краба</Button>
+                      <ContinueCta />
                     ) : (
                       <Link
                         href={`/levels/${l.key}`}
@@ -315,9 +314,7 @@ export default function LevelsPage() {
               Дно — это не конец. Это место, откуда видно весь океан.
             </p>
             <div className="mt-8">
-              <Button href="/levels/krab" size="lg">
-                Пройти тест на Краба
-              </Button>
+              <ContinueCta size="lg" />
             </div>
           </div>
         </Reveal>

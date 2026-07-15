@@ -98,7 +98,7 @@ export function Header() {
 
       {/* Мобильное меню — стеклянная панель под шапкой */}
       {open && (
-        <div className="glass-bar mx-3 mt-2 lg:hidden">
+        <div className="glass-bar glass-bar--panel relative mx-3 mt-2 lg:hidden">
           <div className="flex flex-col px-5 py-3">
             {NAV.map((n) => (
               <Link key={n.href} href={n.href} className="py-2.5 text-navy" onClick={() => setOpen(false)}>

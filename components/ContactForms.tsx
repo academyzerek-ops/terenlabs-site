@@ -67,7 +67,7 @@ function ContactCard({ t }: { t: (typeof TOPICS)[number] }) {
         maxLength={4000}
         rows={5}
         placeholder={t.placeholder}
-        className="mt-4 w-full rounded-[var(--radius-tl)] border border-line bg-subtle p-4 text-[0.95rem] leading-relaxed text-heading outline-none transition-colors placeholder:text-muted/60 focus:border-teal"
+        className="mt-4 w-full rounded-[var(--radius-tl)] border border-line bg-subtle p-4 text-[16px] sm:text-[0.95rem] leading-relaxed text-heading outline-none transition-colors placeholder:text-muted/60 focus:border-teal"
       />
       {state === "error" && (
         <p className="mt-2 text-sm text-[var(--color-danger)]">

@@ -691,7 +691,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
               maxLength={4000}
               rows={8}
               placeholder="Твой ответ своими словами — рассуждение и цифры ценнее «правильных слов»…"
-              className="mt-6 w-full rounded-[var(--radius-tl)] border border-line bg-card p-4 text-[0.95rem] leading-relaxed text-heading outline-none transition-colors placeholder:text-muted/60 focus:border-teal"
+              className="mt-6 w-full rounded-[var(--radius-tl)] border border-line bg-card p-4 text-[16px] sm:text-[0.95rem] leading-relaxed text-heading outline-none transition-colors placeholder:text-muted/60 focus:border-teal"
             />
             <p className="mt-2 text-right text-xs text-muted">
               {typeof picked === "string" ? picked.length : 0} / 4000

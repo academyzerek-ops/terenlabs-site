@@ -3,7 +3,16 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { OCEAN_RANKS } from "@/lib/content";
-import { getOceanToken, loginBridge, oceanFetch, setOceanToken } from "@/lib/ocean";
+import {
+  getOceanToken,
+  loginBridge,
+  oceanFetch,
+  oceanSignOut,
+  OceanProgress,
+  isTestPassed,
+  LEVEL_TESTS,
+} from "@/lib/ocean";
+import { SHARK_CASES } from "@/lib/ocean-tests";
 
 // Океан-блок кабинета (12_OCEAN.md, этап 2): живая статистика с бэкенда —
 // та же, что в Mini App. Если юзер вошёл через Google/Apple, а океан-токена
@@ -42,6 +51,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
   const [hasToken, setHasToken] = useState(false);
   const [rank, setRank] = useState<Rank | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
+  const [progress, setProgress] = useState<OceanProgress | null>(null);
   const [linkCode, setLinkCode] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -52,12 +62,14 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
     }
     setHasToken(true);
     try {
-      const [r, s] = await Promise.all([
+      const [r, s, p] = await Promise.all([
         oceanFetch<Rank>("/me/rank"),
         oceanFetch<Stats>("/me/stats").catch(() => null),
+        oceanFetch<OceanProgress>("/me/progress").catch(() => null),
       ]);
       setRank(r);
       setStats(s);
+      setProgress(p);
     } catch {
       setRank(null);
     }
@@ -116,6 +128,38 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
         <Cell label="стрик дней" value={String(rank?.streak?.current ?? 0)} sub={rank?.streak?.longest ? `рекорд ${rank.streak.longest}` : undefined} />
       </div>
 
+      {/* путь по уровням — сданные тесты, как счётчики в дашборде Mini App */}
+      {progress && (
+        <div className="mt-4 flex flex-wrap gap-2.5">
+          {(
+            [
+              ["crab", "Краб", LEVEL_TESTS.crab],
+              ["barracuda", "Барракуда", LEVEL_TESTS.barracuda],
+              ["dolphin", "Дельфин", LEVEL_TESTS.dolphin],
+              ["shark", "Акула", SHARK_CASES.map((c) => c.id)],
+            ] as [string, string, string[]][]
+          ).map(([id, name, tests]) => {
+            const passed = tests.filter((t) => isTestPassed(progress, id, t)).length;
+            const full = passed === tests.length;
+            return (
+              <span
+                key={id}
+                className={`num rounded-full border px-3.5 py-1.5 text-xs font-semibold ${
+                  full
+                    ? "border-teal/60 text-teal-600"
+                    : passed > 0
+                    ? "border-line text-heading"
+                    : "border-line text-muted"
+                }`}
+              >
+                {name} {passed}/{tests.length}
+                {full && " ✓"}
+              </span>
+            );
+          })}
+        </div>
+      )}
+
       {stats && stats.attempts > 0 && (
         <p className="num mt-4 text-sm text-muted">
           попыток: {stats.attempts}
@@ -145,7 +189,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
           </span>
         )}
         <button
-          onClick={() => setOceanToken(null)}
+          onClick={() => oceanSignOut()}
           className="text-muted hover:text-heading"
         >
           Выйти из Океана
