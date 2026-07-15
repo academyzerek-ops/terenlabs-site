@@ -20,6 +20,9 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+# тег сборки и в рантайме: футер — серверный компонент, читает env при рендере
+ARG RAILWAY_GIT_COMMIT_SHA=dev
+ENV NEXT_PUBLIC_BUILD=$RAILWAY_GIT_COMMIT_SHA
 
 # Безопасность: не работаем под root
 RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
