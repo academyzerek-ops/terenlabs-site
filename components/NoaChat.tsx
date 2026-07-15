@@ -197,7 +197,7 @@ export function NoaChat() {
       {open && (
         <div
           ref={dialogRef}
-          className="fixed inset-x-0 bottom-0 z-50 flex h-[78dvh] flex-col overflow-hidden rounded-t-[20px] border border-line bg-card shadow-[var(--shadow-tl-lg)] sm:inset-x-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[20px]"
+          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-card shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[20px] sm:border sm:border-line"
           role="dialog"
           aria-modal="true"
           aria-label="Чат TEREN-AI"
@@ -214,10 +214,10 @@ export function NoaChat() {
             </div>
             <button
               onClick={() => setOpen(false)}
-              aria-label="Закрыть"
-              className="text-foam/60 transition-colors hover:text-teal sm:hidden"
+              aria-label="Закрыть чат"
+              className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full text-foam/80 transition-colors hover:text-teal active:bg-white/10 sm:hidden"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" />
               </svg>
             </button>
