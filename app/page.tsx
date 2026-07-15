@@ -10,6 +10,7 @@ import { MiniModel } from "@/components/MiniModel";
 import { DepthGauge } from "@/components/DepthGauge";
 import { OceanNowChip } from "@/components/OceanPulse";
 import { OceanFinaleLive } from "@/components/OceanLive";
+import { ContinueCta } from "@/components/OceanPath";
 import { LandingTest } from "@/components/LandingTest";
 import { PreceptsSection } from "@/components/PreceptsSection";
 import { WordDrum } from "@/components/WordDrum";
@@ -137,8 +138,7 @@ export default function Home() {
             </span>
             <WordDrum
               words={["Академия", "Финмодель", "Аналитика бизнеса", "Бизнес-план"]}
-              height={68}
-              className="max-w-full text-[clamp(1.2rem,3.2vw,2.5rem)] font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
+              className="font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
             />
           </p>
         </Container>
@@ -480,9 +480,8 @@ export default function Home() {
 
           <Reveal delay={220}>
             <div className="mt-12">
-              <Button href="/levels/krab" size="lg" className="shadow-[0_8px_36px_rgba(0,183,194,0.4)]">
-                Пройти тест на Краба
-              </Button>
+              {/* вошедшему — «Продолжить — <его уровень>» (Адиль: не звать Барракуду на Краба) */}
+              <ContinueCta size="lg" className="shadow-[0_8px_36px_rgba(0,183,194,0.4)]" />
             </div>
           </Reveal>
         </Container>

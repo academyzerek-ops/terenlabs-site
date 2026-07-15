@@ -110,11 +110,11 @@ export function LevelStatusChip({ levelKey }: { levelKey: string }) {
 }
 
 /** СТА пути: анониму — «Пройти тест на Краба», вошедшему — продолжить свой уровень. */
-export function ContinueCta({ size }: { size?: "md" | "lg" }) {
+export function ContinueCta({ size, className = "" }: { size?: "md" | "lg"; className?: string }) {
   const { ready, p } = useOceanPath();
   if (!ready || !p) {
     return (
-      <Button href="/levels/krab" size={size}>
+      <Button href="/levels/krab" size={size} className={className}>
         Пройти тест на Краба
       </Button>
     );
@@ -122,13 +122,13 @@ export function ContinueCta({ size }: { size?: "md" | "lg" }) {
   const current = currentLevelId(p);
   if (current === "whale") {
     return (
-      <Button href="/ocean" size={size}>
+      <Button href="/ocean" size={size} className={className}>
         Ты прошёл океан — смотри рейтинг
       </Button>
     );
   }
   return (
-    <Button href={`/levels/${ID2KEY[current]}`} size={size}>
+    <Button href={`/levels/${ID2KEY[current]}`} size={size} className={className}>
       Продолжить — {LEVEL_RU[current]}
     </Button>
   );
