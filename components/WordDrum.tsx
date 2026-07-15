@@ -73,6 +73,11 @@ export function WordDrum({
   const longest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
   // полоса 16–84%: держит выносные, гасит края соседних граней барабана
   const fade = "linear-gradient(transparent 0%, #000 16%, #000 84%, transparent 100%)";
+  // КОРЕНЬ «барабан срезан»: translateZ приближает активную грань к зрителю,
+  // и перспектива рендерит её на P/(P−z) КРУПНЕЕ ширины, измеренной сайзером —
+  // overflow:hidden срезал этот излишек справа. Компенсируем обратным scale.
+  const PERSPECTIVE = 900;
+  const zComp = (PERSPECTIVE - radius) / PERSPECTIVE;
 
   const wrap: CSSProperties = {
     position: "relative",
@@ -83,7 +88,7 @@ export function WordDrum({
     // «Аналитика бизнеса» ≈ 9.3em — при 10cqw слово физически уже контейнера.
     // JS-фит ниже уточняет размер точным замером.
     fontSize: `min(${fontPx}px, 8.4cqw)`,
-    perspective: 900,
+    perspective: PERSPECTIVE,
     overflow: "hidden",
     verticalAlign: "bottom",
     WebkitMaskImage: fade,
@@ -104,7 +109,8 @@ export function WordDrum({
     justifyContent: "flex-start",
     whiteSpace: "nowrap",
     backfaceVisibility: "hidden",
-    transform: `rotateX(${i * step}deg) translateZ(${radius}px)`,
+    transformOrigin: "left center",
+    transform: `rotateX(${i * step}deg) translateZ(${radius}px) scale(${zComp.toFixed(4)})`,
   });
 
   return (
