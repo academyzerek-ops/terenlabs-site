@@ -62,12 +62,20 @@ function Creature({ p, texture }: { p: P; texture: THREE.Texture }) {
   const img = texture.image as { width: number; height: number } | undefined;
   const aspect = img && img.height ? img.width / img.height : 1;
   const mesh = useRef<THREE.Mesh>(null);
+  const baseOpacity = p.dim ?? 0.98;
 
   useFrame((state, dt) => {
     const g = ref.current;
     if (!g) return;
     const t = state.clock.elapsedTime;
     const d = Math.min(dt, 0.05);
+    // «Глубина резкости»: вплотную к камере существо растворяется в толще —
+    // и близко текстура (512px) никогда не растягивается до мыла. Полная
+    // видимость дальше FADE_FAR, ноль — ближе FADE_NEAR.
+    const FADE_FAR = 26, FADE_NEAR = 9;
+    const dz = state.camera.position.z - p.z; // камера летит к -z, существо впереди при dz>0
+    const k = Math.min(1, Math.max(0, (dz - FADE_NEAR) / (FADE_FAR - FADE_NEAR)));
+    if (mesh.current) (mesh.current.material as THREE.MeshBasicMaterial).opacity = baseOpacity * k;
     if (p.kind === "swim") {
       g.position.x += dir.current * (p.speed ?? 1) * d;
       if (g.position.x > SPAN) g.position.x = -SPAN;

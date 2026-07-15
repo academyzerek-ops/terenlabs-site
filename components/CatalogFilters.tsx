@@ -15,13 +15,8 @@ const CATEGORIES = {
     { id: "T2", label: "Уровень T2" },
     { id: "T3", label: "Уровень T3" },
   ],
-  // кейсы — как в Mini App (#cases-filter): Все · Красный · Жёлтый · Зелёный
-  case: [
-    { id: "all", label: "Все" },
-    { id: "r", label: "Красный" },
-    { id: "y", label: "Жёлтый" },
-    { id: "g", label: "Зелёный" },
-  ],
+  // кейсы: фильтры исходов живут внутри PosterArchive (цветные точки, как в Mini App)
+  case: [],
   review: [
     { id: "all", label: "Все" },
     { id: "food", label: "Еда и напитки" },

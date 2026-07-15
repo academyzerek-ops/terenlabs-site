@@ -282,9 +282,14 @@ export function OceanScene() {
   // не должен жечь GPU/батарею в фоне. frameloop="never" останавливает RAF.
   const [visible, setVisible] = useState(true);
 
+  const [mobile, setMobile] = useState(false);
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     if (window.innerWidth < 768) setCount(500);
+    // на телефонах WebGL (Bloom + сотни частиц на fixed-канвасе) жрёт батарею и
+    // роняет fps на средних андроидах — отдаём градиент глубины + CSS-пузыри
+    // (OceanAmbient), они уже под сценой в OceanBackground
+    setMobile(window.innerWidth < 768);
   }, []);
 
   useEffect(() => {
@@ -293,12 +298,12 @@ export function OceanScene() {
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
-  if (reduced) return null;
+  if (reduced || mobile) return null;
 
   return (
     <Canvas
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      dpr={[1, 1.75]}
+      dpr={[1, 2]}
       camera={{ position: [0, 0, 6], fov: 62 }}
       frameloop={visible ? "always" : "never"}
       style={{ position: "fixed", inset: 0 }}

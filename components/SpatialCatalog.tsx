@@ -158,7 +158,7 @@ export function SpatialCatalog({ items }: { items: CatalogItem[] }) {
                       alt={item.title} 
                       fill 
                       sizes="(max-width: 768px) 300px, 340px"
-                      className="object-cover opacity-40 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                      className="object-cover opacity-70 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-navy-950 text-7xl opacity-10">

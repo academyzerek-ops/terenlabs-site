@@ -27,6 +27,15 @@ import {
 // (как tl-ocean-progress в Mini App) — можно вернуться на тот же вопрос.
 const LETTERS = ["А", "Б", "В", "Г"];
 
+// тип вопроса — как KIND_LABEL в ocean.js: помогает переключить голову «сейчас считать»
+const KIND_LABEL: Record<string, string> = {
+  theory: "Теория",
+  calc: "Расчёт",
+  calculation: "Расчёт",
+  mixed: "Универсальный",
+  open: "Свой ответ",
+};
+
 type Phase = "intro" | "quiz" | "checking" | "result" | "submit-error";
 type Answer = number | string | null;
 
@@ -643,8 +652,13 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           </details>
         )}
 
-        {/* вопрос */}
-        <p className={`${q.vignette ? "mt-6" : "mt-8"} text-lg leading-relaxed text-heading sm:text-xl`}>
+        {/* тип вопроса + вопрос */}
+        {!isOpen && q.kind && KIND_LABEL[q.kind] && (
+          <span className="num mt-8 inline-block rounded-full bg-teal/10 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-teal-600">
+            {KIND_LABEL[q.kind]}
+          </span>
+        )}
+        <p className={`${q.vignette || (!isOpen && q.kind) ? "mt-4" : "mt-8"} text-lg leading-relaxed text-heading sm:text-xl`}>
           {q.q}
         </p>
 

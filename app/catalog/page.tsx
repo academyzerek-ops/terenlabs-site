@@ -2,6 +2,7 @@ import { Container } from "@/components/Container";
 import Link from "next/link";
 import Image from "next/image";
 import { SpatialCatalog } from "@/components/SpatialCatalog";
+import { PosterArchive } from "@/components/PosterArchive";
 import { CatalogFilters } from "@/components/CatalogFilters";
 import { Suspense } from "react";
 import { CATALOG } from "@/lib/content";
@@ -122,36 +123,42 @@ export default async function CatalogPage({
           />
         )}
 
-        <Container className="relative z-10 pt-24 pb-4 sm:pt-32 sm:pb-8 lg:pt-40 lg:pb-8">
-          <div className="flex items-center gap-4 mb-6 rise">
+        {/* компактный ритм: первый ряд карточек должен заглядывать в первый экран */}
+        <Container className="relative z-10 pt-20 pb-2 sm:pt-24 sm:pb-4">
+          <div className="flex items-center gap-4 mb-5 rise">
             <span className="font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-teal">
               {s.eyebrow}
             </span>
             <div className="h-px w-20 bg-teal/30" />
           </div>
-          
-          <h1 
-            className="rise mt-4 max-w-4xl text-5xl font-black !text-foam sm:text-7xl lg:text-8xl leading-[0.95]" 
+
+          <h1
+            className="rise max-w-4xl text-4xl font-black !text-foam sm:text-6xl leading-[0.98]"
             style={{ animationDelay: "100ms", letterSpacing: "-0.03em" }}
           >
             {s.title}
           </h1>
-          
-          <p 
-            className="rise mt-10 max-w-2xl text-xl leading-relaxed text-foam/60 sm:text-2xl font-light" 
+
+          <p
+            className="rise mt-5 max-w-2xl text-lg leading-relaxed text-foam/60 sm:text-xl font-light"
             style={{ animationDelay: "200ms" }}
           >
             {s.desc}
           </p>
 
           {/* Декоративный штрих снизу */}
-          <div className="mt-16 h-px w-full bg-gradient-to-r from-teal/40 via-teal/10 to-transparent" />
+          <div className="mt-8 h-px w-full bg-gradient-to-r from-teal/40 via-teal/10 to-transparent" />
           <Suspense fallback={null}><CatalogFilters type={t} /></Suspense>
         </Container>
       </section>
 
-      {/* Интерактивный пространственный каталог (Sonar Scan) */}
-      {items.length > 0 ? (
+      {/* Кейсы и обзоры — bento-архив на кинокадрах (сетка масштабируется на сотни
+          позиций); остальные типы — пространственная лента (Sonar Scan) */}
+      {t === "case" ? (
+        <PosterArchive items={items} kind="case" />
+      ) : t === "review" && items.length > 0 ? (
+        <PosterArchive items={items} kind="review" />
+      ) : items.length > 0 ? (
         <SpatialCatalog items={shuffledItems} />
       ) : (
         <div className="deck py-24">
