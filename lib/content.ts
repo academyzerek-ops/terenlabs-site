@@ -36,12 +36,12 @@ export const INTENTS = [
 
 // ?v=2 — cache-bust после перенарезки иконок (браузер кэширует по имени файла)
 export const OCEAN_RANKS = [
-  { key: "rakushka", name: "Ракушка", meaning: "Старт", color: "var(--color-rank-rakushka)", img: "/brand/ranks/rakushka.png?v=11" },
-  { key: "krab", name: "Краб", meaning: "Продвижение", color: "var(--color-rank-krab)", img: "/brand/ranks/krab.png?v=11" },
-  { key: "barrakuda", name: "Барракуда", meaning: "Ускорение", color: "var(--color-rank-barrakuda)", img: "/brand/ranks/barrakuda.png?v=11" },
-  { key: "delfin", name: "Дельфин", meaning: "Мастерство", color: "var(--color-rank-delfin)", img: "/brand/ranks/delfin.png?v=11" },
-  { key: "akula", name: "Акула", meaning: "Этапный партнёр", color: "var(--color-rank-akula)", img: "/brand/ranks/akula.png?v=11" },
-  { key: "kit", name: "Кит", meaning: "Вершина", color: "var(--color-rank-kit)", img: "/brand/ranks/kit.png?v=11" },
+  { key: "rakushka", name: "Ракушка", meaning: "Старт", color: "var(--color-rank-rakushka)", img: "/brand/ranks/rakushka.webp?v=12" },
+  { key: "krab", name: "Краб", meaning: "Продвижение", color: "var(--color-rank-krab)", img: "/brand/ranks/krab.webp?v=12" },
+  { key: "barrakuda", name: "Барракуда", meaning: "Ускорение", color: "var(--color-rank-barrakuda)", img: "/brand/ranks/barrakuda.webp?v=12" },
+  { key: "delfin", name: "Дельфин", meaning: "Мастерство", color: "var(--color-rank-delfin)", img: "/brand/ranks/delfin.webp?v=12" },
+  { key: "akula", name: "Акула", meaning: "Этапный партнёр", color: "var(--color-rank-akula)", img: "/brand/ranks/akula.webp?v=12" },
+  { key: "kit", name: "Кит", meaning: "Вершина", color: "var(--color-rank-kit)", img: "/brand/ranks/kit.webp?v=12" },
 ];
 
 // карта key → картинка ранга (для уровней)

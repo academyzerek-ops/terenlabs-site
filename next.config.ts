@@ -53,6 +53,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // HTML-страницы (пути без точки, вне /_next): браузер обязан ревалидировать.
+        // Дефолт Next отдаёт только s-maxage (для CDN) — Safari на телефонах
+        // эвристически кешировал страницы и неделю показывал старую сборку
+        // (три круга «барабан срезан» у Адиля 15.07). Ассеты с хешами не трогаем.
+        source: "/((?!_next/)[^.]*)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
+      },
+      {
         source: "/:path*",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
