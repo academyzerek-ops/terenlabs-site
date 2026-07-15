@@ -30,6 +30,10 @@
    {
     "id": "course-legal",
     "title": "Юридическая грамотность"
+   },
+   {
+    "id": "course-models",
+    "title": "Бизнес-модели"
    }
   ],
   "testSlugs": [

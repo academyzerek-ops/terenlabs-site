@@ -79,7 +79,10 @@ export function WordDrum({
     display: "inline-block",
     height,
     maxWidth: "100%",
-    fontSize: fontPx,
+    // CSS-потолок (10cqw от контейнера) страхует ДО гидрации и без JS:
+    // «Аналитика бизнеса» ≈ 9.3em — при 10cqw слово физически уже контейнера.
+    // JS-фит ниже уточняет размер точным замером.
+    fontSize: `min(${fontPx}px, 10cqw)`,
     perspective: 900,
     overflow: "hidden",
     verticalAlign: "bottom",

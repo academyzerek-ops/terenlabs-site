@@ -39,7 +39,15 @@ export function Footer() {
         style={{ background: "linear-gradient(180deg, #0d2b45 0%, #06182a 100%)" }}
       >
         <Container className="flex flex-col gap-2 py-6 text-xs text-foam/55 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} TerenLabs. Казахстан.</span>
+          <span>
+            © {new Date().getFullYear()} TerenLabs. Казахстан.
+            {/* номер сборки: сверять «что вижу я» и «что на проде» (кеш-инциденты 15.07) */}
+            {process.env.RAILWAY_GIT_COMMIT_SHA && (
+              <span className="ml-2 opacity-40">
+                сборка {process.env.RAILWAY_GIT_COMMIT_SHA.slice(0, 7)}
+              </span>
+            )}
+          </span>
           <span className="num">Интерфейс: RU · KK</span>
         </Container>
 

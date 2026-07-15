@@ -1510,5 +1510,175 @@
     ]
    }
   ]
+ },
+ {
+  "key": "models",
+  "slug": "course-models",
+  "topic": "Бизнес",
+  "folder": "models",
+  "title": "Бизнес-модели",
+  "subtitle": "Для собственников и тех, кто планирует открывать",
+  "chapterTotal": 21,
+  "modules": [
+   {
+    "id": "m1",
+    "title": "Урок 1 · Введение: зачем вам решётка",
+    "chapters": [
+     {
+      "title": "Зачем вам решётка",
+      "file": "m1-ch01",
+      "img": "/academy-assets/hero/models/m1-ch01.webp"
+     }
+    ]
+   },
+   {
+    "id": "m2",
+    "title": "Урок 2 · Услуги",
+    "chapters": [
+     {
+      "title": "«Открывай своё, у тебя руки золотые»",
+      "file": "m2-ch01",
+      "img": "/academy-assets/hero/models/m2-ch01.webp"
+     },
+     {
+      "title": "Потолок высотой в ваши руки",
+      "file": "m2-ch02",
+      "img": "/academy-assets/hero/models/m2-ch02.webp"
+     },
+     {
+      "title": "Как перестать быть единственным сотрудником",
+      "file": "m2-ch03",
+      "img": "/academy-assets/hero/models/m2-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m3",
+    "title": "Урок 3 · Торговля и перепродажа",
+    "chapters": [
+     {
+      "title": "«В Китае же копейки»",
+      "file": "m3-ch01",
+      "img": "/academy-assets/hero/models/m3-ch01.webp"
+     },
+     {
+      "title": "Что прячется между Гуанчжоу и ценником",
+      "file": "m3-ch02",
+      "img": "/academy-assets/hero/models/m3-ch02.webp"
+     },
+     {
+      "title": "Почему рядом всегда встанет точно такой же",
+      "file": "m3-ch03",
+      "img": "/academy-assets/hero/models/m3-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m4",
+    "title": "Урок 4 · Производство",
+    "chapters": [
+     {
+      "title": "«Я буду делать своё»",
+      "file": "m4-ch01",
+      "img": "/academy-assets/hero/models/m4-ch01.webp"
+     },
+     {
+      "title": "Где красивая идея встречает таможню",
+      "file": "m4-ch02",
+      "img": "/academy-assets/hero/models/m4-ch02.webp"
+     },
+     {
+      "title": "Где на этом всё-таки живут",
+      "file": "m4-ch03",
+      "img": "/academy-assets/hero/models/m4-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m5",
+    "title": "Урок 5 · Аренда и рента",
+    "chapters": [
+     {
+      "title": "«Купи и получай»",
+      "file": "m5-ch01",
+      "img": "/academy-assets/hero/models/m5-ch01.webp"
+     },
+     {
+      "title": "Месяц, когда никто не снял",
+      "file": "m5-ch02",
+      "img": "/academy-assets/hero/models/m5-ch02.webp"
+     },
+     {
+      "title": "Где рента правда кормит",
+      "file": "m5-ch03",
+      "img": "/academy-assets/hero/models/m5-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m6",
+    "title": "Урок 6 · Цифровое и IT",
+    "chapters": [
+     {
+      "title": "«Напиши один раз — продавай вечно»",
+      "file": "m6-ch01",
+      "img": "/academy-assets/hero/models/m6-ch01.webp"
+     },
+     {
+      "title": "Главный враг — тишина",
+      "file": "m6-ch02",
+      "img": "/academy-assets/hero/models/m6-ch02.webp"
+     },
+     {
+      "title": "Узкий рынок и открытая граница",
+      "file": "m6-ch03",
+      "img": "/academy-assets/hero/models/m6-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m7",
+    "title": "Урок 7 · Посредничество и агрегаторы",
+    "chapters": [
+     {
+      "title": "«Свёл двоих — взял процент»",
+      "file": "m7-ch01",
+      "img": "/academy-assets/hero/models/m7-ch01.webp"
+     },
+     {
+      "title": "Курица, яйцо и обход",
+      "file": "m7-ch02",
+      "img": "/academy-assets/hero/models/m7-ch02.webp"
+     },
+     {
+      "title": "Как стать тем, кого не обойти",
+      "file": "m7-ch03",
+      "img": "/academy-assets/hero/models/m7-ch03.webp"
+     }
+    ]
+   },
+   {
+    "id": "m8",
+    "title": "Урок 8 · Гибриды: как читать нишу",
+    "chapters": [
+     {
+      "title": "Гибриды: как читать нишу, которая не одна модель",
+      "file": "m8-ch01",
+      "img": "/academy-assets/hero/models/m8-ch01.webp"
+     }
+    ]
+   },
+   {
+    "id": "m9",
+    "title": "Урок 9 · Финансовый мост: откуда взять деньги",
+    "chapters": [
+     {
+      "title": "Финансовый мост: откуда взять деньги под вашу модель",
+      "file": "m9-ch01",
+      "img": "/academy-assets/hero/models/m9-ch01.webp"
+     }
+    ]
+   }
+  ]
  }
 ]

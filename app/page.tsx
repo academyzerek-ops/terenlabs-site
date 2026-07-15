@@ -132,7 +132,7 @@ export default function Home() {
           {/* Барабан: что внутри платформы — крутится по очереди */}
           {/* flex-wrap + max-w-full: на узком окне барабан переносится и ужимается,
               а не режется по правому краю («Аналитика би…» у Адиля 15.07) */}
-          <p className="rise mt-9 flex flex-wrap items-center gap-4" style={{ animationDelay: "300ms" }}>
+          <p className="rise mt-9 flex flex-wrap items-center gap-4" style={{ animationDelay: "300ms", containerType: "inline-size" }}>
             <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-foam/45">
               Внутри
             </span>

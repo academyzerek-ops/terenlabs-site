@@ -90,6 +90,7 @@ const TRACKS = {
   mkt: { slug: "course-marketing", topic: "Маркетинг", fallbackImg: "/lessons/fund_m2-ch04_store-maze.jpg" },
   fin: { slug: "course-finance", topic: "Финансы", fallbackImg: "/lessons/fund_m5-ch05_coin-mountain.jpg" },
   legal: { slug: "course-legal", topic: "Бизнес" },
+  models: { slug: "course-models", topic: "Бизнес" }, // «Бизнес-модели» — 7-й трек (июль 2026)
 };
 
 const academy = [];
