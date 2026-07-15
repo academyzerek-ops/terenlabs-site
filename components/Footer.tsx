@@ -42,9 +42,9 @@ export function Footer() {
           <span>
             © {new Date().getFullYear()} TerenLabs. Казахстан.
             {/* номер сборки: сверять «что вижу я» и «что на проде» (кеш-инциденты 15.07) */}
-            {process.env.RAILWAY_GIT_COMMIT_SHA && (
+            {process.env.NEXT_PUBLIC_BUILD && (
               <span className="ml-2 opacity-40">
-                сборка {process.env.RAILWAY_GIT_COMMIT_SHA.slice(0, 7)}
+                сборка {process.env.NEXT_PUBLIC_BUILD.slice(0, 7)}
               </span>
             )}
           </span>
