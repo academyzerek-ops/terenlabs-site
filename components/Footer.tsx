@@ -44,7 +44,7 @@ export function Footer() {
             {/* номер сборки: сверять «что вижу я» и «что на проде» (кеш-инциденты 15.07) */}
             {process.env.NEXT_PUBLIC_BUILD && (
               <span className="ml-2 opacity-40">
-                сборка {process.env.NEXT_PUBLIC_BUILD.slice(0, 7)}
+                сборка {process.env.NEXT_PUBLIC_BUILD}
               </span>
             )}
           </span>

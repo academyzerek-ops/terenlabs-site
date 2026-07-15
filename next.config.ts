@@ -23,6 +23,11 @@ const csp = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  // Тег сборки для футера: момент `next build` (UTC) — сверять версию на
+  // устройстве с продом; не зависит от env хостинга (build-args Railway не дошли)
+  env: {
+    NEXT_PUBLIC_BUILD: new Date().toISOString().slice(5, 16).replace("T", " ") + " UTC",
+  },
   // Минимальный рантайм для Docker: .next/standalone + server.js
   output: "standalone",
   poweredByHeader: false,
