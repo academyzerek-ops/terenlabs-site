@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { Container } from "@/components/Container";
 import { ProductCard } from "@/components/ProductCard";
 import { MyMemory } from "@/components/MyMemory";
 import { OceanAccount } from "@/components/OceanAccount";
+import { TgIdentityCard } from "@/components/TgIdentityCard";
 import { CATALOG } from "@/lib/content";
 import { auth, signOut } from "@/auth";
 
@@ -60,18 +60,8 @@ export default async function Dashboard() {
               </div>
             </div>
           ) : (
-            <Link
-              href="/auth/sign-in"
-              className="group rounded-[var(--radius-tl)] border border-teal/40 bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow)]"
-            >
-              <div className="text-heading">Войти через Telegram</div>
-              <div className="mt-1 max-w-[240px] text-xs text-muted">
-                Статистика, память между устройствами и место в рейтинге «Океана»
-              </div>
-              <span className="mt-2 inline-block text-sm font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
-                Вход →
-              </span>
-            </Link>
+            // Telegram-вход живёт в океан-слое (не NextAuth) — карточка клиентская
+            <TgIdentityCard />
           )}
         </div>
 

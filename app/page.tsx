@@ -129,14 +129,16 @@ export default function Home() {
             видишь, где потеряешь деньги и время, до того как вложишься.
           </p>
           {/* Барабан: что внутри платформы — крутится по очереди */}
-          <p className="rise mt-9 flex items-center gap-4" style={{ animationDelay: "300ms" }}>
+          {/* flex-wrap + max-w-full: на узком окне барабан переносится и ужимается,
+              а не режется по правому краю («Аналитика би…» у Адиля 15.07) */}
+          <p className="rise mt-9 flex flex-wrap items-center gap-4" style={{ animationDelay: "300ms" }}>
             <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-foam/45">
               Внутри
             </span>
             <WordDrum
               words={["Академия", "Финмодель", "Аналитика бизнеса", "Бизнес-план"]}
               height={68}
-              className="text-[clamp(1.7rem,3.2vw,2.5rem)] font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
+              className="max-w-full text-[clamp(1.2rem,3.2vw,2.5rem)] font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
             />
           </p>
         </Container>

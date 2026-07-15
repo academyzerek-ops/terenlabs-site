@@ -61,6 +61,28 @@ export type OceanAuth = {
   needs_onboarding: boolean;
 };
 
+const NAME_KEY = "tl_ocean_name";
+
+/** Имя, сохранённое при входе (для карточки кабинета без запроса к бэку). */
+export function getOceanName(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return localStorage.getItem(NAME_KEY);
+  } catch {
+    return null;
+  }
+}
+
+/** Полный выход из океан-слоя: токен + имя. */
+export function oceanSignOut() {
+  setOceanToken(null);
+  try {
+    localStorage.removeItem(NAME_KEY);
+  } catch {
+    /* no-op */
+  }
+}
+
 /** Вход через Telegram Login Widget: payload виджета → токен. */
 export async function loginTelegram(widgetUser: Record<string, unknown>): Promise<OceanAuth> {
   const res = await fetch(OCEAN_API + "/auth/telegram", {
@@ -71,6 +93,13 @@ export async function loginTelegram(widgetUser: Record<string, unknown>): Promis
   if (!res.ok) throw new Error(`telegram login: ${res.status}`);
   const out: OceanAuth = await res.json();
   setOceanToken(out.token);
+  try {
+    const first = (widgetUser as { first_name?: string }).first_name;
+    const name = out.display_name || first;
+    if (name) localStorage.setItem(NAME_KEY, name);
+  } catch {
+    /* no-op */
+  }
   return out;
 }
 

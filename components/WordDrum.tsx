@@ -37,8 +37,9 @@ export function WordDrum({
   const rot = reduced ? 0 : -idx * step;
   const active = ((idx % n) + n) % n;
   const longest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
-  // видимая полоса шире (18–82%), иначе выносные элементы («р», «у») срезаются
-  const fade = "linear-gradient(transparent 0%, #000 18%, #000 82%, transparent 100%)";
+  // баланс: полоса 16–84% держит выносные («р», «у»), но гасит края соседних
+  // граней барабана (при высоте 68 их верхушки подглядывали снизу)
+  const fade = "linear-gradient(transparent 0%, #000 16%, #000 84%, transparent 100%)";
 
   const wrap: CSSProperties = {
     position: "relative",
