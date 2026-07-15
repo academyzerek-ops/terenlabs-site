@@ -11,12 +11,15 @@ import {
   OceanProgress,
   isTestPassed,
   LEVEL_TESTS,
+  cooldownLeftMs,
+  formatCooldown,
 } from "@/lib/ocean";
-import { SHARK_CASES } from "@/lib/ocean-tests";
+import { OCEAN_TESTS, SHARK_CASES } from "@/lib/ocean-tests";
+import { currentLevelId } from "./OceanPath";
 
-// Океан-блок кабинета (12_OCEAN.md, этап 2): живая статистика с бэкенда —
-// та же, что в Mini App. Если юзер вошёл через Google/Apple, а океан-токена
-// нет — тихо обмениваем сессию через мост.
+// Кабинет Океана — полный дашборд, как в Mini App: уровень с целью, путь по
+// медальонам, тесты текущего уровня со статусами и баллами, бейджи, последний
+// разбор TEREN-AI, статистика. Все данные — живые, с того же бэка.
 type Rank = {
   rank: number;
   total: number;
@@ -34,6 +37,8 @@ type Stats = {
   avg_time_per_q?: number | null;
   best_score?: number | null;
 };
+type Badge = { id: string; name: string; emoji: string; description: string; earned: boolean; value?: string | null };
+type Reco = { text: string; level: string; test: string; passed: boolean; created_at: string };
 
 const LEVEL_RU: Record<string, string> = {
   mollusk: "Ракушка", crab: "Краб", barracuda: "Барракуда",
@@ -46,13 +51,45 @@ const LEVEL_IMG: Record<string, string> = Object.fromEntries(
     r.img,
   ])
 );
+const LEVEL_KEY: Record<string, string> = {
+  mollusk: "rakushka", crab: "krab", barracuda: "barrakuda",
+  dolphin: "delfin", shark: "akula", whale: "kit",
+};
+const PATH_ORDER = ["mollusk", "crab", "barracuda", "dolphin", "shark", "whale"];
+
+// тесты уровня для кабинета: id → slug сайта (сдаются на сайте все)
+function levelTestList(level: string): { test: string; slug: string; name: string }[] {
+  if (level === "shark")
+    return SHARK_CASES.map((c) => ({ test: c.id, slug: `shark-${c.id}`, name: c.name }));
+  const ids = LEVEL_TESTS[level] ?? [];
+  return ids.map((t) => {
+    const slug = `${level}-${t}`;
+    const meta = OCEAN_TESTS[slug];
+    return { test: t, slug, name: meta ? meta.title.split("·")[1]?.trim() ?? t : t };
+  });
+}
+
+function testsPassed(p: OceanProgress | null, level: string): number {
+  return levelTestList(level).filter((t) => isTestPassed(p, level, t.test)).length;
+}
+
+function bestScore(p: OceanProgress | null, level: string, test: string): number | null {
+  const v = p?.progress?.[level]?.[test];
+  if (v && typeof v === "object" && "best_score" in v) {
+    const b = (v as { best_score?: number }).best_score;
+    return typeof b === "number" ? b : null;
+  }
+  return null;
+}
 
 export function OceanAccount({ nextAuthActive = false, title = "Океан" }: { nextAuthActive?: boolean; title?: string }) {
   const [hasToken, setHasToken] = useState(false);
   const [rank, setRank] = useState<Rank | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
   const [progress, setProgress] = useState<OceanProgress | null>(null);
+  const [badges, setBadges] = useState<Badge[] | null>(null);
   const [linkCode, setLinkCode] = useState<string | null>(null);
+  const [recoOpen, setRecoOpen] = useState(false);
 
   const refresh = useCallback(async () => {
     if (!getOceanToken()) {
@@ -62,14 +99,16 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
     }
     setHasToken(true);
     try {
-      const [r, s, p] = await Promise.all([
+      const [r, s, p, b] = await Promise.all([
         oceanFetch<Rank>("/me/rank"),
         oceanFetch<Stats>("/me/stats").catch(() => null),
-        oceanFetch<OceanProgress>("/me/progress").catch(() => null),
+        oceanFetch<OceanProgress & { last_recommendation?: Reco | null }>("/me/progress").catch(() => null),
+        oceanFetch<{ badges: Badge[] }>("/me/badges").catch(() => null),
       ]);
       setRank(r);
       setStats(s);
       setProgress(p);
+      setBadges(b?.badges ?? null);
     } catch {
       setRank(null);
     }
@@ -97,7 +136,9 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
     );
   }
 
-  const lvl = rank?.current_level ?? "mollusk";
+  const lvl = rank?.current_level ?? (progress ? currentLevelId(progress) : "mollusk");
+  const reco = (progress as (OceanProgress & { last_recommendation?: Reco | null }) | null)?.last_recommendation ?? null;
+  const tests = lvl === "mollusk" || lvl === "whale" ? [] : levelTestList(lvl);
 
   return (
     <section className="mt-10">
@@ -109,18 +150,32 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       </div>
       <div className="wave-divider my-5" />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
-          <div className="flex items-center gap-3">
-            <img src={LEVEL_IMG[lvl]} alt="" width={44} height={44} className="h-11 w-11 object-contain" />
-            <div>
-              <div className="text-xs text-muted">уровень</div>
-              <div className="text-lg font-semibold text-heading">{LEVEL_RU[lvl]}</div>
+      {/* герой уровня: медальон на глубине + цель + ключевые цифры */}
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
+        <div className="relative overflow-hidden rounded-[var(--radius-tl)] bg-navy p-5">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{ background: "radial-gradient(120% 130% at 15% 0%, rgba(0,183,194,0.28) 0%, transparent 55%)" }}
+          />
+          <div className="relative flex items-center gap-4">
+            <img
+              src={LEVEL_IMG[lvl]}
+              alt={LEVEL_RU[lvl]}
+              width={76}
+              height={76}
+              className="floaty h-[76px] w-[76px] shrink-0 object-contain drop-shadow-[0_12px_24px_rgba(4,16,28,0.55)]"
+            />
+            <div className="min-w-0">
+              <div className="text-xs uppercase tracking-wider text-foam/50">твой уровень</div>
+              <div className="font-[family-name:var(--font-display)] text-2xl font-bold !text-foam">
+                {LEVEL_RU[lvl]}
+              </div>
+              {rank?.next_goal?.label && (
+                <p className="mt-1.5 text-xs leading-relaxed text-foam/65">{rank.next_goal.label}</p>
+              )}
             </div>
           </div>
-          {rank?.next_goal?.label && (
-            <p className="mt-3 text-xs leading-relaxed text-muted">{rank.next_goal.label}</p>
-          )}
         </div>
 
         <Cell label="место в океане" value={rank?.rank ? `#${rank.rank}` : "—"} sub={rank ? `из ${rank.total}` : undefined} />
@@ -128,35 +183,135 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
         <Cell label="стрик дней" value={String(rank?.streak?.current ?? 0)} sub={rank?.streak?.longest ? `рекорд ${rank.streak.longest}` : undefined} />
       </div>
 
-      {/* путь по уровням — сданные тесты, как счётчики в дашборде Mini App */}
+      {/* путь по медальонам — как «Путь» в дашборде Mini App */}
       {progress && (
-        <div className="mt-4 flex flex-wrap gap-2.5">
-          {(
-            [
-              ["crab", "Краб", LEVEL_TESTS.crab],
-              ["barracuda", "Барракуда", LEVEL_TESTS.barracuda],
-              ["dolphin", "Дельфин", LEVEL_TESTS.dolphin],
-              ["shark", "Акула", SHARK_CASES.map((c) => c.id)],
-            ] as [string, string, string[]][]
-          ).map(([id, name, tests]) => {
-            const passed = tests.filter((t) => isTestPassed(progress, id, t)).length;
-            const full = passed === tests.length;
-            return (
+        <div className="mt-5 overflow-x-auto rounded-[var(--radius-tl)] border border-line bg-card p-4">
+          <div className="flex min-w-max items-start gap-2 sm:gap-4">
+            {PATH_ORDER.map((id, i) => {
+              const cur = lvl === id;
+              const idx = PATH_ORDER.indexOf(lvl);
+              const done = i < idx || id === "mollusk";
+              const total = id === "shark" ? SHARK_CASES.length : LEVEL_TESTS[id]?.length ?? 0;
+              const passed = total ? testsPassed(progress, id) : 0;
+              return (
+                <Link
+                  key={id}
+                  href={`/levels/${LEVEL_KEY[id]}`}
+                  className="group flex w-[72px] flex-col items-center text-center sm:w-[84px]"
+                >
+                  <span
+                    className={`relative flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:-translate-y-0.5 sm:h-16 sm:w-16 ${
+                      cur ? "ring-2 ring-teal shadow-[0_0_20px_rgba(0,183,194,0.45)]" : ""
+                    }`}
+                  >
+                    <img
+                      src={LEVEL_IMG[id]}
+                      alt={LEVEL_RU[id]}
+                      className={`h-full w-full object-contain ${done || cur ? "" : "opacity-40 grayscale"}`}
+                    />
+                    {done && !cur && (
+                      <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-teal text-[0.65rem] font-bold text-white">
+                        ✓
+                      </span>
+                    )}
+                  </span>
+                  <span className={`mt-1.5 text-[0.72rem] font-semibold ${cur ? "text-teal-600" : done ? "text-heading" : "text-muted"}`}>
+                    {LEVEL_RU[id]}
+                  </span>
+                  {total > 0 && (
+                    <span className="num text-[0.66rem] text-muted">
+                      {passed}/{total}
+                    </span>
+                  )}
+                  {cur && <span className="num text-[0.62rem] font-bold uppercase tracking-wide text-teal-600">ты здесь</span>}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* тесты текущего уровня — статус, балл, кулдаун; всё сдаётся на сайте */}
+      {progress && tests.length > 0 && (
+        <div className="mt-5">
+          <p className="num text-xs font-bold uppercase tracking-wider text-muted">
+            Тесты уровня «{LEVEL_RU[lvl]}»
+          </p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {tests.map((t) => {
+              const passed = isTestPassed(progress, lvl, t.test);
+              const best = bestScore(progress, lvl, t.test);
+              const cdMs = cooldownLeftMs(progress.cooldowns, lvl, t.test);
+              return (
+                <Link
+                  key={t.slug}
+                  href={`/tests/${t.slug}/take`}
+                  className={`flex items-center justify-between gap-3 rounded-[var(--radius-tl)] border p-4 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-tl-sm)] ${
+                    passed ? "border-teal/50 bg-teal/5" : "border-line bg-card"
+                  }`}
+                >
+                  <span className="min-w-0">
+                    <span className="block truncate text-[0.95rem] font-semibold text-heading">{t.name}</span>
+                    <span className="num text-xs text-muted">
+                      {passed
+                        ? `сдан${best != null ? ` · лучший ${best}/10` : ""}`
+                        : cdMs > 0
+                        ? `⏱ пересдача через ${formatCooldown(cdMs)}`
+                        : best != null
+                        ? `лучший ${best}/10 — ещё заход?`
+                        : "не начат"}
+                    </span>
+                  </span>
+                  <span className={`num shrink-0 text-sm font-bold ${passed ? "text-teal-600" : "text-muted"}`}>
+                    {passed ? "✓" : "→"}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* бейджи — ачивки, как в Mini App */}
+      {badges && badges.length > 0 && (
+        <div className="mt-5">
+          <p className="num text-xs font-bold uppercase tracking-wider text-muted">Знаки</p>
+          <div className="mt-3 flex flex-wrap gap-2.5">
+            {badges.map((b) => (
               <span
-                key={id}
-                className={`num rounded-full border px-3.5 py-1.5 text-xs font-semibold ${
-                  full
-                    ? "border-teal/60 text-teal-600"
-                    : passed > 0
-                    ? "border-line text-heading"
-                    : "border-line text-muted"
+                key={b.id}
+                title={b.description}
+                className={`flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm ${
+                  b.earned ? "border-teal/50 bg-teal/8 text-heading" : "border-line text-muted opacity-60"
                 }`}
               >
-                {name} {passed}/{tests.length}
-                {full && " ✓"}
+                <span aria-hidden="true">{b.emoji}</span>
+                <span className="font-medium">{b.name}</span>
+                {b.value && <span className="num text-xs text-muted">{b.value}</span>}
               </span>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* последний разбор TEREN-AI — как в кабинете Mini App */}
+      {reco?.text && (
+        <div className="mt-5 rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-5">
+          <p className="num text-[0.68rem] font-bold uppercase tracking-wider text-teal-600">
+            Разбор TEREN-AI · {LEVEL_RU[reco.level] ?? reco.level}
+            {reco.created_at ? ` · ${new Date(reco.created_at).toLocaleDateString("ru-RU")}` : ""}
+          </p>
+          <p className={`mt-2 whitespace-pre-line text-sm leading-relaxed text-body ${recoOpen ? "" : "line-clamp-4"}`}>
+            {reco.text}
+          </p>
+          {reco.text.length > 220 && (
+            <button
+              onClick={() => setRecoOpen((v) => !v)}
+              className="mt-2 text-xs font-semibold text-teal-600 hover:text-teal"
+            >
+              {recoOpen ? "Свернуть" : "Читать целиком →"}
+            </button>
+          )}
         </div>
       )}
 
@@ -188,10 +343,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
             код <strong>{linkCode}</strong> — введи в Mini App за 10 минут
           </span>
         )}
-        <button
-          onClick={() => oceanSignOut()}
-          className="text-muted hover:text-heading"
-        >
+        <button onClick={() => oceanSignOut()} className="text-muted hover:text-heading">
           Выйти из Океана
         </button>
       </div>
