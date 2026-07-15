@@ -16,7 +16,7 @@ import type { CSSProperties } from "react";
 export function WordDrum({
   words,
   interval = 1900,
-  maxFontPx = 40,
+  maxFontPx = 34,
   minFontPx = 15,
   className = "",
 }: {
@@ -54,7 +54,7 @@ export function WordDrum({
       const avail =
         parent.clientWidth - parseFloat(cs.paddingLeft || "0") - parseFloat(cs.paddingRight || "0");
       if (avail <= 0) return;
-      const next = Math.max(minFontPx, Math.min(maxFontPx, ((avail - 2) / w100) * 100));
+      const next = Math.max(minFontPx, Math.min(maxFontPx, ((avail - 12) / w100) * 100));
       setFontPx(Math.floor(next * 10) / 10);
     };
     fit();
@@ -82,7 +82,7 @@ export function WordDrum({
     // CSS-потолок (10cqw от контейнера) страхует ДО гидрации и без JS:
     // «Аналитика бизнеса» ≈ 9.3em — при 10cqw слово физически уже контейнера.
     // JS-фит ниже уточняет размер точным замером.
-    fontSize: `min(${fontPx}px, 10cqw)`,
+    fontSize: `min(${fontPx}px, 8.4cqw)`,
     perspective: 900,
     overflow: "hidden",
     verticalAlign: "bottom",
