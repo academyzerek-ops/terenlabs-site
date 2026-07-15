@@ -112,7 +112,7 @@ function Creature({ p, texture }: { p: P; texture: THREE.Texture }) {
 }
 
 export function OceanLife() {
-  const urls = FILES.map((f) => `${BASE}/${f}.png`);
+  const urls = FILES.map((f) => `${BASE}/${f}.webp`);
   const textures = useTexture(urls) as THREE.Texture[];
   const byName: Record<string, THREE.Texture> = {};
   FILES.forEach((f, i) => {
