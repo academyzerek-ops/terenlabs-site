@@ -155,7 +155,9 @@ export default async function CatalogPage({
       {/* Кейсы и обзоры — bento-архив на кинокадрах (сетка масштабируется на сотни
           позиций); остальные типы — пространственная лента (Sonar Scan) */}
       {t === "case" ? (
-        <PosterArchive items={items} kind="case" />
+        // только кейсы витрины Mini App (с цвет-тэгом); тренажёр case-marketplace —
+        // сайтовый интерактив, живёт на уровне Ракушки, в архиве кейсов ему не место
+        <PosterArchive items={items.filter((p) => p.tag)} kind="case" />
       ) : t === "review" && items.length > 0 ? (
         <PosterArchive items={items} kind="review" />
       ) : items.length > 0 ? (
