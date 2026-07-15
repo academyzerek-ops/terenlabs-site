@@ -89,7 +89,12 @@ export function WordDrum({
     // JS-фит ниже уточняет размер точным замером.
     fontSize: `min(${fontPx}px, 8.4cqw)`,
     perspective: PERSPECTIVE,
-    overflow: "hidden",
+    // Режем ТОЛЬКО по вертикали (слот-эффект); по X не клипаем вовсе —
+    // никакая разница рендеров (перспектива, iOS text-size-adjust, шрифты)
+    // больше не может срезать букву. Страницу страхует глобальный overflow-x:clip.
+    overflowX: "visible",
+    overflowY: "clip",
+    WebkitTextSizeAdjust: "100%",
     verticalAlign: "bottom",
     WebkitMaskImage: fade,
     maskImage: fade,
