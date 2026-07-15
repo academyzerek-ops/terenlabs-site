@@ -135,7 +135,7 @@ export default function Home() {
             </span>
             <WordDrum
               words={["Академия", "Финмодель", "Аналитика бизнеса", "Бизнес-план"]}
-              height={56}
+              height={68}
               className="text-[clamp(1.7rem,3.2vw,2.5rem)] font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
             />
           </p>

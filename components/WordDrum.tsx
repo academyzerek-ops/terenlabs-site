@@ -37,7 +37,8 @@ export function WordDrum({
   const rot = reduced ? 0 : -idx * step;
   const active = ((idx % n) + n) % n;
   const longest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
-  const fade = "linear-gradient(transparent 0%, #000 24%, #000 76%, transparent 100%)";
+  // видимая полоса шире (18–82%), иначе выносные элементы («р», «у») срезаются
+  const fade = "linear-gradient(transparent 0%, #000 18%, #000 82%, transparent 100%)";
 
   const wrap: CSSProperties = {
     position: "relative",

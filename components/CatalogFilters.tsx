@@ -53,7 +53,8 @@ export function CatalogFilters({ type }: { type: string }) {
   if (filters.length <= 1) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-2 mb-10 rise" style={{ animationDelay: "300ms" }}>
+    // mt-7 — отступ от декоративного штриха героя, иначе линия наезжает на чипы
+    <div className="mt-7 flex flex-wrap items-center gap-2 mb-10 rise" style={{ animationDelay: "300ms" }}>
       {filters.map((f) => (
         <button
           key={f.id}
