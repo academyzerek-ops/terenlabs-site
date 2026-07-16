@@ -12,7 +12,13 @@ export const metadata = { title: "Личный кабинет — TerenLabs" };
 // Вход через Telegram добавляет профиль; прогресс общий с Mini App.
 export default async function Dashboard() {
   const session = await auth();
-  const recommendations = CATALOG.filter((p) => !p.stub && p.type !== "case").slice(0, 3);
+  // Рекомендации кабинета — бесплатный контур (Адиль 17.07: «не вести на ФМ»):
+  // курс Академии, кейс, обзор — по одному, edtech первым. Финпродукты живут
+  // на своей витрине, кабинет им не продавец.
+  const pick = (type: string) => CATALOG.find((p) => !p.stub && p.type === type);
+  const recommendations = [pick("course"), pick("case"), pick("review")].filter(
+    (p): p is NonNullable<typeof p> => Boolean(p)
+  );
 
   return (
     <div className="py-14">

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getOceanToken, getOceanName, oceanSignOut } from "@/lib/ocean";
-import { TelegramLoginButton } from "@/components/TelegramLoginButton";
 
 // Карточка личности в кабинете для Telegram-входа. Вход через TG живёт в
 // океан-слое (веб-токен в localStorage), а не в NextAuth — раньше карточка
@@ -28,15 +27,9 @@ export function TgIdentityCard() {
   if (authed === null) return <div className="min-h-[92px] min-w-[220px]" aria-hidden="true" />;
 
   if (!authed) {
-    // фирменная TG-кнопка вместо текстовой карточки (Адиль 17.07)
-    return (
-      <div className="flex flex-col items-start gap-2">
-        <TelegramLoginButton />
-        <div className="max-w-[280px] pl-1 text-xs text-muted">
-          Статистика, память между устройствами и место в рейтинге «Океана»
-        </div>
-      </div>
-    );
+    // анониму шапка вход не дублирует (Адиль 17.07 «2 раза тг — дико»):
+    // единственная TG-кнопка живёт в океан-блоке ниже
+    return null;
   }
 
   return (
