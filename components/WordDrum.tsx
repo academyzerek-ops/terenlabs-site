@@ -66,6 +66,12 @@ export function WordDrum({
   }, [words, maxFontPx, minFontPx]);
 
   const height = Math.round(fontPx * 1.7); // запас под выносные («р», «у»)
+  // КОРЕНЬ «срезана 1-я буква»: mask-image рисуется строго в боксе элемента,
+  // а засечки Playfair («А», «Д») свисают ЛЕВЕЕ бокса — маска отрезала свес
+  // даже при overflow:visible (потому overflow-фиксы и не помогали).
+  // Даём маске поле: паддинги расширяют бокс, отрицательные маржины
+  // компенсируют их в раскладке — визуально ничего не сдвигается.
+  const maskPad = Math.max(3, Math.round(fontPx * 0.14));
   const step = 360 / n;
   const radius = Math.round(height / 2 / Math.tan(Math.PI / n));
   const rot = reduced ? 0 : -idx * step;
@@ -96,12 +102,16 @@ export function WordDrum({
     overflowY: "clip",
     WebkitTextSizeAdjust: "100%",
     verticalAlign: "bottom",
+    padding: `0 ${maskPad}px`,
+    margin: `0 ${-maskPad}px`,
     WebkitMaskImage: fade,
     maskImage: fade,
   };
   const cyl: CSSProperties = {
     position: "absolute",
-    inset: 0,
+    // containing block абс-позиции — padding box: смещаем цилиндр внутрь на
+    // maskPad, чтобы слово стояло там же, где до расширения бокса маски
+    inset: `0 ${maskPad}px`,
     transformStyle: "preserve-3d",
     transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
     transform: `rotateX(${rot}deg)`,
