@@ -7,6 +7,7 @@ import { FooterGate } from "@/components/FooterGate";
 import { NoaChat } from "@/components/NoaChat";
 import { ScrollFX } from "@/components/ScrollFX";
 import { JsonLd } from "@/components/JsonLd";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { SITE_URL } from "@/lib/site";
 import { organizationJsonLd } from "@/lib/jsonld";
 
@@ -78,6 +79,10 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <JsonLd data={organizationJsonLd()} />
+        {/* аналитика: те же события, что Mini App (/api/ocean/event), platform=site */}
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         {/* a11y: первый фокусируемый — пропуск навигации к содержимому (WCAG 2.4.1) */}
         <a href="#main" className="skip-link">Перейти к содержимому</a>
         <Suspense fallback={<div className="h-16" />}>
