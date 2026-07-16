@@ -30,33 +30,40 @@ export function MyMemory() {
         )
       : null;
 
+  // Пустышки гостю не показываем (Адиль 17.07 «это зачем, если как гость?»):
+  // плитка/секция появляется, когда за ней есть жизнь. Роль приглашений несут
+  // океан-блок сверху и «Рекомендуем дальше» снизу.
+  const hasCourses = progress.length > 0;
+  const hasAttempts = attempts.length > 0;
+  if (!hasCourses && !hasAttempts) return null;
+
   return (
     <>
-      {/* метрики — из памяти, не из головы */}
+      {/* метрики — из памяти, не из головы; только живые */}
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
-        <Metric
-          value={String(progress.length)}
-          label={`${plural(progress.length, "курс", "курса", "курсов")} в процессе`}
-        />
-        <Metric value={avg !== null ? `${avg}%` : "—"} label="средний балл попыток" />
-        <Metric
-          value={String(passedCount)}
-          label={`${plural(passedCount, "тест пройден", "теста пройдено", "тестов пройдено")}`}
-        />
+        {hasCourses && (
+          <Metric
+            value={String(progress.length)}
+            label={`${plural(progress.length, "курс", "курса", "курсов")} в процессе`}
+          />
+        )}
+        {hasAttempts && (
+          <Metric value={`${avg}%`} label="средний балл попыток" />
+        )}
+        {hasAttempts && (
+          <Metric
+            value={String(passedCount)}
+            label={`${plural(passedCount, "тест пройден", "теста пройдено", "тестов пройдено")}`}
+          />
+        )}
       </div>
 
       {/* продолжить обучение — реальное место в плеере */}
+      {hasCourses && (
       <section className="mt-14">
         <h2 className="text-2xl text-heading">Продолжить обучение</h2>
         <div className="wave-divider my-5" />
-        {progress.length === 0 ? (
-          <EmptyHint
-            text="Открой любой курс Академии — кабинет запомнит, где ты остановился."
-            href="/catalog?type=course"
-            cta="К курсам →"
-          />
-        ) : (
-          <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
             {progress.slice(0, 4).map((c) => {
               const pct = Math.round(((c.idx + 1) / c.total) * 100);
               return (
@@ -87,22 +94,16 @@ export function MyMemory() {
                 </Link>
               );
             })}
-          </div>
-        )}
+        </div>
       </section>
+      )}
 
-      {/* попытки тестов */}
+      {/* попытки тестов — только когда они есть */}
+      {hasAttempts && (
       <section className="mt-14">
         <h2 className="text-2xl text-heading">Мои попытки</h2>
         <div className="wave-divider my-5" />
-        {attempts.length === 0 ? (
-          <EmptyHint
-            text="Пройди тест Краба или Барракуды — результат останется здесь."
-            href="/levels/krab"
-            cta="К тестам →"
-          />
-        ) : (
-          <div className="overflow-hidden rounded-[var(--radius-tl)] border border-line bg-card">
+        <div className="overflow-hidden rounded-[var(--radius-tl)] border border-line bg-card">
             {attempts.slice(0, 8).map((a, i) => (
               <Link
                 key={i}
@@ -125,9 +126,9 @@ export function MyMemory() {
                 </span>
               </Link>
             ))}
-          </div>
-        )}
+        </div>
       </section>
+      )}
     </>
   );
 }
@@ -141,13 +142,3 @@ function Metric({ value, label }: { value: string; label: string }) {
   );
 }
 
-function EmptyHint({ text, href, cta }: { text: string; href: string; cta: string }) {
-  return (
-    <div className="flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius-tl)] border border-dashed border-line bg-card p-6">
-      <p className="text-sm text-muted">{text}</p>
-      <Link href={href} className="text-sm font-semibold text-teal-600 hover:text-teal">
-        {cta}
-      </Link>
-    </div>
-  );
-}
