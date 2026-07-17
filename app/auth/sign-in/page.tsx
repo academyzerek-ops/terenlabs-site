@@ -11,9 +11,16 @@ export const metadata = { title: "Вход — TerenLabs" };
 // Пока вход только через Telegram (решение Адиля 15.07): аудитория телеграмная,
 // tg_id совпадает с Mini App — прогресс сходится в один аккаунт автоматически.
 // Google/Apple-мост (auth.ts, /api/ocean-bridge) сохранён в коде, но с витрины убран.
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: Promise<{ return?: string }>;
+}) {
+  const sp = await searchParams;
+  // нативное приложение: redirect-флоу виджета → /auth/tg-callback → Mini App
+  const forMiniapp = sp?.return === "miniapp";
   const session = await auth();
-  if (session) redirect("/dashboard");
+  if (session && !forMiniapp) redirect("/dashboard");
 
   return (
     <section className="deep grain-fine relative min-h-[70vh]">
@@ -28,7 +35,7 @@ export default async function Page() {
           </p>
 
           <div className="mt-8">
-            <TelegramLogin />
+            <TelegramLogin authUrl={forMiniapp ? "https://terenlabs-site-production.up.railway.app/auth/tg-callback" : undefined} />
             <p className="mt-2 text-center text-xs text-foam/45">
               тот же аккаунт, что в Mini App — прогресс общий
             </p>

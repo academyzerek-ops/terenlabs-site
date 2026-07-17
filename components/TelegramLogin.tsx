@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-export function TelegramLogin() {
+export function TelegramLogin({ authUrl }: { authUrl?: string } = {}) {
   const holder = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [err, setErr] = useState<string | null>(null);
@@ -42,7 +42,13 @@ export function TelegramLogin() {
     s.setAttribute("data-telegram-login", BOT);
     s.setAttribute("data-size", "large");
     s.setAttribute("data-radius", "12");
-    s.setAttribute("data-onauth", "onTelegramAuth(user)");
+    if (authUrl) {
+      // redirect-режим для нативного приложения: попапы в WKWebView зажаты,
+      // виджет уводит текущее окно на oauth.telegram.org и обратно на authUrl
+      s.setAttribute("data-auth-url", authUrl);
+    } else {
+      s.setAttribute("data-onauth", "onTelegramAuth(user)");
+    }
     s.setAttribute("data-request-access", "write");
     el.appendChild(s);
 
