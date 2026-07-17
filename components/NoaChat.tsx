@@ -7,7 +7,22 @@ import { usePathname } from "next/navigation";
 // (системный промпт из source-of-truth + RAG по базе знаний + история диалога).
 const AI_API =
   process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-production.up.railway.app/chat";
+import { getOceanToken } from "@/lib/ocean";
+
 const AI_API_STREAM = AI_API + "/stream";
+
+// Чат на бэке строго за входом (гейт d9d64276): без Authorization сервер
+// вежливо отказывает даже вошедшему. Подписываем веб-токеном Океана.
+function chatHeaders(): Record<string, string> {
+  const h: Record<string, string> = { "Content-Type": "application/json" };
+  try {
+    const t = getOceanToken();
+    if (t) h.Authorization = `web ${t}`;
+  } catch {
+    /* SSR/приватный режим — уйдёт без токена, сервер попросит вход */
+  }
+  return h;
+}
 const MAINTENANCE =
   "TEREN-AI сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
 
@@ -136,7 +151,7 @@ export function NoaChat() {
       // 1) пробуем стрим — токены набегают по мере генерации
       const r = await fetch(AI_API_STREAM, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: chatHeaders(),
         body,
       });
       if (r.ok && r.body) {
@@ -152,7 +167,7 @@ export function NoaChat() {
       if (!target.trim()) {
         const r2 = await fetch(AI_API, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: chatHeaders(),
           body,
         });
         const data = await r2.json();
