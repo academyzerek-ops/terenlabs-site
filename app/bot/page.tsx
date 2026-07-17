@@ -18,10 +18,10 @@ export const metadata: Metadata = {
       "Академия, Океан, кейсы и финмодели — открой TerenLabs в Telegram.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-bot.jpg",
         width: 1200,
         height: 630,
-        alt: "TerenLabs — обучение бизнесу в Казахстане",
+        alt: "TerenLabs в Telegram",
       },
     ],
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "TerenLabs в Telegram",
     description:
       "Академия, Океан, кейсы и финмодели — открой TerenLabs в Telegram.",
-    images: ["/og-image.jpg"],
+    images: ["/og-bot.jpg"],
   },
   robots: { index: false },
 };
