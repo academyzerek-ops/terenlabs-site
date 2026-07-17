@@ -6,15 +6,23 @@
 // корректного значения — громкое предупреждение в лог сборки.
 const fromEnv = process.env.NEXT_PUBLIC_SITE_URL;
 
-if (
-  process.env.NODE_ENV === "production" &&
-  (!fromEnv || fromEnv.includes("localhost"))
-) {
+const isProd = process.env.NODE_ENV === "production";
+
+if (isProd && (!fromEnv || fromEnv.includes("localhost"))) {
   console.warn(
     "[site] ⚠️ NEXT_PUBLIC_SITE_URL не задан (или localhost) в проде — " +
-      "sitemap.xml / robots.txt / OG-картинки будут указывать на localhost. " +
-      "Задай реальный домен в окружении хостинга.",
+      "используется Railway-домен по умолчанию. Появится свой домен — " +
+      "задай его в окружении хостинга.",
   );
 }
 
-export const SITE_URL = (fromEnv ?? "http://localhost:3001").replace(/\/$/, "");
+// В проде без env — Railway-домен, НЕ localhost: 17.07 карточки соцсетей
+// (og:image /bot) указывали на localhost и не рендерились.
+const fallback = isProd
+  ? "https://terenlabs-site-production.up.railway.app"
+  : "http://localhost:3001";
+
+export const SITE_URL = (fromEnv && !(isProd && fromEnv.includes("localhost"))
+  ? fromEnv
+  : fallback
+).replace(/\/$/, "");
