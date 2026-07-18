@@ -352,18 +352,19 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       {badges && badges.length > 0 && (
         <div className="mt-5">
           <p className="num text-xs font-bold uppercase tracking-wider text-muted">Знаки</p>
-          <div className="mt-3 flex flex-wrap gap-2.5">
+          {/* крупнее: пилюли читались как мелочь (Адиль 18.07) */}
+          <div className="mt-3 flex flex-wrap gap-3">
             {badges.map((b) => (
               <span
                 key={b.id}
                 title={b.description}
-                className={`flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm ${
+                className={`flex items-center gap-3 rounded-full border px-5 py-2.5 ${
                   b.earned ? "border-teal/50 bg-teal/8 text-heading" : "border-line text-muted opacity-60"
                 }`}
               >
-                <span aria-hidden="true">{b.emoji}</span>
-                <span className="font-medium">{b.name}</span>
-                {b.value && <span className="num text-xs text-muted">{b.value}</span>}
+                <span aria-hidden="true" className="text-2xl leading-none">{b.emoji}</span>
+                <span className="text-base font-semibold">{b.name}</span>
+                {b.value && <span className="num text-sm text-muted">{b.value}</span>}
               </span>
             ))}
           </div>
