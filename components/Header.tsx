@@ -54,7 +54,7 @@ export function Header() {
     >
       <div className="glass-bar relative mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6 lg:w-fit lg:justify-start lg:gap-8">
         <div className="flex items-center gap-8">
-          <Link href="/" aria-label="На главную">
+          <Link href="/" aria-label="На главную" className="shrink-0">
             <Logo />
           </Link>
 

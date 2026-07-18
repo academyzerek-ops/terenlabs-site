@@ -19,8 +19,10 @@ export function Logo({
       src={src}
       alt="TerenLabs"
       height={height}
+      // max-w-none: глобальный reset даёт img max-width:100%, и в тесном
+      // flex-ряду (мобильная шапка) лого схлопывалось в 0×0 — тап мимо
       style={{ height, width: "auto" }}
-      className={className}
+      className={`max-w-none ${className}`}
     />
   );
 }
