@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { OCEAN_RANKS } from "@/lib/content";
 import { regionName } from "@/lib/kz-regions";
@@ -60,6 +60,7 @@ function days(n: number) {
 
 export function OceanLeaderboard() {
   const [scope, setScope] = useState<"all" | "region" | "level">("all");
+  const scopeTouched = useRef(false); // юзер сам выбрал вкладку — дефолт не навязываем
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState(false);
   const [myRegion, setMyRegion] = useState<string | null>(null);
@@ -77,7 +78,12 @@ export function OceanLeaderboard() {
       .catch(() => {});
     fetch(OCEAN_API + "/me/rank", { headers: h })
       .then((r) => r.json())
-      .then((r) => setMyLevel(r.current_level ?? null))
+      .then((r) => {
+        setMyLevel(r.current_level ?? null);
+        // вошедшему по умолчанию — «Мой уровень» (Адиль 18.07): настоящая гонка
+        // там; общий вид — лестница-витрина. Ручной выбор вкладки не перебиваем.
+        if (r.current_level && !scopeTouched.current) setScope("level");
+      })
       .catch(() => {});
   }, []);
 
@@ -113,7 +119,7 @@ export function OceanLeaderboard() {
           label="Казахстан"
           sub="вся страна в одном зачёте"
           active={scope === "all"}
-          onClick={() => setScope("all")}
+          onClick={() => { scopeTouched.current = true; setScope("all"); }}
         />
         <Scope
           label="Моя область"
@@ -126,7 +132,7 @@ export function OceanLeaderboard() {
           }
           active={scope === "region"}
           disabled={!authed || !myRegion}
-          onClick={() => setScope("region")}
+          onClick={() => { scopeTouched.current = true; setScope("region"); }}
         />
         <Scope
           label="Мой уровень"
@@ -139,7 +145,7 @@ export function OceanLeaderboard() {
           }
           active={scope === "level"}
           disabled={!authed || !myLevel}
-          onClick={() => setScope("level")}
+          onClick={() => { scopeTouched.current = true; setScope("level"); }}
         />
       </div>
 
@@ -184,9 +190,27 @@ export function OceanLeaderboard() {
                   В этом срезе попыток ещё не было — место свободно.
                 </p>
               )}
-              {rest.map((e) => (
-                <Row key={`${e.rank}-${e.name}`} e={e} />
-              ))}
+              {rest.map((e, i) => {
+                const prev = i === 0 ? podium[podium.length - 1] : rest[i - 1];
+                const newTier = scope === "all" && prev && prev.level !== e.level;
+                return (
+                  <Fragment key={`${e.rank}-${e.name}`}>
+                    {newTier && (
+                      <div className="flex items-center gap-3 bg-subtle px-5 py-2">
+                        <img
+                          src={LEVEL_RU[e.level]?.img}
+                          alt=""
+                          className="h-6 w-6 object-contain"
+                        />
+                        <span className="num text-[0.68rem] font-bold uppercase tracking-[0.14em] text-muted">
+                          {LEVEL_RU[e.level]?.name ?? e.level} — свой зачёт
+                        </span>
+                      </div>
+                    )}
+                    <Row e={e} />
+                  </Fragment>
+                );
+              })}
 
               {/* моя позиция — закреплённая строка, даже если #847 */}
               {data.me && !meInTop && (
