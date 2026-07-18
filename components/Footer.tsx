@@ -26,6 +26,44 @@ export function Footer() {
           <p className="mt-4 max-w-xs text-sm leading-relaxed">
             Глубина анализа. Сила результата. EdTech и FinTools для предпринимателей.
           </p>
+          {/* соцсети — те же адреса и глифы, что в Mini App (shell/app.html) */}
+          <div className="mt-5 flex items-center gap-3">
+            <a
+              href="https://instagram.com/terenlabs"
+              target="_blank"
+              rel="noopener"
+              aria-label="Instagram TerenLabs"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0d2b45]/15 text-[#3d4f5e] transition-colors hover:border-teal hover:text-teal"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a
+              href="https://www.threads.com/@terenlabs"
+              target="_blank"
+              rel="noopener"
+              aria-label="Threads TerenLabs"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0d2b45]/15 text-[#3d4f5e] transition-colors hover:border-teal hover:text-teal"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M19 7.5c-1.333-3-3.667-4.5-7-4.5-5 0-8 2.5-8 9s3.5 9 8 9 7-3 7-5-1-5-7-5c-2.5 0-3 1.25-3 2.5 0 1.5 1 2.5 2.5 2.5 2.5 0 3.5-1.5 3.5-5s-2-4-3-4-1.833.333-2.5 1" />
+              </svg>
+            </a>
+            <a
+              href="https://t.me/terenlabs_bot"
+              target="_blank"
+              rel="noopener"
+              aria-label="Mini App в Telegram"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0d2b45]/15 text-[#3d4f5e] transition-colors hover:border-teal hover:text-teal"
+            >
+              <svg viewBox="0 0 240 240" className="h-5 w-5" fill="currentColor">
+                <path d="M44.7 121.5 194.9 63.6c7-2.6 13.1 1.6 10.8 12.2l-25.6 120.6c-1.9 8.5-7 10.6-14.1 6.6l-39-28.8-18.8 18.2c-2.1 2.1-3.8 3.8-7.8 3.8l2.8-39.8 72.3-65.3c3.1-2.8-.7-4.3-4.9-1.7l-89.4 56.3-38.5-12c-8.4-2.7-8.6-8.4 2-12.2Z" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* финмодели здесь не дублируем — им посвящена соседняя колонка «Финпродукты» */}
