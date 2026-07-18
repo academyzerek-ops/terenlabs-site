@@ -101,8 +101,13 @@ export function OceanBubbles() {
       {/* заголовок-метка */}
       <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap">
         <span className="eyebrow !text-teal">Кто в океане сейчас</span>
-        <Link href="/ocean" className="text-sm font-semibold text-teal transition-colors hover:text-teal-200">
-          рейтинг →
+        {/* яркая кнопка, не микроссылка (Адиль 18.07: «чтобы заметно было») */}
+        <Link
+          href="/ocean"
+          className="group inline-flex items-center gap-2 rounded-full bg-teal px-4 py-1.5 text-sm font-bold text-white shadow-[0_0_18px_rgba(0,183,194,0.55)] transition-all hover:-translate-y-0.5 hover:bg-teal-600"
+        >
+          🏆 Рейтинг
+          <span className="transition-transform group-hover:translate-x-0.5">→</span>
         </Link>
       </div>
 
