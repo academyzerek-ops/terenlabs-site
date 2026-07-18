@@ -82,6 +82,31 @@ export default async function Dashboard() {
         {/* Океан: живая статистика с бэкенда — ранг, очки, стрик, привязка TG */}
         <OceanAccount nextAuthActive={!!session} />
 
+        {/* мост в Mini App (Адиль 18.07): тот же аккаунт, прогресс общий */}
+        <a
+          href="https://t.me/terenlabs_bot"
+          target="_blank"
+          rel="noopener"
+          className="group mt-6 flex items-center gap-4 rounded-[var(--radius-tl)] border border-line bg-card px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-teal/40"
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-[#2AABEE] to-[#229ED9]">
+            <svg viewBox="0 0 240 240" className="h-6 w-6 text-white" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M44.7 121.5 194.9 63.6c7-2.6 13.1 1.6 10.8 12.2l-25.6 120.6c-1.9 8.5-7 10.6-14.1 6.6l-39-28.8-18.8 18.2c-2.1 2.1-3.8 3.8-7.8 3.8l2.8-39.8 72.3-65.3c3.1-2.8-.7-4.3-4.9-1.7l-89.4 56.3-38.5-12c-8.4-2.7-8.6-8.4 2-12.2Z"
+              />
+            </svg>
+          </span>
+          <span className="flex-1 text-[15px] leading-snug text-body">
+            Удобнее с телефона — продолжай в{" "}
+            <span className="font-semibold text-heading">Mini App в Telegram</span>: тот же
+            аккаунт, прогресс общий.
+          </span>
+          <span className="shrink-0 text-sm font-semibold text-teal-600 transition-transform group-hover:translate-x-1">
+            Открыть бота →
+          </span>
+        </a>
+
         {/* Память: метрики, продолжить обучение, попытки — реальные данные устройства */}
         <MyMemory />
 
