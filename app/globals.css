@@ -293,7 +293,7 @@ body {
       rgba(8, 27, 46, 0.74) 0%,
       rgba(8, 27, 46, 0.93) 100%
     ),
-    url("/brand/ocean.png");
+    url("/brand/ocean.webp");
   background-size: cover;
   background-position: center;
 }
