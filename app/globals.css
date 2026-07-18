@@ -768,10 +768,6 @@ a:active {
 .orb-open {
   animation: tl-orb-pulse 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
-.orb-locked {
-  filter: saturate(0.35) brightness(0.75);
-}
-
 /* Биолюминесценция дна: мерцающие точки */
 @keyframes tl-bio-blink {
   0%, 100% { opacity: 0.12; }

@@ -148,8 +148,11 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
             <p className="mt-3 max-w-[46ch] text-sm text-muted">
               Попытки идут в зачёт после входа — уровень, очки и место в рейтинге соберутся сами.
             </p>
-            <div className="mt-5">
+            <div className="mt-5 flex flex-wrap items-center gap-4">
               <TelegramLoginButton label="Войти и занять место" />
+              <Link href="/ocean" className="text-sm font-semibold text-teal-600 hover:text-teal">
+                Посмотреть рейтинг →
+              </Link>
             </div>
           </div>
 
@@ -234,7 +237,20 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
           </div>
         </div>
 
-        <Cell label="место в океане" value={rank?.rank ? `#${rank.rank}` : "—"} sub={rank ? `из ${rank.total}` : undefined} />
+        {/* место — дверь в рейтинг: целая плитка кликабельна, не микроссылка */}
+        <Link
+          href="/ocean"
+          className="group rounded-[var(--radius-tl)] border border-teal/40 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-teal hover:shadow-[var(--shadow-tl-sm)]"
+        >
+          <div className="text-xs text-muted">место в океане</div>
+          <div className="num mt-1 text-2xl font-semibold text-heading">
+            {rank?.rank ? `#${rank.rank}` : "—"}
+            {rank && <span className="ml-1.5 text-sm font-normal text-muted">из {rank.total}</span>}
+          </div>
+          <div className="mt-1 text-xs font-semibold text-teal-600 transition-transform group-hover:translate-x-0.5">
+            смотреть рейтинг →
+          </div>
+        </Link>
         <Cell label="очки (композит)" value={String(rank?.composite ?? 0)} sub={rank && rank.peers_at_level > 1 ? `впереди ${rank.peers_below} из ${rank.peers_at_level} на уровне` : undefined} />
         <Cell label="стрик дней" value={String(rank?.streak?.current ?? 0)} sub={rank?.streak?.longest ? `рекорд ${rank.streak.longest}` : undefined} />
       </div>
@@ -371,13 +387,23 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
         </div>
       )}
 
+      {/* личная статистика — полноценный блок, не серая строчка (Адиль 18.07) */}
       {stats && stats.attempts > 0 && (
-        <p className="num mt-4 text-sm text-muted">
-          попыток: {stats.attempts}
-          {stats.avg_score != null && ` · средний балл ${Number(stats.avg_score).toFixed(1)}`}
-          {stats.avg_time_per_q != null && ` · ${Number(stats.avg_time_per_q).toFixed(0)} сек/вопрос`}
-          {stats.best_score != null && ` · лучший ${stats.best_score}/10`}
-        </p>
+        <div className="mt-5">
+          <p className="num text-xs font-bold uppercase tracking-wider text-muted">Моя статистика</p>
+          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <Cell label="попыток всего" value={String(stats.attempts)} />
+            {stats.avg_score != null && (
+              <Cell label="средний балл" value={Number(stats.avg_score).toFixed(1)} sub="из 10" />
+            )}
+            {stats.best_score != null && (
+              <Cell label="лучший результат" value={`${stats.best_score}/10`} />
+            )}
+            {stats.avg_time_per_q != null && (
+              <Cell label="темп ответа" value={`${Number(stats.avg_time_per_q).toFixed(0)} сек`} sub="на вопрос" />
+            )}
+          </div>
+        </div>
       )}
 
       <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">

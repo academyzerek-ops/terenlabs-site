@@ -215,9 +215,7 @@ export default function LevelsPage() {
                       alt={l.name}
                       width={size}
                       height={size}
-                      className={`floaty relative object-contain drop-shadow-[0_24px_50px_rgba(4,16,28,0.55)] ${
-                        l.locked ? "orb-locked" : ""
-                      }`}
+                      className="floaty relative object-contain drop-shadow-[0_24px_50px_rgba(4,16,28,0.55)]"
                       style={{
                         width: size,
                         height: size,

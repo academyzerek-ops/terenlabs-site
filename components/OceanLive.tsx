@@ -11,12 +11,12 @@ import { plural } from "@/lib/content";
 // Данные настоящие — /leaderboard и /activity, ничего не выдумываем.
 
 const LEVEL_RU: Record<string, { name: string; img: string }> = {
-  mollusk: { name: "Ракушка", img: "/brand/ranks/rakushka.webp?v=12" },
-  crab: { name: "Краб", img: "/brand/ranks/krab.webp?v=12" },
-  barracuda: { name: "Барракуда", img: "/brand/ranks/barrakuda.webp?v=12" },
-  dolphin: { name: "Дельфин", img: "/brand/ranks/delfin.webp?v=12" },
-  shark: { name: "Акула", img: "/brand/ranks/akula.webp?v=12" },
-  whale: { name: "Кит", img: "/brand/ranks/kit.webp?v=12" },
+  mollusk: { name: "Ракушка", img: "/brand/ranks/rakushka.webp?v=13" },
+  crab: { name: "Краб", img: "/brand/ranks/krab.webp?v=13" },
+  barracuda: { name: "Барракуда", img: "/brand/ranks/barrakuda.webp?v=13" },
+  dolphin: { name: "Дельфин", img: "/brand/ranks/delfin.webp?v=13" },
+  shark: { name: "Акула", img: "/brand/ranks/akula.webp?v=13" },
+  whale: { name: "Кит", img: "/brand/ranks/kit.webp?v=13" },
 };
 
 // ключи уровней сайта → ключи API

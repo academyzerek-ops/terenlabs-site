@@ -1,5 +1,5 @@
 import { Container } from "@/components/Container";
-import { ProductCard } from "@/components/ProductCard";
+import { RecRotator } from "@/components/RecRotator";
 import { MyMemory } from "@/components/MyMemory";
 import { OceanAccount } from "@/components/OceanAccount";
 import { TgIdentityCard } from "@/components/TgIdentityCard";
@@ -13,12 +13,20 @@ export const metadata = { title: "Личный кабинет — TerenLabs" };
 export default async function Dashboard() {
   const session = await auth();
   // Рекомендации кабинета — бесплатный контур (Адиль 17.07: «не вести на ФМ»):
-  // курс Академии, кейс, обзор — по одному, edtech первым. Финпродукты живут
-  // на своей витрине, кабинет им не продавец.
-  const pick = (type: string) => CATALOG.find((p) => !p.stub && p.type === type);
-  const recommendations = [pick("course"), pick("case"), pick("review")].filter(
-    (p): p is NonNullable<typeof p> => Boolean(p)
-  );
+  // три живые плашки — Академия, кейс, обзор (edtech первым), внутри каждой
+  // карточки сменяются. Только контент с постером — демо-тренажёры и заглушки
+  // сюда не попадают (Адиль 18.07). Финпродукты живут на своей витрине.
+  const pick = (type: string, n: number) =>
+    CATALOG.filter((p) => !p.stub && p.img && p.type === type)
+      .map((p) => ({ p, r: Math.random() }))
+      .sort((a, b) => a.r - b.r)
+      .slice(0, n)
+      .map((x) => x.p);
+  const lanes = [
+    { items: pick("course", 5), periodMs: 9000 },
+    { items: pick("case", 6), periodMs: 11000 },
+    { items: pick("review", 6), periodMs: 13000 },
+  ].filter((l) => l.items.length > 0);
 
   return (
     <div className="py-14">
@@ -82,8 +90,8 @@ export default async function Dashboard() {
           <h2 className="text-2xl text-heading">Рекомендуем дальше</h2>
           <div className="wave-divider my-5" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {recommendations.map((p) => (
-              <ProductCard key={`${p.type}-${p.slug}`} p={p} />
+            {lanes.map((l) => (
+              <RecRotator key={l.items[0].type} items={l.items} periodMs={l.periodMs} />
             ))}
           </div>
         </section>

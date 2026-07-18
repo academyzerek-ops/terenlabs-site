@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Container } from "@/components/Container";
 import { TelegramLogin } from "@/components/TelegramLogin";
+import { TgDeepLinkLogin } from "@/components/TgDeepLinkLogin";
 import { auth } from "@/auth";
 
 export const metadata = { title: "Вход — TerenLabs" };
@@ -35,7 +36,13 @@ export default async function Page({
           </p>
 
           <div className="mt-8">
-            <TelegramLogin authUrl={forMiniapp ? "https://terenlabs-site-production.up.railway.app/auth/tg-callback" : undefined} />
+            {/* нативное приложение: WKWebView не откроет t.me — там остаётся
+                redirect-виджет; браузеру — deep-link без ввода номера */}
+            {forMiniapp ? (
+              <TelegramLogin authUrl="https://terenlabs-site-production.up.railway.app/auth/tg-callback" />
+            ) : (
+              <TgDeepLinkLogin />
+            )}
             <p className="mt-2 text-center text-xs text-foam/45">
               тот же аккаунт, что в Mini App — прогресс общий
             </p>

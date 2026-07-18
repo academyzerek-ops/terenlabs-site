@@ -11,7 +11,6 @@ import { DepthGauge } from "@/components/DepthGauge";
 import { OceanNowChip } from "@/components/OceanPulse";
 import { OceanFinaleLive } from "@/components/OceanLive";
 import { ContinueCta } from "@/components/OceanPath";
-import { LandingTest } from "@/components/LandingTest";
 import { PreceptsSection } from "@/components/PreceptsSection";
 import { WordDrum } from "@/components/WordDrum";
 import { STEPS, OCEAN_RANKS } from "@/lib/content";
@@ -271,9 +270,49 @@ export default function Home() {
             </div>
           </Reveal>
 
-          {/* Живой вопрос теста (Brilliant-move: продукт и есть демо) */}
+          {/* Система испытаний: от вариантов до открытых кейсов с ИИ-оценкой
+              (Адиль 18.07: живой вопрос убран — вместо него лестница форматов) */}
           <Reveal delay={200}>
-            <LandingTest />
+            <div className="mx-auto mt-16 max-w-5xl">
+              <p className="text-center text-sm font-semibold uppercase tracking-[0.18em] text-teal/60">
+                Система испытаний
+              </p>
+              <div className="mt-6 grid gap-5 md:grid-cols-3">
+                {[
+                  {
+                    n: "01",
+                    title: "Тесты с вариантами",
+                    desc: "Ситуации из жизни бизнеса, где неверные ответы звучат убедительно. Угадать нельзя — только понять.",
+                  },
+                  {
+                    n: "02",
+                    title: "Открытые кейсы",
+                    desc: "Дальше готовых вариантов нет: решение пишешь своими словами, как в реальном деле.",
+                  },
+                  {
+                    n: "03",
+                    title: "Оценка ИИ",
+                    desc: "Твой ответ разбирается по рубрике: балл, что верно, что упустил. Как живой наставник, только не устаёт.",
+                  },
+                ].map((s, i) => (
+                  <div
+                    key={s.n}
+                    className="relative rounded-[var(--radius-tl)] border border-white/10 bg-white/[0.04] p-6"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="num text-sm font-semibold text-teal/70">{s.n}</span>
+                      {i > 0 && (
+                        <span className="absolute -left-4 top-1/2 hidden -translate-y-1/2 text-foam/30 md:block">
+                          →
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="mt-3 text-xl !text-foam">{s.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-foam/70">{s.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </Reveal>
         </Container>
       </section>

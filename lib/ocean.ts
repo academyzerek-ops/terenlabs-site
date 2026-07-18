@@ -103,6 +103,39 @@ export async function loginTelegram(widgetUser: Record<string, unknown>): Promis
   return out;
 }
 
+/** Тикет входа по t.me deep-link: бот подтвердит — /tg/claim отдаст токен. */
+export async function tgLoginStart(): Promise<{ code: string; deep_link: string; expires_in_sec: number }> {
+  const res = await fetch(OCEAN_API + "/auth/tg/start", { method: "POST" });
+  if (!res.ok) throw new Error(`tg start: ${res.status}`);
+  return res.json();
+}
+
+/** Один тик поллинга тикета: null — бот ещё не подтвердил; бросает "expired". */
+export async function tgLoginClaim(code: string): Promise<OceanAuth | null> {
+  const res = await fetch(OCEAN_API + "/auth/tg/claim", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code }),
+  });
+  if (res.status === 404) throw new Error("expired");
+  if (!res.ok) throw new Error(`tg claim: ${res.status}`);
+  const out = await res.json();
+  if (out.status !== "ok") return null;
+  const auth: OceanAuth = {
+    token: out.token,
+    user_id: out.user_id,
+    display_name: out.display_name,
+    needs_onboarding: out.needs_onboarding,
+  };
+  setOceanToken(auth.token);
+  try {
+    if (auth.display_name) localStorage.setItem(NAME_KEY, auth.display_name);
+  } catch {
+    /* no-op */
+  }
+  return auth;
+}
+
 /** Вход через Google/Apple: серверный мост сайта выписывает токен. */
 export async function loginBridge(): Promise<OceanAuth | null> {
   const res = await fetch("/api/ocean-bridge", { method: "POST" });

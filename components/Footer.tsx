@@ -8,11 +8,12 @@ const LEGAL = [
   { label: "Политика конфиденциальности", href: "/legal/privacy" },
 ];
 
-const COMPANY = [
-  { label: "О компании", href: "/about" },
-  { label: "Эксперты", href: "/experts" },
-  { label: "Для бизнеса", href: "/b2b" },
-  { label: "Контакты", href: "/contacts" },
+// Колонка «Компания» убрана (Адиль 18.07) — вместо неё витрина финпродуктов
+const FIN_PRODUCTS = [
+  { label: "Финансовая модель", href: "/finmodels/finmodel-cafe" },
+  { label: "Управленческий учёт", href: "/finmodels/gsheets-accounting" },
+  { label: "Бизнес-план · Грант 400 МРП", href: "/finmodels/finmodel-business-plan" },
+  { label: "Бизнес-план · Грант ССП", href: "/finmodels/bizplan-ssp-grant" },
 ];
 
 export function Footer() {
@@ -28,7 +29,7 @@ export function Footer() {
         </div>
 
         <FooterCol title="Продукты" links={Object.values(PRODUCT_TYPES).map((t) => ({ label: t.label, href: t.href }))} />
-        <FooterCol title="Компания" links={COMPANY} />
+        <FooterCol title="Финпродукты" links={FIN_PRODUCTS} />
         <FooterCol title="Правовая информация" links={LEGAL} />
       </Container>
 
