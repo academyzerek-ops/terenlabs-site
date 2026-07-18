@@ -124,6 +124,24 @@ export default function LevelsPage() {
               Эта страница — твой штурвал: отслеживай уровень, смотри личную
               статистику и сравнивай себя с другими в честном рейтинге.
             </p>
+
+            {/* вход в рейтинг: раздел «Океан» был единственным местом БЕЗ ссылки
+                на /ocean — рейтинг находили только из кабинета (Адиль 18.07) */}
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <Link
+                href="/ocean"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-teal/50 bg-teal/10 px-5 py-2.5 text-[15px] font-semibold text-teal transition-all hover:-translate-y-0.5 hover:bg-teal/20"
+              >
+                🏆 Рейтинг «Океана»
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+              <Link
+                href="/dashboard"
+                className="text-sm font-semibold text-foam/60 transition-colors hover:text-teal"
+              >
+                Моя статистика — в кабинете →
+              </Link>
+            </div>
           </div>
 
           {/* активные в океане — всплывают пузырьками, как газ со дна */}
