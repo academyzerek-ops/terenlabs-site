@@ -405,16 +405,17 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       {stats && stats.attempts > 0 && (
         <div className="mt-5">
           <p className="num text-xs font-bold uppercase tracking-wider text-muted">Моя статистика</p>
-          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Cell label="попыток всего" value={String(stats.attempts)} />
+          {/* плашки по содержимому, цифры крупные (Адиль 18.07: «шрифт больше или уже») */}
+          <div className="mt-3 flex flex-wrap gap-3">
+            <StatCell label="попыток всего" value={String(stats.attempts)} />
             {stats.avg_score != null && (
-              <Cell label="средний балл" value={Number(stats.avg_score).toFixed(1)} sub="из 10" />
+              <StatCell label="средний балл" value={Number(stats.avg_score).toFixed(1)} sub="из 10" />
             )}
             {stats.best_score != null && (
-              <Cell label="лучший результат" value={`${stats.best_score}/10`} />
+              <StatCell label="лучший результат" value={`${stats.best_score}/10`} />
             )}
             {stats.avg_time_per_q != null && (
-              <Cell label="темп ответа" value={`${Number(stats.avg_time_per_q).toFixed(0)} сек`} sub="на вопрос" />
+              <StatCell label="темп ответа" value={`${Number(stats.avg_time_per_q).toFixed(0)} сек`} sub="на вопрос" />
             )}
           </div>
         </div>
@@ -446,6 +447,20 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
     </section>
   );
 }
+
+// компактная плашка статистики: ширина по цифре, цифра — главная
+function StatCell({ label, value, sub }: { label: string; value: string; sub?: string }) {
+  return (
+    <div className="min-w-[9.5rem] rounded-[var(--radius-tl)] border border-line bg-card px-5 py-4">
+      <div className="text-xs text-muted">{label}</div>
+      <div className="num mt-1 text-4xl font-semibold text-heading">
+        {value}
+        {sub && <span className="ml-1.5 text-sm font-normal text-muted">{sub}</span>}
+      </div>
+    </div>
+  );
+}
+
 
 function Cell({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
