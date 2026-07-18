@@ -12,8 +12,19 @@ const OUTCOMES_STUB = [
 const FAQ_STUB = [
   { q: "Чем это отличается от обычного курса?", a: "Мы ведём расчётом и реальными данными, а не мотивацией. На выходе — применимый инструмент." },
   { q: "На каком языке материал?", a: "Русский и казахский. Переключатель языка — в шапке." },
-  { q: "Есть ли возврат?", a: "Условия возврата указываются в оферте. Раздел дорабатывается." },
+  { q: "Есть ли возврат?", a: "Да, условия — в пользовательском соглашении (ссылка в подвале сайта)." },
 ];
+
+// «Формат» — по типу продукта: у финпродуктов нет ни рангов, ни кабинета,
+// показывать им океанские строки — ляп (Адиль 18.07)
+const FORMAT_BY_TYPE: Record<string, string[]> = {
+  finmodel: [
+    "Покупка в Mini App — Tribute в Telegram",
+    "Результат остаётся у тебя (документ/таблица)",
+    "Считаем по твоим цифрам, не по шаблонным",
+  ],
+  default: ["Личный кабинет + мобайл", "Прогресс и ранг «Океан»", "Языки: RU · KK"],
+};
 
 export function ProductPage({ p }: { p: Product }) {
   const t = PRODUCT_TYPES[p.type];
@@ -26,6 +37,9 @@ export function ProductPage({ p }: { p: Product }) {
       ? { href: `/learn/${p.slug}`, label: p.stub ? "Открыть демо обучения" : "Начать обучение" }
       : p.free
       ? { href: "/catalog", label: "Открыть" }
+      : p.stub
+      ? // продажи не открыты — «Купить» на заглушке обманывает (Адиль 18.07)
+        { href: "/catalog?type=finmodel", label: "Скоро в продаже — смотреть другие" }
       : // платные продукты продаются в Mini App (Tribute-чекаут привязан к Telegram-аккаунту)
         { href: "https://t.me/terenlabs_bot", label: "Купить в Mini App" };
 
@@ -47,7 +61,7 @@ export function ProductPage({ p }: { p: Product }) {
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-foam/75">{p.blurb}</p>
               {p.stub && (
                 <p className="mt-5 inline-block rounded-full bg-warn/15 px-3 py-1 text-sm text-warn">
-                  Каркас: контент этого продукта готовится
+                  Готовим к выпуску — продажи ещё не открыты
                 </p>
               )}
             </div>
@@ -64,7 +78,7 @@ export function ProductPage({ p }: { p: Product }) {
               <Button href={cta.href} className="w-full">
                 {cta.label}
               </Button>
-              {!p.free && (
+              {!p.free && !p.stub && (
                 <p className="mt-3 text-center text-xs text-foam/45">
                   Оплата картой любой страны — Tribute в Telegram
                 </p>
@@ -120,9 +134,9 @@ export function ProductPage({ p }: { p: Product }) {
           <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
             <h3 className="eyebrow">Формат</h3>
             <ul className="mt-3 space-y-2 text-sm text-heading">
-              <li>Личный кабинет + мобайл</li>
-              <li>Прогресс и ранг «Океан»</li>
-              <li>Языки: RU · KK</li>
+              {(FORMAT_BY_TYPE[p.type] ?? FORMAT_BY_TYPE.default).map((f) => (
+                <li key={f}>{f}</li>
+              ))}
             </ul>
           </div>
         </aside>

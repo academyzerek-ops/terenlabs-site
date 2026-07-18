@@ -55,6 +55,16 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  // Индексных страниц /cases,/reviews,/tests нет (контент живёт в /catalog),
+  // но SEO-крошки (jsonld) на них ссылаются — не отдавать поисковику 404
+  async redirects() {
+    return [
+      { source: "/cases", destination: "/catalog?type=case", permanent: true },
+      { source: "/reviews", destination: "/catalog?type=review", permanent: true },
+      { source: "/tests", destination: "/catalog?type=test", permanent: true },
+    ];
+  },
+
   async headers() {
     return [
       {

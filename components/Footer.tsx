@@ -28,7 +28,13 @@ export function Footer() {
           </p>
         </div>
 
-        <FooterCol title="Продукты" links={Object.values(PRODUCT_TYPES).map((t) => ({ label: t.label, href: t.href }))} />
+        {/* финмодели здесь не дублируем — им посвящена соседняя колонка «Финпродукты» */}
+        <FooterCol
+          title="Продукты"
+          links={Object.entries(PRODUCT_TYPES)
+            .filter(([k]) => k !== "finmodel")
+            .map(([, t]) => ({ label: t.label, href: t.href }))}
+        />
         <FooterCol title="Финпродукты" links={FIN_PRODUCTS} />
         <FooterCol title="Правовая информация" links={LEGAL} />
       </Container>
