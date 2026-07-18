@@ -93,7 +93,7 @@ export function Footer() {
               </span>
             )}
           </span>
-          <span className="num">Интерфейс: RU · KK</span>
+          <span className="num">Интерфейс: RU</span>
         </Container>
 
         {/* имя уходит под воду — обрезается нижним краем футера */}

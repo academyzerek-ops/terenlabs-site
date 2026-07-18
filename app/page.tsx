@@ -140,6 +140,20 @@ export default function Home() {
               className="font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
             />
           </p>
+
+          {/* сквозной CTA (аудит 18.07): у hero не было НИ ОДНОЙ кнопки —
+              первый шаг тонул в глубине страницы. Тест проходится и анонимом. */}
+          <div className="rise mt-10 flex flex-wrap items-center gap-5" style={{ animationDelay: "420ms" }}>
+            <Button href="/tests/crab-t1/take" size="lg">
+              Начать погружение — тест за 2 минуты
+            </Button>
+            <Link
+              href="/catalog"
+              className="text-[15px] font-semibold text-foam/70 transition-colors hover:text-teal"
+            >
+              Смотреть, что внутри →
+            </Link>
+          </div>
         </Container>
       </section>
 

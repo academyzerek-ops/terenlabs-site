@@ -284,7 +284,10 @@ export function OceanScene() {
 
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    // слабое железо (бюджетные ноуты/планшеты ≥768px): WebGL тоже не поднимаем
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const weak = (nav.deviceMemory ?? 8) <= 4 || (navigator.hardwareConcurrency ?? 8) <= 4;
+    setReduced(weak || window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     if (window.innerWidth < 768) setCount(500);
     // на телефонах WebGL (Bloom + сотни частиц на fixed-канвасе) жрёт батарею и
     // роняет fps на средних андроидах — отдаём градиент глубины + CSS-пузыри

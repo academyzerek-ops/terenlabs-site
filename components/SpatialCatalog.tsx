@@ -54,6 +54,12 @@ export function SpatialCatalog({ items }: { items: CatalogItem[] }) {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
     
     if (scrollRef.current) {
+      // На краях карусели колесо отдаём странице: раньше preventDefault жил
+      // всегда и вертикальный скролл «запирался» в секции (аудит 18.07)
+      const el = scrollRef.current;
+      const atStart = el.scrollLeft <= 1;
+      const atEnd = Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth - 1;
+      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
       e.preventDefault();
       scrollRef.current.scrollBy({
         left: e.deltaY * 1.5, // умножаем для комфортной скорости на мышке
@@ -161,8 +167,16 @@ export function SpatialCatalog({ items }: { items: CatalogItem[] }) {
                       className="object-cover opacity-70 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-navy-950 text-7xl opacity-10">
-                      {item.ico || "📦"}
+                    <div
+                      className="flex h-full w-full items-center justify-center text-8xl"
+                      style={{
+                        background:
+                          "radial-gradient(120% 90% at 30% 20%, rgba(0,183,194,0.28) 0%, rgba(13,43,69,0.9) 55%, #071c30 100%)",
+                      }}
+                    >
+                      <span className="opacity-40 drop-shadow-[0_8px_30px_rgba(0,183,194,0.5)]">
+                        {item.ico || "📦"}
+                      </span>
                     </div>
                   )}
 
@@ -179,6 +193,11 @@ export function SpatialCatalog({ items }: { items: CatalogItem[] }) {
                     <h3 className="text-2xl font-black leading-[1.1] tracking-tight text-white transition-colors group-hover:text-teal-50">
                       {item.title}
                     </h3>
+                    {item.blurb && (
+                      <p className="mt-2 line-clamp-2 text-sm leading-snug text-foam/65">
+                        {item.blurb}
+                      </p>
+                    )}
 
                     {item.price && (
                        <div className="mt-5 inline-flex items-center rounded-full border border-white/5 bg-white/5 px-3 py-1">
