@@ -9,7 +9,7 @@ import { ScrollFX } from "@/components/ScrollFX";
 import { JsonLd } from "@/components/JsonLd";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { SITE_URL } from "@/lib/site";
-import { organizationJsonLd } from "@/lib/jsonld";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 
 // Дисплей/заголовки — Playfair Display (глубина, премиум)
 const playfair = Playfair_Display({
@@ -78,7 +78,7 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSans.variable} ${jetbrains.variable} h-full`}
     >
       <body className="flex min-h-full flex-col">
-        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         {/* аналитика: те же события, что Mini App (/api/ocean/event), platform=site */}
         <Suspense fallback={null}>
           <AnalyticsTracker />

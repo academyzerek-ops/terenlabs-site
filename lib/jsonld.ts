@@ -67,3 +67,46 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+
+// Товар (платные продукты) — под rich snippet цены в выдаче. Цена парсится из
+// строки прайса ("20 $" / "40 $") в число + валюту USD (прайс TerenLabs в $).
+export function productJsonLd(opts: {
+  name: string; description: string; image?: string | null; path: string; price: string;
+}) {
+  const num = (opts.price.match(/[\d.]+/) || ["0"])[0];
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: opts.name,
+    description: opts.description,
+    ...(opts.image ? { image: `${ORG.url}${opts.image}` } : {}),
+    brand: { "@type": "Brand", name: ORG.name },
+    offers: {
+      "@type": "Offer",
+      url: `${ORG.url}${opts.path}`,
+      price: num,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+  };
+}
+
+
+// WebSite + SearchAction: даёт шанс на sitelinks-searchbox в выдаче Google
+// (поиск по каталогу прямо из сниппета). Точка входа — /catalog?type=... ,
+// поэтому query-цель ведёт на общий каталог.
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: ORG.name,
+    url: SITE_URL,
+    inLanguage: "ru-KZ",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/catalog?q={query}` },
+      "query-input": "required name=query",
+    },
+  };
+}
