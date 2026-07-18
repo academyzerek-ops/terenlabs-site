@@ -101,7 +101,7 @@ export default function LevelsPage() {
         {/* шапка: интро слева, зал славы плавает на воде справа — без рамок */}
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)]">
           <div className="max-w-2xl">
-            <p className="eyebrow !text-teal-600">Система признания знаний</p>
+            <p className="eyebrow !text-[#8fe8ef] [text-shadow:0_1px_10px_rgba(0,0,0,0.45)]">Система признания знаний</p>
             <h1 className="mt-2 text-4xl !text-foam sm:text-6xl">Океан</h1>
 
             {/* текст Адиля дословно; «интересная подача» — только типографикой:

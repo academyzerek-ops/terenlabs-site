@@ -100,7 +100,7 @@ export function OceanBubbles() {
     <div className="relative hidden h-[460px] w-full lg:block" aria-hidden={people.length === 0}>
       {/* заголовок-метка */}
       <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap">
-        <span className="eyebrow !text-teal">Кто в океане сейчас</span>
+        <span className="eyebrow !text-[#8fe8ef] [text-shadow:0_1px_10px_rgba(0,0,0,0.45)]">Кто в океане сейчас</span>
         {/* яркая кнопка, не микроссылка (Адиль 18.07: «чтобы заметно было») */}
         <Link
           href="/ocean"
