@@ -9,6 +9,7 @@ import { saveAttempt } from "@/lib/memory";
 import {
   getOceanToken,
   submitOceanAttempt,
+  fetchRecommendation,
   submitOpenOceanAttempt,
   OceanAttemptResult,
   OceanProgress,
@@ -107,6 +108,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [result, setResult] = useState<OceanAttemptResult | null>(null);
+  const [reco, setReco] = useState<string>(""); // слово наставника после попытки
   // кулдаун этого теста (мс осталось) — с /me/progress или из ответа /attempt
   const [cooldownMs, setCooldownMs] = useState(0);
   const [resumable, setResumable] = useState<Slot | null>(null);
@@ -263,6 +265,20 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     );
     setResult(remote);
     setPhase("result");
+    // Слово наставника (общий бэкенд с Mini App): для закрытых тестов передаём
+    // заваленные вопросы — критика бьёт точечно; левел-ап/застревание бэк
+    // распознаёт сам по истории попыток. Ошибка сети — просто без блока.
+    setReco("");
+    const misses = isOpen
+      ? []
+      : remote.review
+          .filter((r) => !r.correct)
+          .map((r) => {
+            const q = qs[r.q_idx];
+            return { q: q?.q ?? "", why: r.explanation ?? "" };
+          })
+          .filter((m) => m.q);
+    fetchRecommendation(level, test, remote.attempt_id ?? null, misses).then(setReco);
   };
 
   const answerValid = (a: Answer) =>
@@ -490,6 +506,16 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
             </Link>
           </p>
         </div>
+
+        {/* слово наставника: разбор попытки / левел-ап / застревание */}
+        {reco && (
+          <div className="mx-auto mt-10 max-w-2xl rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-6">
+            <p className="num text-[0.68rem] font-bold uppercase tracking-wider text-teal-600">
+              TEREN-AI · разбор попытки
+            </p>
+            <p className="mt-2 whitespace-pre-line leading-relaxed text-body">{reco}</p>
+          </div>
+        )}
 
         {/* открытый: разбор по рубрике на каждый ответ (как renderOpenReview) */}
         {isOpen && result.review.length > 0 && (

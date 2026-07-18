@@ -136,6 +136,34 @@ export async function tgLoginClaim(code: string): Promise<OceanAuth | null> {
   return auth;
 }
 
+/** Персональный разбор TEREN-AI после теста (общий бэкенд с Mini App). */
+export async function fetchRecommendation(
+  level: string,
+  test: string,
+  attemptId: number | null,
+  misses: { q: string; why: string }[]
+): Promise<string> {
+  try {
+    const out = await oceanFetch<{ text: string }>("/recommendation", {
+      method: "POST",
+      json: { level, test, attempt_id: attemptId, misses },
+    });
+    return (out.text || "").trim();
+  } catch {
+    return ""; // ИИ недоступен — экран результата живёт без разбора
+  }
+}
+
+/** Общий вывод TEREN-AI по статистике (кабинет). Кэшируется на бэке. */
+export async function fetchMeSummary(): Promise<string> {
+  try {
+    const out = await oceanFetch<{ text: string }>("/me/summary");
+    return (out.text || "").trim();
+  } catch {
+    return "";
+  }
+}
+
 /** Вход через Google/Apple: серверный мост сайта выписывает токен. */
 export async function loginBridge(): Promise<OceanAuth | null> {
   const res = await fetch("/api/ocean-bridge", { method: "POST" });

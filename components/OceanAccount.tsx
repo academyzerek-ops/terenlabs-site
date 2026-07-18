@@ -5,6 +5,7 @@ import Link from "next/link";
 import { OCEAN_RANKS } from "@/lib/content";
 import { TelegramLoginButton } from "@/components/TelegramLoginButton";
 import {
+  fetchMeSummary,
   getOceanToken,
   loginBridge,
   oceanFetch,
@@ -90,6 +91,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
   const [progress, setProgress] = useState<OceanProgress | null>(null);
   const [badges, setBadges] = useState<Badge[] | null>(null);
   const [linkCode, setLinkCode] = useState<string | null>(null);
+  const [aiSummary, setAiSummary] = useState<string>(""); // общий вывод TEREN-AI
   const [recoOpen, setRecoOpen] = useState(false);
 
   const refresh = useCallback(async () => {
@@ -100,16 +102,18 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
     }
     setHasToken(true);
     try {
-      const [r, s, p, b] = await Promise.all([
+      const [r, s, p, b, sum] = await Promise.all([
         oceanFetch<Rank>("/me/rank"),
         oceanFetch<Stats>("/me/stats").catch(() => null),
         oceanFetch<OceanProgress & { last_recommendation?: Reco | null }>("/me/progress").catch(() => null),
         oceanFetch<{ badges: Badge[] }>("/me/badges").catch(() => null),
+        fetchMeSummary(),
       ]);
       setRank(r);
       setStats(s);
       setProgress(p);
       setBadges(b?.badges ?? null);
+      setAiSummary(sum);
     } catch {
       setRank(null);
     }
@@ -363,6 +367,16 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
               </span>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* общий вывод TEREN-AI по накопленной статистике (тот же бэк, что Mini App) */}
+      {aiSummary && (
+        <div className="mt-5 rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-5">
+          <p className="num text-[0.68rem] font-bold uppercase tracking-wider text-teal-600">
+            TEREN-AI · твой портрет по статистике
+          </p>
+          <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-body">{aiSummary}</p>
         </div>
       )}
 
