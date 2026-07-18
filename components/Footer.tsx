@@ -30,7 +30,7 @@ export function Footer() {
 
         {/* финмодели здесь не дублируем — им посвящена соседняя колонка «Финпродукты» */}
         <FooterCol
-          title="Продукты"
+          title="Обучение"
           links={Object.entries(PRODUCT_TYPES)
             .filter(([k]) => k !== "finmodel")
             .map(([, t]) => ({ label: t.label, href: t.href }))}
