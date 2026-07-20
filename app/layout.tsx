@@ -66,6 +66,11 @@ export const metadata: Metadata = {
       "EdTech и FinTools для предпринимателей: курсы, тесты, кейсы, обзоры и интерактивные финмодели.",
     images: ["/og-image.jpg"],
   },
+  // Подтверждение прав в поисковиках (Google Search Console + Яндекс.Вебмастер).
+  verification: {
+    google: "twlEgIN_Rnzy34eI4x_4huLA7xXCCDg9fJlBVaErQXo",
+    yandex: "b6251af95feeb1bd",
+  },
 };
 
 export default function RootLayout({
