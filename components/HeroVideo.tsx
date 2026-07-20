@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { preload } from "react-dom";
 
-// Hero-видео (4 МБ) — пожиратель мобильного LCP. Телефоны и слабое железо
-// получают ТОЛЬКО постер (webp 29 КБ, preload с высоким приоритетом);
+// Hero-видео (6 МБ) — пожиратель мобильного LCP. Телефоны и слабое железо
+// получают ТОЛЬКО постер (webp ~54 КБ, preload с высоким приоритетом);
 // десктоп — живой океан. LCP-дожим 18.07: preload + fetchPriority, чтобы
 // браузер тянул постер первым, а не после гидрации.
 const POSTER_M = "/brand/ocean-evolution-poster-m.webp";
@@ -47,7 +47,7 @@ export function HeroVideo() {
       aria-hidden="true"
       poster={POSTER}
     >
-      <source src="/brand/ocean-evolution.mp4?v=6" type="video/mp4" />
+      <source src="/brand/ocean-evolution.mp4?v=15" type="video/mp4" />
     </video>
   );
 }
