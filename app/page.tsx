@@ -134,27 +134,29 @@ export default function Home() {
 
           {/* сквозной CTA (аудит 18.07): у hero не было НИ ОДНОЙ кнопки —
               первый шаг тонул в глубине страницы. Тест проходится и анонимом. */}
-          <div className="rise mt-10 flex flex-wrap items-center gap-5" style={{ animationDelay: "420ms" }}>
+          {/* Два пути с первого экрана: крючок (тест-игра) и конкретная ценность
+              (бесплатные финмодель/БП под грант) — чтобы пришедший за расчётом не
+              терялся в тесте. Линейка бесплатна (2026-07). */}
+          <div className="rise mt-10 flex flex-wrap items-center gap-4" style={{ animationDelay: "420ms" }}>
             <Button href="/tests/crab-t1/take" size="lg">
               Начать погружение — тест за 2 минуты
             </Button>
             <Link
-              href="/catalog"
-              className="text-[15px] font-semibold text-foam/70 transition-colors hover:text-teal"
+              href="/catalog?type=finmodel"
+              className="inline-flex items-center gap-2 rounded-full border border-[#E8B65C]/50 bg-[#E8B65C]/10 px-6 py-3 text-[15px] font-semibold text-foam transition-colors hover:bg-[#E8B65C]/20"
             >
-              Смотреть, что внутри →
+              <span aria-hidden>🎁</span>
+              Финмодель и бизнес-план под грант —{" "}
+              <span style={{ color: "#E8B65C" }}>бесплатно</span>
             </Link>
           </div>
-
-          {/* Линейка стала бесплатной (2026-07): выносим на первый экран */}
-          <p
-            className="rise mt-8 inline-flex items-center gap-2 self-start rounded-full border border-[#E8B65C]/45 bg-[#E8B65C]/10 px-4 py-2 text-[14px] font-semibold text-foam"
+          <Link
+            href="/catalog"
+            className="rise mt-5 inline-block text-[15px] font-semibold text-foam/60 transition-colors hover:text-teal"
             style={{ animationDelay: "520ms" }}
           >
-            <span aria-hidden>🎁</span>
-            Финмодель и бизнес-план под грант —{" "}
-            <span style={{ color: "#E8B65C" }}>бесплатно</span>
-          </p>
+            Смотреть всё, что внутри →
+          </Link>
         </Container>
       </section>
 
