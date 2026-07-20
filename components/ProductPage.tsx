@@ -177,7 +177,7 @@ export function ProductPage({ p }: { p: Product }) {
           <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
             <h3 className="eyebrow">Формат</h3>
             <ul className="mt-3 space-y-2 text-sm text-heading">
-              {(FORMAT_BY_TYPE[p.type] ?? FORMAT_BY_TYPE.default).map((f) => (
+              {formatLines.map((f) => (
                 <li key={f}>{f}</li>
               ))}
             </ul>
