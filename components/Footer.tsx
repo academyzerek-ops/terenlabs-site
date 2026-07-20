@@ -63,7 +63,23 @@ export function Footer() {
                 <path d="M44.7 121.5 194.9 63.6c7-2.6 13.1 1.6 10.8 12.2l-25.6 120.6c-1.9 8.5-7 10.6-14.1 6.6l-39-28.8-18.8 18.2c-2.1 2.1-3.8 3.8-7.8 3.8l2.8-39.8 72.3-65.3c3.1-2.8-.7-4.3-4.9-1.7l-89.4 56.3-38.5-12c-8.4-2.7-8.6-8.4 2-12.2Z" />
               </svg>
             </a>
+            <a
+              href="mailto:info@terenlabs.kz"
+              aria-label="Почта info@terenlabs.kz"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0d2b45]/15 text-[#3d4f5e] transition-colors hover:border-teal hover:text-teal"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3.5 7 12 13l8.5-6" />
+              </svg>
+            </a>
           </div>
+          <a
+            href="mailto:info@terenlabs.kz"
+            className="mt-3 inline-block text-sm text-[#3d4f5e] transition-colors hover:text-teal"
+          >
+            info@terenlabs.kz
+          </a>
         </div>
 
         {/* финмодели здесь не дублируем — им посвящена соседняя колонка «Финпродукты» */}
