@@ -145,6 +145,16 @@ export default function Home() {
               Смотреть, что внутри →
             </Link>
           </div>
+
+          {/* Линейка стала бесплатной (2026-07): выносим на первый экран */}
+          <p
+            className="rise mt-8 inline-flex items-center gap-2 self-start rounded-full border border-[#E8B65C]/45 bg-[#E8B65C]/10 px-4 py-2 text-[14px] font-semibold text-foam"
+            style={{ animationDelay: "520ms" }}
+          >
+            <span aria-hidden>🎁</span>
+            Финмодель и бизнес-план под грант —{" "}
+            <span style={{ color: "#E8B65C" }}>бесплатно</span>
+          </p>
         </Container>
       </section>
 

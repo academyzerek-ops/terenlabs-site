@@ -19,7 +19,7 @@ const FAQ_STUB = [
 // показывать им океанские строки — ляп (Адиль 18.07)
 const FORMAT_BY_TYPE: Record<string, string[]> = {
   finmodel: [
-    "Покупка в Mini App — Tribute в Telegram",
+    "Бесплатно — сборка в Mini App @terenlabs_bot",
     "Результат остаётся у тебя (документ/таблица)",
     "Считаем по твоим цифрам, не по шаблонным",
   ],
@@ -38,10 +38,11 @@ export function ProductPage({ p }: { p: Product }) {
       : p.free
       ? { href: "/catalog", label: "Открыть" }
       : p.stub
-      ? // продажи не открыты — «Купить» на заглушке обманывает (Адиль 18.07)
-        { href: "/catalog?type=finmodel", label: "Скоро в продаже — смотреть другие" }
-      : // платные продукты продаются в Mini App (Tribute-чекаут привязан к Telegram-аккаунту)
-        { href: "https://t.me/terenlabs_bot", label: "Купить в Mini App" };
+      ? // ещё не открыто — «смотреть другие» вместо обещания
+        { href: "/catalog?type=finmodel", label: "Скоро — смотреть другие" }
+      : // линейка бесплатна (2026-07): сборка в Mini App, оплата не требуется.
+        // Индивидуальная («от 100 $») — заявка там же, диалог с финансистом.
+        { href: "https://t.me/terenlabs_bot", label: "Открыть в Mini App" };
 
   return (
     <article>
@@ -78,9 +79,9 @@ export function ProductPage({ p }: { p: Product }) {
               <Button href={cta.href} className="w-full">
                 {cta.label}
               </Button>
-              {!p.free && !p.stub && (
+              {!p.stub && (
                 <p className="mt-3 text-center text-xs text-foam/45">
-                  Оплата картой любой страны — Tribute в Telegram
+                  Открывается в @terenlabs_bot — вход через Telegram
                 </p>
               )}
             </aside>
