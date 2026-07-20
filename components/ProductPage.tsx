@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "./Container";
 import { Button } from "./Button";
+import { FinmodelLeadForm } from "./FinmodelLeadForm";
 import { Product, PRODUCT_TYPES } from "@/lib/content";
 
 const OUTCOMES_STUB = [
@@ -44,24 +45,27 @@ const FORMAT_BY_TYPE: Record<string, string[]> = {
 export function ProductPage({ p }: { p: Product }) {
   const t = PRODUCT_TYPES[p.type];
 
+  // Индивидуальная финмодель ($100) — платная ручная работа экспертов Big 4 по
+  // заявке (не ИИ, не бесплатно). Отличается CTA/форматом/экспертом/FAQ от бесплатных.
+  const isPaidFinmodel = p.type === "finmodel" && !!p.price && p.price.includes("$");
+
   // Куда ведёт основная кнопка в зависимости от типа продукта
   const cta =
     p.type === "test"
       ? { href: `/tests/${p.slug}/take`, label: "Пройти тест" }
       : p.type === "course"
       ? { href: `/learn/${p.slug}`, label: p.stub ? "Открыть демо обучения" : "Начать обучение" }
+      : isPaidFinmodel
+      ? // независимая заявка на сайте — без захода в Telegram (форма ниже, #zayavka)
+        { href: "#zayavka", label: "Оставить заявку" }
       : p.free
       ? { href: "/catalog", label: "Открыть" }
       : p.stub
       ? // ещё не открыто — «смотреть другие» вместо обещания
         { href: "/catalog?type=finmodel", label: "Скоро — смотреть другие" }
-      : // линейка бесплатна (2026-07): сборка в Mini App, оплата не требуется.
-        // Индивидуальная («от 100 $») — заявка там же, диалог с финансистом.
+      : // бесплатные финпродукты — сборка в Mini App
         { href: "https://t.me/terenlabs_bot", label: "Открыть в Mini App" };
 
-  // Индивидуальная финмодель ($100) — платная ручная работа экспертов Big 4 по
-  // заявке (не ИИ, не бесплатно). Отличается форматом/экспертом/FAQ от бесплатных.
-  const isPaidFinmodel = p.type === "finmodel" && !!p.price && p.price.includes("$");
   const formatLines = isPaidFinmodel
     ? [
         "Финансовые эксперты с опытом Big 4",
@@ -114,7 +118,9 @@ export function ProductPage({ p }: { p: Product }) {
               </Button>
               {!p.stub && (
                 <p className="mt-3 text-center text-xs text-foam/45">
-                  Открывается в @terenlabs_bot — вход через Telegram
+                  {isPaidFinmodel
+                    ? "Заявка прямо на сайте — ответим по вашему контакту, Telegram не нужен"
+                    : "Открывается в @terenlabs_bot — вход через Telegram"}
                 </p>
               )}
             </aside>
@@ -125,6 +131,13 @@ export function ProductPage({ p }: { p: Product }) {
       {/* ТЕЛО */}
       <Container className="grid gap-12 py-16 md:grid-cols-[1fr_320px]">
         <div className="space-y-14">
+          {isPaidFinmodel && (
+            <section id="zayavka" className="scroll-mt-24">
+              <h2 className="text-2xl text-heading">Оставить заявку</h2>
+              <div className="wave-divider my-5" />
+              <FinmodelLeadForm />
+            </section>
+          )}
           <Block title="Что ты получишь">
             <ul className="space-y-3">
               {OUTCOMES_STUB.map((o) => (
