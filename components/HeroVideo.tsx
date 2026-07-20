@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { preload } from "react-dom";
 
-// Hero-видео (6 МБ) — пожиратель мобильного LCP. Телефоны и слабое железо
-// получают ТОЛЬКО постер (webp ~54 КБ, preload с высоким приоритетом);
-// десктоп — живой океан. LCP-дожим 18.07: preload + fetchPriority, чтобы
-// браузер тянул постер первым, а не после гидрации.
+// Hero-видео. По просьбе Адиля (2026-07-21) видео крутится и на мобиле, а не
+// только на десктопе (раньше телефоны получали только постер ради LCP). Постер
+// (webp ~54 КБ, preload с высоким приоритетом) остаётся LCP-элементом и
+// заглушкой на время загрузки видео, поэтому первый экран красится быстро;
+// цена — мобильный трафик на 6-МБ видео. Слабое железо и prefers-reduced-motion
+// по-прежнему получают только постер.
 const POSTER_M = "/brand/ocean-evolution-poster-m.webp";
 const POSTER = "/brand/ocean-evolution-poster.webp";
 
@@ -16,7 +18,7 @@ export function HeroVideo() {
     const nav = navigator as Navigator & { deviceMemory?: number };
     const weak = (nav.deviceMemory ?? 8) <= 4;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setWantVideo(window.innerWidth >= 768 && !weak && !reduced);
+    setWantVideo(!weak && !reduced); // видео и на мобиле (кроме слабых/reduced-motion)
   }, []);
 
   // hoisted в <head> при SSR — постер начинает качаться до JS
