@@ -9,12 +9,12 @@ const API_ORIGIN = (process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-product
 // (им нужен inline-скрипт темы), но закрывает clickjacking, base-tag и object/embed.
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org https://oauth.telegram.org",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org https://oauth.telegram.org https://mc.yandex.ru",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "media-src 'self'",
   "font-src 'self' data:",
-  `connect-src 'self' ${API_ORIGIN}`,
+  `connect-src 'self' ${API_ORIGIN} https://mc.yandex.ru https://mc.yandex.com`,
   "frame-src 'self' https://oauth.telegram.org https://telegram.org",
   "frame-ancestors 'self'",
   "base-uri 'self'",

@@ -16,10 +16,13 @@ if (isProd && (!fromEnv || fromEnv.includes("localhost"))) {
   );
 }
 
-// В проде без env — Railway-домен, НЕ localhost: 17.07 карточки соцсетей
-// (og:image /bot) указывали на localhost и не рендерились.
+// В проде дефолт — КАНОНИЧЕСКИЙ домен terenlabs.kz (домен подключён и живой,
+// 20.07). Раньше падало на railway-домен, из-за чего canonical/sitemap/robots/OG
+// указывали не на наш домен и мешали индексации. NEXT_PUBLIC_SITE_URL по-прежнему
+// имеет приоритет, но в Docker-сборке Railway build-env до next build не доходит,
+// поэтому дефолт держим правильным доменом.
 const fallback = isProd
-  ? "https://terenlabs-site-production.up.railway.app"
+  ? "https://terenlabs.kz"
   : "http://localhost:3001";
 
 export const SITE_URL = (fromEnv && !(isProd && fromEnv.includes("localhost"))

@@ -8,6 +8,7 @@ import { NoaChat } from "@/components/NoaChat";
 import { ScrollFX } from "@/components/ScrollFX";
 import { JsonLd } from "@/components/JsonLd";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
+import { YandexMetrica } from "@/components/YandexMetrica";
 import { SITE_URL } from "@/lib/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 
@@ -82,6 +83,10 @@ export default function RootLayout({
         {/* аналитика: те же события, что Mini App (/api/ocean/event), platform=site */}
         <Suspense fallback={null}>
           <AnalyticsTracker />
+        </Suspense>
+        {/* Яндекс.Метрика (счётчик terenlabs.kz) — useSearchParams требует Suspense */}
+        <Suspense fallback={null}>
+          <YandexMetrica />
         </Suspense>
         {/* a11y: первый фокусируемый — пропуск навигации к содержимому (WCAG 2.4.1) */}
         <a href="#main" className="skip-link">Перейти к содержимому</a>
