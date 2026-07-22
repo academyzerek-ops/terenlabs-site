@@ -4,7 +4,7 @@ import { getItem, FINMODELS } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PRODUCT_KEYWORDS } from "@/lib/seo-keywords";
 import { JsonLd } from "@/components/JsonLd";
-import { productJsonLd } from "@/lib/jsonld";
+import { articleJsonLd } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return FINMODELS.map((f) => ({ slug: f.slug }));
@@ -27,10 +27,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return (
     <>
-      {!p.stub && p.price && (
-        <JsonLd data={productJsonLd({
-          name: p.title, description: p.blurb, image: p.img,
-          path: `/finmodels/${slug}`, price: p.price,
+      {!p.stub && (
+        <JsonLd data={articleJsonLd({
+          headline: p.title, description: p.blurb, image: p.img ?? undefined,
+          path: `/finmodels/${slug}`,
         })} />
       )}
       <ProductPage p={p} />
