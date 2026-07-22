@@ -139,7 +139,7 @@ export default function Home() {
               терялся в тесте. Линейка бесплатна (2026-07). */}
           <div className="rise mt-10 flex flex-wrap items-center gap-4" style={{ animationDelay: "420ms" }}>
             <Button href="/tests/crab-t1/take" size="lg">
-              Начать погружение — тест за 2 минуты
+              Стань акулой бизнеса — докажи свои скиллы
             </Button>
             <Link
               href="/catalog?type=finmodel"
