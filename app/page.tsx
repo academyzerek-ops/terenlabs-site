@@ -136,7 +136,7 @@ export default function Home() {
               первый шаг тонул в глубине страницы. Тест проходится и анонимом. */}
           <div className="rise mt-10 flex flex-wrap items-center gap-5" style={{ animationDelay: "420ms" }}>
             <Button href="/tests/crab-t1/take" size="lg">
-              Начать погружение — тест за 2 минуты
+              Стань акулой бизнеса — докажи свои скиллы
             </Button>
             <Link
               href="/catalog"
