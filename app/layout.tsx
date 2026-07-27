@@ -70,6 +70,12 @@ export const metadata: Metadata = {
   verification: {
     google: "twlEgIN_Rnzy34eI4x_4huLA7xXCCDg9fJlBVaErQXo",
     yandex: "b6251af95feeb1bd",
+    // Подтверждение домена в Meta Business Suite (портфолио Teren Labs).
+    // Meta не исполняет JS — тег обязан быть в статическом выводе, поэтому живёт
+    // в metadata корневого layout, а не в клиентском компоненте.
+    other: {
+      "facebook-domain-verification": "7lyuwhtff60xq4meuljn2gptg1w05v",
+    },
   },
 };
 
