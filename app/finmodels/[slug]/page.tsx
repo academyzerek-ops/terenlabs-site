@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const p = getItem("finmodel", slug);
   if (!p) return {};
   return {
-    ...pageMetadata({ title: p.title, description: p.blurb, image: p.img }),
+    ...pageMetadata({ title: p.title, description: p.blurb, image: p.img,
+                      path: `/finmodels/${slug}` }),
     keywords: PRODUCT_KEYWORDS[slug] ?? undefined,
   };
 }

@@ -1,6 +1,7 @@
 import { Container } from "@/components/Container";
 
-export const metadata = { title: "Политика конфиденциальности — TerenLabs" };
+export const metadata = {
+  alternates: { canonical: "/legal/privacy" }, title: "Политика конфиденциальности — TerenLabs" };
 
 // Текст — 1-в-1 из Mini App (frontend/content/ru/info/privacy.html), здесь только
 // вёрстка под дизайн сайта. Правки текста — сначала в Mini App, потом сюда.

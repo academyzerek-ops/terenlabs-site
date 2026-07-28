@@ -1,7 +1,8 @@
 import { Container } from "@/components/Container";
 import { ContactForms } from "@/components/ContactForms";
 
-export const metadata = { title: "Связь с нами — TerenLabs" };
+export const metadata = {
+  alternates: { canonical: "/contacts" }, title: "Связь с нами — TerenLabs" };
 
 // Тексты — из Mini App (content/ru/info/contact.html), вёрстка — сайтовая.
 export default function Page() {

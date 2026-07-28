@@ -5,7 +5,10 @@ import { getCourse } from "@/lib/learn";
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const course = getCourse(slug);
-  return { title: course ? `${course.title} · обучение — TerenLabs` : "Обучение — TerenLabs" };
+  return {
+    title: course ? `${course.title} · обучение — TerenLabs` : "Обучение — TerenLabs",
+    alternates: { canonical: `/learn/${slug}` },
+  };
 }
 
 export default async function Page({

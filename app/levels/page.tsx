@@ -11,7 +11,8 @@ import { OceanBackground } from "@/components/OceanBackground";
 import { LevelStatusChip, ContinueCta } from "@/components/OceanPath";
 import { LEVELS, RANK_IMG, plural } from "@/lib/content";
 
-export const metadata = { title: "Уровни «Океан» — TerenLabs" };
+export const metadata = {
+  alternates: { canonical: "/levels" }, title: "Уровни «Океан» — TerenLabs" };
 
 // Погружение: страница темнеет с глубиной — от мелководья Ракушки к бездне Кита.
 // Персонажи РАСТУТ с глубиной (ракушка → кит) — это и есть метафора пути.

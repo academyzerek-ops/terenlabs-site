@@ -4,7 +4,8 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { OceanLeaderboard } from "@/components/OceanLeaderboard";
 
-export const metadata = { title: "Рейтинг «Океан» — TerenLabs" };
+export const metadata = {
+  alternates: { canonical: "/ocean" }, title: "Рейтинг «Океан» — TerenLabs" };
 
 // Механика мест — зеркало backend/app/routers/ocean.py (источник правды):
 // rank_score = средняя точность × (60 / среднее время на вопрос), антифрод-пол 5 сек;

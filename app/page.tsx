@@ -16,6 +16,10 @@ import { WordDrum } from "@/components/WordDrum";
 import { HeroVideo } from "@/components/HeroVideo";
 import { STEPS, OCEAN_RANKS } from "@/lib/content";
 
+// Канонический адрес главной: без него Google может счесть копией
+// адреса с параметрами (utm, реферальные хвосты).
+export const metadata = { alternates: { canonical: "/" } };
+
 // Путь обучения: 3 ступени (кейсы — часть Академии/обучения)
 const PATH = [
   {

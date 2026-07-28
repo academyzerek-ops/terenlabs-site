@@ -9,6 +9,7 @@ import BotRedirect from "./redirect";
 const BOT_URL = "https://t.me/terenlabs_bot";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/bot" },
   title: "TerenLabs в Telegram",
   description:
     "Академия, Океан, кейсы и финмодели — открой TerenLabs в Telegram.",

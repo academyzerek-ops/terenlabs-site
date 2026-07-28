@@ -3,7 +3,8 @@ import { Button } from "@/components/Button";
 import { CATALOG, COURSES, CASES, REVIEWS, TESTS, plural } from "@/lib/content";
 import Link from "next/link";
 
-export const metadata = { title: "Открытая библиотека — TerenLabs" };
+export const metadata = {
+  alternates: { canonical: "/free" }, title: "Открытая библиотека — TerenLabs" };
 
 export default function Page() {
   const freeTests = TESTS.filter((t) => t.free && !t.stub);

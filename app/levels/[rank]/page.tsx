@@ -14,7 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ rank: str
   const { rank } = await params;
   const lvl = getLevel(rank);
   if (!lvl) return {};
-  return pageMetadata({ title: `Уровень «${lvl.name}»`, description: lvl.tagline });
+  return pageMetadata({ title: `Уровень «${lvl.name}»`, description: lvl.tagline,
+                       path: `/levels/${rank}` });
 }
 
 export default async function Page({ params }: { params: Promise<{ rank: string }> }) {

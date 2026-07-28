@@ -8,7 +8,8 @@ import { Suspense } from "react";
 import { CATALOG } from "@/lib/content";
 import type { ProductType } from "@/lib/content";
 
-export const metadata = { title: "Каталог — TerenLabs" };
+export const metadata = {
+  alternates: { canonical: "/catalog" }, title: "Каталог — TerenLabs" };
 
 // Осмысленная герой-шапка для каждого раздела (не безликое «Всё в одном месте»)
 const SECTION: Record<

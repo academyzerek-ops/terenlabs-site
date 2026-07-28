@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const p = getItem("review", slug);
   if (!p) return {};
   const { seoTitle, description, keywords } = nicheSeo(p.title, p.blurb);
-  return { ...pageMetadata({ title: seoTitle, description, image: p.img }), keywords };
+  return { ...pageMetadata({ title: seoTitle, description, image: p.img,
+                             path: `/reviews/${slug}` }), keywords };
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {

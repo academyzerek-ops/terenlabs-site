@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return pageMetadata({
     title: doc?.title ?? p?.title,
     description: doc?.sub || p?.blurb,
+    path: `/cases/${slug}`,
   });
 }
 
