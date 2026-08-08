@@ -277,11 +277,19 @@ export default function LevelsPage() {
                     </p>
                   )}
 
-                  {/* что проверяется на уровне + механика очков */}
+                  {/* механика очков — за раскрывашкой: голая формула пугала
+                      новичка раньше, чем он понял, зачем нырять (аудит 08.08) */}
                   {l.key === "krab" && (
-                    <p className={`num mt-4 text-sm ${dim}`}>
-                      очки места = точность × скорость · пороги сдачи 7 / 7 / 6 из 10
-                    </p>
+                    <details className={`num mt-4 text-sm ${dim}`}>
+                      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 font-semibold transition-colors hover:text-teal [&::-webkit-details-marker]:hidden">
+                        Как считается место?
+                        <span aria-hidden>+</span>
+                      </summary>
+                      <p className="mt-2 leading-relaxed">
+                        Очки места = точность × скорость. Сдача — три теста,
+                        порог 7 / 7 / 6 верных из 10.
+                      </p>
+                    </details>
                   )}
                   {!l.locked && (
                     <p className={`num mt-2 text-sm ${dim}`}>

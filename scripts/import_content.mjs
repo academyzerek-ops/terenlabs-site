@@ -296,7 +296,9 @@ report.counts.oceanPools = OCEAN_TESTS.length + OCEAN_OPEN_TESTS.length;
 const products = JSON.parse(read(path.join(SITE, "content/products.json")));
 // океан-тесты регенерируются выше — старые копии не оставляем (в т.ч. снятые с прода
 // barracuda-t1..t3: набор тестов уровня меняется, «чужих» crab-*/barracuda-* не держим)
-const isOceanSlug = (s) => /^(crab|barracuda)-/.test(s);
+// ВСЕ океан-префиксы: dolphin/shark отсутствовали в фильтре, и их тесты
+// задваивались при каждом импорте (найдено по React-warning 09.08)
+const isOceanSlug = (s) => /^(crab|barracuda|dolphin|shark)-/.test(s);
 const keep = products.filter(
   (p) =>
     (p.type === "finmodel" ||

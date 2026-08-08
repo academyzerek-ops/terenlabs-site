@@ -3,8 +3,22 @@
 import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CatalogItem } from "@/lib/content";
+import { CatalogItem, RANK_IMG } from "@/lib/content";
 import { caseTag } from "./CaseCard";
+
+// океан-тесты без обложки → портрет ранга по префиксу слага
+// (crab-t2 → Краб); данные не трогаем — генератор import_content их пересоздаёт
+const RANK_BY_SLUG_PREFIX: Record<string, string> = {
+  crab: "krab",
+  barracuda: "barrakuda",
+  dolphin: "delfin",
+  shark: "akula",
+};
+const rankImgFor = (slug: string): string | null => {
+  const key = RANK_BY_SLUG_PREFIX[slug.split("-")[0]];
+  // без ?v=N: next/image не пропускает локальный src с query (localPatterns)
+  return key ? (RANK_IMG[key] ?? "").split("?")[0] || null : null;
+};
 
 // цвет-тэги исходов кейса — палитра витрины Mini App (.case-tag r/y/g)
 const CASE_TONES = {
@@ -174,9 +188,21 @@ export function SpatialCatalog({ items }: { items: CatalogItem[] }) {
                           "radial-gradient(120% 90% at 30% 20%, rgba(0,183,194,0.28) 0%, rgba(13,43,69,0.9) 55%, #071c30 100%)",
                       }}
                     >
-                      <span className="opacity-40 drop-shadow-[0_8px_30px_rgba(0,183,194,0.5)]">
-                        {item.ico || "📦"}
-                      </span>
+                      {/* приоритет: портрет ранга (океан-тесты) → эмодзи кейса →
+                          чистый градиент; дефолтного 📦 больше нет (аудит 08.08) */}
+                      {rankImgFor(item.slug) ? (
+                        <Image
+                          src={rankImgFor(item.slug)!}
+                          alt=""
+                          width={230}
+                          height={230}
+                          className="h-[55%] w-auto object-contain opacity-90 drop-shadow-[0_12px_40px_rgba(0,183,194,0.45)] transition-transform duration-700 group-hover:scale-105"
+                        />
+                      ) : item.ico ? (
+                        <span className="opacity-40 drop-shadow-[0_8px_30px_rgba(0,183,194,0.5)]">
+                          {item.ico}
+                        </span>
+                      ) : null}
                     </div>
                   )}
 
