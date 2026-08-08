@@ -92,7 +92,7 @@ export function PreceptsSection() {
       <Container className="relative z-10 mb-20">
         <SectionHeading
           light
-          number="04"
+          number="03"
           title="5 наставлений"
           desc="То, о чём молчат инфобизнесмены. Без этих блоков любой бизнес-план — опасная иллюзия."
         />
@@ -111,8 +111,10 @@ export function PreceptsSection() {
                 
                 <div className="relative z-10 flex flex-1 flex-col justify-center p-8 sm:p-12 lg:p-14">
                   <div className="mb-6 flex items-center gap-4">
+                    {/* «N из 5», не «Advice 01»: голая нумерация путалась со
+                        сквозными номерами секций (отзыв Оксаны 08.08) */}
                     <span className="font-mono text-[10px] font-bold tracking-[0.2em] text-teal/80 uppercase">
-                      Advice {p.no}
+                      Наставление {i + 1} из {PRECEPTS.length}
                     </span>
                     <div className="h-[1px] flex-1 bg-white/5" />
                   </div>

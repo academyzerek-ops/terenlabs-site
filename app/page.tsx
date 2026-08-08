@@ -77,13 +77,16 @@ export default function Home() {
             className="eyebrow rise !text-teal"
             style={{ animationDelay: "0ms", fontSize: "0.95rem", letterSpacing: "0.22em" }}
           >
-            EdTech · FinTools · Gamification
+            {/* по-русски: первую строку сайта читает предприниматель из КЗ,
+                не инвестор — английский жаргон ушёл (аудит 08.08) */}
+            Учись · Проверяй себя · Считай деньги
           </p>
           <h1
             className="rise mt-6 max-w-6xl !text-foam"
             style={{
               animationDelay: "80ms",
-              fontSize: "clamp(2.2rem, 4.7vw, 4.0rem)",
+              // нижняя граница 1.9rem: на мобиле 2.2rem давил (отзыв Оксаны 08.08)
+              fontSize: "clamp(1.9rem, 4.7vw, 4.0rem)",
               lineHeight: 1.06,
               letterSpacing: "-0.01em",
               textShadow: "0 4px 40px rgba(0,0,0,0.5)",
@@ -119,8 +122,10 @@ export default function Home() {
               textShadow: "0 2px 20px rgba(0,0,0,0.5)",
             }}
           >
+            {/* {" "} обязателен: JSX съедает перенос строки вокруг <br/>, и на
+                мобиле (br скрыт) тире слипалось со словом — «—видишь» */}
             Говорим о рисках и реальности, а не про «успешный успех» —
-            <br className="hidden md:block" />
+            <br className="hidden md:block" />{" "}
             видишь, где потеряешь деньги и время, до того как вложишься.
           </p>
           {/* Барабан: что внутри платформы — крутится по очереди */}
@@ -130,36 +135,31 @@ export default function Home() {
             <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-foam/45">
               Внутри
             </span>
+            {/* слова = пункты меню один в один: барабан обещает то, что видно в навигации */}
             <WordDrum
-              words={["Академия", "Финмодель", "Аналитика бизнеса", "Бизнес-план"]}
+              words={["Академия", "Кейсы", "Аналитика", "Финпродукты", "Океан"]}
               className="font-[family-name:var(--font-display)] font-bold leading-none !text-teal"
             />
           </p>
 
-          {/* сквозной CTA (аудит 18.07): у hero не было НИ ОДНОЙ кнопки —
-              первый шаг тонул в глубине страницы. Тест проходится и анонимом. */}
-          {/* Два пути с первого экрана: крючок (тест-игра) и конкретная ценность
-              (бесплатные финмодель/БП под грант) — чтобы пришедший за расчётом не
-              терялся в тесте. Линейка бесплатна (2026-07). */}
+          {/* Иерархия CTA (отзыв Оксаны 08.08: три равнозначных зова конкурировали):
+              ОДНА кнопка — тест (проходится и анонимом), грант — тихой строкой под ней,
+              третий линк «Смотреть всё» убран — каталог доступен из меню.
+              Оба пути с первого экрана сохранены (аудит 18.07). */}
           <div className="rise mt-10 flex flex-wrap items-center gap-4" style={{ animationDelay: "420ms" }}>
             <Button href="/tests/crab-t1/take" size="lg">
               Стань акулой бизнеса — докажи свои скиллы
             </Button>
-            <Link
-              href="/catalog?type=finmodel"
-              className="inline-flex items-center gap-2 rounded-full border border-[#E8B65C]/50 bg-[#E8B65C]/10 px-6 py-3 text-[15px] font-semibold text-foam transition-colors hover:bg-[#E8B65C]/20"
-            >
-              <span aria-hidden>🎁</span>
-              Финмодель и бизнес-план под грант —{" "}
-              <span style={{ color: "#E8B65C" }}>бесплатно</span>
-            </Link>
           </div>
           <Link
-            href="/catalog"
-            className="rise mt-5 inline-block text-[15px] font-semibold text-foam/60 transition-colors hover:text-teal"
+            href="/catalog?type=finmodel"
+            className="rise mt-5 inline-block text-[15px] font-semibold text-foam/70 transition-colors hover:text-teal"
             style={{ animationDelay: "520ms" }}
           >
-            Смотреть всё, что внутри →
+            {/* один акцент на экран: золото — только слову «бизнесу» в h1;
+                эмодзи-приправа убрана (аудит 08.08) */}
+            Финмодель и бизнес-план под грант —{" "}
+            <span className="text-teal">бесплатно</span> →
           </Link>
         </Container>
       </section>
@@ -283,7 +283,9 @@ export default function Home() {
               <h2 className="mt-4 text-3xl !text-foam sm:text-5xl leading-[1.1]" style={{ fontStyle: "italic" }}>
                 «Лучше отговорить тебя от плохой идеи, чем продать надежду»
               </h2>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-foam/70">
+              {/* абзац влево: >2 строк по центру не выравнивают (печатное
+                  правило) — центр остаётся только у цитаты-момента */}
+              <p className="mx-auto mt-6 max-w-xl text-left text-lg leading-relaxed text-foam/70">
                 Здесь больно и сложно — но это единственный способ не потерять
                 деньги в реальном бизнесе. Если математика говорит «не открывай» —
                 мы скажем это прямо.
@@ -298,37 +300,33 @@ export default function Home() {
               <p className="text-center text-sm font-semibold uppercase tracking-[0.18em] text-teal/60">
                 Система испытаний
               </p>
+              {/* без 01/02/03 в карточках: цифры конфликтовали со сквозной нумерацией
+                  секций (отзыв Оксаны 08.08) — порядок показывают стрелки */}
               <div className="mt-6 grid gap-5 md:grid-cols-3">
                 {[
                   {
-                    n: "01",
                     title: "Тесты с вариантами",
                     desc: "Ситуации из жизни бизнеса, где неверные ответы звучат убедительно. Угадать нельзя — только понять.",
                   },
                   {
-                    n: "02",
                     title: "Открытые кейсы",
                     desc: "Дальше готовых вариантов нет: решение пишешь своими словами, как в реальном деле.",
                   },
                   {
-                    n: "03",
                     title: "Оценка ИИ",
                     desc: "Твой ответ разбирается по рубрике: балл, что верно, что упустил. Как живой наставник, только не устаёт.",
                   },
                 ].map((s, i) => (
                   <div
-                    key={s.n}
+                    key={s.title}
                     className="relative rounded-[var(--radius-tl)] border border-white/10 bg-white/[0.04] p-6"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="num text-sm font-semibold text-teal/70">{s.n}</span>
-                      {i > 0 && (
-                        <span className="absolute -left-4 top-1/2 hidden -translate-y-1/2 text-foam/30 md:block">
-                          →
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="mt-3 text-xl !text-foam">{s.title}</h3>
+                    {i > 0 && (
+                      <span className="absolute -left-4 top-1/2 hidden -translate-y-1/2 text-foam/30 md:block">
+                        →
+                      </span>
+                    )}
+                    <h3 className="text-xl !text-foam">{s.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-foam/70">{s.desc}</p>
                   </div>
                 ))}
@@ -450,10 +448,8 @@ export default function Home() {
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent" />
-                    {/* номер-ступень в стеклянном пузыре поверх кадра */}
-                    <div className="absolute bottom-4 left-6 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/15 text-base font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-md">
-                      0{i + 1}
-                    </div>
+                    {/* номер-пузырь убран: внутренние 01/02/03 путались со сквозной
+                        нумерацией секций (отзыв Оксаны 08.08); порядок держит flow-line */}
                   </div>
 
                   <div className="flex flex-1 flex-col p-8 pt-6">
@@ -491,10 +487,12 @@ export default function Home() {
         <Bubbles />
         <Container className="relative z-10 grid items-center gap-12 py-24 md:grid-cols-2">
           <div>
+          {/* 04, не 03: сквозная нумерация — по порядку страницы,
+              «5 наставлений» выше стали 03 (раньше шло 01→02→04→03) */}
           <SectionHeading
               light
               eyebrow="Наш инструмент"
-              number="03"
+              number="04"
             title="Финмодель, которая считает за тебя"
               desc="Меняешь допущения — цифры пересчитываются вживую. P&L, cash flow, точка безубыточности. Экспорт в Excel. Это не лекция, а рабочий инструмент."
             />

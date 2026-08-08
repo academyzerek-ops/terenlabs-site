@@ -105,21 +105,21 @@ export default function LevelsPage() {
             <p className="eyebrow !text-[#8fe8ef] [text-shadow:0_1px_10px_rgba(0,0,0,0.45)]">Система признания знаний</p>
             <h1 className="mt-2 text-4xl !text-foam sm:text-6xl">Океан</h1>
 
-            {/* текст Адиля дословно; «интересная подача» — только типографикой:
-                первая фраза — serif-лид, дальше обычный текст */}
+            {/* текст Адиля дословно; «интересная подача» — только типографикой.
+                Старый лид «Океан — система признания знаний» удалён: он повторял
+                eyebrow и h1 третий раз подряд (аудит 08.08) — лидом стала
+                первая живая фраза */}
             <p
               className="mt-6 font-[family-name:var(--font-display)] text-[1.4rem] italic leading-snug !text-foam sm:text-[1.65rem]"
               style={{ textWrap: "balance" }}
             >
-              Океан — многоуровневая{" "}
-              <span className="text-teal">система признания знаний</span>{" "}
-              TerenLabs.
+              Почему океан? Потому что уровни здесь{" "}
+              <span className="text-teal">живые</span>.
             </p>
 
             <p className="mt-4 text-lg leading-relaxed !text-foam/75">
-              Почему океан? Потому что уровни здесь живые: каждому соответствует
-              морской обитатель, и чем глубже ныряешь — тем крупнее зверь и
-              серьёзнее решения.
+              Каждому уровню соответствует морской обитатель, и чем глубже
+              ныряешь — тем крупнее зверь и серьёзнее решения.
             </p>
             <p className="mt-3 text-lg leading-relaxed !text-foam/75">
               Эта страница — твой штурвал: отслеживай уровень, смотри личную
@@ -133,7 +133,7 @@ export default function LevelsPage() {
                 href="/ocean"
                 className="group inline-flex items-center gap-2.5 rounded-full border border-teal/50 bg-teal/10 px-5 py-2.5 text-[15px] font-semibold text-teal transition-all hover:-translate-y-0.5 hover:bg-teal/20"
               >
-                🏆 Рейтинг «Океана»
+                Рейтинг «Океана»
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
               <Link

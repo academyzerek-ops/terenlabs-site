@@ -106,7 +106,7 @@ export function OceanBubbles() {
           href="/ocean"
           className="group inline-flex items-center gap-2 rounded-full bg-teal px-4 py-1.5 text-sm font-bold text-white shadow-[0_0_18px_rgba(0,183,194,0.55)] transition-all hover:-translate-y-0.5 hover:bg-teal-600"
         >
-          🏆 Рейтинг
+          Рейтинг
           <span className="transition-transform group-hover:translate-x-0.5">→</span>
         </Link>
       </div>
