@@ -14,8 +14,10 @@ const csp = [
   "img-src 'self' data: blob: https:",
   "media-src 'self'",
   "font-src 'self' data:",
-  `connect-src 'self' ${API_ORIGIN} https://mc.yandex.ru https://mc.yandex.com`,
-  "frame-src 'self' https://oauth.telegram.org https://telegram.org",
+  // Метрика: вебвизор ходит по wss://mc.yandex.ru/solid.ws и ставит iframe mc.yandex.ru —
+  // без этих двух источников визиты считаются, а вебвизор молча блокируется (аудит 23.08)
+  `connect-src 'self' ${API_ORIGIN} https://mc.yandex.ru https://mc.yandex.com wss://mc.yandex.ru`,
+  "frame-src 'self' https://oauth.telegram.org https://telegram.org https://mc.yandex.ru",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
