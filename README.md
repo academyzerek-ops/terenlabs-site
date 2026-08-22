@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# terenlabs-site
 
-## Getting Started
+Публичный сайт TerenLabs — https://terenlabs.kz. Next.js 16 (App Router), React 19,
+Tailwind 4. Витрина для аудитории: Академия, тесты «Океан», кейсы, обзоры ниш,
+финмодели. Вся линейка бесплатна (пивот 20.07.2026); платная только индивидуальная
+финмодель по заявке. Вход — по желанию, только через Telegram (см. `docs/AUTH_SETUP.md`).
 
-First, run the development server:
+## Запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
+cp .env.example .env.local   # секреты — см. комментарии в файле
+npm run dev                  # http://localhost:3001
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Проверки перед коммитом:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx tsc --noEmit
+npm run lint
+npm run build
+node scripts/check-content.mjs   # целостность content/*.json
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Структура
 
-## Learn More
+- `app/` — маршруты (каталог, тесты, кейсы, обзоры, финмодели, уровни, кабинет, legal).
+- `components/` — UI; `lib/` — контент, SEO, Океан-API, `lib/site.ts` — канонический домен.
+- `content/*.json` — продукты, уровни, кейсы, обзоры, Академия (см. `content/README.md`).
+- `public/academy`, `public/reviews-html` — встроенные главы и обзоры из основного репо.
 
-To learn more about Next.js, take a look at the following resources:
+## Импорт контента
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Курсы, кейсы и обзоры не редактируются здесь руками — они импортируются из `frontend/`
+основного репо TerenLabs (ветка main, worktree `/Users/adil/TerenLabs-zerek`):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+node scripts/import_content.mjs
+# другой источник:
+TL_SRC=/path/to/TerenLabs/frontend node scripts/import_content.mjs
+```
 
-## Deploy on Vercel
+## Деплой
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Railway, регион `europe-west4` (`railway.json`). Сборка — `Dockerfile`: multi-stage на
+`output: "standalone"`, рантайм под non-root пользователем, порт 3000, healthcheck по `/`.
+Деплой идёт из ветки `main` GitHub-репо. Переменные окружения задаются в Railway;
+`NEXT_PUBLIC_SITE_URL`/`AUTH_URL` необязательны — `lib/site.ts` в проде фолбэчит
+на `https://terenlabs.kz`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Бэкенд (ИИ-чат, Океан, заявки) — отдельный сервис на Railway, адрес в `NEXT_PUBLIC_AI_API`.

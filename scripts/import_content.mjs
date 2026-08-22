@@ -1,6 +1,8 @@
 // ============================================================
 // Импорт реального контента из основного репо TerenLabs в сайт.
-// Источник: /Users/adil/Documents/TerenLabs/frontend
+// Источник по умолчанию: /Users/adil/TerenLabs-zerek/frontend — worktree ветки main
+// (прод). Рабочее дерево /Users/adil/TerenLabs стоит на другой ветке и отстаёт
+// по обзорам (нет пекарни) — импорт из него снёс бы контент на сайте.
 //   - ACADEMY_DATA (shell/app.html) → content/academy.json + public/academy/*.html
 //   - content/ru/cases/*.html      → content/cases.json (нативный рендер)
 //   - content/ru/niches/*.html     → public/reviews-html/*.html + content/reviews.json
@@ -12,8 +14,9 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 
 // Источник переопределяется: TL_SRC=/path/to/worktree/frontend node scripts/import_content.mjs
-// (рабочая копия основного репо может стоять на другой ветке — импортируем из origin/main)
-const SRC = process.env.TL_SRC || "/Users/adil/Documents/TerenLabs/frontend";
+// Дефолт — worktree main (TerenLabs-zerek), НЕ рабочее дерево /Users/adil/TerenLabs:
+// оно стоит на ветке калибровки и отстаёт по обзорам (аудит 23.08, SITE-04).
+const SRC = process.env.TL_SRC || "/Users/adil/TerenLabs-zerek/frontend";
 const SITE = path.resolve(import.meta.dirname, "..");
 
 const report = { missingChapters: [], missingHero: [], unknownAssets: new Set(), counts: {} };

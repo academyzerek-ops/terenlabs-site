@@ -26,6 +26,17 @@
 
 Ссылки (href) и привязка вопросов вычисляются автоматически в `lib/content.ts` — в JSON их писать НЕ нужно.
 
+## Импорт контента из основного репо
+Курсы, кейсы и обзоры не редактируются здесь руками — они импортируются из `frontend/`
+основного репо TerenLabs (ветка main, worktree `/Users/adil/TerenLabs-zerek`):
+```
+node scripts/import_content.mjs
+# или явно указать источник:
+TL_SRC=/Users/adil/TerenLabs-zerek/frontend node scripts/import_content.mjs
+```
+Импортировать из рабочего дерева `/Users/adil/TerenLabs` нельзя, пока оно на другой ветке —
+обзоры откатятся (там нет пекарни). После импорта — `node scripts/check-content.mjs` и `npm run build`.
+
 ## Проверка перед коммитом
 ```
 node scripts/check-content.mjs
