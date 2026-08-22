@@ -96,21 +96,6 @@ export const PROOF_STATS = [
   },
 ];
 
-// ЛЕНТА ПРОДУКТОВ — реальные главы-крючки из Академии (карты модулей) + кейсы/тесты.
-// hook = название главы из проекта, payoff = её тема, tag = модуль. Ничего выдуманного.
-export const HOOKS = [
-  { tag: "Академия · Найм", accent: "teal", hook: "При чём тут Брэд Питт?", payoff: "Moneyball: Окленд решал по работе, а не по красоте удара. Так же нанимай ты.", cta: "Открыть главу", href: "/catalog?type=course", img: "/lessons/mgmt_m5-ch03_data-vs-scouts.jpg" },
-  { tag: "Академия · Деньги", accent: "teal", hook: "Почему доллар стоит 500 тенге", payoff: "Курс валют — не магия. Что на самом деле двигает цифру на табло.", cta: "Открыть главу", href: "/catalog?type=course", img: "/lessons/fund_m1-ch03_money-evolution.jpg" },
-  { tag: "Академия · Поведение", accent: "teal", hook: "Молоко в дальнем углу", payoff: "Путь по магазину построен против тебя. Разбираем, как именно.", cta: "Открыть главу", href: "/catalog?type=course", img: "/lessons/fund_m2-ch04_store-maze.jpg" },
-  { tag: "Академия · Время", accent: "teal", hook: "Восьмое чудо света", payoff: "Сложный процент работает на тебя — или против тебя. Третьего нет.", cta: "Открыть главу", href: "/catalog?type=course", img: "/lessons/fund_m4-ch02_compound-curves.jpg" },
-  { tag: "Академия · Цены", accent: "teal", hook: "Цена с девятками", payoff: "9 990 вместо 10 000. Почему мозг ведётся и сколько ты переплачиваешь.", cta: "Открыть главу", href: "/catalog?type=course", img: "/lessons/fund_m2-ch01_nine-shadow.jpg" },
-  { tag: "Академия · Доли", accent: "danger", hook: "Как не потерять контроль", payoff: "«Социальная сеть»: доля 34% растворилась до 0,03%. Без защит — потеряешь и ты.", cta: "Открыть главу", href: "/catalog?type=course", img: "/lessons/mgmt_m3-ch03_dilution-dissolve.jpg" },
-  { tag: "Академия · KPI", accent: "danger", hook: "Эффект кобры", payoff: "Награда за убитых кобр → их стали разводить. Так ломается любой KPI.", cta: "Открыть главу", href: "/catalog?type=course", img: "/lessons/mgmt_m4-ch02_cobra-effect.jpg" },
-  { tag: "Кейс · Алматы", accent: "danger", hook: "Раскрутил точку — её забрал арендодатель", payoff: "Весь трафик был чужой. На чьей земле строишь бизнес ты?", cta: "Читать кейс", href: "/cases/case-017", img: "/lessons/arch_m7-ch01_breached-hull.jpg" },
-  { tag: "Кейс · Уральск", accent: "danger", hook: "Окупаемость с 10 до 25 лет", payoff: "Две девальвации растянули срок в 2,5 раза. Риск был в расчётах с самого начала.", cta: "Читать кейс", href: "/cases/case-016", img: "/lessons/fund_m6-ch02_risk-vs-fog.jpg" },
-  { tag: "Тест · Время", accent: "teal", hook: "Сам уберусь — сэкономлю 2 000 ₸", payoff: "А потеряешь 6 000. Узнай, видишь ли ты цену своего часа.", cta: "Пройти тест", href: "/tests/t1-a04/take", img: "/lessons/fund_m3-ch03_hours-ceiling_v2.jpg" },
-  ];
-
 // ---- Банки вопросов (slug → вопросы). Новые банки регистрировать здесь. ----
 const BANKS: Record<string, TestQuestion[]> = {
   "t1-a04": T1_A04_QUESTIONS,

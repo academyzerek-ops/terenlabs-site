@@ -7,6 +7,7 @@ import { CatalogFilters } from "@/components/CatalogFilters";
 import { Suspense } from "react";
 import { CATALOG } from "@/lib/content";
 import type { ProductType } from "@/lib/content";
+import { rotateByDay } from "@/lib/rotation";
 
 export const metadata = {
   alternates: { canonical: "/catalog" }, title: "Каталог — TerenLabs" };
@@ -101,8 +102,10 @@ export default async function CatalogPage({
 
   
   // Кейсы — кураторский порядок витрины Mini App (не перемешивать).
-  // Аналитику перемешиваем, чтобы не было застоя; Академия — в порядке обучения.
-  const shuffledItems = t === "review" ? [...items].sort(() => Math.random() - 0.5) : items;
+  // Аналитику сдвигаем по дню года, чтобы не было застоя; Академия — в порядке обучения.
+  // Сдвиг детерминированный: один и тот же порядок для всех запросов в сутки
+  // (Math.random при рендере давал краулеру случайный порядок и ломал react-hooks/purity).
+  const shuffledItems = t === "review" ? rotateByDay(items) : items;
 
 
   return (

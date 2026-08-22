@@ -46,6 +46,7 @@ export function HeroVideo() {
       muted
       loop
       playsInline
+      preload="metadata"
       aria-hidden="true"
       poster={POSTER}
     >
