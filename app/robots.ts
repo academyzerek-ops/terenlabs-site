@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       // служебные и приватные разделы ботам не нужны (префикс без слэша
       // покрывает и сам путь, и вложенные)
-      disallow: ["/api/", "/dashboard", "/checkout", "/auth/"],
+      disallow: ["/api/", "/dashboard", "/checkout", "/auth/", "/design-system"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

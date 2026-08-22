@@ -2,15 +2,16 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { loginTelegram } from "@/lib/ocean";
+import { loginTelegram, OCEAN_API } from "@/lib/ocean";
 
 // Коллбэк Telegram Login Widget в redirect-режиме (data-auth-url) — для
 // нативного приложения: попапы в WKWebView зажаты, весь вход идёт в одном
 // окне. Виджет редиректит сюда с подписанными параметрами (id, hash,
 // auth_date…); обмениваем их на веб-токен Океана и возвращаемся в Mini App
 // с токеном во фрагменте (#tl_login=…) — фрагмент на сервер не уходит.
-const MINIAPP =
-  "https://terenlabs-production.up.railway.app/frontend/shell/app.html";
+// Mini App живёт на бэкенде Океана — домен берём из того же NEXT_PUBLIC_AI_API,
+// что и API, а не хардкодим railway (аудит 23.08, SITE-07).
+const MINIAPP = OCEAN_API.replace(/\/api\/ocean$/, "") + "/frontend/shell/app.html";
 
 function Inner() {
   const params = useSearchParams();

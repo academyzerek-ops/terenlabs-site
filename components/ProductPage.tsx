@@ -99,7 +99,7 @@ export function ProductPage({ p }: { p: Product }) {
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-foam/75">{p.blurb}</p>
               {p.stub && (
                 <p className="mt-5 inline-block rounded-full bg-warn/15 px-3 py-1 text-sm text-warn">
-                  Готовим к выпуску — продажи ещё не открыты
+                  Готовим к выпуску — материал ещё в работе
                 </p>
               )}
             </div>

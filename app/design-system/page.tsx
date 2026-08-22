@@ -2,7 +2,8 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { OCEAN_RANKS } from "@/lib/content";
 
-export const metadata = { title: "Дизайн-система — TerenLabs" };
+// служебная страница — поисковикам не нужна
+export const metadata = { title: "Дизайн-система — TerenLabs", robots: { index: false, follow: false } };
 
 const CORE = [
   { name: "Ink", v: "#0A0A0A", var: "ink" },

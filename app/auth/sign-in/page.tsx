@@ -4,8 +4,9 @@ import { Container } from "@/components/Container";
 import { TelegramLogin } from "@/components/TelegramLogin";
 import { TgDeepLinkLogin } from "@/components/TgDeepLinkLogin";
 import { auth } from "@/auth";
+import { SITE_URL } from "@/lib/site";
 
-export const metadata = { title: "Вход — TerenLabs" };
+export const metadata = { title: "Вход — TerenLabs", robots: { index: false, follow: false } };
 
 // Вход ПО ЖЕЛАНИЮ: аноним не теряет ничего. Аккаунт добавляет статистику,
 // память прогресса и зачёт в рейтинг «Океана».
@@ -39,7 +40,7 @@ export default async function Page({
             {/* нативное приложение: WKWebView не откроет t.me — там остаётся
                 redirect-виджет; браузеру — deep-link без ввода номера */}
             {forMiniapp ? (
-              <TelegramLogin authUrl="https://terenlabs-site-production.up.railway.app/auth/tg-callback" />
+              <TelegramLogin authUrl={`${SITE_URL}/auth/tg-callback`} />
             ) : (
               <TgDeepLinkLogin />
             )}

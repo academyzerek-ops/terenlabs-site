@@ -6,7 +6,7 @@ import { TgIdentityCard } from "@/components/TgIdentityCard";
 import { CATALOG } from "@/lib/content";
 import { auth, signOut } from "@/auth";
 
-export const metadata = { title: "Личный кабинет — TerenLabs" };
+export const metadata = { title: "Личный кабинет — TerenLabs", robots: { index: false, follow: false } };
 
 // Кабинет работает и анониму (локальная память устройства).
 // Вход через Telegram добавляет профиль; прогресс общий с Mini App.

@@ -14,8 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: p === "" ? 1 : 0.6,
   }));
 
-  // Продукты: заглушки (stub без контента) в sitemap не выдаём
-  const products = CATALOG.filter((x) => !x.stub || x.price).map((x) => ({
+  // Продукты: заглушки (stub) в sitemap не выдаём — у них есть price «Скоро»,
+  // поэтому фильтр строго по stub (t1-risks/t1-synthesis раньше просачивались)
+  const products = CATALOG.filter((x) => !x.stub).map((x) => ({
     url: `${BASE}${x.type === "test" ? `/tests/${x.slug}` : x.href}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,
