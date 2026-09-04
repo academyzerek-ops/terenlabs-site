@@ -24,9 +24,14 @@ const TOPICS = [
   },
 ];
 
+// Те же классы, что у Button (primary, md): здесь нужен <button onClick>, не ссылка
+const BTN =
+  "btn-press inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+
 function ContactCard({ t }: { t: (typeof TOPICS)[number] }) {
   const [text, setText] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const id = `contact-${t.topic.replace(/\s+/g, "-").toLowerCase()}`;
 
   const send = async () => {
     if (!text.trim()) return;
@@ -50,36 +55,35 @@ function ContactCard({ t }: { t: (typeof TOPICS)[number] }) {
 
   if (state === "done") {
     return (
-      <div className="rounded-[var(--radius-tl)] border border-teal/40 bg-card p-6">
-        <h2 className="text-xl text-heading">{t.topic}</h2>
-        <p className="mt-3 leading-relaxed text-teal-600">{t.done}</p>
+      <div className="rounded-[8px] border border-line bg-subtle p-6">
+        <h2 className="text-[20px]">{t.topic}</h2>
+        <p role="status" className="mt-3 text-[15px] leading-relaxed text-body">{t.done}</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-[var(--radius-tl)] border border-line bg-card p-6">
-      <h2 className="text-xl text-heading">{t.topic}</h2>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{t.desc}</p>
+    <div className="flex flex-col rounded-[8px] border border-line bg-subtle p-6">
+      <h2 className="text-[20px]">
+        <label htmlFor={id}>{t.topic}</label>
+      </h2>
+      <p className="mt-2 text-[14px] leading-relaxed text-text-2">{t.desc}</p>
       <textarea
+        id={id}
         value={text}
         onChange={(e) => setText(e.target.value)}
         maxLength={4000}
         rows={5}
         placeholder={t.placeholder}
-        className="mt-4 w-full rounded-[var(--radius-tl)] border border-line bg-subtle p-4 text-[16px] sm:text-[0.95rem] leading-relaxed text-heading outline-none transition-colors placeholder:text-muted/60 focus:border-teal"
+        className="mt-4 w-full rounded-[6px] border border-line-2 bg-page px-3 py-2.5 text-[16px] leading-relaxed text-ink placeholder:text-faint"
       />
       {state === "error" && (
-        <p className="mt-2 text-sm text-[var(--color-danger)]">
+        <p role="alert" className="mt-2 text-[14px] text-danger">
           Не удалось отправить. Проверьте соединение и попробуйте ещё раз.
         </p>
       )}
-      <div className="mt-4 text-right">
-        <button
-          onClick={send}
-          disabled={!text.trim() || state === "sending"}
-          className="btn-press rounded-full bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600 disabled:cursor-default disabled:opacity-40"
-        >
+      <div className="mt-4 flex justify-end">
+        <button type="button" onClick={send} disabled={!text.trim() || state === "sending"} className={BTN}>
           {state === "sending" ? "Отправляю…" : "Отправить"}
         </button>
       </div>
@@ -89,7 +93,7 @@ function ContactCard({ t }: { t: (typeof TOPICS)[number] }) {
 
 export function ContactForms() {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid gap-4 md:grid-cols-2">
       {TOPICS.map((t) => (
         <ContactCard key={t.topic} t={t} />
       ))}

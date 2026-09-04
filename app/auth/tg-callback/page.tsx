@@ -38,7 +38,7 @@ function Inner() {
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-8 text-center">
-      <p className="text-sm text-muted">
+      <p role="status" aria-live="polite" className="text-[15px] text-text-2">
         {err ?? "Входим через Telegram…"}
       </p>
     </div>

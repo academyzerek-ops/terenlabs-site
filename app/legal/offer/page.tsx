@@ -11,35 +11,35 @@ export const metadata = {
 export default function Page() {
   return (
     <>
-      <section className="hero-ocean">
-        <Container className="relative z-10 py-16">
+      <section>
+        <Container className="py-14 sm:py-20">
           <p className="eyebrow">Правовая информация</p>
-          <h1 className="mt-3 max-w-2xl text-4xl !text-foam sm:text-5xl">
+          <h1 className="mt-3 max-w-[24ch] text-[36px] sm:text-[48px]">
             Пользовательское соглашение
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-foam/70">Условия использования TerenLabs</p>
+          <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">Условия использования TerenLabs</p>
         </Container>
       </section>
 
-      <Container className="max-w-3xl py-16">
-        <div className="rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-6">
-          <p className="num text-[0.7rem] font-bold uppercase tracking-wider text-teal-600">Коротко</p>
-          <p className="mt-2 leading-relaxed text-heading">
+      <Container className="max-w-3xl border-t border-line pb-20 pt-10">
+        <div className="rounded-[8px] border border-line bg-subtle p-6">
+          <p className="eyebrow">Коротко</p>
+          <p className="mt-3 text-[15px] leading-relaxed text-body">
             TerenLabs — это обучение и аналитика для предпринимателей. Мы помогаем считать и
             учиться, но не принимаем решения за вас и не гарантируем результат бизнеса. Итоговые
             решения и их последствия — на вашей стороне.
           </p>
         </div>
 
-        <div className="mt-10 space-y-10">
+        <div className="mt-10 space-y-8">
           <Sec n="1" t="Общие положения">
             <p>
               Настоящее соглашение регулирует использование сервиса <strong>TerenLabs</strong>{" "}
               (Республика Казахстан), работающего как Telegram Mini App через бота{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">@terenlabs_bot</a>{" "}
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>{" "}
               и как веб-сайт TerenLabs. Начиная пользоваться приложением или сайтом, вы
               подтверждаете, что прочитали и принимаете эти условия и{" "}
-              <Link href="/legal/privacy" className="text-teal-600 hover:text-teal">
+              <Link href="/legal/privacy" className="text-accent hover:underline">
                 Политику конфиденциальности
               </Link>
               . Если вы не согласны — не используйте сервис.
@@ -53,11 +53,11 @@ export default function Page() {
             </p>
           </Sec>
 
-          <div className="rounded-[var(--radius-tl)] border-l-2 border-[var(--color-danger)] bg-[rgba(180,69,47,0.05)] p-6">
-            <p className="num text-[0.7rem] font-bold uppercase tracking-wider text-[var(--color-danger)]">
+          <div className="rounded-[8px] border border-line p-6">
+            <p className="eyebrow !text-danger">
               Важно: это не консультация
             </p>
-            <div className="mt-2 space-y-3 leading-relaxed text-heading">
+            <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-body">
               <p>
                 Материалы и расчёты TerenLabs <strong>не являются</strong> индивидуальной
                 инвестиционной, юридической, налоговой или бухгалтерской консультацией и не заменяют
@@ -100,13 +100,13 @@ export default function Page() {
             <p>
               Вся линейка TerenLabs — Академия, тесты, кейсы, обзоры ниш, ИИ-консультант, финмодели
               и бизнес-планы под грант — предоставляется бесплатно. Единственный платный продукт —{" "}
-              <Link href="/finmodels/finmodel-custom" className="text-teal-600 hover:text-teal">
+              <Link href="/finmodels/finmodel-custom" className="text-accent hover:underline">
                 индивидуальная финансовая модель
               </Link>
               , которую финансист собирает под ваш бизнес по заявке. Стоимость, сроки, порядок
               оплаты и возврата согласовываются с финансистом до начала работы и фиксируются в
               переписке. По вопросам напишите через раздел «Связь» или боту{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">@terenlabs_bot</a>.
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>.
             </p>
           </Sec>
 
@@ -124,7 +124,7 @@ export default function Page() {
             <p>
               Мы можем обновлять это соглашение — актуальная версия всегда доступна на этой
               странице. К отношениям применяется законодательство Республики Казахстан. По вопросам:{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">
                 <strong>@terenlabs_bot</strong>
               </a>{" "}
               или раздел «Связь» в приложении.
@@ -132,8 +132,8 @@ export default function Page() {
           </Sec>
         </div>
 
-        <div className="wave-divider my-10" />
-        <p className="text-sm leading-relaxed text-muted">
+        <div className="hair my-10" />
+        <p className="text-[13px] leading-relaxed text-faint">
           Редакция от августа 2026 года; соглашение действует с июля 2026 года. Документ носит информационный характер; при
           необходимости условия могут уточняться юридическим сопровождением.
         </p>
@@ -144,14 +144,12 @@ export default function Page() {
 
 function Sec({ n, t, children }: { n: string; t: string; children: React.ReactNode }) {
   return (
-    <section>
-      <div className="flex items-baseline gap-3">
-        <span className="num flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal/10 text-sm font-semibold text-teal-600">
-          {n}
-        </span>
-        <h2 className="text-xl text-heading">{t}</h2>
+    <section className="grid gap-2 border-t border-line pt-6 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6">
+      <span className="num text-[13px] leading-[1.6] text-faint">{n.padStart(2, "0")}</span>
+      <div>
+        <h2 className="text-[20px]">{t}</h2>
+        <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-body">{children}</div>
       </div>
-      <div className="mt-3 space-y-3 pl-11 leading-relaxed text-body">{children}</div>
     </section>
   );
 }

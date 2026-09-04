@@ -734,3 +734,28 @@ html.js-reveal .c,html.js-reveal .vs,html.js-reveal .tl,html.js-reveal .ins,html
   *,.tk::before{animation:none !important;transition:none !important}
   .rv{opacity:1 !important;transform:none !important}  /* защита: контент всегда виден */
 }
+
+/* ============================================================
+   Тема сайта «тёмный Notion» (ветка minimal, 09.2026): главы Академии и
+   обзоры внутри iframe красятся в палитру сайта. Переопределяем токены
+   и для светлой, и для тёмной схемы: сайт теперь только тёмный.
+   ============================================================ */
+:root, :root.dark {
+  --les-bg:#191919;
+  --les-surface:#212121;
+  --les-surface-2:#2a2a2a;
+  --les-border:#303030;
+  --les-border-2:#2a2a2a;
+  --les-text:#ffffff;
+  --les-text-2:#e0e0e0;
+  --les-text-3:#a6a6a6;
+  --les-aqua:#529cca;
+  --les-aqua-deep:#2383e2;
+  --les-aqua-soft:rgba(35,131,226,0.14);
+  --les-aqua-glow:transparent;
+  --les-accent:#529cca;
+}
+:root.dark a, :root.dark a:visited, a, a:visited { color:#ffffff; text-decoration-color:#529cca; }
+:root.dark a:hover, a:hover { color:#529cca; }
+.sh-n, .tldr-k, .cta-price { color:#f0873a; opacity:1; }
+.page, body { background:#191919; }

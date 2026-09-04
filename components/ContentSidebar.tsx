@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Arrow } from "./Button";
 
 // Боковая панель контента (как дерево курса в плеере):
-// список соседних материалов, активный подсвечен, поиск по названию.
+// список соседних материалов, активный отмечен, поиск по названию.
 export type SidebarItem = {
   slug: string;
   title: string;
@@ -33,31 +34,32 @@ export function ContentSidebar({
     : items;
 
   return (
-    <aside className="flex min-h-0 flex-col border-r border-line bg-subtle">
+    <aside className="flex min-h-0 flex-col border-b border-line bg-subtle lg:border-b-0 lg:border-r">
       <div className="border-b border-line p-5">
-        <Link href={backHref} className="text-xs text-muted hover:text-teal">
-          ← {backLabel}
+        <Link href={backHref} className="link text-[13px]">
+          <Arrow className="rotate-180" /> {backLabel}
         </Link>
-        <h2 className="mt-2 text-lg text-heading">{title}</h2>
+        <h2 className="mt-2 text-[18px]">{title}</h2>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Найти…"
           aria-label={`Поиск: ${title}`}
-          className="mt-3 w-full rounded-lg border border-line bg-card px-3 py-2 text-sm text-body outline-none transition-colors placeholder:text-muted focus-visible:border-teal"
+          className="mt-3 h-10 w-full rounded-[6px] border border-line-2 bg-page px-3 text-[16px] text-body outline-none transition-colors placeholder:text-faint focus-visible:border-accent"
         />
         <button
           onClick={() => setOpen((v) => !v)}
-          className="mt-3 w-full rounded-lg border border-line py-2 text-sm text-heading lg:hidden"
+          aria-expanded={open}
+          className="btn-press mt-3 h-10 w-full rounded-[6px] border border-line-2 text-[14px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
         >
           {open ? "Скрыть список" : `Показать список (${items.length})`}
         </button>
       </div>
       <nav className={`${open ? "block" : "hidden"} min-h-0 flex-1 overflow-y-auto p-3 lg:block`}>
         {visible.length === 0 && (
-          <p className="px-2 py-4 text-sm text-muted">Ничего не нашлось.</p>
+          <p className="px-2 py-4 text-[14px] text-text-2">Ничего не нашлось.</p>
         )}
-        <div className="space-y-0.5">
+        <div>
           {visible.map((i, idx) => {
             const active = i.slug === activeSlug;
             // при поиске группы не показываем — выдача плоская
@@ -65,26 +67,29 @@ export function ContentSidebar({
             return (
               <div key={i.slug}>
                 {showGroup && (
-                  <p className="px-2.5 pb-1 pt-4 text-[11px] font-semibold uppercase tracking-wider text-muted first:pt-1">
+                  <p className="eyebrow px-2.5 pb-1.5 pt-5 text-[11px] first:pt-1">
                     {i.group}
                   </p>
                 )}
-              <Link
-                href={i.href}
-                onClick={() => setOpen(false)}
-                className={`flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm leading-snug transition-colors ${
-                  active ? "bg-teal text-white" : "text-heading hover:bg-card"
-                }`}
-              >
-                {i.dot && (
-                  <span
-                    className="mt-1.5 h-2 w-2 shrink-0 rounded-full"
-                    style={{ background: i.dot }}
-                    aria-hidden="true"
-                  />
-                )}
-                <span className="line-clamp-2">{i.title}</span>
-              </Link>
+                <Link
+                  href={i.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`flex items-start gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[14px] leading-snug transition-colors ${
+                    active ? "bg-hover font-medium text-ink" : "text-text-2 hover:bg-hover hover:text-ink"
+                  }`}
+                >
+                  {active ? (
+                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" aria-hidden="true" />
+                  ) : i.dot ? (
+                    <span
+                      className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ background: i.dot }}
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                  <span className="line-clamp-2">{i.title}</span>
+                </Link>
               </div>
             );
           })}

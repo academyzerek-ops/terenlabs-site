@@ -8,22 +8,22 @@ export const metadata = {
 export default function Page() {
   return (
     <>
-      <section className="hero-ocean">
-        <Container className="relative z-10 py-16">
+      <section>
+        <Container className="py-14 sm:py-20">
           <p className="eyebrow">Правовая информация</p>
-          <h1 className="mt-3 max-w-2xl text-4xl !text-foam sm:text-5xl">
+          <h1 className="mt-3 max-w-[24ch] text-[36px] sm:text-[48px]">
             Политика конфиденциальности
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-foam/70">
+          <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
             Какие данные мы собираем, зачем и какие у вас права
           </p>
         </Container>
       </section>
 
-      <Container className="max-w-3xl py-16">
-        <div className="rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-6">
-          <p className="num text-[0.7rem] font-bold uppercase tracking-wider text-teal-600">Коротко</p>
-          <p className="mt-2 leading-relaxed text-heading">
+      <Container className="max-w-3xl border-t border-line pb-20 pt-10">
+        <div className="rounded-[8px] border border-line bg-subtle p-6">
+          <p className="eyebrow">Коротко</p>
+          <p className="mt-3 text-[15px] leading-relaxed text-body">
             Мы собираем минимум, нужный, чтобы приложение работало: ваш профиль Telegram, прогресс
             в обучении, заявки и вопросы, которые вы сами отправляете. Мы не продаём данные. Часть
             данных обрабатывается на зарубежных серверах (хостинг и ИИ) — об этом ниже. Вы можете
@@ -31,12 +31,12 @@ export default function Page() {
           </p>
         </div>
 
-        <div className="mt-10 space-y-10">
+        <div className="mt-10 space-y-8">
           <Sec n="1" t="Оператор данных">
             <p>
               Оператором персональных данных выступает проект <strong>TerenLabs</strong>, Республика
               Казахстан. Сервис предоставляется в виде Telegram Mini App через бота{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">@terenlabs_bot</a>{" "}
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>{" "}
               и веб-сайта TerenLabs. По любым вопросам о данных — контакты в конце страницы.
             </p>
           </Sec>
@@ -156,7 +156,7 @@ export default function Page() {
               Вы вправе: получить информацию о том, какие ваши данные мы обрабатываем; потребовать
               их исправления или удаления; отозвать согласие на обработку. Чтобы воспользоваться
               правами, напишите нам через раздел «Связь» в приложении или боту{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">
                 <strong>@terenlabs_bot</strong>
               </a>
               . Мы ответим в разумный срок.
@@ -166,7 +166,7 @@ export default function Page() {
           <Sec n="10" t="Контакт и изменения">
             <p>
               По вопросам конфиденциальности:{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">
                 <strong>@terenlabs_bot</strong>
               </a>
               . Мы можем обновлять эту политику — актуальная версия всегда доступна на этой
@@ -175,8 +175,8 @@ export default function Page() {
           </Sec>
         </div>
 
-        <div className="wave-divider my-10" />
-        <p className="text-sm leading-relaxed text-muted">
+        <div className="hair my-10" />
+        <p className="text-[13px] leading-relaxed text-faint">
           Политика действует с июля 2026 года. Документ носит информационный характер; при
           необходимости условия могут уточняться юридическим сопровождением.
         </p>
@@ -187,14 +187,12 @@ export default function Page() {
 
 function Sec({ n, t, children }: { n: string; t: string; children: React.ReactNode }) {
   return (
-    <section>
-      <div className="flex items-baseline gap-3">
-        <span className="num flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal/10 text-sm font-semibold text-teal-600">
-          {n}
-        </span>
-        <h2 className="text-xl text-heading">{t}</h2>
+    <section className="grid gap-2 border-t border-line pt-6 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6">
+      <span className="num text-[13px] leading-[1.6] text-faint">{n.padStart(2, "0")}</span>
+      <div>
+        <h2 className="text-[20px]">{t}</h2>
+        <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-body">{children}</div>
       </div>
-      <div className="mt-3 space-y-3 pl-11 leading-relaxed text-body">{children}</div>
     </section>
   );
 }

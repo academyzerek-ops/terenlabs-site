@@ -40,11 +40,12 @@ const CATEGORIES = {
   bm: [],
 };
 
+// Чипы фильтра: прямоугольник 6px, контур, активный чуть светлее и с белым текстом.
 export function CatalogFilters({ type }: { type: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  
+
   const currentFilter = searchParams.get("filter") || "all";
   const filters = CATEGORIES[type as keyof typeof CATEGORIES] || [];
 
@@ -61,22 +62,25 @@ export function CatalogFilters({ type }: { type: string }) {
   if (filters.length <= 1) return null;
 
   return (
-    // mt-7 — отступ от декоративного штриха героя, иначе линия наезжает на чипы
-    <div className="mt-7 flex flex-wrap items-center gap-2 mb-10 rise" style={{ animationDelay: "300ms" }}>
-      {filters.map((f) => (
-        <button
-          key={f.id}
-          onClick={() => setFilter(f.id)}
-          aria-pressed={currentFilter === f.id}
-          className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border ${
-            currentFilter === f.id
-              ? "bg-teal border-teal text-white shadow-[0_0_15px_rgba(0,183,194,0.3)]"
-              : "border-white/10 bg-white/5 text-foam/40 hover:border-white/20 hover:text-foam"
-          }`}
-        >
-          {f.label}
-        </button>
-      ))}
+    <div className="mt-6 mb-10 flex flex-wrap items-center gap-2">
+      {filters.map((f) => {
+        const active = currentFilter === f.id;
+        return (
+          <button
+            key={f.id}
+            type="button"
+            onClick={() => setFilter(f.id)}
+            aria-pressed={active}
+            className={`inline-flex h-8 items-center rounded-[6px] border px-3 text-[14px] font-medium transition-colors duration-150 ${
+              active
+                ? "border-line-2 bg-subtle text-ink"
+                : "border-line bg-transparent text-text-2 hover:border-line-2 hover:text-ink"
+            }`}
+          >
+            {f.label}
+          </button>
+        );
+      })}
     </div>
   );
 }

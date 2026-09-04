@@ -8,21 +8,19 @@ export const metadata = {
 export default function Page() {
   return (
     <>
-      <section className="hero-ocean">
-        <Container className="relative z-10 py-16">
-          <p className="eyebrow">Контакты</p>
-          <h1 className="mt-3 max-w-2xl text-4xl !text-foam sm:text-5xl">Связь с нами</h1>
-          <p className="mt-4 max-w-xl text-lg text-foam/70">
-            Предложения по сотрудничеству и пожелания — напишите, мы прочитаем каждое
-          </p>
-        </Container>
-      </section>
+      <Container className="py-14 sm:py-20">
+        <p className="eyebrow">Контакты</p>
+        <h1 className="mt-3 max-w-[20ch] text-[36px] sm:text-[48px]">Связь с нами</h1>
+        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
+          Предложения по сотрудничеству и пожелания — напишите, мы прочитаем каждое
+        </p>
+      </Container>
 
-      <Container className="max-w-4xl py-16">
-        <p className="mb-8 max-w-2xl leading-relaxed text-muted">
+      <Container className="border-t border-line pb-20 pt-10">
+        <p className="mb-8 max-w-[64ch] text-[15px] leading-relaxed text-text-2">
           Выберите, о чём хотите написать, и опишите коротко. Заявка попадёт напрямую команде — мы
           отвечаем на всё по существу. Быстрее всего — написать боту{" "}
-          <a href="https://t.me/terenlabs_bot" className="text-teal-600 hover:text-teal">
+          <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">
             @terenlabs_bot
           </a>
           : там мы видим ваш Telegram и можем ответить в личку.

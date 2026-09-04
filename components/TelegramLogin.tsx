@@ -41,7 +41,8 @@ export function TelegramLogin({ authUrl }: { authUrl?: string } = {}) {
     s.async = true;
     s.setAttribute("data-telegram-login", BOT);
     s.setAttribute("data-size", "large");
-    s.setAttribute("data-radius", "12");
+    // радиус кнопки виджета как у наших контролов
+    s.setAttribute("data-radius", "6");
     if (authUrl) {
       // redirect-режим для нативного приложения: попапы в WKWebView зажаты,
       // виджет уводит текущее окно на oauth.telegram.org и обратно на authUrl
@@ -70,12 +71,12 @@ export function TelegramLogin({ authUrl }: { authUrl?: string } = {}) {
     <div>
       <div ref={holder} className="flex min-h-[48px] justify-center" />
       {status === "failed" && (
-        <p className="mt-1 text-center text-xs leading-relaxed text-foam/45">
+        <p className="mt-2 text-center text-[13px] leading-relaxed text-faint">
           Кнопка Telegram не загрузилась. Обнови страницу. Если не помогает — домен
           сайта нужно добавить в&nbsp;@BotFather&nbsp;→&nbsp;/setdomain.
         </p>
       )}
-      {err && <p className="mt-2 text-center text-xs text-[var(--color-danger)]">{err}</p>}
+      {err && <p role="alert" className="mt-2 text-center text-[13px] text-danger">{err}</p>}
     </div>
   );
 }

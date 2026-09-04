@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
-import { Button } from "@/components/Button";
+import { Button, Arrow } from "@/components/Button";
 import { ProductPage } from "@/components/ProductPage";
 import { getItem, plural, COURSES } from "@/lib/content";
 import { getTrack } from "@/lib/learn";
@@ -40,20 +40,22 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ]),
         ]}
       />
-      {/* Хедер курса — глубина */}
-      <section className="hero-ocean">
-        <Container className="relative z-10 py-16">
-          <nav className="mb-5 text-sm text-foam/50" aria-label="Хлебные крошки">
-            <Link href="/catalog?type=course" className="hover:text-teal">Курсы</Link>
+      {/* Шапка курса */}
+      <section className="border-b border-line">
+        <Container className="py-14 sm:py-16">
+          <nav className="mb-6 text-[13px] text-faint" aria-label="Хлебные крошки">
+            <Link href="/catalog?type=course" className="hover:text-ink">Курсы</Link>
             <span className="mx-2">/</span>
             <span>{track.title}</span>
           </nav>
           <p className="eyebrow">Академия</p>
-          <h1 className="mt-4 max-w-2xl text-4xl !text-foam sm:text-5xl">{track.title}</h1>
-          <p className="mt-4 max-w-xl text-lg text-foam/75">{track.subtitle}</p>
-          <div className="mt-6 flex flex-wrap items-center gap-5">
-            <Button href={`/learn/${track.slug}`} size="lg">Начать курс</Button>
-            <span className="num text-sm text-foam/60">
+          <h1 className="mt-4 max-w-[20ch] text-[36px] sm:text-[48px]">{track.title}</h1>
+          <p className="mt-4 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">{track.subtitle}</p>
+          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Button href={`/learn/${track.slug}`} size="lg">
+              Начать курс <Arrow />
+            </Button>
+            <span className="num text-[14px] text-text-2">
               {track.modules.length} {plural(track.modules.length, "урок", "урока", "уроков")} ·{" "}
               {track.chapterTotal} {plural(track.chapterTotal, "глава", "главы", "глав")}
             </span>
@@ -61,52 +63,59 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </Container>
       </section>
 
-      {/* Программа */}
-      <section className="deck py-16">
-        <Container>
-          <h2 className="text-3xl">Программа</h2>
-          <div className="mt-8 space-y-6">
+      {/* Программа: уроки строками, главы списком с тонкими линиями */}
+      <section>
+        <Container className="py-14 sm:py-16">
+          <h2 className="text-[28px] sm:text-[32px]">Программа</h2>
+          <div className="mt-8">
             {track.modules.map((m, mi) => {
               const cover = m.chapters.find((c) => c.img)?.img;
               return (
-                <div key={m.id} className="card-premium overflow-hidden md:flex">
-                  {cover && (
-                    <div className="h-40 shrink-0 overflow-hidden md:h-auto md:w-64">
-                      <img src={cover} alt="" width={448} height={288} loading="lazy" className="h-full w-full object-cover" />
-                    </div>
-                  )}
-                  <div className="flex-1 p-6 sm:p-7">
+                <div
+                  key={m.id}
+                  className="grid gap-6 border-t border-line py-8 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"
+                >
+                  <div>
+                    {cover && (
+                      <div className="mb-4 aspect-[16/10] w-full overflow-hidden rounded-[8px] border border-line bg-card">
+                        <img src={cover} alt="" width={448} height={288} loading="lazy" className="h-full w-full object-cover" />
+                      </div>
+                    )}
                     <p className="eyebrow">Урок {mi + 1}</p>
                     {/* дубль «Урок N» из названия модуля убираем — он уже в eyebrow */}
-                    <h3 className="mt-1 text-xl text-heading sm:text-2xl">
+                    <h3 className="mt-2 text-[22px]">
                       {m.title.replace(/^Урок\s*\d+\s*[·.\-—:]\s*/i, "")}
                     </h3>
-                    <p className="num mt-1 text-xs text-muted">
+                    <p className="num mt-1 text-[13px] text-faint">
                       {m.chapters.length} {plural(m.chapters.length, "глава", "главы", "глав")}
                     </p>
-                    <ol className="mt-4 grid gap-2 sm:grid-cols-2">
-                      {m.chapters.map((c, ci) => (
-                        <li key={c.file}>
-                          <Link
-                            href={`/learn/${track.slug}?ch=${c.file}`}
-                            className="group/ch flex items-center gap-3 rounded-xl border border-line border-l-[3px] border-l-teal bg-card px-3.5 py-2.5 transition-all hover:-translate-y-0.5 hover:border-teal/50 hover:border-l-teal hover:shadow-[var(--shadow-tl-sm)]"
-                          >
-                            <span className="num flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-[13px] font-semibold text-teal-600">
-                              {ci + 1}
-                            </span>
-                            <span className="flex-1 text-[15px] leading-snug text-heading">{c.title}</span>
-                            <span className="shrink-0 text-teal-600 transition-transform group-hover/ch:translate-x-0.5">→</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ol>
                   </div>
+                  <ol>
+                    {m.chapters.map((c, ci) => (
+                      <li key={c.file}>
+                        <Link
+                          href={`/learn/${track.slug}?ch=${c.file}`}
+                          className="group flex min-h-[48px] items-center gap-4 border-t border-line py-3 transition-colors hover:bg-hover"
+                        >
+                          <span className="num w-7 shrink-0 text-[13px] text-faint">
+                            {String(ci + 1).padStart(2, "0")}
+                          </span>
+                          <span className="flex-1 text-[15px] leading-snug text-body group-hover:text-ink">{c.title}</span>
+                          <Arrow className="shrink-0 text-text-2 group-hover:text-ink" />
+                        </Link>
+                      </li>
+                    ))}
+                    <li className="border-t border-line" aria-hidden="true" />
+                  </ol>
                 </div>
               );
             })}
+            <div className="border-t border-line" />
           </div>
-          <div className="mt-10 text-center">
-            <Button href={`/learn/${track.slug}`} size="lg">Начать с первой главы</Button>
+          <div className="mt-10">
+            <Button href={`/learn/${track.slug}`} size="lg">
+              Начать с первой главы <Arrow />
+            </Button>
           </div>
         </Container>
       </section>

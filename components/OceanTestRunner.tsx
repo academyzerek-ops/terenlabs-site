@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "./Container";
-import { Button } from "./Button";
+import { Button, Arrow } from "./Button";
 import { OceanTestMeta, OceanQuestion, prepareAttempt, OCEAN_TESTS } from "@/lib/ocean-tests";
 import { saveAttempt } from "@/lib/memory";
 import {
@@ -27,6 +27,14 @@ import {
 // Прогресс недопройденного теста живёт в localStorage по слоту level.test
 // (как tl-ocean-progress в Mini App) — можно вернуться на тот же вопрос.
 const LETTERS = ["А", "Б", "В", "Г"];
+
+// кнопки-действия (нативные <button>, поэтому классы Button повторены здесь)
+const BTN_PRIMARY =
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+const BTN_SECONDARY =
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] border border-line-2 bg-transparent px-4 text-[15px] font-medium text-ink transition-colors hover:bg-subtle";
+// панель-пояснение на интро (гейты, кулдаун, resume)
+const NOTE = "mt-6 rounded-[8px] border border-line bg-subtle p-5 text-[15px] leading-relaxed text-body";
 
 // тип вопроса — как KIND_LABEL в ocean.js: помогает переключить голову «сейчас считать»
 const KIND_LABEL: Record<string, string> = {
@@ -297,10 +305,11 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     }
   };
 
+
   if (loadError) {
     return (
-      <Container className="py-24 text-center">
-        <p className="text-heading">Не удалось загрузить вопросы. Обнови страницу.</p>
+      <Container className="py-24">
+        <p className="mx-auto max-w-xl text-[17px] text-ink">Не удалось загрузить вопросы. Обнови страницу.</p>
       </Container>
     );
   }
@@ -317,20 +326,27 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     const canStart = authed === true && progressReady && !levelLocked && !testLocked && !onCooldown;
 
     return (
-      <Container className="py-16">
-        <div className="mx-auto max-w-xl text-center">
-          <p className="eyebrow">{meta.title}</p>
-          <h1 className="mt-3 text-3xl text-heading sm:text-4xl">
+      <Container className="py-14 sm:py-20">
+        <div className="mx-auto max-w-xl">
+          <nav className="text-[13px] text-faint">
+            <Link href={`/levels/${meta.rankKey}`} className="transition-colors hover:text-ink">
+              {meta.rank}
+            </Link>
+            <span className="mx-2">/</span>
+            <span>{meta.title}</span>
+          </nav>
+          <p className="eyebrow mt-8">{meta.title}</p>
+          <h1 className="mt-3 text-[30px] sm:text-[40px]">
             {meta.qCount} {isOpen ? "открытых вопросов" : "вопросов"}. Порог — {meta.floor} из 10.
           </h1>
-          <p className="mt-4 leading-relaxed text-muted">
+          <p className="mt-5 text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
             {isOpen
               ? "Отвечаешь развёрнуто, своими словами — TEREN-AI оценивает каждый ответ по рубрике. Итог из 10, попытка идёт в твой рейтинг — тот же зачёт, что в Mini App. Прогресс сохраняется: можно отвлечься и вернуться на тот же вопрос."
               : "По одному вопросу из каждой темы уровня, варианты перемешаны, пересдача даёт другие вопросы. Подсказок по ходу нет — это не игра в угадайку. Балл и разбор ошибок считает сервер «Океана», попытка идёт в твой рейтинг — тот же зачёт, что в Mini App."}
           </p>
           {authed === false ? (
             <>
-              <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
+              <p className={NOTE}>
                 {isOpen
                   ? "Открытые ответы оценивает TEREN-AI на сервере — тест доступен после входа. Войди: попытка сразу пойдёт в зачёт и рейтинг."
                   : "Ответы на вопросы хранятся только на сервере — без входа результат не посчитать. Войди: попытка сразу пойдёт в зачёт и рейтинг."}
@@ -343,7 +359,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
             </>
           ) : levelLocked ? (
             <>
-              <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
+              <p className={NOTE}>
                 Уровни «Океан» проходятся по порядку: «{meta.rank}» открывается после того, как
                 сданы все тесты уровня «{prev?.name ?? "предыдущего"}».
               </p>
@@ -355,7 +371,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
             </>
           ) : testLocked ? (
             <>
-              <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
+              <p className={NOTE}>
                 «Универсальный» открывается после «Теории» и «Расчётов» — сначала сдай{" "}
                 {missing.map((r) => OCEAN_TESTS[`${level}-${r}`]?.title.split("·")[1]?.trim() || r).join(" и ")}.
               </p>
@@ -366,27 +382,22 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
               </div>
             </>
           ) : onCooldown ? (
-            <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
-              ⏱ Пересдача через {formatCooldown(cooldownMs)} — выборка вопросов будет другой.
+            <p className={NOTE}>
+              Пересдача через <span className="num text-ink">{formatCooldown(cooldownMs)}</span> — выборка вопросов будет другой.
             </p>
           ) : resumable && canStart ? (
             <>
-              <p className="mt-6 rounded-[var(--radius-tl)] border border-line bg-card p-5 text-sm leading-relaxed text-body">
-                Ты остановился на вопросе {Math.min(resumable.qIndex + 1, resumable.questions.length)} из{" "}
-                {resumable.questions.length}. Прогресс сохранён — можно продолжить с того же места
+              <p className={NOTE}>
+                Ты остановился на вопросе{" "}
+                <span className="num text-ink">{Math.min(resumable.qIndex + 1, resumable.questions.length)}</span> из{" "}
+                <span className="num text-ink">{resumable.questions.length}</span>. Прогресс сохранён — можно продолжить с того же места
                 или начать заново.
               </p>
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-                <button
-                  onClick={resumeAttempt}
-                  className="btn-press rounded-full bg-teal px-7 py-3.5 text-base font-medium text-white shadow-[var(--shadow-tl-sm)] transition-all hover:bg-teal-600"
-                >
-                  Продолжить — вопрос {Math.min(resumable.qIndex + 1, resumable.questions.length)}
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <button onClick={resumeAttempt} className={`${BTN_PRIMARY} h-12 px-5`}>
+                  Продолжить — вопрос <span className="num">{Math.min(resumable.qIndex + 1, resumable.questions.length)}</span>
                 </button>
-                <button
-                  onClick={startAttempt}
-                  className="btn-press rounded-full px-6 py-3 text-sm font-medium text-heading ring-1 ring-line transition-colors hover:ring-teal hover:text-teal"
-                >
+                <button onClick={startAttempt} className={`${BTN_SECONDARY} h-12 px-5`}>
                   Начать заново
                 </button>
               </div>
@@ -396,14 +407,14 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
               <button
                 onClick={startAttempt}
                 disabled={!pool || !canStart}
-                className="btn-press rounded-full bg-teal px-7 py-3.5 text-base font-medium text-white shadow-[var(--shadow-tl-sm)] transition-all hover:bg-teal-600 disabled:cursor-default disabled:opacity-50"
+                className={`${BTN_PRIMARY} h-12 px-5`}
               >
                 {pool && progressReady ? "Начать тест" : "Собираю вопросы из пула…"}
               </button>
             </div>
           )}
-          <p className="mt-6 text-sm">
-            <Link href={`/levels/${meta.rankKey}`} className="text-teal-600 hover:text-teal">
+          <p className="mt-8 border-t border-line pt-5 text-[14px]">
+            <Link href={`/levels/${meta.rankKey}`} className="text-text-2 transition-colors hover:text-ink">
               ← Вернуться к уровню «{meta.rank}»
             </Link>
           </p>
@@ -414,8 +425,8 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
 
   if (!questions) {
     return (
-      <Container className="py-24 text-center">
-        <p className="text-muted">Собираю вопросы из пула…</p>
+      <Container className="py-24">
+        <p className="mx-auto max-w-xl text-[15px] text-faint">Собираю вопросы из пула…</p>
       </Container>
     );
   }
@@ -423,16 +434,18 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   // ── сервер считает результат ──
   if (phase === "checking") {
     return (
-      <Container className="py-24 text-center">
-        <p className="eyebrow">{meta.title}</p>
-        <p className="mt-4 text-xl text-heading">
-          {isOpen ? "TEREN-AI читает твои ответы…" : "Проверяем…"}
-        </p>
-        <p className="mt-2 text-muted">
-          {isOpen
-            ? "Оцениваю каждый ответ по рубрике — это займёт несколько секунд."
-            : "Считаем результат на сервере — ответы скрыты от браузера."}
-        </p>
+      <Container className="py-24">
+        <div className="mx-auto max-w-xl">
+          <p className="eyebrow">{meta.title}</p>
+          <p className="mt-4 text-[22px] text-ink" role="status" aria-live="polite">
+            {isOpen ? "TEREN-AI читает твои ответы…" : "Проверяем…"}
+          </p>
+          <p className="mt-2 text-[15px] text-text-2">
+            {isOpen
+              ? "Оцениваю каждый ответ по рубрике — это займёт несколько секунд."
+              : "Считаем результат на сервере — ответы скрыты от браузера."}
+          </p>
+        </div>
       </Container>
     );
   }
@@ -440,22 +453,21 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   // ── сеть упала: попытка не потеряна (идемпотентно по client_attempt_id) ──
   if (phase === "submit-error") {
     return (
-      <Container className="py-24 text-center">
-        <p className="eyebrow">{meta.title}</p>
-        <p className="mt-4 text-xl text-heading">Сервер не ответил.</p>
-        <p className="mx-auto mt-3 max-w-md text-muted">
-          Твои ответы не потерялись — отправь ещё раз. Если вход протух, войди заново и повтори.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <button
-            onClick={() => void submit(questions, answers)}
-            className="btn-press rounded-full bg-teal px-7 py-3.5 text-base font-medium text-white shadow-[var(--shadow-tl-sm)] transition-all hover:bg-teal-600"
-          >
-            Отправить ещё раз
-          </button>
-          <Button href="/auth/sign-in" variant="secondary">
-            Войти заново
-          </Button>
+      <Container className="py-24">
+        <div className="mx-auto max-w-xl">
+          <p className="eyebrow">{meta.title}</p>
+          <p className="mt-4 text-[22px] text-ink" role="alert">Сервер не ответил.</p>
+          <p className="mt-3 text-[15px] leading-relaxed text-text-2">
+            Твои ответы не потерялись — отправь ещё раз. Если вход протух, войди заново и повтори.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <button onClick={() => void submit(questions, answers)} className={`${BTN_PRIMARY} h-12 px-5`}>
+              Отправить ещё раз
+            </button>
+            <Button href="/auth/sign-in" variant="secondary" size="lg">
+              Войти заново
+            </Button>
+          </div>
         </div>
       </Container>
     );
@@ -468,103 +480,97 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     const byIdx = new Map(questions.map((q, i) => [i, q]));
     const closedMistakes = isOpen ? [] : result.review.filter((r) => !r.correct);
     return (
-      <Container className="py-16">
-        <div className="mx-auto max-w-xl text-center">
+      <Container className="py-14 sm:py-20">
+        <div className="mx-auto max-w-xl">
           <p className="eyebrow">{meta.title}</p>
-          <div className="num mt-6 text-7xl font-semibold text-heading">
+          <div className="num mt-5 text-[64px] font-semibold leading-none text-ink sm:text-[80px]">
             {result.score}
-            <span className="text-3xl text-muted"> / 10</span>
+            <span className="text-[28px] font-normal text-faint sm:text-[32px]"> / 10</span>
           </div>
-          <p className={`mt-4 text-xl font-semibold ${passed ? "text-teal-600" : "text-heading"}`}>
-            {passed ? "Порог пройден." : `Меньше ${meta.floor} из 10 — попытка не засчитана.`}
-          </p>
-          <p className="mt-3 text-muted">
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <span className={passed ? "tag tag-blue" : "tag"}>{passed ? "Сдан" : "Не сдан"}</span>
+            <p className="text-[17px] font-medium text-ink">
+              {passed ? "Порог пройден." : `Меньше ${meta.floor} из 10 — попытка не засчитана.`}
+            </p>
+          </div>
+          <p className="mt-3 text-[15px] leading-relaxed text-text-2">
             {passed
               ? "Записано в рейтинг «Океана» — средние считаются по всем попыткам."
               : retryBlocked
-              ? `⏱ Пересдача через ${formatCooldown(cooldownMs)} — выборка вопросов будет другой.`
+              ? `Пересдача через ${formatCooldown(cooldownMs)} — выборка вопросов будет другой.`
               : isOpen
               ? "Можно сразу пересдать — смотри разбор ниже, чего не хватило."
               : "Можно сразу пересдать — выборка вопросов будет другой."}
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button href="/ocean" size="lg">
               Посмотреть рейтинг
             </Button>
             {!retryBlocked && (
-              <button
-                onClick={startAttempt}
-                className="btn-press rounded-[var(--radius-tl)] px-5 py-3 text-sm font-medium text-heading ring-1 ring-line transition-colors hover:ring-teal hover:text-teal"
-              >
+              <button onClick={startAttempt} className={`${BTN_SECONDARY} h-12 px-5`}>
                 Новая попытка
               </button>
             )}
           </div>
-          <p className="mt-6 text-sm">
-            <Link href="/ocean" className="text-teal-600 hover:text-teal">
-              Как считаются места в «Океане» →
+          <p className="mt-6 text-[14px]">
+            <Link href="/ocean" className="link">
+              Как считаются места в «Океане» <Arrow />
             </Link>
           </p>
         </div>
 
         {/* слово наставника: разбор попытки / левел-ап / застревание */}
         {reco && (
-          <div className="mx-auto mt-10 max-w-2xl rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-6">
-            <p className="num text-[0.68rem] font-bold uppercase tracking-wider text-teal-600">
-              TEREN-AI · разбор попытки
-            </p>
-            <p className="mt-2 whitespace-pre-line leading-relaxed text-body">{reco}</p>
+          <div className="mx-auto mt-12 max-w-2xl rounded-[8px] bg-subtle p-5 sm:p-6">
+            <p className="eyebrow">TEREN-AI · разбор попытки</p>
+            <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-body">{reco}</p>
           </div>
         )}
 
         {/* открытый: разбор по рубрике на каждый ответ (как renderOpenReview) */}
         {isOpen && result.review.length > 0 && (
           <div className="mx-auto mt-14 max-w-2xl">
-            <h2 className="text-2xl text-heading">Разбор по кейсам</h2>
-            <p className="mt-2 text-sm text-muted">
+            <h2 className="text-[24px]">Разбор по кейсам</h2>
+            <p className="mt-2 text-[14px] text-text-2">
               ИИ оценил каждый ответ по рубрике — смотри, что раскрыл и чего не хватило.
             </p>
-            <div className="wave-divider my-5" />
-            <div className="space-y-6">
+            <div className="mt-6 flex flex-col gap-10">
               {result.review.map((r) => {
                 const q = byIdx.get(r.q_idx);
                 return (
-                  <div key={r.q_idx} className="rounded-[var(--radius-tl)] border border-line bg-card p-6">
-                    <p className="num text-xs font-semibold uppercase tracking-wider text-muted">
+                  <div key={r.q_idx}>
+                    <p className="eyebrow">
                       Вопрос {r.q_idx + 1}
-                      {r.awarded !== undefined && r.max !== undefined && ` · ${r.awarded}/${r.max} баллов`}
+                      {r.awarded !== undefined && r.max !== undefined && (
+                        <span className="num text-ink">{r.awarded}/{r.max} баллов</span>
+                      )}
                     </p>
-                    {q && <p className="mt-2 leading-relaxed text-heading">{q.q}</p>}
+                    {q && <p className="mt-2 text-[17px] leading-relaxed text-ink">{q.q}</p>}
                     {(r.criteria?.length ?? 0) > 0 && (
-                      <ul className="mt-4 space-y-2">
+                      <ul className="mt-4">
                         {r.criteria!.map((c, ci) => {
                           const tone =
-                            c.awarded >= c.max
-                              ? "border-teal bg-teal/8"
-                              : c.awarded > 0
-                              ? "border-[var(--color-warn)] bg-[rgba(199,125,42,0.07)]"
-                              : "border-[var(--color-danger)] bg-[rgba(180,69,47,0.07)]";
+                            c.awarded >= c.max ? "text-accent" : c.awarded > 0 ? "text-ink" : "text-danger";
                           return (
                             <li
                               key={ci}
-                              className={`flex items-start gap-3 rounded-lg border px-4 py-2.5 text-sm leading-relaxed text-heading ${tone}`}
+                              className="flex items-start gap-4 border-t border-line py-3 text-[15px] leading-relaxed text-body"
                             >
-                              <span className="num mt-0.5 shrink-0 text-xs font-semibold text-muted">
+                              <span className={`num w-10 shrink-0 font-medium ${tone}`}>
                                 {c.awarded}/{c.max}
                               </span>
                               <span className="flex-1">{c.note}</span>
                             </li>
                           );
                         })}
+                        <li className="border-t border-line" />
                       </ul>
                     )}
                     {r.feedback && (
-                      <p className="mt-4 rounded-lg bg-subtle p-4 text-sm leading-relaxed text-body">
-                        <span className="num mr-2 text-[0.68rem] font-bold uppercase tracking-wider text-teal-600">
-                          Разбор TEREN-AI
-                        </span>
-                        {r.feedback}
-                      </p>
+                      <div className="mt-4 rounded-[8px] bg-subtle p-4">
+                        <p className="eyebrow">Разбор TEREN-AI</p>
+                        <p className="mt-2 text-[15px] leading-relaxed text-body">{r.feedback}</p>
+                      </div>
                     )}
                   </div>
                 );
@@ -573,13 +579,14 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           </div>
         )}
 
-        {/* закрытый: разбор ошибок — только промахи, ✓ верно / ✗ твой.
+        {/* закрытый: разбор ошибок — только промахи, «верно» / «твой ответ».
             Сервер отдаёт исходные индексы — переводим в отображаемые через _orig */}
         {!isOpen && closedMistakes.length > 0 && (
           <div className="mx-auto mt-14 max-w-2xl">
-            <h2 className="text-2xl text-heading">Разбор ошибок</h2>
-            <div className="wave-divider my-5" />
-            <div className="space-y-6">
+            <h2 className="text-[24px]">
+              Разбор ошибок <span className="num ml-1 text-[14px] font-normal text-faint">{closedMistakes.length}</span>
+            </h2>
+            <div className="mt-6 flex flex-col gap-10">
               {closedMistakes.map((m) => {
                 const q = byIdx.get(m.q_idx);
                 if (!q) return null;
@@ -588,38 +595,33 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                 const rightShown = toShown(m.correct_index);
                 const mineShown = toShown(m.chosen);
                 return (
-                  <div key={m.q_idx} className="rounded-[var(--radius-tl)] border border-line bg-card p-6">
-                    <p className="num text-xs font-semibold uppercase tracking-wider text-muted">
-                      Вопрос {m.q_idx + 1}
-                    </p>
-                    <p className="mt-2 leading-relaxed text-heading">{q.q}</p>
-                    <ul className="mt-4 space-y-2">
+                  <div key={m.q_idx}>
+                    <p className="eyebrow">Вопрос {m.q_idx + 1}</p>
+                    <p className="mt-2 text-[17px] leading-relaxed text-ink">{q.q}</p>
+                    <ul className="mt-4">
                       {q.opts.map((opt, oi) => {
                         const right = oi === rightShown;
                         const mine = oi === mineShown;
                         return (
                           <li
                             key={oi}
-                            className={`flex items-start gap-3 rounded-lg border px-4 py-2.5 text-sm leading-relaxed ${
-                              right
-                                ? "border-teal bg-teal/8 text-heading"
-                                : mine
-                                ? "border-[var(--color-danger)] bg-[rgba(180,69,47,0.07)] text-heading"
-                                : "border-line text-muted"
+                            className={`flex items-start gap-4 border-t border-line py-3 text-[15px] leading-relaxed ${
+                              right || mine ? "text-ink" : "text-text-2"
                             }`}
                           >
-                            <span className="num mt-0.5 shrink-0 text-xs text-muted">{LETTERS[oi]}</span>
+                            <span className="num w-5 shrink-0 text-[13px] text-faint">{LETTERS[oi]}</span>
                             <span className="flex-1">{opt}</span>
-                            {right && <span className="shrink-0 text-xs font-semibold text-teal-600">✓ верно</span>}
+                            {right && <span className="tag tag-blue shrink-0">верно</span>}
                             {mine && !right && (
-                              <span className="shrink-0 text-xs font-semibold text-[var(--color-danger)]">✗ твой</span>
+                              <span className="shrink-0 text-[13px] font-medium text-danger">твой ответ</span>
                             )}
                           </li>
                         );
                       })}
+                      <li className="border-t border-line" />
                     </ul>
                     {m.explanation && (
-                      <p className="mt-4 rounded-lg bg-subtle p-4 text-sm leading-relaxed text-body">
+                      <p className="mt-4 rounded-[8px] bg-subtle p-4 text-[15px] leading-relaxed text-body">
                         {m.explanation}
                       </p>
                     )}
@@ -640,17 +642,17 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
     <Container className="py-12">
       <div className="mx-auto max-w-2xl">
         {/* шапка попытки */}
-        <div className="flex items-center justify-between">
-          <Link href={`/levels/${meta.rankKey}`} className="text-xs text-muted hover:text-teal">
+        <div className="flex items-center justify-between gap-4 text-[13px] text-faint">
+          <Link href={`/levels/${meta.rankKey}`} className="shrink-0 transition-colors hover:text-ink">
             ← {meta.rank}
           </Link>
-          <span className="eyebrow">{meta.title}</span>
-          <span className="num text-xs text-muted">
+          <span className="truncate">{meta.title}</span>
+          <span className="num shrink-0">
             {idx + 1} / {questions.length}
           </span>
         </div>
         <div
-          className="mt-3 h-1.5 overflow-hidden rounded-full bg-line"
+          className="mt-3 h-1 overflow-hidden bg-line"
           role="progressbar"
           aria-label="Прогресс теста"
           aria-valuenow={idx}
@@ -658,21 +660,18 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           aria-valuemax={questions.length}
         >
           <div
-            className="h-full rounded-full bg-teal transition-all duration-500"
+            className="h-full bg-accent-600 transition-[width] duration-300"
             style={{ width: `${(idx / questions.length) * 100}%` }}
           />
         </div>
 
         {/* Акула: общий контекст кейса — сворачиваемый, открыт по умолчанию */}
         {q.vignette && (
-          <details
-            open
-            className="mt-8 overflow-hidden rounded-[var(--radius-tl)] border border-line bg-subtle"
-          >
-            <summary className="cursor-pointer list-none px-5 py-3.5 text-sm font-semibold text-heading">
+          <details open className="mt-8 overflow-hidden rounded-[8px] border border-line bg-subtle">
+            <summary className="cursor-pointer list-none px-5 py-3.5 text-[14px] font-medium text-ink">
               Контекст кейса{q.business ? ` · ${q.business}` : ""}
             </summary>
-            <div className="whitespace-pre-line border-t border-line px-5 py-4 text-sm leading-relaxed text-body">
+            <div className="whitespace-pre-line border-t border-line px-5 py-4 text-[15px] leading-relaxed text-body">
               {q.vignette}
             </div>
           </details>
@@ -680,11 +679,9 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
 
         {/* тип вопроса + вопрос */}
         {!isOpen && q.kind && KIND_LABEL[q.kind] && (
-          <span className="num mt-8 inline-block rounded-full bg-teal/10 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-teal-600">
-            {KIND_LABEL[q.kind]}
-          </span>
+          <p className="eyebrow mt-8">{KIND_LABEL[q.kind]}</p>
         )}
-        <p className={`${q.vignette || (!isOpen && q.kind) ? "mt-4" : "mt-8"} text-lg leading-relaxed text-heading sm:text-xl`}>
+        <p className={`${q.vignette || (!isOpen && q.kind) ? "mt-3" : "mt-8"} text-[20px] leading-snug text-ink sm:text-[24px]`}>
           {q.q}
         </p>
 
@@ -692,14 +689,12 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           <>
             {/* Дельфин: наводящие пункты «разбери в ответе» */}
             {(q.guides?.length ?? 0) > 0 && (
-              <div className="mt-5 rounded-[var(--radius-tl)] border border-line bg-card p-5">
-                <p className="num text-[0.68rem] font-bold uppercase tracking-wider text-muted">
-                  Разбери в ответе:
-                </p>
-                <ul className="mt-2.5 space-y-1.5 text-sm leading-relaxed text-body">
+              <div className="mt-5 rounded-[8px] border border-line p-5">
+                <p className="eyebrow">Разбери в ответе</p>
+                <ul className="mt-3 flex flex-col gap-2 text-[15px] leading-relaxed text-body">
                   {q.guides!.map((g, gi) => (
-                    <li key={gi} className="flex gap-2.5">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-teal" />
+                    <li key={gi} className="flex gap-3">
+                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange" aria-hidden="true" />
                       {g}
                     </li>
                   ))}
@@ -717,15 +712,15 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
               maxLength={4000}
               rows={8}
               placeholder="Твой ответ своими словами — рассуждение и цифры ценнее «правильных слов»…"
-              className="mt-6 w-full rounded-[var(--radius-tl)] border border-line bg-card p-4 text-[16px] sm:text-[0.95rem] leading-relaxed text-heading outline-none transition-colors placeholder:text-muted/60 focus:border-teal"
+              className="mt-6 w-full rounded-[6px] border border-line-2 bg-card p-4 text-[16px] leading-relaxed text-ink outline-none transition-colors placeholder:text-faint focus:border-accent"
             />
-            <p className="mt-2 text-right text-xs text-muted">
+            <p className="num mt-2 text-right text-[13px] text-faint">
               {typeof picked === "string" ? picked.length : 0} / 4000
             </p>
           </>
         ) : (
           /* закрытый: выбор можно менять, правильный ответ не подсвечивается */
-          <div className="mt-6 space-y-3" role="radiogroup" aria-label="Варианты ответа">
+          <div className="mt-6 flex flex-col gap-2" role="radiogroup" aria-label="Варианты ответа">
             {q.opts.map((o, i) => {
               const selected = picked === i;
               return (
@@ -739,26 +734,20 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                     setAnswers(nextAnswers);
                     persist(questions, nextAnswers, idx);
                   }}
-                  className={`btn-press flex w-full items-start gap-3 rounded-[var(--radius-tl)] border px-4 py-3 text-left text-[0.95rem] leading-relaxed transition-colors ${
-                    selected
-                      ? "border-teal bg-teal/10 text-heading shadow-[0_0_0_1px_var(--color-teal)]"
-                      : "border-line bg-card text-heading hover:border-teal/60"
+                  className={`btn-press flex min-h-[44px] w-full items-start gap-3 rounded-[6px] border px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors ${
+                    selected ? "border-line-2 bg-subtle" : "border-line bg-transparent hover:bg-subtle"
                   }`}
                 >
-                  <span className="num mt-0.5 shrink-0 text-xs text-muted">{LETTERS[i]}</span>
-                  {o}
+                  <span className="num mt-0.5 w-5 shrink-0 text-[13px] text-faint">{LETTERS[i]}</span>
+                  <span className="flex-1">{o}</span>
                 </button>
               );
             })}
           </div>
         )}
 
-        <div className="mt-7 text-right">
-          <button
-            onClick={next}
-            disabled={!answerValid(picked)}
-            className="btn-press rounded-[var(--radius-tl)] bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600 disabled:cursor-default disabled:opacity-40"
-          >
+        <div className="mt-7 flex justify-end">
+          <button onClick={next} disabled={!answerValid(picked)} className={BTN_PRIMARY}>
             {idx + 1 >= questions.length
               ? isOpen
                 ? "Сдать на проверку"

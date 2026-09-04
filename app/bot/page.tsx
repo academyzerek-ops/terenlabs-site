@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BotRedirect from "./redirect";
+import { Button, Arrow } from "@/components/Button";
 
 // Страница-прокладка для постов в соцсетях (Threads/Instagram/и т.д.).
 // Голая ссылка t.me/terenlabs_bot даёт кривую карточку: Telegram отдаёт
@@ -40,13 +41,10 @@ export default function BotPage() {
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 p-8 text-center">
       <BotRedirect url={BOT_URL} />
-      <p className="text-sm text-muted">Открываем Telegram…</p>
-      <a
-        href={BOT_URL}
-        className="rounded-full bg-teal px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-teal/80"
-      >
-        Открыть @terenlabs_bot
-      </a>
+      <p role="status" aria-live="polite" className="text-[15px] text-text-2">Открываем Telegram…</p>
+      <Button href={BOT_URL}>
+        Открыть @terenlabs_bot <Arrow />
+      </Button>
     </div>
   );
 }

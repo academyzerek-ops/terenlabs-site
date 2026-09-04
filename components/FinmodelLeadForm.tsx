@@ -46,9 +46,9 @@ export function FinmodelLeadForm() {
 
   if (state === "done") {
     return (
-      <div className="rounded-[var(--radius-tl)] border border-teal/40 bg-card p-6">
-        <p className="text-lg text-heading">Заявка отправлена ✅</p>
-        <p className="mt-2 leading-relaxed text-muted">
+      <div role="status" className="rounded-[8px] border border-line bg-subtle p-6">
+        <p className="text-[18px] font-medium text-ink">Заявка отправлена</p>
+        <p className="mt-2 text-[15px] leading-relaxed text-text-2">
           Финансист свяжется с вами по указанному контакту ({channel}) — уточнит детали, объём и сроки.
           Заявка ни к чему не обязывает.
         </p>
@@ -57,61 +57,66 @@ export function FinmodelLeadForm() {
   }
 
   const inputCls =
-    "mt-1 w-full rounded-[var(--radius-tl)] border border-line bg-subtle p-3 text-[16px] text-heading outline-none transition-colors placeholder:text-muted/60 focus:border-teal";
+    "mt-1.5 w-full rounded-[6px] border border-line-2 bg-page px-3 text-[16px] text-ink outline-none transition-colors placeholder:text-faint focus:border-accent";
+  const labelCls = "block text-[13px] font-medium text-text-2";
 
   return (
-    <div className="rounded-[var(--radius-tl)] border border-line bg-card p-6">
-      <p className="text-sm leading-relaxed text-muted">
+    <div className="rounded-[8px] border border-line bg-subtle p-6">
+      <p className="text-[15px] leading-relaxed text-text-2">
         Оставьте заявку — финансист свяжется по удобному вам каналу. Telegram не обязателен.
       </p>
 
-      <label className="mt-4 block text-sm text-muted">Как к вам обращаться</label>
-      <input value={name} onChange={(e) => setName(e.target.value)} maxLength={80} placeholder="Имя" className={inputCls} />
+      <label className="mt-5 block">
+        <span className={labelCls}>Как к вам обращаться</span>
+        <input value={name} onChange={(e) => setName(e.target.value)} maxLength={80} placeholder="Имя" className={`${inputCls} h-11`} />
+      </label>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-[170px_1fr]">
-        <div>
-          <label className="block text-sm text-muted">Канал связи</label>
-          <select value={channel} onChange={(e) => setChannel(e.target.value)} className={inputCls}>
+      <div className="mt-4 grid gap-4 sm:grid-cols-[170px_minmax(0,1fr)]">
+        <label className="block">
+          <span className={labelCls}>Канал связи</span>
+          <select value={channel} onChange={(e) => setChannel(e.target.value)} className={`${inputCls} h-11`}>
             {CHANNELS.map((c) => (
               <option key={c} value={c}>
                 {c}
               </option>
             ))}
           </select>
-        </div>
-        <div>
-          <label className="block text-sm text-muted">Контакт</label>
+        </label>
+        <label className="block">
+          <span className={labelCls}>Контакт</span>
           <input
             value={contact}
             onChange={(e) => setContact(e.target.value)}
             maxLength={160}
             placeholder={channel === "Email" ? "name@example.com" : channel === "Телефон" ? "+7 …" : "@ник или номер"}
-            className={inputCls}
+            className={`${inputCls} h-11`}
           />
-        </div>
+        </label>
       </div>
 
-      <label className="mt-4 block text-sm text-muted">Коротко о проекте</label>
-      <textarea
-        value={brief}
-        onChange={(e) => setBrief(e.target.value)}
-        rows={3}
-        maxLength={3000}
-        placeholder="Сфера (SaaS, производство, стройка…), город, зачем модель — банк / инвестор / грант / для себя."
-        className={inputCls + " leading-relaxed"}
-      />
+      <label className="mt-4 block">
+        <span className={labelCls}>Коротко о проекте</span>
+        <textarea
+          value={brief}
+          onChange={(e) => setBrief(e.target.value)}
+          rows={3}
+          maxLength={3000}
+          placeholder="Сфера (SaaS, производство, стройка…), город, зачем модель — банк / инвестор / грант / для себя."
+          className={`${inputCls} py-2.5 leading-relaxed`}
+        />
+      </label>
 
       {state === "error" && (
-        <p className="mt-2 text-sm text-[var(--color-danger)]">
+        <p role="alert" className="mt-3 text-[14px] text-danger">
           Не удалось отправить. Проверьте соединение и попробуйте ещё раз.
         </p>
       )}
 
-      <div className="mt-4 text-right">
+      <div className="mt-5 flex justify-end">
         <button
           onClick={send}
           disabled={!valid || state === "sending"}
-          className="btn-press rounded-full bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600 disabled:cursor-default disabled:opacity-40"
+          className="btn-press inline-flex h-10 items-center justify-center rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50"
         >
           {state === "sending" ? "Отправляю…" : "Отправить заявку"}
         </button>

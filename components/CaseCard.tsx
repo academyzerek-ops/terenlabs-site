@@ -1,20 +1,22 @@
 import Link from "next/link";
 import { CatalogItem } from "@/lib/content";
 import lessons from "@/content/case-lessons.json";
+import { Arrow } from "./Button";
 
 // Карточка кейса — данные как в витрине Mini App (#cases-list):
 // цвет-тэг Красный/Жёлтый/Зелёный, гео-флаг, короткий заголовок с em-акцентом
-// и выжимка. Дизайн «досье» (корешок, тон) — сайтовый; спрятанный урок на hover.
+// и выжимка. Урок кейса показан сразу, под линией, без hover-переворота.
 
 type Lesson = { label: string; text: string };
 const LESSONS = lessons as Record<string, Lesson>;
 
-type Tone = { label: string; color: string; edge: string; tint: string; fieldHover: string };
+// Исход → ярлык Notion dark (фон / текст), как у ProductCard
+type Tone = { label: string; bg: string; ink: string };
 
 const TONES: Record<"r" | "y" | "g", Tone> = {
-  r: { label: "Красный", color: "#FF4D4D", edge: "#FF4D4D", tint: "rgba(255,77,77,0.08)", fieldHover: "rgba(255,77,77,0.15)" },
-  g: { label: "Зелёный", color: "#00E676", edge: "#00E676", tint: "rgba(0,230,118,0.08)", fieldHover: "rgba(0,230,118,0.15)" },
-  y: { label: "Жёлтый", color: "#FFD600", edge: "#FFD600", tint: "rgba(255,214,0,0.08)", fieldHover: "rgba(255,214,0,0.15)" },
+  r: { label: "Красный", bg: "var(--color-tag-red)", ink: "var(--color-tag-red-ink)" },
+  g: { label: "Зелёный", bg: "var(--color-tag-green)", ink: "var(--color-tag-green-ink)" },
+  y: { label: "Жёлтый", bg: "var(--color-tag-yellow)", ink: "var(--color-tag-yellow-ink)" },
 };
 
 // цвет исхода: тэг витрины Mini App — канон; бейдж кейса — фолбэк
@@ -30,108 +32,48 @@ export function CaseCard({ p }: { p: CatalogItem }) {
   const lesson = LESSONS[p.slug] ?? null;
 
   return (
-    <Link
-      href={p.href}
-      className="case-card group relative flex min-h-[260px] flex-col overflow-hidden rounded-[var(--radius-tl)] border border-line bg-card transition-[transform,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-[0_20px_44px_-24px_rgba(12,30,50,0.5)]"
-      style={
-        {
-          "--field": tone.tint,
-          "--field-hover": tone.fieldHover,
-        } as React.CSSProperties
-      }
-    >
-      {/* корешок досье — цветной по исходу, толстеет на hover */}
-      <span
-        aria-hidden="true"
-        className="absolute inset-y-0 left-0 w-[3px] transition-all duration-500 group-hover:w-[6px]"
-        style={{ background: tone.edge }}
-      />
-
-      <div className="flex flex-1 flex-col p-6 pl-7">
-        {/* шапка — как в Mini App: цвет-тэг слева · гео-флаг справа */}
-        <div className="mb-4 flex items-center justify-between">
-          <span
-            className="num text-[0.7rem] font-bold uppercase tracking-[0.14em]"
-            style={{ color: tone.color }}
-          >
+    <Link href={p.href} className="card-premium group flex min-h-[240px] flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col p-5">
+        {/* шапка — как в Mini App: ярлык исхода слева · гео справа */}
+        <div className="flex items-center justify-between gap-3">
+          <span className="tag" style={{ background: tone.bg, color: tone.ink }}>
             {tone.label}
           </span>
-          {p.loc && (
-            <span className="num text-[0.72rem] font-medium tracking-[0.06em] text-muted/75">
-              {p.loc}
-            </span>
-          )}
+          {p.loc && <span className="num text-[12px] text-faint">{p.loc}</span>}
         </div>
 
-        {/* заголовок витрины Mini App — с em-акцентом */}
+        {/* заголовок витрины Mini App — с em-акцентом (оранжевый) */}
         {p.titleHtml ? (
           <h3
-            className="case-title-em line-clamp-3 text-[1.35rem] font-semibold leading-[1.16] text-heading"
+            className="case-title-em mt-4 line-clamp-3 text-[18px] leading-snug [&_.em]:text-orange [&_.o]:text-orange"
             dangerouslySetInnerHTML={{ __html: p.titleHtml }}
           />
         ) : (
-          <h3 className="line-clamp-3 text-[1.35rem] font-semibold leading-[1.16] text-heading">
-            {p.title}
-          </h3>
+          <h3 className="mt-4 line-clamp-3 text-[18px] leading-snug">{p.title}</h3>
         )}
 
         {/* выжимка кейса — из витрины Mini App */}
         {p.blurb && (
-          <p className="mt-2.5 line-clamp-3 text-sm leading-relaxed text-muted">{p.blurb}</p>
+          <p className="mt-2 line-clamp-3 text-[14px] leading-relaxed text-text-2">{p.blurb}</p>
         )}
 
         <div className="flex-1" />
 
-        {/* подвал: стрелка разбора */}
-        <div className="case-foot mt-5 flex items-center justify-end border-t border-line/70 pt-3.5 transition-opacity duration-300 group-hover:opacity-0">
-          <span
-            className="flex items-center gap-1.5 text-[13px] font-semibold transition-transform group-hover:translate-x-1"
-            style={{ color: tone.color }}
-          >
-            Разбор<span className="text-base leading-none">→</span>
+        {/* урок кейса: метка и вывод */}
+        {lesson && (
+          <div className="mt-5 border-t border-line pt-3">
+            <span className="eyebrow">{lesson.label}</span>
+            <p className="mt-1.5 line-clamp-3 text-[14px] leading-relaxed text-body">{lesson.text}</p>
+          </div>
+        )}
+
+        {/* подвал: ссылка на разбор */}
+        <div className="mt-4 flex items-center justify-end border-t border-line pt-3">
+          <span className="link text-[14px]">
+            Разбор <Arrow />
           </span>
         </div>
       </div>
-
-      {/* урок — непрозрачный оверлей на всю карточку: hover «переворачивает»
-          заголовок в смысл, без просвечивания текста под ним */}
-      {lesson && (
-        <div
-          aria-hidden="true"
-          className="case-lesson pointer-events-none absolute inset-0 flex flex-col p-6 pl-7 opacity-0 transition-opacity duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:opacity-100"
-          style={{
-            backgroundColor: "var(--color-card)",
-            backgroundImage: `linear-gradient(0deg, var(--field-hover), var(--field-hover))`,
-          }}
-        >
-          {/* вердикт сверху — та же опора, что и на лице карточки */}
-          <span
-            className="num text-[0.7rem] font-bold uppercase tracking-[0.14em]"
-            style={{ color: tone.color }}
-          >
-            {tone.label}
-          </span>
-
-          <div className="flex flex-1 flex-col justify-center">
-            <span
-              className="num block text-[0.66rem] font-bold uppercase tracking-[0.14em]"
-              style={{ color: tone.color }}
-            >
-              {lesson.label}
-            </span>
-            <p className="mt-2 text-[15.5px] font-medium leading-snug text-heading">
-              {lesson.text}
-            </p>
-          </div>
-
-          <span
-            className="num text-[12px] font-semibold"
-            style={{ color: tone.color }}
-          >
-            Читать разбор →
-          </span>
-        </div>
-      )}
     </Link>
   );
 }

@@ -5,6 +5,11 @@ import Link from "next/link";
 import { Course, Step } from "@/lib/learn";
 import { saveProgress } from "@/lib/memory";
 
+const BTN_PRIMARY =
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+const BTN_GHOST =
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] px-4 text-[15px] font-medium text-text-2 transition-colors hover:bg-subtle hover:text-ink disabled:cursor-default disabled:opacity-50";
+
 export function CoursePlayer({ course, initialStepId }: { course: Course; initialStepId?: string }) {
   // Плоский список шагов для навигации + индекс
   const flat = useMemo(() => {
@@ -44,45 +49,49 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
 
   return (
     // панель шире: названия глав не влезали в 320px (Адиль), тексту главы места хватает
-    <div className="grid h-[calc(100dvh-65px)] grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[400px_1fr] lg:grid-rows-1 xl:grid-cols-[440px_1fr]">
+    <div className="grid h-[calc(100dvh-65px)] grid-rows-[auto_1fr] overflow-hidden bg-page lg:grid-cols-[400px_1fr] lg:grid-rows-1 xl:grid-cols-[440px_1fr]">
       {/* Дерево курса */}
-      <aside className="flex min-h-0 flex-col border-r border-line bg-subtle">
+      <aside className="flex min-h-0 flex-col border-b border-line bg-subtle lg:border-b-0 lg:border-r">
         <div className="border-b border-line p-5">
-          <Link href="/catalog?type=course" className="text-xs text-muted hover:text-teal">
+          <Link href="/catalog?type=course" className="text-[13px] text-faint transition-colors hover:text-ink">
             ← к курсам
           </Link>
-          <h2 className="mt-2 text-lg text-heading">{course.title}</h2>
-          <div className="mt-3">
-            <div className="flex items-center justify-between text-xs text-muted">
+          <h2 className="mt-2 text-[18px] leading-snug">{course.title}</h2>
+          <div className="mt-4">
+            <div className="flex items-center justify-between text-[13px] text-faint">
               <span>Прогресс</span>
               <span className="num">{progress}%</span>
             </div>
             <div
-              className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-line"
+              className="mt-2 h-1 overflow-hidden bg-line"
               role="progressbar"
               aria-label="Прогресс курса"
               aria-valuenow={progress}
               aria-valuemin={0}
               aria-valuemax={100}
             >
-              <div className="h-full rounded-full bg-teal transition-all duration-500" style={{ width: `${progress}%` }} />
+              <div className="h-full bg-accent-600 transition-[width] duration-300" style={{ width: `${progress}%` }} />
             </div>
           </div>
           <button
             onClick={() => setNavOpen((v) => !v)}
             aria-expanded={navOpen}
             aria-controls="course-nav"
-            className="mt-4 w-full rounded-lg border border-line py-2 text-sm text-heading lg:hidden"
+            className="btn-press mt-4 h-10 w-full rounded-[6px] border border-line-2 text-[15px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
           >
             {navOpen ? "Скрыть содержание" : "Содержание курса"}
           </button>
         </div>
 
-        <nav id="course-nav" aria-label="Содержание курса" className={`${navOpen ? "block" : "hidden"} min-h-0 flex-1 overflow-y-auto p-3 lg:block`}>
+        <nav
+          id="course-nav"
+          aria-label="Содержание курса"
+          className={`${navOpen ? "block" : "hidden"} min-h-0 flex-1 overflow-y-auto px-5 py-4 lg:block`}
+        >
           {course.modules.map((m) => (
-            <div key={m.id} className="mb-4">
-              <p className="eyebrow px-2">{m.title}</p>
-              <div className="mt-2 space-y-0.5">
+            <div key={m.id} className="mb-6">
+              <p className="eyebrow">{m.title}</p>
+              <div className="mt-2">
                 {m.lessons.map((l) =>
                   l.steps.map((s) => {
                     const idx = flat.findIndex((f) => f.step.id === s.id);
@@ -93,30 +102,26 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
                         key={s.id}
                         onClick={() => { go(idx); setNavOpen(false); }}
                         aria-current={active ? "step" : undefined}
-                        className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors ${
-                          active ? "bg-teal text-white" : "text-heading hover:bg-card"
+                        className={`flex w-full items-start gap-3 border-t border-line py-2.5 text-left text-[14px] leading-snug transition-colors ${
+                          active ? "text-ink" : complete ? "text-text-2 hover:text-ink" : "text-text-2 hover:text-ink"
                         }`}
                       >
+                        {/* маркер строки: оранжевая точка = ты здесь, синяя = пройдено, контур = впереди */}
                         <span
                           aria-hidden="true"
-                          className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border text-[0.6rem] ${
-                            complete
-                              ? "border-teal bg-teal text-white"
-                              : active
-                              ? "border-foam/40"
-                              : "border-line"
+                          className={`mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full ${
+                            active ? "bg-orange" : complete ? "bg-accent" : "border border-line-2"
                           }`}
-                        >
-                          {complete ? "✓" : ""}
-                        </span>
+                        />
                         {complete && <span className="sr-only">пройдено: </span>}
                         {/* длинные названия переносятся, а не обрезаются многоточием */}
-                        <span className="min-w-0 flex-1 leading-snug">{s.title}</span>
+                        <span className={`min-w-0 flex-1 ${active ? "font-medium" : ""}`}>{s.title}</span>
                         <KindTag kind={s.kind} />
                       </button>
                     );
                   })
                 )}
+                <div className="border-t border-line" />
               </div>
             </div>
           ))}
@@ -124,17 +129,17 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
       </aside>
 
       {/* Контент шага */}
-      <section className="flex min-h-0 flex-col">
+      <section className="flex min-h-0 flex-col bg-page">
         {cur.step.kind === "html" ? (
-          /* глава Академии — готовая дизайнерская страница, во всю площадь */
+          /* глава Академии — готовая страница со своими стилями, во всю площадь */
           <iframe
             key={cur.step.id}
             src={cur.step.src}
             title={cur.step.title}
-            className="min-h-0 w-full flex-1 border-0"
+            className="min-h-0 w-full flex-1 border-0 bg-page"
           />
         ) : (
-          <div className="min-h-0 flex-1 overflow-y-auto px-6 py-10 sm:px-12">
+          <div className="min-h-0 flex-1 overflow-y-auto px-5 py-10 sm:px-12">
             <div className="mx-auto max-w-2xl">
               <p className="eyebrow">{cur.lessonTitle}</p>
               <StepView key={cur.step.id} step={cur.step} onComplete={() => markDone(cur.step.id)} />
@@ -143,15 +148,11 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
         )}
 
         {/* Навигация */}
-        <div className="sticky bottom-0 flex items-center justify-between border-t border-line bg-subtle/90 px-6 py-4 backdrop-blur sm:px-12">
-          <button
-            onClick={() => go(current - 1)}
-            disabled={current === 0}
-            className="rounded-[var(--radius-tl)] px-4 py-2 text-sm text-heading disabled:opacity-40 hover:text-teal"
-          >
+        <div className="flex items-center justify-between gap-4 border-t border-line bg-subtle px-5 py-3 sm:px-12">
+          <button onClick={() => go(current - 1)} disabled={current === 0} className={BTN_GHOST}>
             ← Назад
           </button>
-          <span className="num text-xs text-muted">
+          <span className="num text-[13px] text-faint">
             {current + 1} / {flat.length}
           </span>
           <button
@@ -160,7 +161,7 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
               go(current + 1);
             }}
             disabled={current === flat.length - 1}
-            className="rounded-[var(--radius-tl)] bg-teal px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-teal-600 disabled:opacity-40"
+            className={BTN_PRIMARY}
           >
             Дальше →
           </button>
@@ -172,26 +173,26 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
 
 function KindTag({ kind }: { kind: Step["kind"] }) {
   const map = { text: "текст", video: "видео", quiz: "тест", html: "глава" };
-  return <span className="ml-auto shrink-0 text-[0.6rem] text-muted">{map[kind]}</span>;
+  return <span className="ml-auto shrink-0 pt-px text-[12px] text-faint">{map[kind]}</span>;
 }
 
 function StepView({ step, onComplete }: { step: Step; onComplete: () => void }) {
   if (step.kind === "text") {
     return (
       <>
-        <h1 className="mt-3 text-3xl text-heading">{step.title}</h1>
-        <p className="mt-5 text-lg leading-relaxed text-body/80">{step.body}</p>
+        <h1 className="mt-3 text-[28px] sm:text-[32px]">{step.title}</h1>
+        <p className="mt-5 text-[17px] leading-relaxed text-body">{step.body}</p>
       </>
     );
   }
   if (step.kind === "video") {
     return (
       <>
-        <h1 className="mt-3 text-3xl text-heading">{step.title}</h1>
-        <div className="mt-6 flex aspect-video items-center justify-center rounded-[var(--radius-tl)] border border-line bg-navy-900 text-foam/50">
-          ▶ Видео (заглушка)
+        <h1 className="mt-3 text-[28px] sm:text-[32px]">{step.title}</h1>
+        <div className="mt-6 flex aspect-video items-center justify-center rounded-[8px] border border-line bg-subtle text-[14px] text-faint">
+          Видео (заглушка)
         </div>
-        <p className="mt-4 text-muted">{step.body}</p>
+        <p className="mt-4 text-[15px] leading-relaxed text-text-2">{step.body}</p>
       </>
     );
   }
@@ -212,12 +213,13 @@ function QuizStep({
 
   return (
     <>
-      <h1 className="mt-3 text-2xl text-heading">{step.title}</h1>
-      <p className="mt-5 text-lg text-body/80">{step.question}</p>
-      <div className="mt-6 space-y-3">
+      <h1 className="mt-3 text-[24px] sm:text-[28px]">{step.title}</h1>
+      <p className="mt-5 text-[17px] leading-relaxed text-body">{step.question}</p>
+      <div className="mt-6 flex flex-col gap-2">
         {step.options.map((o, i) => {
           const state =
             !answered ? "idle" : i === step.correct ? "right" : i === picked ? "wrong" : "idle";
+          const mine = answered && i === picked;
           return (
             <button
               key={i}
@@ -226,25 +228,20 @@ function QuizStep({
                 setPicked(i);
                 onComplete();
               }}
-              className="flex w-full items-center gap-3 rounded-[var(--radius-tl)] border px-4 py-3 text-left text-heading transition-colors disabled:cursor-default"
-              style={{
-                borderColor:
-                  state === "right" ? "var(--color-teal)" : state === "wrong" ? "var(--color-danger)" : "var(--color-line)",
-                background:
-                  state === "right" ? "rgba(0,183,194,.08)" : state === "wrong" ? "rgba(180,69,47,.06)" : "var(--color-card)",
-              }}
+              className={`btn-press flex min-h-[44px] w-full items-start justify-between gap-4 rounded-[6px] border px-4 py-3 text-left text-[15px] leading-relaxed transition-colors disabled:cursor-default ${
+                mine ? "border-line-2 bg-subtle" : "border-line bg-transparent"
+              } ${!answered ? "text-ink hover:bg-subtle" : state === "idle" ? "text-text-2" : "text-ink"}`}
             >
-              {o}
+              <span className="flex-1">{o}</span>
+              {state === "right" && <span className="tag tag-blue shrink-0">верно</span>}
+              {state === "wrong" && <span className="shrink-0 text-[13px] font-medium text-danger">твой ответ</span>}
             </button>
           );
         })}
       </div>
       {answered && (
-        <div
-          className="mt-5 rounded-[var(--radius-tl)] border-l-2 p-4 text-sm leading-relaxed"
-          style={{ borderColor: correct ? "var(--color-teal)" : "var(--color-danger)", background: "var(--color-subtle)" }}
-        >
-          <span className="font-medium" style={{ color: correct ? "var(--color-teal-600)" : "var(--color-danger)" }}>
+        <div className="mt-5 rounded-[8px] bg-subtle p-4 text-[15px] leading-relaxed text-body">
+          <span className={`font-medium ${correct ? "text-accent" : "text-danger"}`}>
             {correct ? "Верно. " : "Неверно. "}
           </span>
           {step.explain}

@@ -34,19 +34,6 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
 
-  // Tree-shaking тяжёлого 3D/анимационного стека: импортируется только реально
-  // используемое из баррелей (drei/three/postprocessing/motion) → меньше клиент-бандл.
-  experimental: {
-    optimizePackageImports: [
-      "@react-three/drei",
-      "@react-three/fiber",
-      "@react-three/postprocessing",
-      "three",
-      "postprocessing",
-      "motion",
-    ],
-  },
-
   // next/image: современные форматы → меньший вес на отдаче
   images: {
     formats: ["image/avif", "image/webp"],

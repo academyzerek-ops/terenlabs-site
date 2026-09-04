@@ -1,338 +1,261 @@
 /* ============================================================
-   Контент кейсов — портированный сабсет design-system/lessons.css,
-   посаженный на токены сайта (адаптируется к теме автоматически).
-   Классы из тел кейсов: .c .al .ag .ao .lb(.red/.green/.orange/.purple)
-   .pq .dropcap .ins .qt .div .ln .dt
+   Контент кейсов на токенах темы (тёмный Notion).
+   Классы из тел кейсов: .tk .tk-badge .tk-pt .tk-n .tk-t .hl
+   .c .al .ag .ao .lb(.red/.green/.orange/.purple)
+   .pq .pq-by .dropcap .ins .ins-ico .qt .div .ln .dt .o
+   Цвета только из переменных темы; без градиентов, теней, анимаций.
    ============================================================ */
 .case-content {
-  /* тёмная глубина (дефолт сайта) */
-  --les-text: var(--color-heading);
-  --les-text-2: var(--color-body);
-  --les-text-3: var(--color-muted);
-  --les-border: var(--color-line);
-  --les-surface: var(--color-card);
-  --les-bg: var(--background);
-  --les-accent: #4fd3dd;
-  --les-aqua-deep: #00b7c2;
-  --les-aqua-soft: rgba(0, 183, 194, 0.18);
-  --les-green: #5fe0b5;
-  --les-green-soft: rgba(95, 224, 181, 0.14);
-  --les-red: #ff6b6b;
-  --les-red-soft: rgba(255, 107, 107, 0.12);
-  --les-warm: #e8a05c;
-  --les-warm-soft: rgba(232, 160, 92, 0.14);
-  --les-surface-2: color-mix(in srgb, var(--les-surface) 82%, var(--les-aqua-soft));
-
   max-width: 800px;
   margin: 0 auto;
+  color: var(--color-body);
 }
 
-/* ---- TAKEAWAY: «Главное из кейса» (крупный блок-вывод, как у обзоров) ---- */
+.case-content strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.case-content em {
+  font-style: italic;
+}
+
+/* ---- TAKEAWAY: «Главное из кейса» ---- */
 .case-content .tk {
-  position: relative;
-  overflow: hidden;
-  background: var(--les-surface-2);
-  border: 1.5px solid var(--les-aqua-deep);
-  border-radius: 16px;
-  padding: 24px 22px;
-  margin: 34px 0;
-  box-shadow: 0 8px 30px var(--les-aqua-soft);
-}
-.case-content .tk::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--les-aqua-deep), var(--les-green), var(--les-aqua-deep));
-  background-size: 200% 100%;
-  animation: tk-sh 4s ease-in-out infinite;
-}
-@keyframes tk-sh {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  padding: 22px 20px;
+  margin: 32px 0;
 }
 .case-content .tk-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--les-aqua-deep);
-  background: var(--les-aqua-soft);
-  padding: 6px 12px;
-  border-radius: 7px;
-  margin-bottom: 18px;
+  color: var(--color-orange);
+  background: var(--color-orange-100);
+  margin-bottom: 16px;
 }
 .case-content .tk h3 {
-  font-family: "Newsreader", Georgia, serif;
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: 23px;
+  font-size: 22px;
   line-height: 1.25;
-  color: var(--les-text);
+  color: var(--color-ink);
   margin-bottom: 16px;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.015em;
 }
-.case-content .tk h3 .hl {
-  color: var(--les-aqua-deep);
-  font-style: italic;
-  font-weight: 500;
+.case-content .tk h3 .hl,
+.case-content .hl {
+  color: var(--color-orange);
 }
 .case-content .tk-pt {
   display: flex;
-  gap: 13px;
-  margin-bottom: 15px;
+  gap: 14px;
   align-items: flex-start;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-line);
 }
-.case-content .tk-pt:last-child { margin-bottom: 0; }
+.case-content .tk-pt:last-child { padding-bottom: 0; }
 .case-content .tk-n {
   flex: 0 0 auto;
-  min-width: 27px;
-  height: 27px;
-  border-radius: 8px;
-  background: var(--les-aqua-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--les-aqua-deep);
-  margin-top: 1px;
+  min-width: 28px;
+  font-family: var(--font-mono);
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
+  color: var(--color-faint);
+  margin-top: 3px;
 }
 .case-content .tk-t {
   font-size: 16px;
-  color: var(--les-text-2);
-  line-height: 1.62;
-}
-@media (prefers-reduced-motion: reduce) {
-  .case-content .tk::before { animation: none; }
+  color: var(--color-body);
+  line-height: 1.6;
 }
 
-/* ---- карточка-абзац ---- */
+/* ---- абзац ---- */
 .case-content .c {
-  background: var(--les-surface);
-  border: 0.5px solid var(--les-border);
-  border-radius: 14px;
-  padding: 20px 18px;
-  margin-bottom: 14px;
+  padding: 6px 0;
+  margin-bottom: 8px;
 }
 .case-content .c p {
-  font-size: 15px;
-  color: var(--les-text-2);
-  margin-bottom: 10px;
-  line-height: 1.75;
+  font-size: 16px;
+  color: var(--color-body);
+  margin-bottom: 12px;
+  line-height: 1.7;
 }
 .case-content .c p:last-child {
   margin-bottom: 0;
 }
-.case-content .c strong {
-  font-weight: 700;
-  color: var(--les-text);
-}
-.case-content .c em {
-  font-style: italic;
-}
-.case-content .c.al {
-  border-left: 3.5px solid var(--les-accent);
-  background: var(--les-aqua-soft);
-}
-.case-content .c.ag {
-  border-left: 3.5px solid var(--les-green);
-  background: var(--les-green-soft);
-}
-.case-content .c.ao {
-  border-left: 3.5px solid var(--les-warm);
-  background: var(--les-warm-soft);
-}
 
-/* ---- метка-лейбл ---- */
-.case-content .lb {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 4px 9px;
-  border-radius: 6px;
-  margin-bottom: 14px;
+/* акцентные абзацы: подложка и левая линия, цвет линии по смыслу */
+.case-content .c.al,
+.case-content .c.ag,
+.case-content .c.ao {
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-left-width: 3px;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 18px 0 20px;
 }
-.case-content .lb.purple { color: var(--les-aqua-deep); background: var(--les-aqua-soft); }
-.case-content .lb.red    { color: var(--les-red);       background: var(--les-red-soft); }
-.case-content .lb.green  { color: var(--les-green);     background: var(--les-green-soft); }
-.case-content .lb.orange { color: var(--les-warm);      background: var(--les-warm-soft); }
+.case-content .c.al { border-left-color: var(--color-accent); }
+.case-content .c.ag { border-left-color: var(--color-tag-green-ink); }
+.case-content .c.ao { border-left-color: var(--color-orange); }
+
+/* ---- метка-лейбл (как ярлык Notion) ---- */
+.case-content .lb {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  background: var(--color-tag-gray);
+  color: var(--color-tag-gray-ink);
+}
+.case-content .lb.purple { color: var(--color-tag-blue-ink);   background: var(--color-tag-blue); }
+.case-content .lb.red    { color: var(--color-tag-red-ink);    background: var(--color-tag-red); }
+.case-content .lb.green  { color: var(--color-tag-green-ink);  background: var(--color-tag-green); }
+.case-content .lb.orange { color: var(--color-tag-orange-ink); background: var(--color-tag-orange); }
 
 /* ---- цитата ---- */
 .case-content .pq {
-  position: relative;
-  text-align: center;
-  padding: 36px 22px 24px;
-  margin: 22px 4px 18px;
-}
-.case-content .pq::before {
-  content: "\201C";
-  position: absolute;
-  top: -8px;
-  left: 8px;
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 700;
-  font-size: 120px;
-  line-height: 1;
-  color: var(--les-accent);
-  opacity: 0.18;
+  padding: 8px 0 8px 20px;
+  margin: 24px 0 20px;
+  border-left: 3px solid var(--color-line-2);
 }
 .case-content .pq p {
-  font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-display);
   font-weight: 500;
-  font-size: 22px;
-  line-height: 1.35;
-  color: var(--les-text);
-  letter-spacing: -0.012em;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
 }
 .case-content .pq .pq-by {
   display: block;
-  margin-top: 14px;
-  font-family: var(--font-text), sans-serif;
+  margin-top: 12px;
+  font-family: var(--font-text);
   font-style: normal;
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.6px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--les-text-3);
+  color: var(--color-faint);
 }
 
-/* ---- крупная первая буква ---- */
+/* ---- крупная первая буква: не выделяем, обычный текст ---- */
 .case-content .dropcap::first-letter {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 700;
-  float: left;
-  font-size: 54px;
-  line-height: 0.9;
-  padding: 6px 10px 0 0;
-  color: var(--les-accent);
-  font-style: italic;
+  font-size: inherit;
+  float: none;
+  padding: 0;
+  color: inherit;
+  font-style: normal;
+  font-weight: inherit;
 }
 
 /* ---- инсайт-бокс ---- */
 .case-content .ins {
-  background: linear-gradient(135deg, var(--les-aqua-soft) 0%, var(--les-green-soft) 100%);
-  border: 0.5px solid var(--les-aqua-soft);
-  border-radius: 14px;
-  padding: 22px 18px;
-  margin-bottom: 14px;
   position: relative;
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 18px 0 20px;
 }
 .case-content .ins-ico {
-  position: absolute;
-  top: -10px;
-  left: 16px;
-  background: var(--les-bg);
-  padding: 0 4px;
-  font-size: 18px;
-  border-radius: 4px;
+  display: none; /* эмодзи-иконка из исходной вёрстки в интерфейсе не показывается */
 }
 .case-content .ins p {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 500;
-  color: var(--les-text);
+  color: var(--color-ink);
   line-height: 1.65;
 }
 .case-content .ins strong {
-  color: var(--les-aqua-deep);
-  font-weight: 700;
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 /* ---- косвенная цитата ---- */
 .case-content .qt {
-  border-left: 3.5px solid var(--les-warm);
-  background: var(--les-warm-soft);
-  border-radius: 0 12px 12px 0;
-  padding: 18px;
-  margin-bottom: 14px;
+  border-left: 3px solid var(--color-orange);
+  padding: 4px 0 4px 18px;
+  margin: 16px 0 18px;
 }
 .case-content .qt p {
-  font-size: 14.5px;
-  font-weight: 500;
+  font-size: 15px;
   font-style: italic;
-  color: var(--les-text-2);
+  color: var(--color-text-2);
   line-height: 1.6;
 }
 
-/* ---- разделитель ---- */
+/* ---- разделитель: тонкая линия ---- */
 .case-content .div {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 22px 0 18px;
+  margin: 24px 0 20px;
 }
 .case-content .div .ln {
   flex: 1;
   height: 1px;
-  background: var(--les-border);
+  background: var(--color-line);
 }
 .case-content .div .dt {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: var(--les-text-3);
-  opacity: 0.6;
+  background: var(--color-faint);
 }
 
-/* ---- хвостовые ссылки/CTA внутри тела, если есть ---- */
+/* ---- ссылки внутри тела ---- */
 .case-content a {
-  color: var(--les-aqua-deep);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+.case-content a:hover {
+  color: #7ab8de;
 }
 
 /* ---- акцентное слово в заголовке (из исходного h1 кейса) ---- */
 .case-title-html .o,
 .case-content .o {
-  color: var(--color-teal);
-  font-style: italic;
+  color: var(--color-orange);
 }
 
-/* ===== ДЕСКТОП: издательская типографика — В КОНЦЕ файла, чтобы перебить базу ===== */
-/* ---- десктоп: проза вместо телефонных карточек ---- */
+/* ---- десктоп: проза шире и крупнее ---- */
 @media (min-width: 768px) {
-  .case-content .c:not(.al):not(.ag):not(.ao) {
-    background: transparent;
-    border: none;
-    padding: 6px 0;
-    margin-bottom: 8px;
-  }
   .case-content .c p {
-    font-size: 19.5px;
-    line-height: 1.8;
+    font-size: 18px;
+    line-height: 1.75;
   }
   .case-content .c.al,
   .case-content .c.ag,
-  .case-content .c.ao {
-    padding: 24px 26px;
-    margin: 18px 0 22px;
-  }
-  .case-content .lb {
-    font-size: 13px;
-  }
-  .case-content .dropcap::first-letter {
-    font-size: 66px;
-    padding-right: 12px;
-  }
-  .case-content .pq {
-    padding: 48px 36px 30px;
-    margin: 28px 8px 24px;
+  .case-content .c.ao,
+  .case-content .ins {
+    padding: 22px 24px;
   }
   .case-content .pq p {
-    font-size: 30px;
-    line-height: 1.3;
-  }
-  .case-content .ins {
-    padding: 26px;
-    margin: 20px 0 22px;
+    font-size: 24px;
+    line-height: 1.35;
   }
   .case-content .ins p,
   .case-content .qt p {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.7;
+  }
+  .case-content .tk h3 {
+    font-size: 24px;
   }
 }

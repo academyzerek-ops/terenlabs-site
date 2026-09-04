@@ -4,10 +4,24 @@ import { useState } from "react";
 import Link from "next/link";
 import { Container } from "./Container";
 import { Button } from "./Button";
+import { RankTag } from "./RankSketch";
 import { TestQuestion, rankByScore } from "@/lib/learn";
+import type { LevelKey } from "@/lib/content";
 
 // Механика как в Mini App: выбор без мгновенной подсказки → «Дальше» →
 // результат → разбор только ошибок. Это не игра в угадайку.
+
+// имя ранга из rankByScore → ключ эскиза RankSketch
+const RANK_KEY: Record<string, LevelKey> = {
+  Ракушка: "rakushka", Краб: "krab", Барракуда: "barrakuda",
+  Дельфин: "delfin", Акула: "akula", Кит: "kit",
+};
+
+const BTN_PRIMARY =
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+const BTN_SECONDARY =
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] border border-line-2 bg-transparent px-4 text-[15px] font-medium text-ink transition-colors hover:bg-subtle";
+
 export function TestRunner({
   title,
   questions,
@@ -35,6 +49,7 @@ export function TestRunner({
 
   if (finished) {
     const rank = rankByScore(correct, questions.length);
+    const rankKey = RANK_KEY[rank.name] ?? "rakushka";
     const mistakes = questions
       .map((qq, k) => ({ q: qq, i: k, chosen: answers[k] }))
       .filter((m) => m.chosen !== m.q.correct);
@@ -42,85 +57,82 @@ export function TestRunner({
       `Прошёл тест «${title}» на TerenLabs — ранг ${rank.name}. Глубина анализа. Сила результата.`
     );
     return (
-      <Container className="py-20">
-        <div className="flex flex-col items-center text-center">
-          <p className="eyebrow">Результат</p>
-          <div
-            className="mt-6 flex h-28 w-28 items-center justify-center rounded-full text-foam"
-            style={{ background: rank.color }}
-          >
-            <span className="num text-3xl">{correct}/{questions.length}</span>
+      <Container className="py-16 sm:py-20">
+        <div className="mx-auto max-w-xl">
+          <p className="eyebrow">Результат · {title}</p>
+          <div className="num mt-5 text-[64px] font-semibold leading-none text-ink sm:text-[80px]">
+            {correct}
+            <span className="text-[28px] font-normal text-faint sm:text-[32px]"> / {questions.length}</span>
           </div>
-          <h1 className="mt-6 text-4xl text-heading">Ранг: {rank.name}</h1>
-          <p className="mt-2 text-muted">{rank.meaning}</p>
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-body/70">
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <h1 className="text-[28px] sm:text-[32px]">Ранг: {rank.name}</h1>
+            <RankTag rank={rankKey} />
+          </div>
+          <p className="mt-2 text-[15px] text-text-2">{rank.meaning}</p>
+          <p className="mt-4 max-w-[56ch] text-[15px] leading-relaxed text-body">
             {correct === questions.length
               ? "Чисто. Ты держишь цифры в голове — переходи к применению."
               : correct >= questions.length * 0.6
               ? "Крепкая база. Добей слабые места — и в применение."
               : "Есть пробелы. Это нормально: начни с курса по основам, потом вернись."}
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button href="/catalog?type=course">Подобрать курс</Button>
             <a
               href={`https://wa.me/?text=${shareText}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-[var(--radius-tl)] px-5 py-2.5 text-sm text-heading ring-1 ring-line transition-colors hover:text-teal hover:ring-teal"
+              className={BTN_SECONDARY}
             >
               Поделиться рангом
             </a>
+            <button
+              onClick={() => {
+                setI(0);
+                setAnswers(new Array(questions.length).fill(null));
+                setFinished(false);
+              }}
+              className="link h-10 text-[15px]"
+            >
+              Пройти заново
+            </button>
           </div>
-          <button
-            onClick={() => {
-              setI(0);
-              setAnswers(new Array(questions.length).fill(null));
-              setFinished(false);
-            }}
-            className="mt-6 text-sm text-teal-600 hover:underline"
-          >
-            Пройти заново
-          </button>
         </div>
 
         {/* разбор ошибок — как в Mini App: только промахи */}
         {mistakes.length > 0 && (
           <div className="mx-auto mt-14 max-w-2xl">
-            <h2 className="text-2xl text-heading">Разбор ошибок</h2>
-            <div className="wave-divider my-5" />
-            <div className="space-y-6">
+            <h2 className="text-[24px]">
+              Разбор ошибок <span className="num ml-1 text-[14px] font-normal text-faint">{mistakes.length}</span>
+            </h2>
+            <div className="mt-6 flex flex-col gap-10">
               {mistakes.map((m) => (
-                <div key={m.i} className="rounded-[var(--radius-tl)] border border-line bg-card p-6">
-                  <p className="num text-xs font-semibold uppercase tracking-wider text-muted">
-                    Вопрос {m.i + 1}
-                  </p>
-                  <p className="mt-2 leading-relaxed text-heading">{m.q.q}</p>
-                  <ul className="mt-4 space-y-2">
+                <div key={m.i}>
+                  <p className="eyebrow">Вопрос {m.i + 1}</p>
+                  <p className="mt-2 text-[17px] leading-relaxed text-ink">{m.q.q}</p>
+                  <ul className="mt-4">
                     {m.q.options.map((opt, oi) => {
                       const right = oi === m.q.correct;
                       const mine = oi === m.chosen;
                       return (
                         <li
                           key={oi}
-                          className={`flex items-start gap-3 rounded-lg border px-4 py-2.5 text-sm leading-relaxed ${
-                            right
-                              ? "border-teal bg-teal/8 text-heading"
-                              : mine
-                              ? "border-[var(--color-danger)] bg-[rgba(180,69,47,0.07)] text-heading"
-                              : "border-line text-muted"
+                          className={`flex items-start justify-between gap-4 border-t border-line py-3 text-[15px] leading-relaxed ${
+                            right || mine ? "text-ink" : "text-text-2"
                           }`}
                         >
                           <span className="flex-1">{opt}</span>
-                          {right && <span className="shrink-0 text-xs font-semibold text-teal-600">✓ верно</span>}
+                          {right && <span className="tag-blue tag shrink-0">верно</span>}
                           {mine && !right && (
-                            <span className="shrink-0 text-xs font-semibold text-[var(--color-danger)]">✗ твой</span>
+                            <span className="shrink-0 text-[13px] font-medium text-danger">твой ответ</span>
                           )}
                         </li>
                       );
                     })}
+                    <li className="border-t border-line" />
                   </ul>
                   {m.q.explain && (
-                    <p className="mt-4 rounded-lg bg-subtle p-4 text-sm leading-relaxed text-body">
+                    <p className="mt-4 rounded-[8px] bg-subtle p-4 text-[15px] leading-relaxed text-body">
                       {m.q.explain}
                     </p>
                   )}
@@ -134,19 +146,19 @@ export function TestRunner({
   }
 
   return (
-    <Container className="max-w-2xl py-14">
-      <Link href={backHref} className="text-sm text-muted hover:text-teal">
+    <Container className="max-w-2xl py-12 sm:py-14">
+      <Link href={backHref} className="text-[13px] text-faint transition-colors hover:text-ink">
         ← назад
       </Link>
 
       {/* Прогресс */}
-      <div className="mt-5">
-        <div className="flex items-center justify-between text-xs text-muted">
+      <div className="mt-6">
+        <div className="flex items-center justify-between text-[13px] text-faint">
           <span>{title}</span>
           <span className="num">{i + 1} / {questions.length}</span>
         </div>
         <div
-          className="mt-2 h-1.5 overflow-hidden rounded-full bg-line"
+          className="mt-2 h-1 overflow-hidden bg-line"
           role="progressbar"
           aria-label="Прогресс теста"
           aria-valuenow={i}
@@ -154,16 +166,16 @@ export function TestRunner({
           aria-valuemax={questions.length}
         >
           <div
-            className="h-full rounded-full bg-teal transition-all duration-300"
+            className="h-full bg-accent-600 transition-[width] duration-300"
             style={{ width: `${(i / questions.length) * 100}%` }}
           />
         </div>
       </div>
 
-      <h1 className="mt-8 text-2xl text-heading">{q.q}</h1>
+      <h1 className="mt-8 text-[22px] leading-snug sm:text-[26px]">{q.q}</h1>
 
       {/* выбор можно менять до «Дальше»; правильный ответ не подсвечивается */}
-      <div className="mt-6 space-y-3" role="radiogroup" aria-label="Варианты ответа">
+      <div className="mt-6 flex flex-col gap-2" role="radiogroup" aria-label="Варианты ответа">
         {q.options.map((o, idx) => {
           const selected = picked === idx;
           return (
@@ -176,10 +188,8 @@ export function TestRunner({
                 nextAnswers[i] = idx;
                 setAnswers(nextAnswers);
               }}
-              className={`btn-press w-full rounded-[var(--radius-tl)] border px-4 py-3.5 text-left text-heading transition-colors ${
-                selected
-                  ? "border-teal bg-teal/10 shadow-[0_0_0_1px_var(--color-teal)]"
-                  : "border-line bg-card hover:border-teal/60"
+              className={`btn-press min-h-[44px] w-full rounded-[6px] border px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors ${
+                selected ? "border-line-2 bg-subtle" : "border-line bg-transparent hover:bg-subtle"
               }`}
             >
               {o}
@@ -189,11 +199,7 @@ export function TestRunner({
       </div>
 
       <div className="mt-7 flex justify-end">
-        <button
-          onClick={next}
-          disabled={picked === null}
-          className="btn-press rounded-[var(--radius-tl)] bg-teal px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-600 disabled:cursor-default disabled:opacity-40"
-        >
+        <button onClick={next} disabled={picked === null} className={BTN_PRIMARY}>
           {isLast ? "Завершить тест" : "Дальше"}
         </button>
       </div>

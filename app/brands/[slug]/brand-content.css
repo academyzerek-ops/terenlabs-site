@@ -1,0 +1,358 @@
+/* ============================================================
+   Контент разборов брендов на токенах темы (тёмный Notion).
+   Тот же сабсет, что в app/cases/[slug]/case-content.css, плюс два блока,
+   которых у кейсов нет: сетка цифр .nb-grid и таблица «Откуда цифры» .src.
+   Классы тел: .tk .tk-badge .tk-pt .tk-n .tk-t .hl · .c .al .ag .ao ·
+   .lb(.red/.green/.orange/.purple) · .pq .pq-by · .dropcap · .ins .ins-ico ·
+   .qt · .div .ln .dt · .o · .nb-grid .nb .nb-n .nb-cap · .src-wrap .src .src-note
+   Цвета только из переменных темы; без градиентов, теней, анимаций.
+   Суммы в теле — в долларах, как в источнике.
+   ============================================================ */
+.brand-content {
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--color-body);
+}
+
+.brand-content strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.brand-content em {
+  font-style: italic;
+}
+.brand-content ul,
+.brand-content ol {
+  margin: 12px 0 12px 20px;
+  padding: 0;
+  color: var(--color-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+.brand-content ul { list-style: disc; }
+.brand-content ol { list-style: decimal; }
+.brand-content li { margin-bottom: 6px; }
+.brand-content li::marker { color: var(--color-faint); }
+
+/* ---- TAKEAWAY: «Главное из разбора» ---- */
+.brand-content .tk {
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  padding: 22px 20px;
+  margin: 32px 0;
+}
+.brand-content .tk-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  background: var(--color-orange-100);
+  margin-bottom: 16px;
+}
+.brand-content .tk h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--color-ink);
+  margin-bottom: 16px;
+  letter-spacing: -0.015em;
+}
+.brand-content .tk h3 .hl,
+.brand-content .hl {
+  color: var(--color-orange);
+}
+.brand-content .tk-pt {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-line);
+}
+.brand-content .tk-pt:last-child { padding-bottom: 0; }
+.brand-content .tk-n {
+  flex: 0 0 auto;
+  min-width: 28px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-faint);
+  margin-top: 3px;
+}
+.brand-content .tk-t {
+  font-size: 16px;
+  color: var(--color-body);
+  line-height: 1.6;
+}
+
+/* ---- абзац ---- */
+.brand-content .c {
+  padding: 6px 0;
+  margin-bottom: 8px;
+}
+.brand-content .c p {
+  font-size: 16px;
+  color: var(--color-body);
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+.brand-content .c p:last-child {
+  margin-bottom: 0;
+}
+
+/* акцентные абзацы: подложка и левая линия, цвет линии по смыслу */
+.brand-content .c.al,
+.brand-content .c.ag,
+.brand-content .c.ao {
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-left-width: 3px;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 18px 0 20px;
+}
+.brand-content .c.al { border-left-color: var(--color-accent); }
+.brand-content .c.ag { border-left-color: var(--color-tag-green-ink); }
+.brand-content .c.ao { border-left-color: var(--color-orange); }
+
+/* ---- метка-лейбл (как ярлык Notion) ---- */
+.brand-content .lb {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  background: var(--color-tag-gray);
+  color: var(--color-tag-gray-ink);
+}
+.brand-content .lb.purple { color: var(--color-tag-blue-ink);   background: var(--color-tag-blue); }
+.brand-content .lb.red    { color: var(--color-tag-red-ink);    background: var(--color-tag-red); }
+.brand-content .lb.green  { color: var(--color-tag-green-ink);  background: var(--color-tag-green); }
+.brand-content .lb.orange { color: var(--color-tag-orange-ink); background: var(--color-tag-orange); }
+
+/* ---- цитата ---- */
+.brand-content .pq {
+  padding: 8px 0 8px 20px;
+  margin: 24px 0 20px;
+  border-left: 3px solid var(--color-line-2);
+}
+.brand-content .pq p {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+.brand-content .pq .pq-by {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-text);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+/* ---- крупная первая буква: не выделяем, обычный текст ---- */
+.brand-content .dropcap::first-letter {
+  font-size: inherit;
+  float: none;
+  padding: 0;
+  color: inherit;
+  font-style: normal;
+  font-weight: inherit;
+}
+
+/* ---- инсайт-бокс ---- */
+.brand-content .ins {
+  position: relative;
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 18px 0 20px;
+}
+.brand-content .ins-ico {
+  display: none; /* эмодзи-иконка из исходной вёрстки в интерфейсе не показывается */
+}
+.brand-content .ins p {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-ink);
+  line-height: 1.65;
+}
+.brand-content .ins strong {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ---- косвенная цитата ---- */
+.brand-content .qt {
+  border-left: 3px solid var(--color-orange);
+  padding: 4px 0 4px 18px;
+  margin: 16px 0 18px;
+}
+.brand-content .qt p {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--color-text-2);
+  line-height: 1.6;
+}
+
+/* ---- разделитель: тонкая линия ---- */
+.brand-content .div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 20px;
+}
+.brand-content .div .ln {
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+.brand-content .div .dt {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-faint);
+}
+
+/* ---- ссылки внутри тела ---- */
+.brand-content a {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+.brand-content a:hover {
+  color: #7ab8de;
+}
+
+/* ---- акцентное слово в заголовке (из исходного h1 разбора) ---- */
+.brand-title-html .o,
+.brand-content .o {
+  color: var(--color-orange);
+}
+
+/* ---- СЕТКА ЦИФР: .nb-grid (крупные числа разбора) ---- */
+.brand-content .nb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 26px 0;
+}
+.brand-content .nb {
+  background: var(--color-subtle);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: left;
+}
+.brand-content .nb-n {
+  display: block;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+.brand-content .nb-cap {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-text-2);
+}
+
+/* ---- «ОТКУДА ЦИФРЫ»: Факт | Число | Источник ---- */
+.brand-content .src-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 16px 0;
+}
+.brand-content .src {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.brand-content .src th {
+  text-align: left;
+  padding: 0 10px 8px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-line);
+}
+.brand-content .src td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-line);
+  vertical-align: top;
+  color: var(--color-text-2);
+}
+.brand-content .src td:first-child {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+.brand-content .src td:nth-child(2) {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.brand-content .src-note {
+  font-size: 12px;
+  color: var(--color-faint);
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* ---- десктоп: проза шире и крупнее ---- */
+@media (min-width: 768px) {
+  .brand-content .c p,
+  .brand-content ul,
+  .brand-content ol {
+    font-size: 18px;
+    line-height: 1.75;
+  }
+  .brand-content .c.al,
+  .brand-content .c.ag,
+  .brand-content .c.ao,
+  .brand-content .ins {
+    padding: 22px 24px;
+  }
+  .brand-content .pq p {
+    font-size: 24px;
+    line-height: 1.35;
+  }
+  .brand-content .ins p,
+  .brand-content .qt p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .brand-content .tk h3 {
+    font-size: 24px;
+  }
+  .brand-content .src {
+    font-size: 14px;
+  }
+}
