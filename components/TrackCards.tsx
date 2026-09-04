@@ -10,7 +10,7 @@ import { plural } from "@/lib/content";
 const TRACK_COVER: Record<string, string> = Object.fromEntries(
   ["fundament", "architect", "management", "marketing", "finance", "legal", "models"].map((k) => [
     `course-${k}`,
-    `/academy-assets/tracks/track-${k}.webp?v=3`,
+    `/academy-assets/tracks/track-${k}.webp?v=4`,
   ])
 );
 
