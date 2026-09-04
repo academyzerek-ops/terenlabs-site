@@ -5,10 +5,21 @@ import { useEffect, useRef, useState } from "react";
 import type { AcademyTrack } from "@/lib/learn";
 import { plural } from "@/lib/content";
 
+// Обложки треков в стиле «тушь» (public/academy-assets/tracks). Пока обложки нет,
+// превью рисуется как лист документа с названием и первыми уроками.
+const TRACK_COVER: Record<string, string> = Object.fromEntries(
+  ["fundament", "architect", "management", "marketing", "finance", "legal", "models"].map((k) => [
+    `course-${k}`,
+    `/academy-assets/tracks/track-${k}.webp`,
+  ])
+);
+
 // Лента треков Академии по образцу «Learn» в Notion: карточки в горизонтальной
 // прокрутке, скругление 12, затемнение по краям там, где лента продолжается,
 // стрелки для прокрутки на десктопе. Превью светлое: «лист» документа с названием
 // трека и первыми уроками.
+export { TRACK_COVER };
+
 export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [canLeft, setCanLeft] = useState(false);
@@ -56,7 +67,19 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
               data-card
               className="group flex w-[300px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-line bg-card transition-colors hover:border-line-2 hover:bg-card-2 sm:w-[320px]"
             >
-              {/* светлое превью: лист документа на серой подложке */}
+              {/* светлое превью: обложка тушью или лист документа на серой подложке */}
+              {TRACK_COVER[t.slug] ? (
+                <div className="h-[190px] overflow-hidden bg-page">
+                  <img
+                    src={TRACK_COVER[t.slug]}
+                    alt=""
+                    width={1200}
+                    height={800}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : (
               <div className="h-[190px] bg-[#e9e8e4] px-6 pt-6">
                 <div className="h-full rounded-t-[6px] bg-[#ffffff] px-5 pt-5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]">
                   <div className="truncate text-[10px] uppercase tracking-[0.08em] text-[#9b9a97]">
@@ -75,6 +98,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                   </div>
                 </div>
               </div>
+              )}
               <div className="flex flex-1 flex-col gap-3 p-5">
                 <div className="text-[17px] font-semibold leading-snug text-ink">{t.title}</div>
                 <div className="num mt-auto flex items-center gap-2 text-[13px] text-text-2">
