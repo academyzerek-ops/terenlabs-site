@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
-import { Button } from "@/components/Button";
-import { getLevel, levelItems, Level, RANK_IMG, plural, LEVELS } from "@/lib/content";
+import { Button, Arrow } from "@/components/Button";
+import { RankSketch } from "@/components/RankSketch";
+import { LevelStatusChip } from "@/components/OceanPath";
+import { LevelCrowd } from "@/components/OceanPulse";
+import { getLevel, levelItems, Level, plural, LEVELS } from "@/lib/content";
 import { getTrack } from "@/lib/learn";
 import { pageMetadata } from "@/lib/seo";
 
@@ -14,28 +17,40 @@ export async function generateMetadata({ params }: { params: Promise<{ rank: str
   const { rank } = await params;
   const lvl = getLevel(rank);
   if (!lvl) return {};
-  return pageMetadata({ title: `Уровень «${lvl.name}»`, description: lvl.tagline,
-                       path: `/levels/${rank}` });
+  return pageMetadata({ title: `Уровень «${lvl.name}»`, description: lvl.tagline, path: `/levels/${rank}` });
 }
+
+const METERS: Record<string, string> = {
+  rakushka: "0 м", krab: "20 м", barrakuda: "50 м", delfin: "120 м", akula: "300 м", kit: "1 000 м",
+};
 
 export default async function Page({ params }: { params: Promise<{ rank: string }> }) {
   const { rank } = await params;
   const lvl = getLevel(rank);
   if (!lvl) notFound();
 
+  const idx = LEVELS.findIndex((l) => l.key === lvl.key);
+  const prev = idx > 0 ? LEVELS[idx - 1] : null;
+  const next = idx < LEVELS.length - 1 ? LEVELS[idx + 1] : null;
+
   if (lvl.locked) {
     return (
       <>
         <LevelHero lvl={lvl} />
-        <Container className="py-16 text-center">
-          <div className="mx-auto max-w-md rounded-[var(--radius-tl)] border border-dashed border-line bg-card p-10">
+        <Container className="pb-20">
+          <div className="max-w-[560px] rounded-[8px] border border-dashed border-line-2 p-8">
             <p className="eyebrow">Уровень закрыт</p>
-            <h2 className="mt-3 text-2xl text-heading">Откроется после предыдущего</h2>
-            <p className="mt-3 text-sm text-muted">
-              Уровни «Океан» проходятся по порядку — от Ракушки к Киту. Контент готовится.
+            <h2 className="mt-3 text-[22px]">Откроется после предыдущего</h2>
+            <p className="mt-3 text-[15px] leading-relaxed text-text-2">
+              Уровни «Океан» проходятся по порядку, от Ракушки к Киту. Контент этого уровня готовится.
             </p>
-            <div className="mt-6">
-              <Button href="/levels/rakushka">Начать с Ракушки</Button>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <Button href="/levels/krab">Начать с Краба</Button>
+              {prev && (
+                <Link href={`/levels/${prev.key}`} className="link text-[15px]">
+                  К уровню «{prev.name}» <Arrow />
+                </Link>
+              )}
             </div>
           </div>
         </Container>
@@ -44,103 +59,133 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
   }
 
   const items = levelItems(lvl);
+  const firstTest = items.tests.find((t) => !t.stub);
 
   return (
     <>
-      <LevelHero lvl={lvl} />
-      <Container className="space-y-14 py-16">
-        <Block title="Модули уроков" count={lvl.modules.length}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {lvl.modules.map((m) => {
-              const track = getTrack(m.id);
-              return (
-                <Card
-                  key={m.id}
-                  href={track ? `/courses/${m.id}` : undefined}
-                  stub={!track}
-                  title={m.title}
+      <LevelHero lvl={lvl} cta={firstTest ? { href: firstTest.href, label: `Пройти тест: ${firstTest.title}` } : undefined} />
+
+      <Container className="pb-20">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+          <div className="flex flex-col gap-14">
+            <Block title="Тесты уровня" count={items.tests.length} hint="Порог сдачи 7 из 10. Пересдача через кулдаун.">
+              {items.tests.map((t) => (
+                <Row
+                  key={t.slug}
+                  href={t.stub ? undefined : t.href}
+                  stub={t.stub}
+                  title={t.title}
                   meta={
-                    track
-                      ? `${track.chapterTotal} ${plural(track.chapterTotal, "глава", "главы", "глав")}`
-                      : "готовится"
+                    t.stub
+                      ? "скоро"
+                      : t.questions?.length
+                      ? `${t.questions.length} ${plural(t.questions.length, "вопрос", "вопроса", "вопросов")}`
+                      : t.metric
+                      ? `${t.metric.value} ${t.metric.label}`
+                      : "10 вопросов из пула"
                   }
-                  cta={track ? "Открыть →" : undefined}
+                  cta="Пройти"
                 />
-              );
-            })}
-          </div>
-        </Block>
+              ))}
+            </Block>
 
-        <Block title="Тесты уровня" count={items.tests.length}>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {items.tests.map((t) => (
-              <Card
-                key={t.slug}
-                href={t.stub ? undefined : t.href}
-                stub={t.stub}
-                title={t.title}
-                meta={
-                  t.stub
-                    ? "скоро"
-                    : t.questions?.length
-                    ? `${t.questions.length} вопросов`
-                    : t.metric
-                    ? `${t.metric.value} ${t.metric.label}`
-                    : "10 вопросов из пула"
-                }
-                cta={t.stub ? undefined : "Пройти →"}
-              />
-            ))}
-          </div>
-        </Block>
+            <Block title="Модули уроков" count={lvl.modules.length}>
+              {lvl.modules.map((m) => {
+                const track = getTrack(m.id);
+                return (
+                  <Row
+                    key={m.id}
+                    href={track ? `/courses/${m.id}` : undefined}
+                    stub={!track}
+                    title={m.title}
+                    meta={track ? `${track.chapterTotal} ${plural(track.chapterTotal, "глава", "главы", "глав")}` : "готовится"}
+                    cta="Открыть"
+                  />
+                );
+              })}
+            </Block>
 
-        <Block title="Кейсы" count={items.cases.length}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {items.cases.map((c) => (
-              <Card key={c.slug} href={c.stub ? undefined : c.href} stub={c.stub} title={c.title} meta="кейс-тренажёр" cta={c.stub ? undefined : "Открыть →"} />
-            ))}
-          </div>
-        </Block>
+            <Block title="Кейсы" count={items.cases.length}>
+              {items.cases.map((c) => (
+                <Row key={c.slug} href={c.stub ? undefined : c.href} stub={c.stub} title={c.title} meta="кейс-тренажёр" cta="Открыть" />
+              ))}
+            </Block>
 
-        <Block title="Обзоры бизнеса" count={items.reviews.length}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {items.reviews.map((r) => (
-              <Card key={r.slug} href={r.stub ? undefined : r.href} stub={r.stub} title={r.title} meta="лонгрид" cta={r.stub ? undefined : "Читать →"} />
-            ))}
+            <Block title="Обзоры бизнеса" count={items.reviews.length}>
+              {items.reviews.map((r) => (
+                <Row key={r.slug} href={r.stub ? undefined : r.href} stub={r.stub} title={r.title} meta="лонгрид" cta="Читать" />
+              ))}
+            </Block>
           </div>
-        </Block>
+
+          {/* соседи по лестнице */}
+          <aside className="rounded-[8px] border border-line bg-subtle p-5 lg:sticky lg:top-20">
+            <p className="eyebrow">Лестница</p>
+            <div className="mt-3">
+              {LEVELS.map((l) => {
+                const current = l.key === lvl.key;
+                return (
+                  <Link
+                    key={l.key}
+                    href={`/levels/${l.key}`}
+                    className={`flex items-center gap-3 border-t border-line py-2.5 text-[14px] transition-colors hover:text-ink ${
+                      current ? "text-ink" : "text-text-2"
+                    } ${l.locked ? "opacity-60" : ""}`}
+                  >
+                    <RankSketch rank={l.key} size={22} className={current ? "text-ink" : "text-text-2"} />
+                    <span className={current ? "font-medium" : ""}>{l.name}</span>
+                    {current && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />}
+                    {!current && <span className="num ml-auto text-[12px] text-faint">{METERS[l.key]}</span>}
+                  </Link>
+                );
+              })}
+              <div className="border-t border-line" />
+            </div>
+            {next && (
+              <p className="mt-4 text-[13px] text-text-2">
+                Дальше: <Link href={`/levels/${next.key}`} className="link">{next.name}</Link>
+              </p>
+            )}
+          </aside>
+        </div>
       </Container>
     </>
   );
 }
 
-function LevelHero({ lvl }: { lvl: Level }) {
+// Шапка уровня: крупный эскиз как единственный жест страницы
+function LevelHero({ lvl, cta }: { lvl: Level; cta?: { href: string; label: string } }) {
   return (
-    <section className="hero-ocean">
-      <Container className="relative z-10 py-16">
-        <nav className="mb-5 text-sm text-foam/50">
-          <Link href="/levels" className="hover:text-teal">Уровни «Океан»</Link>
+    <section className="border-b border-line">
+      <Container className="py-14 sm:py-16">
+        <nav className="mb-6 text-[13px] text-faint">
+          <Link href="/levels" className="hover:text-ink">Уровни «Океан»</Link>
           <span className="mx-2">/</span>
           <span>{lvl.name}</span>
         </nav>
-        <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-10">
-          {/* персонаж-герой уровня — как на странице пути */}
-          <div className="relative flex shrink-0 items-center justify-center">
-            <div
-              className="absolute h-52 w-52 rounded-full sm:h-64 sm:w-64"
-              style={{ background: "radial-gradient(circle, rgba(0,183,194,0.3) 0%, transparent 70%)", filter: "blur(6px)" }}
-              aria-hidden="true"
-            />
-            <img
-              src={RANK_IMG[lvl.key]}
-              alt={lvl.name}
-              className="floaty relative h-40 w-40 object-contain drop-shadow-[0_24px_50px_rgba(4,16,28,0.55)] sm:h-52 sm:w-52"
-            />
-          </div>
-          <div>
-            <p className="eyebrow">{lvl.tag}{lvl.archetype ? ` · ${lvl.archetype}` : ""}</p>
-            <h1 className="mt-1 text-4xl !text-foam sm:text-6xl">{lvl.name}</h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-foam/75">{lvl.metaphor ?? lvl.tagline}</p>
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-12">
+          <RankSketch rank={lvl.key} size={160} className="text-ink sm:shrink-0" title={lvl.name} />
+          <div className="min-w-0">
+            <p className="eyebrow">
+              <span className="num">{METERS[lvl.key]}</span>
+              {lvl.archetype ? ` · ${lvl.archetype}` : ""}
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+              <h1 className="text-[40px] sm:text-[56px]">{lvl.name}</h1>
+              <LevelStatusChip levelKey={lvl.key} />
+            </div>
+            <p className="mt-4 max-w-[60ch] text-[18px] leading-relaxed text-body">{lvl.metaphor ?? lvl.tagline}</p>
+            {lvl.meaning && (
+              <p className="mt-3 max-w-[60ch] text-[15px] leading-relaxed text-text-2">{lvl.meaning}</p>
+            )}
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {cta && (
+                <Button href={cta.href}>
+                  {cta.label} <Arrow />
+                </Button>
+              )}
+              <LevelCrowd levelKey={lvl.key} />
+            </div>
           </div>
         </div>
       </Container>
@@ -148,46 +193,66 @@ function LevelHero({ lvl }: { lvl: Level }) {
   );
 }
 
-function Block({ title, count, children }: { title: string; count: number; children: React.ReactNode }) {
-  // пустая секция не светит нулём — её просто нет
+function Block({
+  title,
+  count,
+  hint,
+  children,
+}: {
+  title: string;
+  count: number;
+  hint?: string;
+  children: React.ReactNode;
+}) {
   if (count === 0) return null;
   return (
     <section>
-      <div className="flex items-baseline gap-3">
-        <h2 className="text-2xl text-heading">{title}</h2>
-        <span className="num text-sm text-muted">{count}</span>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h2 className="text-[22px]">
+          {title} <span className="num ml-1 text-[14px] font-normal text-faint">{count}</span>
+        </h2>
+        {hint && <p className="text-[13px] text-faint">{hint}</p>}
       </div>
-      <div className="wave-divider my-5" />
-      {children}
+      <div className="mt-4">
+        {children}
+        <div className="border-t border-line" />
+      </div>
     </section>
   );
 }
 
-function Card({
-  href, title, meta, cta, stub,
+function Row({
+  href,
+  title,
+  meta,
+  cta,
+  stub,
 }: {
   href?: string;
   title: string;
   meta: string;
-  cta?: string;
+  cta: string;
   stub?: boolean;
 }) {
   const inner = (
     <>
-      <div className="flex items-start justify-between gap-2">
-        <h3 className="text-lg text-heading">{title}</h3>
-        {stub && <span className="shrink-0 rounded-full bg-line px-2.5 py-0.5 text-[0.7rem] text-muted">скоро</span>}
+      <div className="min-w-0">
+        <div className="truncate text-[16px] font-medium text-ink">{title}</div>
+        <div className="num mt-0.5 text-[13px] text-faint">{meta}</div>
       </div>
-      <div className="mt-3 flex items-center justify-between">
-        <span className="text-xs text-muted">{meta}</span>
-        {cta && <span className="text-sm font-medium text-teal-600">{cta}</span>}
-      </div>
+      {href ? (
+        <span className="link text-[14px]">
+          {cta} <Arrow />
+        </span>
+      ) : (
+        <span className="tag">скоро</span>
+      )}
     </>
   );
-  const cls = "block rounded-[var(--radius-tl)] border border-line bg-card p-6";
+  const cls = "flex items-center justify-between gap-6 border-t border-line py-4";
   if (!href) return <div className={`${cls} opacity-60`}>{inner}</div>;
   return (
-    <Link href={href} className={`${cls} group transition-all hover:-translate-y-1 hover:border-teal/40 hover:shadow-[var(--shadow-tl-sm)]`}>
+    <Link href={href} className={`${cls} transition-colors hover:bg-subtle`}>
       {inner}
     </Link>
   );

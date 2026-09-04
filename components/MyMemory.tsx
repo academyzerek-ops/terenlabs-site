@@ -4,20 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getAttempts, getProgress, SiteAttempt, CourseProgress } from "@/lib/memory";
 import { plural } from "@/lib/content";
-import { ACADEMY } from "@/lib/learn";
 
 // Реальная память кабинета: прогресс курсов и попытки тестов с ЭТОГО устройства.
 // Аноним видит свою локальную память; после входа (этап B) — синк между устройствами.
-
-// hero-картинка главы, на которой остановился читатель (по stepId плеера)
-function stepImg(slug: string, stepId: string): string | null {
-  const track = ACADEMY.find((t) => t.slug === slug);
-  if (!track) return null;
-  for (const m of track.modules)
-    for (const c of m.chapters)
-      if (`${m.id}-${c.file}-s` === stepId) return c.img ?? null;
-  return null;
-}
 
 export function MyMemory() {
   const [attempts, setAttempts] = useState<SiteAttempt[]>([]);
@@ -57,7 +46,7 @@ export function MyMemory() {
       {hasCourses && (
       <section className="mt-14">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-          <h2 className="text-2xl text-heading">Продолжить обучение</h2>
+          <h2 className="text-[22px]">Продолжить обучение</h2>
           <div className="flex flex-wrap gap-2">
             <Chip
               value={String(progress.length)}
@@ -78,40 +67,24 @@ export function MyMemory() {
             )}
           </div>
         </div>
-        <div className="wave-divider my-5" />
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="mt-4 grid gap-4 border-t border-line pt-6 sm:grid-cols-2">
             {progress.slice(0, 4).map((c) => {
               const pct = Math.round(((c.idx + 1) / c.total) * 100);
-              const img = stepImg(c.slug, c.stepId);
               return (
                 <Link
                   key={c.slug}
                   href={`/learn/${c.slug}`}
-                  className="group relative overflow-hidden rounded-[var(--radius-tl)] border border-line bg-card transition-all hover:-translate-y-1 hover:border-teal/40 hover:shadow-[var(--shadow-tl)]"
+                  className="card-premium group flex items-center gap-5 p-5"
                 >
-                  {/* кадр главы уходит под текст маской — карточка живая, текст читаемый */}
-                  {img && (
-                    <img
-                      src={img}
-                      alt=""
-                      className="absolute inset-y-0 right-0 h-full w-3/5 object-cover opacity-40 transition-all duration-500 group-hover:scale-[1.04] group-hover:opacity-55"
-                      style={{
-                        maskImage: "linear-gradient(90deg, transparent 0%, black 70%)",
-                        WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 70%)",
-                      }}
-                    />
-                  )}
-                  <div className="relative flex items-center gap-5 p-6">
+                  <div className="flex w-full items-center gap-5">
                     <ProgressRing pct={pct} />
                     <div className="min-w-0 flex-1">
                       <p className="eyebrow">
                         глава {c.idx + 1} из {c.total}
                       </p>
-                      <h3 className="mt-1 truncate text-xl text-heading">{c.title}</h3>
-                      <p className="mt-1 truncate text-sm text-muted">Сейчас: {c.stepTitle}</p>
-                      <span className="mt-3 inline-block text-sm font-medium text-teal-600 transition-transform group-hover:translate-x-1">
-                        Продолжить →
-                      </span>
+                      <h3 className="mt-1 truncate text-[17px]">{c.title}</h3>
+                      <p className="mt-1 truncate text-[13px] text-text-2">Сейчас: {c.stepTitle}</p>
+                      <span className="link mt-2 inline-flex text-[14px]">Продолжить</span>
                     </div>
                   </div>
                 </Link>
@@ -125,7 +98,7 @@ export function MyMemory() {
       {hasAttempts && (
       <section className="mt-14">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-          <h2 className="text-2xl text-heading">Мои попытки</h2>
+          <h2 className="text-[22px]">Мои попытки</h2>
           {!hasCourses && (
             <div className="flex flex-wrap gap-2">
               {avg !== null && <Chip value={`${avg}%`} label="средний балл" />}
@@ -136,30 +109,26 @@ export function MyMemory() {
             </div>
           )}
         </div>
-        <div className="wave-divider my-5" />
-        <div className="overflow-hidden rounded-[var(--radius-tl)] border border-line bg-card">
+        <div className="mt-4">
             {attempts.slice(0, 8).map((a, i) => (
               <Link
                 key={i}
                 href={`/tests/${a.slug}/take`}
-                className="flex items-center gap-4 border-b border-line px-5 py-3.5 transition-colors last:border-0 hover:bg-subtle"
+                className="flex items-center gap-4 border-t border-line py-3.5 transition-colors hover:bg-subtle"
               >
-                <span
-                  className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-semibold ${
-                    a.passed ? "bg-teal/15 text-teal-600" : "bg-line text-muted"
-                  }`}
-                >
+                <span className={`tag ${a.passed ? "tag-blue" : ""}`}>
                   {a.passed ? "сдан" : "не сдан"}
                 </span>
-                <span className="min-w-0 flex-1 truncate text-heading">{a.title}</span>
-                <span className="num text-xs text-muted">
+                <span className="min-w-0 flex-1 truncate text-[15px] text-ink">{a.title}</span>
+                <span className="num text-[12px] text-faint">
                   {new Date(a.at).toLocaleDateString("ru-RU")}
                 </span>
-                <span className="num text-lg font-semibold text-heading">
+                <span className="num text-[15px] font-medium text-ink">
                   {a.score}/{a.total}
                 </span>
               </Link>
             ))}
+          <div className="border-t border-line" />
         </div>
       </section>
       )}
@@ -170,8 +139,8 @@ export function MyMemory() {
 // компактная метрика в шапке секции: «2 · курса в процессе»
 function Chip({ value, label }: { value: string; label: string }) {
   return (
-    <span className="flex items-baseline gap-1.5 rounded-full border border-line bg-card px-3.5 py-1.5 text-xs text-muted">
-      <span className="num text-sm font-semibold text-heading">{value}</span>
+    <span className="flex items-baseline gap-1.5 rounded-[6px] border border-line px-3 py-1.5 text-[12px] text-text-2">
+      <span className="num text-[14px] font-medium text-ink">{value}</span>
       {label}
     </span>
   );
@@ -191,7 +160,7 @@ function ProgressRing({ pct }: { pct: number }) {
           cy="32"
           r={r}
           fill="none"
-          stroke="var(--color-teal)"
+          stroke="var(--color-accent-600)"
           strokeWidth="5"
           strokeLinecap="round"
           strokeDasharray={`${filled} ${c}`}

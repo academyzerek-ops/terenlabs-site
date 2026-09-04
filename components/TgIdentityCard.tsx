@@ -57,23 +57,23 @@ export function TgIdentityCard() {
   }
 
   return (
-    <div className="flex items-center gap-4 rounded-[var(--radius-tl)] border border-line bg-card p-4">
+    <div className="flex items-center gap-4 rounded-[8px] border border-line bg-subtle p-4">
       {avatar ? (
-        <img src={avatar} alt="" className="h-14 w-14 rounded-full object-cover" />
+        <img src={avatar} alt="" className="h-12 w-12 rounded-full object-cover" />
       ) : (
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-b from-[#2AABEE] to-[#229ED9] text-lg font-bold text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-card text-[16px] font-medium text-ink">
           {(name ?? "T").slice(0, 1).toUpperCase()}
         </div>
       )}
       <div>
-        <div className="text-heading">{name ?? "Аккаунт Telegram"}</div>
-        <div className="text-xs text-muted">вход через Telegram · прогресс общий с Mini App</div>
+        <div className="text-[15px] font-medium text-ink">{name ?? "Аккаунт Telegram"}</div>
+        <div className="text-[12px] text-faint">вход через Telegram · прогресс общий с Mini App</div>
         <button
           onClick={() => {
             oceanSignOut();
             router.refresh();
           }}
-          className="mt-1 text-xs text-teal-600 hover:text-teal"
+          className="mt-1 text-[12px] text-text-2 hover:text-ink"
         >
           Выйти
         </button>
