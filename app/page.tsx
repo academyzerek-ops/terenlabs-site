@@ -8,11 +8,6 @@ import type { LevelKey } from "@/lib/content";
 
 export const metadata = { alternates: { canonical: "/" } };
 
-// Глубина уровней: метафора, не бизнес-цифры (как на странице «Океан»)
-const METERS: Record<LevelKey, string> = {
-  rakushka: "0 м", krab: "20 м", barrakuda: "50 м", delfin: "120 м", akula: "300 м", kit: "1 000 м",
-};
-
 // Три шага платформы
 const PATH = [
   {
@@ -60,7 +55,7 @@ export default function Home() {
     <>
       {/* ============ HERO ============ */}
       <section>
-        <Container className="grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end lg:py-28">
+        <Container className="grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-stretch lg:py-28">
           <div className="flex flex-col gap-7">
             <p className="eyebrow">Обучение бизнесу · Казахстан</p>
             <h1 className="max-w-[18ch] text-[40px] sm:text-[56px] lg:text-[64px]">
@@ -80,14 +75,17 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-[8px] border border-line bg-subtle p-6">
+          {/* манифест: верх вровень с меткой hero, низ с кнопкой; цитата внизу карточки */}
+          <div className="flex flex-col gap-8 rounded-[8px] border border-line bg-subtle p-6">
             <p className="eyebrow">Манифест</p>
-            <p className="mt-3 text-[20px] font-semibold leading-snug text-ink">
-              «Лучше отговорить тебя от плохой идеи, чем продать надежду»
-            </p>
-            <p className="mt-3 text-[14px] leading-relaxed text-text-2">
-              Если математика говорит «не открывай», мы скажем это прямо.
-            </p>
+            <div className="my-auto">
+              <p className="text-[22px] font-semibold leading-snug text-ink">
+                «Лучше отговорить тебя от плохой идеи, чем продать надежду»
+              </p>
+              <p className="mt-4 text-[14px] leading-relaxed text-text-2">
+                Если математика говорит «не открывай», мы скажем это прямо.
+              </p>
+            </div>
           </div>
         </Container>
       </section>
@@ -111,7 +109,7 @@ export default function Home() {
                 <RankSketch rank={r.key as LevelKey} size={40} className="text-ink" />
                 <div>
                   <div className="text-[15px] font-medium text-ink">{r.name}</div>
-                  <div className="num mt-0.5 text-[12px] text-faint">{METERS[r.key as LevelKey]}</div>
+                  <div className="mt-0.5 text-[12px] text-faint">{r.meaning}</div>
                 </div>
               </Link>
             ))}
