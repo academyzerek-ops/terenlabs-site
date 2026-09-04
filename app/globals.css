@@ -72,7 +72,7 @@
 
   /* ---- Радиусы / тени ---- */
   --radius-tl: 6px;
-  --radius-lg: 8px;
+  --radius-lg: 12px;
   --shadow-tl-sm: 0 0 0 1px rgba(255, 255, 255, 0.06);
   --shadow-tl: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-tl-lg: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 40px rgba(0, 0, 0, 0.5);
