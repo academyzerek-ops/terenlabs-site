@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // (about/experts/contacts/b2b/blog/legal/*) в sitemap НЕ выдаём, чтобы Google
   // не индексировал пустышки. Вернуть сюда, когда наполнятся (legal/* — после оферты/политики).
   const staticPages = [
-    "", "/catalog", "/free", "/ocean", "/levels",
+    "", "/catalog", "/free", "/ocean", "/levels", "/delo", "/startup",
   ].map((p) => ({
     url: `${BASE}${p || "/"}`,
     changeFrequency: "weekly" as const,

@@ -3,7 +3,7 @@ import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
 import { RankSketch } from "@/components/RankSketch";
 import { OceanTopTable } from "@/components/OceanTopTable";
-import { OCEAN_RANKS } from "@/lib/content";
+import { OCEAN_RANKS, BRANDS } from "@/lib/content";
 import type { LevelKey } from "@/lib/content";
 
 export const metadata = { alternates: { canonical: "/" } };
@@ -25,11 +25,11 @@ const PATH = [
     cta: "К тестам",
   },
   {
-    sub: "Аналитика и расчёты",
-    title: "Применять",
-    desc: "Аналитика малого бизнеса и финмодели: подставь свои цифры и увидишь свой риск.",
-    href: "/catalog?type=finmodel",
-    cta: "К инструментам",
+    sub: "Кейсы и бизнес-модели",
+    title: "Разбирать",
+    desc: "Кейсы, где чужие деньги уже сгорели, и разборы того, как зарабатывают компании, которые знают все.",
+    href: "/catalog?type=case",
+    cta: "К разборам",
   },
 ];
 
@@ -40,14 +40,6 @@ const PRECEPTS = [
   ["03", "Маркетинг", "Канал привлечения и его цена входят в модель заработка. Без этого бизнес-план не считается."],
   ["04", "Кадры", "Модель «ремесло» рушится при болезни владельца. Строят бизнес, где мастера заменяемы."],
   ["05", "Резерв на старте", "Деньги на открытие и деньги на первые месяцы жизни. Это две разные суммы."],
-];
-
-// Демо-цифры финмодели кофейни (те же, что были на главной)
-const DEMO = [
-  ["Средний чек", "2 400 ₸"],
-  ["Загрузка зала", "45 %"],
-  ["Чеков в день", "102"],
-  ["Точка безубыточности", "118 чеков"],
 ];
 
 export default function Home() {
@@ -69,8 +61,8 @@ export default function Home() {
               <Button href="/tests/crab-t1/take" size="lg">
                 Пройти первый тест <Arrow />
               </Button>
-              <Link href="/catalog?type=finmodel" className="link text-[15px]">
-                Финмодель и бизнес-план под грант, бесплатно
+              <Link href="/levels" className="link text-[15px]">
+                Как устроен Океан
               </Link>
             </div>
           </div>
@@ -90,9 +82,39 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* ============ ДВЕ ДВЕРИ: СВОЁ ДЕЛО / СТАРТАП ============ */}
+      <section className="border-t border-line">
+        <Container className="grid gap-4 py-8 md:grid-cols-2">
+          {[
+            {
+              href: "/delo",
+              eyebrow: "Своё дело · Казахстан · тенге",
+              title: "Бизнес здесь и сейчас",
+              desc: "Академия малого бизнеса, модели, кейсы и обзоры ниш. Считаем в тенге, говорим о рисках до того, как вложишься.",
+            },
+            {
+              href: "/startup",
+              eyebrow: "Стартап · весь рынок · доллар",
+              title: "Проект на рост",
+              desc: "Команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции. Модели заработка на примерах мировых компаний.",
+            },
+          ].map((d) => (
+            <Link key={d.href} href={d.href} className="card-premium group flex flex-col gap-3 p-6">
+              <p className="eyebrow">{d.eyebrow}</p>
+              <h2 className="text-[24px]">{d.title}</h2>
+              <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">{d.desc}</p>
+              <span className="link mt-auto pt-2 text-[15px]">
+                Открыть раздел <Arrow />
+              </span>
+            </Link>
+          ))}
+        </Container>
+      </section>
+
       {/* ============ ЛЕСТНИЦА «ОКЕАН» ============ */}
-      <section className="border-y border-line">
-        <Container className="grid gap-y-8 py-8 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-8">
+      <section>
+        <Container className="pb-4">
+          <div className="grid gap-y-8 rounded-[10px] border border-line bg-subtle p-6 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-8 lg:p-8">
           <div className="flex flex-col justify-center gap-1.5 lg:pr-6">
             <p className="eyebrow">Лестница «Океан»</p>
             <p className="text-[14px] leading-relaxed text-text-2">
@@ -113,6 +135,7 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+          </div>
           </div>
         </Container>
       </section>
@@ -152,7 +175,7 @@ export default function Home() {
           <div className="max-w-[60ch]">
             <h2 className="text-[30px] sm:text-[36px]">5 наставлений, без которых бизнес-план опасен</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-text-2">
-              То, о чём молчат инфобизнесмены. Каждый пункт есть в любом нашем отчёте и в финмодели.
+              То, о чём молчат инфобизнесмены. Каждый пункт проходит через модули, кейсы и тесты.
             </p>
           </div>
           <div className="mt-10">
@@ -175,35 +198,33 @@ export default function Home() {
           две колонки одной сеткой строк (subgrid): метка, заголовок, лид,
           таблица на 5 строк с шапкой, ссылка. Всё стоит вровень. */}
       <section>
-        <Container className="grid gap-12 py-20 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-16 lg:gap-y-0">
-          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid">
-            <p className="eyebrow">Инструмент</p>
-            <h2 className="text-[28px] sm:text-[32px]">Финмодель считает за тебя</h2>
+        <Container className="py-20">
+          <div className="grid gap-12 rounded-[10px] border border-line bg-subtle p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
+          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-8">
+            <p className="eyebrow">Стартап · бизнес-модели</p>
+            <h2 className="text-[28px] sm:text-[32px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
-              Меняешь допущения, цифры пересчитываются вживую: P&amp;L, cash flow, точка
-              безубыточности. Экспорт в Excel.
+              Механика заработка, структура выручки и развилка, за которую заплатили. Каждая цифра с
+              источником.
             </p>
             <div className="mt-2 self-start">
               <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint">
-                <span>Показатель</span><span className="text-right">Значение</span>
+                <span>Разбор</span><span className="text-right">Модель</span>
               </div>
-              {DEMO.map(([k, v]) => (
-                <div key={k} className="grid grid-cols-[minmax(0,1fr)_auto] min-h-[52px] items-center gap-3 border-t border-line py-3 text-[15px]">
-                  <span className="text-text-2">{k}</span>
-                  <span className="num text-right font-medium text-ink">{v}</span>
-                </div>
+              {BRANDS.filter((b) => !b.stub).slice(0, 5).map((b) => (
+                <Link key={b.slug} href={b.href} className="grid min-h-[52px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-t border-line py-3 text-[15px] transition-colors hover:bg-subtle">
+                  <span className="truncate font-medium text-ink">{b.title}</span>
+                  {b.badge ? <span className="tag">{b.badge}</span> : <span className="text-[13px] text-faint">{b.sector ?? ""}</span>}
+                </Link>
               ))}
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] min-h-[52px] items-center gap-3 border-y border-line py-3 text-[15px]">
-                <span className="font-medium text-ink">Прогноз прибыли</span>
-                <span className="num text-right font-medium text-orange">−1,4 млн ₸ / год</span>
-              </div>
+              <div className="border-t border-line" />
             </div>
-            <Link href="/finmodels/finmodel-cafe" className="link self-start text-[15px]">
-              Открыть демо <Arrow />
+            <Link href="/catalog?type=bm" className="link self-start text-[15px]">
+              Все разборы <Arrow />
             </Link>
           </div>
 
-          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid">
+          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-8">
             <p className="eyebrow">Океан · рейтинг</p>
             <h2 className="text-[28px] sm:text-[32px]">В океане уже идёт гонка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
@@ -215,6 +236,7 @@ export default function Home() {
             <Link href="/ocean" className="link self-start text-[15px]">
               Весь рейтинг <Arrow />
             </Link>
+          </div>
           </div>
         </Container>
       </section>

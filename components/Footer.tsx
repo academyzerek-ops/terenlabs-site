@@ -1,17 +1,27 @@
 import Link from "next/link";
 import { Container } from "./Container";
-import { PRODUCT_TYPES } from "@/lib/content";
 
 const LEGAL = [
   { label: "Пользовательское соглашение", href: "/legal/offer" },
   { label: "Политика конфиденциальности", href: "/legal/privacy" },
 ];
 
-const FIN_PRODUCTS = [
-  { label: "Финансовая модель", href: "/finmodels/finmodel-cafe" },
-  { label: "Управленческий учёт", href: "/finmodels/gsheets-accounting" },
-  { label: "Бизнес-план · Грант 400 МРП", href: "/finmodels/finmodel-business-plan" },
-  { label: "Бизнес-план · Грант ССП", href: "/finmodels/bizplan-ssp-grant" },
+const DELO = [
+  { label: "Академия", href: "/delo#akademiya" },
+  { label: "Модели малого бизнеса", href: "/courses/course-models" },
+  { label: "Кейсы", href: "/catalog?type=case" },
+  { label: "Ниши", href: "/catalog?type=review" },
+];
+
+const STARTUP = [
+  { label: "От идеи до инвестиций", href: "/startup#trek" },
+  { label: "Бизнес-модели брендов", href: "/catalog?type=bm" },
+];
+
+const OCEAN = [
+  { label: "Уровни", href: "/levels" },
+  { label: "Рейтинг", href: "/ocean" },
+  { label: "Кабинет", href: "/dashboard" },
 ];
 
 const SOCIAL = [
@@ -42,14 +52,12 @@ export function Footer() {
           </a>
         </div>
 
-        <FooterCol
-          title="Обучение"
-          links={Object.entries(PRODUCT_TYPES)
-            .filter(([k]) => k !== "finmodel")
-            .map(([, t]) => ({ label: t.label, href: t.href }))}
-        />
-        <FooterCol title="Финпродукты" links={FIN_PRODUCTS} />
-        <FooterCol title="Документы" links={LEGAL} />
+        <FooterCol title="Своё дело" links={DELO} />
+        <FooterCol title="Стартап" links={STARTUP} />
+        <div className="flex flex-col gap-8">
+          <FooterCol title="Океан" links={OCEAN} />
+          <FooterCol title="Документы" links={LEGAL} />
+        </div>
       </Container>
 
       <div className="border-t border-line">

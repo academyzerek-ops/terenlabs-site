@@ -21,7 +21,7 @@ export const PRODUCT_TYPES: Record<
   course: { label: "Академия", one: "Глава", path: "/courses", href: "/catalog?type=course", blurb: "Коротко, просто и по делу — без лишней теории" },
   test: { label: "Тесты", one: "Тест", path: "/tests", href: "/catalog?type=test", blurb: "Проверь себя — честно и с разбором каждого ответа" },
   case: { label: "Кейсы", one: "Кейс", path: "/cases", href: "/catalog?type=case", blurb: "Чужой опыт как способ учиться на не своих деньгах" },
-  review: { label: "Аналитика малого бизнеса", one: "Аналитика", path: "/reviews", href: "/catalog?type=review", blurb: "Вникаем в реальный сектор и смотрим риски" },
+  review: { label: "Ниши", one: "Обзор ниши", path: "/reviews", href: "/catalog?type=review", blurb: "Обзоры рынка по нишам: спрос, конкуренция, маржа" },
   finmodel: { label: "Финмодели", one: "Финмодель", path: "/finmodels", href: "/catalog?type=finmodel", blurb: "Рабочие модели и бизнес-планы под твой проект" },
   // Второй регистр контента: мировые бизнес-модели, доллар, без гео и налогов.
   // Учебный модуль Академии «Бизнес-модели» (course-models) — это другое, имена разведены.

@@ -7,12 +7,12 @@ import { Container } from "./Container";
 
 // Разделы платформы. Шапка плоская: белая полоса, тонкая линия снизу,
 // текстовый логотип, одна кнопка входа. Ничего не прячется при скролле.
+// Четыре раздела (решение Адиля 05.09): Океан, два хаба и кейсы
 const NAV = [
   { label: "Океан", href: "/levels" },
-  { label: "Академия", href: "/catalog?type=course" },
+  { label: "Своё дело", href: "/delo" },
+  { label: "Стартап", href: "/startup" },
   { label: "Кейсы", href: "/catalog?type=case" },
-  { label: "Аналитика", href: "/catalog?type=review" },
-  { label: "Финпродукты", href: "/catalog?type=finmodel" },
 ];
 
 export function Header() {
@@ -24,8 +24,11 @@ export function Header() {
     if (base === "/levels") return pathname.startsWith("/levels") || pathname.startsWith("/ocean");
     if (base === "/catalog") {
       if (pathname !== "/catalog") return false;
-      return sp.get("type") === query?.split("=")[1];
+      const t = sp.get("type");
+      return t === "case" || t === "bm";
     }
+    if (base === "/delo") return pathname === "/delo" || pathname.startsWith("/reviews");
+    if (base === "/startup") return pathname === "/startup" || pathname.startsWith("/brands");
     return pathname === base;
   };
 

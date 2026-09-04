@@ -30,17 +30,17 @@ const SECTION: Record<ProductType | "all", { eyebrow: string; title: string; des
     desc: "Тесты, которые нельзя угадать, только понять. С разбором каждого ответа.",
   },
   case: {
-    eyebrow: "Кейсы",
+    eyebrow: "Кейсы · Своё дело",
     title: "Чужой опыт как учитель",
-    desc: "Разбираем реальные ситуации: где теряют деньги и как этого не допустить.",
+    desc: "Разбираем реальные ситуации малого бизнеса: где теряют деньги и как этого не допустить.",
   },
   review: {
-    eyebrow: "Аналитика",
-    title: "Аналитика малого бизнеса",
-    desc: "Вникаем в реальный сектор и смотрим риски: спрос, конкуренция, маржа.",
+    eyebrow: "Своё дело · Ниши",
+    title: "Обзоры ниш",
+    desc: "Как устроен рынок в конкретной нише: спрос, конкуренция, маржа и где обычно теряют деньги.",
   },
   bm: {
-    eyebrow: "Разборы брендов",
+    eyebrow: "Кейсы · Стартап",
     title: "Откуда бабки у больших",
     desc: "Из чего собран денежный поток мировых компаний, чем за это платят и какая развилка достаётся вам. Всё в долларах, каждая цифра с источником.",
   },
@@ -74,6 +74,8 @@ export default async function CatalogPage({
 
   const items = CATALOG.filter((p) => {
     if (t !== "all" && p.type !== t) return false;
+    // общий вид: обучение и кейсы; ниши и финпродукты живут по своим адресам
+    if (t === "all" && (p.type === "review" || p.type === "finmodel")) return false;
     // кейсы витрины: только с цвет-тэгом (тренажёр живёт на уровне Ракушки)
     if (t === "case" && !p.tag) return false;
     if (f === "all") return true;
@@ -94,6 +96,25 @@ export default async function CatalogPage({
           <p className="eyebrow">{s.eyebrow}</p>
           <h1 className="mt-3 text-[36px] sm:text-[48px]">{s.title}</h1>
           <p className="mt-4 max-w-[62ch] text-[17px] leading-relaxed text-text-2">{s.desc}</p>
+          {/* кейсы двух потоков: своё дело и стартап */}
+          {(t === "case" || t === "bm") && (
+            <div className="mt-6 flex flex-wrap gap-2">
+              {[
+                { id: "case", label: "Своё дело" },
+                { id: "bm", label: "Стартап · бренды" },
+              ].map((o) => (
+                <Link
+                  key={o.id}
+                  href={`/catalog?type=${o.id}`}
+                  className={`flex h-8 items-center rounded-[6px] border px-3 text-[14px] transition-colors ${
+                    t === o.id ? "border-line-2 bg-subtle text-ink" : "border-line text-text-2 hover:bg-subtle hover:text-ink"
+                  }`}
+                >
+                  {o.label}
+                </Link>
+              ))}
+            </div>
+          )}
           <Suspense fallback={null}>
             <CatalogFilters type={t} />
           </Suspense>
