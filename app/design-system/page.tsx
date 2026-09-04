@@ -37,12 +37,12 @@ const ACCENTS = [
 
 const TYPE_SCALE: [string, string, string][] = [
   ["h1 главной", "text-[40px] sm:text-[56px] lg:text-[64px]", "Единственная платформа обучения бизнесу"],
-  ["h1 раздела", "text-[36px] sm:text-[48px]", "Уровни"],
-  ["h2 секции", "text-[30px] sm:text-[36px]", "Учим бизнесу целиком"],
-  ["h2 блока", "text-[28px]", "Как считается место"],
-  ["h3 строки", "text-[18px]", "Ramp-up"],
-  ["Лид", "text-[17px] sm:text-[18px] text-text-2", "Говорим о рисках и реальности, а не про успешный успех."],
-  ["Текст", "text-[15px] text-text-2", "Выручка приходит не с первого дня. Нужен запас на 4-5 месяцев."],
+  ["h1 раздела", "text-[24px] sm:text-[38px]", "Уровни"],
+  ["h2 секции", "text-[22px] sm:text-[24px]", "Учим бизнесу целиком"],
+  ["h2 блока", "text-[24px]", "Как считается место"],
+  ["h3 строки", "text-[16px]", "Ramp-up"],
+  ["Лид", "text-[15px] sm:text-[16px] text-text-2", "Говорим о рисках и реальности, а не про успешный успех."],
+  ["Текст", "text-[14px] text-text-2", "Выручка приходит не с первого дня. Нужен запас на 4-5 месяцев."],
   ["Подпись", "text-[13px] text-faint", "10 вопросов из пула · порог 7 из 10"],
 ];
 
@@ -51,7 +51,7 @@ const RANK_METERS: Record<LevelKey, string> = {
 };
 
 const FIELD =
-  "h-10 w-full rounded-[6px] border border-line-2 bg-page px-3 text-[16px] text-ink placeholder:text-faint";
+  "h-10 w-full rounded-[8px] border border-line-2 bg-page px-3 text-[16px] text-ink placeholder:text-faint";
 
 const DONTS = [
   "Тени, свечения, градиенты, blur и стекло.",
@@ -68,8 +68,8 @@ export default function DesignSystem() {
     <>
       <Container className="py-14 sm:py-20">
         <p className="eyebrow">Дизайн-система · служебная</p>
-        <h1 className="mt-3 text-[36px] sm:text-[48px]">Справочник системы</h1>
-        <p className="mt-5 max-w-[62ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
+        <h1 className="mt-3 text-[24px] sm:text-[38px]">Справочник системы</h1>
+        <p className="mt-5 max-w-[62ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
           Ориентир: интерфейс Notion в тёмной теме. Один шрифт, две акцентных краски, радиусы 6 и 8 px,
           линии вместо теней. Всё на этой странице собрано из живых классов и компонентов.
         </p>
@@ -127,7 +127,7 @@ export default function DesignSystem() {
           </div>
           <div className="grid gap-2 border-t border-line py-4 sm:grid-cols-[160px_minmax(0,1fr)] sm:gap-6 sm:items-baseline">
             <span className="num text-[13px] text-faint">Казахские буквы</span>
-            <p className="text-[18px] text-ink">әғқңөұүһі · ӘҒҚҢӨҰҮҺІ</p>
+            <p className="text-[16px] text-ink">әғқңөұүһі · ӘҒҚҢӨҰҮҺІ</p>
           </div>
           <div className="border-t border-line" />
         </div>
@@ -149,7 +149,7 @@ export default function DesignSystem() {
           <div className="grid gap-3 border-t border-line py-4 sm:grid-cols-[160px_minmax(0,1fr)] sm:gap-6 sm:items-center">
             <span className="num text-[13px] text-faint">disabled</span>
             <div className="flex flex-wrap items-center gap-3">
-              <button type="button" disabled className="btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] disabled:opacity-50">
+              <button type="button" disabled className="btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] disabled:opacity-50">
                 Отправляю…
               </button>
               <span className="text-[13px] text-faint">&lt;button&gt; с классами Button, если нужен onClick</span>
@@ -160,7 +160,7 @@ export default function DesignSystem() {
             <div className="flex flex-wrap items-center gap-6">
               <Link href="#" className="link text-[15px]">Открыть демо <Arrow /></Link>
               <Link href="#" className="link text-[14px]">Весь рейтинг <Arrow /></Link>
-              <span className="text-[15px] text-text-2">
+              <span className="text-[14px] text-text-2">
                 в тексте: <a href="#" className="text-accent hover:underline">@terenlabs_bot</a>
               </span>
             </div>
@@ -305,7 +305,7 @@ export default function DesignSystem() {
             <p className="eyebrow">Панель и карточка</p>
             <div className="mt-3 rounded-[8px] border border-line bg-subtle p-5">
               <p className="eyebrow">Манифест</p>
-              <p className="mt-3 text-[18px] font-semibold leading-snug text-ink">Панель: rounded-[8px] border-line bg-subtle</p>
+              <p className="mt-3 text-[16px] font-semibold leading-snug text-ink">Панель: rounded-[8px] border-line bg-subtle</p>
               <p className="mt-2 text-[14px] leading-relaxed text-text-2">Для боковых колонок, форм, цитат. Без наведения.</p>
             </div>
             <Link href="#" className="card-premium mt-4 flex flex-col p-5">
@@ -313,7 +313,7 @@ export default function DesignSystem() {
                 <span className="eyebrow">Кейсы</span>
                 <span className="tag">Бесплатно</span>
               </div>
-              <h3 className="mt-3 text-[18px] leading-snug">Карточка .card-premium</h3>
+              <h3 className="mt-3 text-[16px] leading-snug">Карточка .card-premium</h3>
               <p className="mt-2 text-[14px] leading-relaxed text-text-2">Только там, где есть обложка или отдельный объект. Наведение: рамка line-2, фон card-2.</p>
             </Link>
           </div>
@@ -336,10 +336,10 @@ export default function DesignSystem() {
           </label>
           <label className="block sm:col-span-2">
             <span className="text-[14px] font-medium text-body">Сообщение</span>
-            <textarea rows={3} className="mt-2 w-full rounded-[6px] border border-line-2 bg-page px-3 py-2.5 text-[16px] leading-relaxed text-ink placeholder:text-faint" placeholder="Что улучшить, чего не хватает…" />
+            <textarea rows={3} className="mt-2 w-full rounded-[8px] border border-line-2 bg-page px-3 py-2.5 text-[16px] leading-relaxed text-ink placeholder:text-faint" placeholder="Что улучшить, чего не хватает…" />
           </label>
           <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
-            <button type="button" className="btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2]">
+            <button type="button" className="btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2]">
               Отправить
             </button>
             <p className="text-[14px] text-danger">Не удалось отправить. Проверьте соединение.</p>
@@ -367,7 +367,7 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
   return (
     <section className="border-t border-line">
       <Container className="py-14">
-        <h2 className="text-[28px]">{title}</h2>
+        <h2 className="text-[24px]">{title}</h2>
         {hint && <p className="mt-2 max-w-[72ch] text-[15px] leading-relaxed text-text-2">{hint}</p>}
         <div className="mt-8">{children}</div>
       </Container>

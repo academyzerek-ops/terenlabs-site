@@ -47,7 +47,7 @@ export function FinmodelLeadForm() {
   if (state === "done") {
     return (
       <div role="status" className="rounded-[8px] border border-line bg-subtle p-6">
-        <p className="text-[18px] font-medium text-ink">Заявка отправлена</p>
+        <p className="text-[16px] font-medium text-ink">Заявка отправлена</p>
         <p className="mt-2 text-[15px] leading-relaxed text-text-2">
           Финансист свяжется с вами по указанному контакту ({channel}) — уточнит детали, объём и сроки.
           Заявка ни к чему не обязывает.
@@ -57,7 +57,7 @@ export function FinmodelLeadForm() {
   }
 
   const inputCls =
-    "mt-1.5 w-full rounded-[6px] border border-line-2 bg-page px-3 text-[16px] text-ink outline-none transition-colors placeholder:text-faint focus:border-accent";
+    "mt-1.5 w-full rounded-[8px] border border-line-2 bg-page px-3 text-[16px] text-ink outline-none transition-colors placeholder:text-faint focus:border-accent";
   const labelCls = "block text-[13px] font-medium text-text-2";
 
   return (
@@ -116,7 +116,7 @@ export function FinmodelLeadForm() {
         <button
           onClick={send}
           disabled={!valid || state === "sending"}
-          className="btn-press inline-flex h-10 items-center justify-center rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50"
+          className="btn-press inline-flex h-10 items-center justify-center rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50"
         >
           {state === "sending" ? "Отправляю…" : "Отправить заявку"}
         </button>

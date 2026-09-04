@@ -150,7 +150,7 @@ export function OceanLeaderboard() {
       )}
 
       {error && (
-        <p role="alert" className="mt-10 text-[15px] text-text-2">Рейтинг сейчас недоступен, попробуй позже.</p>
+        <p role="alert" className="mt-10 text-[14px] text-text-2">Рейтинг сейчас недоступен, попробуй позже.</p>
       )}
       {!data && !error && (
         <p role="status" aria-live="polite" className="mt-10 text-[15px] text-faint">Загружаем рейтинг</p>
@@ -159,11 +159,11 @@ export function OceanLeaderboard() {
       {data && (
         <div className="mt-6 grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px]">
           <div>
-            <div className="grid grid-cols-[40px_minmax(0,1fr)_48px_64px] gap-4 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint">
+            <div className="grid grid-cols-[40px_minmax(0,1fr)_48px_64px] gap-4 pb-2 text-[12px] font-medium text-text-2">
               <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Очки</span>
             </div>
             {data.entries.length === 0 && (
-              <p className="border-t border-line py-10 text-[15px] text-text-2">
+              <p className="border-t border-line py-10 text-[14px] text-text-2">
                 В этом срезе попыток ещё не было, место свободно.
               </p>
             )}
@@ -173,7 +173,7 @@ export function OceanLeaderboard() {
               return (
                 <Fragment key={`${e.rank}-${e.name}`}>
                   {newTier && (
-                    <div className="border-t border-line py-2 text-[12px] uppercase tracking-[0.08em] text-faint">
+                    <div className="border-t border-line py-2 text-[12px] font-medium text-text-2">
                       {LEVEL_RU[e.level]?.name ?? e.level}: свой зачёт
                     </div>
                   )}
@@ -256,7 +256,7 @@ function Scope({
       onClick={onClick}
       disabled={disabled}
       aria-pressed={active}
-      className={`btn-press flex h-9 items-center gap-2 rounded-[6px] border px-3 text-[14px] transition-colors ${
+      className={`btn-press flex h-9 items-center gap-2 rounded-[8px] border px-3 text-[14px] transition-colors ${
         active
           ? "border-line-2 bg-subtle text-ink"
           : disabled

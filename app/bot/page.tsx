@@ -41,7 +41,7 @@ export default function BotPage() {
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 p-8 text-center">
       <BotRedirect url={BOT_URL} />
-      <p role="status" aria-live="polite" className="text-[15px] text-text-2">Открываем Telegram…</p>
+      <p role="status" aria-live="polite" className="text-[14px] text-text-2">Открываем Telegram…</p>
       <Button href={BOT_URL}>
         Открыть @terenlabs_bot <Arrow />
       </Button>

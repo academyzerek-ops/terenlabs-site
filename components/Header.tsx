@@ -36,7 +36,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-line bg-page/95 backdrop-blur-sm">
       <Container className="flex h-14 items-center justify-between gap-4">
         <div className="flex items-center gap-8">
-          <Link href="/" aria-label="На главную" className="text-[17px] font-semibold tracking-[-0.02em] text-ink">
+          <Link href="/" aria-label="На главную" className="text-[15px] font-semibold tracking-[-0.02em] text-ink">
             TerenLabs
           </Link>
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Разделы">
@@ -46,7 +46,7 @@ export function Header() {
                 <Link
                   key={n.href}
                   href={n.href}
-                  className={`rounded-[6px] px-3 py-1.5 text-[15px] transition-colors hover:bg-subtle ${
+                  className={`rounded-[8px] px-3 py-1.5 text-[15px] transition-colors hover:bg-subtle ${
                     active ? "font-medium text-ink" : "text-text-2 hover:text-ink"
                   }`}
                 >
@@ -60,12 +60,12 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/dashboard"
-            className="hidden h-8 items-center rounded-[6px] border border-line-2 px-3 text-[14px] font-medium text-ink transition-colors hover:bg-subtle sm:inline-flex"
+            className="hidden h-8 items-center rounded-[8px] border border-line-2 px-3 text-[14px] font-medium text-ink transition-colors hover:bg-subtle sm:inline-flex"
           >
             Войти
           </Link>
           <button
-            className="flex h-10 w-10 items-center justify-center rounded-[6px] text-ink hover:bg-subtle lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-[8px] text-ink hover:bg-subtle lg:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Закрыть меню" : "Меню"}
             aria-expanded={open}
@@ -84,14 +84,14 @@ export function Header() {
               <Link
                 key={n.href}
                 href={n.href}
-                className="rounded-[6px] px-2 py-2.5 text-[16px] text-body hover:bg-subtle"
+                className="rounded-[8px] px-2 py-2.5 text-[16px] text-body hover:bg-subtle"
                 onClick={() => setOpen(false)}
               >
                 {n.label}
               </Link>
             ))}
             <div className="my-2 h-px bg-line" />
-            <Link href="/dashboard" className="rounded-[6px] px-2 py-2.5 text-[16px] font-medium text-ink hover:bg-subtle" onClick={() => setOpen(false)}>
+            <Link href="/dashboard" className="rounded-[8px] px-2 py-2.5 text-[16px] font-medium text-ink hover:bg-subtle" onClick={() => setOpen(false)}>
               Войти
             </Link>
           </Container>

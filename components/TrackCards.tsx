@@ -100,7 +100,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
               </div>
               )}
               <div className="flex flex-1 flex-col gap-3 p-5">
-                <div className="text-[17px] font-semibold leading-snug text-ink">{t.title}</div>
+                <div className="text-[15px] font-semibold leading-snug text-ink">{t.title}</div>
                 <div className="num mt-auto flex items-center gap-2 text-[13px] text-text-2">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M2 3.5h4.5A1.5 1.5 0 0 1 8 5v8.5A1.5 1.5 0 0 0 6.5 12H2zM14 3.5H9.5A1.5 1.5 0 0 0 8 5v8.5a1.5 1.5 0 0 1 1.5-1.5H14z" />

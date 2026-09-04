@@ -80,10 +80,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <div className="min-w-0">
               <p className="eyebrow">{t.label} · {p.topic} · {p.stage}</p>
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-                <h1 className="max-w-[22ch] text-[36px] sm:text-[48px]">{p.title}</h1>
+                <h1 className="max-w-[22ch] text-[24px] sm:text-[38px]">{p.title}</h1>
                 {p.stub ? <span className="tag">скоро</span> : level ? <RankTag rank={level.key} /> : null}
               </div>
-              <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">{p.blurb}</p>
+              <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">{p.blurb}</p>
               {p.stub && (
                 <p className="mt-4 text-[14px] text-faint">Готовим к выпуску — материал ещё в работе</p>
               )}

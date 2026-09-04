@@ -93,12 +93,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 </p>
               )}
 
-              <h1 className="text-[34px] sm:text-[44px] lg:text-[52px]">
+              <h1 className="text-[20px] sm:text-[44px] lg:text-[40px]">
                 <span className="brand-title-html" dangerouslySetInnerHTML={{ __html: doc.titleHtml }} />
               </h1>
 
               {doc.sub && (
-                <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[19px]">
+                <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[19px]">
                   {doc.sub}
                 </p>
               )}
@@ -129,7 +129,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <section className="border-t border-line bg-subtle py-16">
             <Container>
               <div className="mx-auto max-w-[800px]">
-                <h2 className="text-[24px] sm:text-[28px]">Дальше читать</h2>
+                <h2 className="text-[22px] sm:text-[24px]">Дальше читать</h2>
                 <div className="mt-6">
                   {more.map((r) => (
                     <Link
@@ -139,7 +139,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     >
                       <div className="min-w-0">
                         <span className="eyebrow">{r.brand}</span>
-                        <h3 className="mt-1.5 text-[17px] leading-snug">{r.title}</h3>
+                        <h3 className="mt-1.5 text-[15px] leading-snug">{r.title}</h3>
                       </div>
                       <span className="link shrink-0 text-[14px]">
                         Читать <Arrow />

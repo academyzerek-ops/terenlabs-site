@@ -45,14 +45,14 @@ export default function Page() {
     <>
       <Container className="py-14 sm:py-20">
         <p className="eyebrow">Знания открыты</p>
-        <h1 className="mt-3 max-w-[20ch] text-[36px] sm:text-[48px] lg:text-[56px]">Открытая библиотека</h1>
-        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
+        <h1 className="mt-3 max-w-[20ch] text-[30px] sm:text-[38px]">Открытая библиотека</h1>
+        <p className="mt-5 max-w-[56ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
           Модули, тесты, кейсы и аналитика открыты целиком. Это не пробник, это продукт.
         </p>
       </Container>
 
       <Container className="pb-20">
-        <div className="hidden grid-cols-[220px_minmax(0,1fr)_120px] gap-6 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint sm:grid">
+        <div className="hidden grid-cols-[220px_minmax(0,1fr)_120px] gap-6 pb-2 text-[12px] font-medium text-text-2 sm:grid">
           <span>Раздел</span>
           <span>Что внутри</span>
           <span />

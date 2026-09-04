@@ -18,9 +18,9 @@ const RANK_KEY: Record<string, LevelKey> = {
 };
 
 const BTN_PRIMARY =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
 const BTN_SECONDARY =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] border border-line-2 bg-transparent px-4 text-[15px] font-medium text-ink transition-colors hover:bg-subtle";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] border border-line-2 bg-transparent px-4 text-[15px] font-medium text-ink transition-colors hover:bg-subtle";
 
 export function TestRunner({
   title,
@@ -62,13 +62,13 @@ export function TestRunner({
           <p className="eyebrow">Результат · {title}</p>
           <div className="num mt-5 text-[64px] font-semibold leading-none text-ink sm:text-[80px]">
             {correct}
-            <span className="text-[28px] font-normal text-faint sm:text-[32px]"> / {questions.length}</span>
+            <span className="text-[24px] font-normal text-faint sm:text-[32px]"> / {questions.length}</span>
           </div>
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            <h1 className="text-[28px] sm:text-[32px]">Ранг: {rank.name}</h1>
+            <h1 className="text-[24px] sm:text-[32px]">Ранг: {rank.name}</h1>
             <RankTag rank={rankKey} />
           </div>
-          <p className="mt-2 text-[15px] text-text-2">{rank.meaning}</p>
+          <p className="mt-2 text-[14px] text-text-2">{rank.meaning}</p>
           <p className="mt-4 max-w-[56ch] text-[15px] leading-relaxed text-body">
             {correct === questions.length
               ? "Чисто. Ты держишь цифры в голове — переходи к применению."
@@ -109,7 +109,7 @@ export function TestRunner({
               {mistakes.map((m) => (
                 <div key={m.i}>
                   <p className="eyebrow">Вопрос {m.i + 1}</p>
-                  <p className="mt-2 text-[17px] leading-relaxed text-ink">{m.q.q}</p>
+                  <p className="mt-2 text-[15px] leading-relaxed text-ink">{m.q.q}</p>
                   <ul className="mt-4">
                     {m.q.options.map((opt, oi) => {
                       const right = oi === m.q.correct;
@@ -172,7 +172,7 @@ export function TestRunner({
         </div>
       </div>
 
-      <h1 className="mt-8 text-[22px] leading-snug sm:text-[26px]">{q.q}</h1>
+      <h1 className="mt-8 text-[20px] leading-snug sm:text-[20px]">{q.q}</h1>
 
       {/* выбор можно менять до «Дальше»; правильный ответ не подсвечивается */}
       <div className="mt-6 flex flex-col gap-2" role="radiogroup" aria-label="Варианты ответа">
@@ -188,7 +188,7 @@ export function TestRunner({
                 nextAnswers[i] = idx;
                 setAnswers(nextAnswers);
               }}
-              className={`btn-press min-h-[44px] w-full rounded-[6px] border px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors ${
+              className={`btn-press min-h-[44px] w-full rounded-[8px] border px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors ${
                 selected ? "border-line-2 bg-subtle" : "border-line bg-transparent hover:bg-subtle"
               }`}
             >

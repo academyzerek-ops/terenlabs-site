@@ -20,7 +20,7 @@ export function ProductCard({ p }: { p: CatalogItem }) {
       className={`card-premium group flex flex-col overflow-hidden ${p.stub ? "border-dashed" : ""}`}
     >
       {p.img && (
-        <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-line bg-card-2">
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-card-2">
           <Image
             src={p.img}
             alt=""
@@ -30,7 +30,7 @@ export function ProductCard({ p }: { p: CatalogItem }) {
           />
         </div>
       )}
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-4">
         <div className="flex items-center justify-between gap-3">
           <span className="eyebrow">{PRODUCT_TYPES[p.type].label}</span>
           {p.badge && outcome ? (
@@ -41,19 +41,20 @@ export function ProductCard({ p }: { p: CatalogItem }) {
             <span className="tag">скоро</span>
           ) : null}
         </div>
-        <h3 className="mt-3 line-clamp-2 text-[18px] leading-snug">{p.title}</h3>
-        <p className="mt-2 line-clamp-2 text-[14px] leading-relaxed text-text-2">{p.blurb}</p>
+        <h3 className="mt-3 line-clamp-2 text-[15px] font-medium leading-snug">{p.title}</h3>
+        <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-text-2">{p.blurb}</p>
         {p.metric && (
           <p className="mt-3 flex items-baseline gap-2">
-            <span className="num text-[22px] font-semibold text-ink">{p.metric.value}</span>
+            <span className="num text-[20px] font-semibold text-ink">{p.metric.value}</span>
             <span className="text-[13px] text-text-2">{p.metric.label}</span>
           </p>
         )}
         <div className="flex-1" />
-        <div className="mt-4 flex items-center justify-between border-t border-line pt-3 text-[12px] text-faint">
-          <span className="num">{p.level} · {p.stage}</span>
-          {p.free ? <span className="tag">Бесплатно</span> : p.price ? <span className="num">{p.price}</span> : null}
-        </div>
+        {p.price && !p.free && (
+          <div className="mt-4 flex items-center justify-end border-t border-line pt-3 text-[12px] text-faint">
+            <span className="num">{p.price}</span>
+          </div>
+        )}
       </div>
     </Link>
   );

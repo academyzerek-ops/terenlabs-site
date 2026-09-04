@@ -12,7 +12,7 @@ import { Arrow } from "@/components/Button";
 
 // Те же классы, что у Button (primary, md): здесь нужен <button onClick>, не ссылка
 const BTN =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:opacity-50";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:opacity-50";
 
 export function TgDeepLinkLogin() {
   const router = useRouter();

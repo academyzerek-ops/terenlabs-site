@@ -13,7 +13,7 @@ import { getOceanToken, oceanFetch, type OceanAuth, setOceanToken } from "@/lib/
 
 // Контролы формы: 40px, 16px текст (мобильный Safari не зумит), фокус из globals
 const FIELD =
-  "mt-2 h-10 w-full rounded-[6px] border border-line-2 bg-page px-3 text-[16px] text-ink placeholder:text-faint disabled:text-text-2 disabled:opacity-70";
+  "mt-2 h-10 w-full rounded-[8px] border border-line-2 bg-page px-3 text-[16px] text-ink placeholder:text-faint disabled:text-text-2 disabled:opacity-70";
 const LABEL = "text-[14px] font-medium text-body";
 
 export default function OnboardingPage() {
@@ -52,7 +52,7 @@ export default function OnboardingPage() {
     <Container className="flex min-h-[70vh] items-center justify-center py-16">
       <div className="w-full max-w-md rounded-[8px] border border-line bg-subtle p-6 sm:p-8">
         <p className="eyebrow">Океан · полминуты</p>
-        <h1 className="mt-3 text-[28px] sm:text-[32px]">Откуда ныряешь?</h1>
+        <h1 className="mt-3 text-[24px] sm:text-[32px]">Откуда ныряешь?</h1>
 
         <div className="mt-7 flex flex-col gap-5">
           <label className="block">
@@ -108,7 +108,7 @@ export default function OnboardingPage() {
           type="button"
           onClick={submit}
           disabled={busy}
-          className="btn-press mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-5 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:opacity-50"
+          className="btn-press mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-5 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:opacity-50"
         >
           {busy ? "Сохраняю…" : "В океан"}
           {!busy && <Arrow />}

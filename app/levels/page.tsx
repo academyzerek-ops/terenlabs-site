@@ -23,8 +23,8 @@ export default function LevelsPage() {
     <>
       <Container className="py-14 sm:py-20">
         <p className="eyebrow">Океан · система уровней</p>
-        <h1 className="mt-3 text-[36px] sm:text-[48px]">Уровни</h1>
-        <p className="mt-5 max-w-[62ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
+        <h1 className="mt-3 text-[24px] sm:text-[38px]">Уровни</h1>
+        <p className="mt-5 max-w-[62ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
           Каждому уровню соответствует морской обитатель. Чем глубже, тем крупнее зверь
           и серьёзнее решения. Ранг растёт за понимание: его нельзя накликать, можно
           только заслужить.
@@ -40,7 +40,7 @@ export default function LevelsPage() {
       <Container className="grid gap-12 pb-20 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         {/* реестр уровней */}
         <div>
-          <div className="hidden grid-cols-[72px_56px_minmax(0,1fr)_140px] gap-6 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint sm:grid">
+          <div className="hidden grid-cols-[72px_56px_minmax(0,1fr)_140px] gap-6 pb-2 text-[12px] font-medium text-text-2 sm:grid">
             <span>Глубина</span>
             <span />
             <span>Уровень</span>
@@ -106,7 +106,7 @@ export default function LevelsPage() {
       <section className="border-t border-line">
         <Container className="py-16">
           <p className="eyebrow">Механика</p>
-          <h2 className="mt-3 text-[28px]">Как считается место</h2>
+          <h2 className="mt-3 text-[24px]">Как считается место</h2>
           <div className="mt-6 max-w-[860px]">
             {[
               ["Очки места", "Средний балл попыток, умноженный на коэффициент темпа. Ответы быстрее 5 секунд не считаются."],

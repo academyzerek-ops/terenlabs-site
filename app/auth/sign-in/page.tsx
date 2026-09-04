@@ -29,7 +29,7 @@ export default async function Page({
     <Container className="flex min-h-[70vh] items-center justify-center py-16">
       <div className="w-full max-w-md rounded-[8px] border border-line bg-subtle p-6 sm:p-8">
         <p className="eyebrow">Вход · по желанию</p>
-        <h1 className="mt-3 text-[28px] sm:text-[32px]">Свой профиль в океане</h1>
+        <h1 className="mt-3 text-[24px] sm:text-[32px]">Свой профиль в океане</h1>
         <p className="mt-3 text-[15px] leading-relaxed text-text-2">
           Весь TerenLabs открыт и без входа. Аккаунт добавляет: статистику
           твоих попыток, память прогресса между устройствами и место

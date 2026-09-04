@@ -40,8 +40,8 @@ export default function StartupPage() {
       <section className="border-b border-line">
         <Container className="py-14 sm:py-20">
           <p className="eyebrow">Стартап · весь рынок · доллар</p>
-          <h1 className="mt-3 max-w-[18ch] text-[36px] sm:text-[52px]">Проект на рост: модель, деньги, инвестиции</h1>
-          <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
+          <h1 className="mt-3 max-w-[18ch] text-[24px] sm:text-[40px]">Проект на рост: модель, деньги, инвестиции</h1>
+          <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
             Как устроен заработок компаний, которые знают все, что из этого переносится на твой
             проект и чем платят за инвестиции. Без географии и местных налогов.
           </p>
@@ -60,7 +60,7 @@ export default function StartupPage() {
       <section id="trek" className="border-b border-line">
         <Container className="py-16">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
-            <h2 className="text-[28px] sm:text-[34px]">Трек «От идеи до инвестиций»</h2>
+            <h2 className="text-[24px] sm:text-[20px]">Трек «От идеи до инвестиций»</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
               Шесть уроков по цепочке настоящего проекта. Трек готовится, программа уже
               зафиксирована, разборы брендов открыты как практика к третьему уроку.
@@ -70,7 +70,7 @@ export default function StartupPage() {
             {PROGRAM.map(([n, t, d]) => (
               <div key={n} className="grid gap-2 border-t border-line py-5 sm:grid-cols-[56px_260px_minmax(0,1fr)_100px] sm:items-baseline sm:gap-6">
                 <span className="num text-[13px] text-faint">{n}</span>
-                <h3 className="text-[18px]">{t}</h3>
+                <h3 className="text-[16px]">{t}</h3>
                 <p className="max-w-[60ch] text-[15px] leading-relaxed text-text-2">{d}</p>
                 <span className="tag sm:justify-self-end">{n === "03" ? "практика открыта" : "готовится"}</span>
               </div>
@@ -85,7 +85,7 @@ export default function StartupPage() {
         <Container className="grid gap-12 py-16 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-16 lg:gap-y-0">
           <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid">
             <p className="eyebrow">Бизнес-модели</p>
-            <h2 className="text-[26px] sm:text-[30px]">Каталог моделей заработка</h2>
+            <h2 className="text-[20px] sm:text-[24px]">Каталог моделей заработка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Не «какие они молодцы», а из чего собран денежный поток, чем за это заплатили и что
               модель убивает.
@@ -103,7 +103,7 @@ export default function StartupPage() {
 
           <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid">
             <p className="eyebrow">Разборы брендов</p>
-            <h2 className="text-[26px] sm:text-[30px]">Откуда бабки у больших</h2>
+            <h2 className="text-[20px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Механика заработка, структура выручки, развилка и её цена. Каждая цифра с источником.
             </p>
@@ -132,7 +132,7 @@ export default function StartupPage() {
         <Container className="grid gap-8 py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
           <div>
             <p className="eyebrow">Океан</p>
-            <h2 className="mt-3 text-[26px] sm:text-[30px]">Этот трек ведёт к Киту</h2>
+            <h2 className="mt-3 text-[20px] sm:text-[24px]">Этот трек ведёт к Киту</h2>
             <p className="mt-4 max-w-[60ch] text-[15px] leading-relaxed text-text-2">
               Ранг один на всю платформу. Тесты по бизнес-моделям и рынку входят в Барракуду, открытые
               кейсы по брендам в Дельфина и Акулу, а финмодель стартапа, питч и инвестиции открывают

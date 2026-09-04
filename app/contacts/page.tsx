@@ -10,8 +10,8 @@ export default function Page() {
     <>
       <Container className="py-14 sm:py-20">
         <p className="eyebrow">Контакты</p>
-        <h1 className="mt-3 max-w-[20ch] text-[36px] sm:text-[48px]">Связь с нами</h1>
-        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
+        <h1 className="mt-3 max-w-[20ch] text-[24px] sm:text-[38px]">Связь с нами</h1>
+        <p className="mt-5 max-w-[56ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
           Предложения по сотрудничеству и пожелания — напишите, мы прочитаем каждое
         </p>
       </Container>

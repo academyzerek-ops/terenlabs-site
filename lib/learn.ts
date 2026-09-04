@@ -24,6 +24,8 @@ export type AcademyTrack = {
   subtitle: string;
   chapterTotal: number;
   modules: AcademyModule[];
+  /** хаб сайта: «delo» (по умолчанию, малый бизнес) или «startup» */
+  hub?: "delo" | "startup";
 };
 
 export const ACADEMY: AcademyTrack[] = academyJson as AcademyTrack[];

@@ -10,23 +10,23 @@
 @theme {
   /* ---- Нейтрали (Notion dark) ---- */
   --color-page: #191919;       /* фон страницы */
-  --color-ink: #ffffff;        /* заголовки, сильный текст, эскизы */
-  --color-heading: #ffffff;
-  --color-body: #e0e0e0;       /* основной текст */
-  --color-text-2: #a6a6a6;     /* вторичный текст */
-  --color-muted: #a6a6a6;
-  --color-faint: #808080;      /* подписи, плейсхолдеры */
-  --color-line: #303030;       /* разделители */
-  --color-line-2: #454545;     /* рамки контролов */
-  --color-subtle: #202020;     /* подложка секций, панели */
-  --color-hover: #2a2a2a;
-  --color-card: #212121;
-  --color-card-2: #2a2a2a;
-  --color-foam: #ffffff;       /* наследие: «пена» = светлый текст */
+  --color-ink: #f0efed;        /* заголовки, сильный текст, эскизы (тёплый белый Notion) */
+  --color-heading: #f0efed;
+  --color-body: #d3d1cd;       /* основной текст */
+  --color-text-2: #ada9a3;     /* вторичный текст */
+  --color-muted: #ada9a3;
+  --color-faint: #7d7a75;      /* подписи, плейсхолдеры */
+  --color-line: rgba(255, 255, 235, 0.10);   /* разделители: тёплая линия 10% */
+  --color-line-2: rgba(255, 255, 235, 0.18); /* рамки контролов */
+  --color-subtle: rgba(255, 255, 255, 0.045); /* подложка секций, панели */
+  --color-hover: rgba(255, 255, 255, 0.08);
+  --color-card: rgba(255, 255, 255, 0.05);
+  --color-card-2: rgba(255, 255, 255, 0.085);
+  --color-foam: #f0efed;       /* наследие: «пена» = светлый текст */
 
   /* ---- Два акцента: синий (действие, ссылки) и оранжевый (ты здесь, выделение) ---- */
-  --color-accent: #529cca;     /* ссылки на тёмном */
-  --color-accent-600: #2383e2; /* кнопки */
+  --color-accent: #3d92e3;     /* ссылки на тёмном */
+  --color-accent-600: #2783de; /* кнопки */
   --color-accent-100: #28456c;
   --color-orange: #f0873a;     /* второй акцент: текст, точки, маркеры */
   --color-orange-600: #d9730d;
@@ -71,7 +71,7 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* ---- Радиусы / тени ---- */
-  --radius-tl: 6px;
+  --radius-tl: 8px;
   --radius-lg: 12px;
   --shadow-tl-sm: 0 0 0 1px rgba(255, 255, 255, 0.06);
   --shadow-tl: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -84,7 +84,7 @@
 
 :root {
   --background: #191919;
-  --foreground: #e0e0e0;
+  --foreground: #d3d1cd;
   color-scheme: dark;
 }
 
@@ -100,7 +100,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-text);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -114,7 +114,7 @@ h1, h2, h3, h4 {
   line-height: 1.15;
   text-wrap: balance;
 }
-h1 { letter-spacing: -0.025em; line-height: 1.08; }
+h1 { letter-spacing: -0.02em; line-height: 1.1; }
 
 button, a { touch-action: manipulation; }
 
@@ -147,9 +147,8 @@ button, a { touch-action: manipulation; }
   gap: 8px;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-faint);
+  line-height: 18px;
+  color: var(--color-text-2);
 }
 
 /* Ярлык уровня / статуса, как тег в Notion */
@@ -158,7 +157,7 @@ button, a { touch-action: manipulation; }
   align-items: center;
   height: 20px;
   padding: 0 6px;
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
@@ -188,12 +187,12 @@ button, a { touch-action: manipulation; }
 .card-premium {
   position: relative;
   background: var(--color-card);
-  border: 1px solid var(--color-line);
+  border: 1px solid rgba(255, 255, 235, 0.06);
   border-radius: var(--radius-lg);
   transition: border-color 0.2s var(--ease-out-tl), background-color 0.2s var(--ease-out-tl);
 }
 .card-premium:hover {
-  border-color: var(--color-line-2);
+  border-color: rgba(255, 255, 235, 0.1);
   background: var(--color-card-2);
 }
 
@@ -222,13 +221,13 @@ button, a { touch-action: manipulation; }
   position: relative;
   background: var(--color-page);
   color: var(--color-body);
-  --color-heading: #ffffff;
-  --color-body: #e0e0e0;
-  --color-card: #212121;
-  --color-card-2: #2a2a2a;
-  --color-muted: #a6a6a6;
-  --color-line: #303030;
-  --color-subtle: #202020;
+  --color-heading: #f0efed;
+  --color-body: #d3d1cd;
+  --color-card: rgba(255, 255, 255, 0.05);
+  --color-card-2: rgba(255, 255, 255, 0.085);
+  --color-muted: #ada9a3;
+  --color-line: rgba(255, 255, 235, 0.10);
+  --color-subtle: rgba(255, 255, 255, 0.045);
 }
 .deep, .hero-ocean, .atmo {
   position: relative;
@@ -240,8 +239,8 @@ button, a { touch-action: manipulation; }
    блоки становятся серой подложкой, текст читаемый */
 .bg-navy, .bg-navy-900, .bg-navy-700, .bg-white, [class*="bg-white/"], .bg-\[\#f5f7fa\] {
   background-color: var(--color-subtle) !important;
-  --color-foam: #ffffff;
-  --color-navy: #e0e0e0;
+  --color-foam: #f0efed;
+  --color-navy: #d3d1cd;
 }
 
 /* Наследие: заглушки классов, чтобы ничего не «висело» невидимым */

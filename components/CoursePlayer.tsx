@@ -6,9 +6,9 @@ import { Course, Step } from "@/lib/learn";
 import { saveProgress } from "@/lib/memory";
 
 const BTN_PRIMARY =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
 const BTN_GHOST =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] px-4 text-[15px] font-medium text-text-2 transition-colors hover:bg-subtle hover:text-ink disabled:cursor-default disabled:opacity-50";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] px-4 text-[15px] font-medium text-text-2 transition-colors hover:bg-subtle hover:text-ink disabled:cursor-default disabled:opacity-50";
 
 export function CoursePlayer({ course, initialStepId }: { course: Course; initialStepId?: string }) {
   // Плоский список шагов для навигации + индекс
@@ -56,7 +56,7 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
           <Link href="/catalog?type=course" className="text-[13px] text-faint transition-colors hover:text-ink">
             ← к курсам
           </Link>
-          <h2 className="mt-2 text-[18px] leading-snug">{course.title}</h2>
+          <h2 className="mt-2 text-[16px] leading-snug">{course.title}</h2>
           <div className="mt-4">
             <div className="flex items-center justify-between text-[13px] text-faint">
               <span>Прогресс</span>
@@ -77,7 +77,7 @@ export function CoursePlayer({ course, initialStepId }: { course: Course; initia
             onClick={() => setNavOpen((v) => !v)}
             aria-expanded={navOpen}
             aria-controls="course-nav"
-            className="btn-press mt-4 h-10 w-full rounded-[6px] border border-line-2 text-[15px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
+            className="btn-press mt-4 h-10 w-full rounded-[8px] border border-line-2 text-[15px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
           >
             {navOpen ? "Скрыть содержание" : "Содержание курса"}
           </button>
@@ -180,15 +180,15 @@ function StepView({ step, onComplete }: { step: Step; onComplete: () => void }) 
   if (step.kind === "text") {
     return (
       <>
-        <h1 className="mt-3 text-[28px] sm:text-[32px]">{step.title}</h1>
-        <p className="mt-5 text-[17px] leading-relaxed text-body">{step.body}</p>
+        <h1 className="mt-3 text-[24px] sm:text-[32px]">{step.title}</h1>
+        <p className="mt-5 text-[15px] leading-relaxed text-body">{step.body}</p>
       </>
     );
   }
   if (step.kind === "video") {
     return (
       <>
-        <h1 className="mt-3 text-[28px] sm:text-[32px]">{step.title}</h1>
+        <h1 className="mt-3 text-[24px] sm:text-[32px]">{step.title}</h1>
         <div className="mt-6 flex aspect-video items-center justify-center rounded-[8px] border border-line bg-subtle text-[14px] text-faint">
           Видео (заглушка)
         </div>
@@ -213,8 +213,8 @@ function QuizStep({
 
   return (
     <>
-      <h1 className="mt-3 text-[24px] sm:text-[28px]">{step.title}</h1>
-      <p className="mt-5 text-[17px] leading-relaxed text-body">{step.question}</p>
+      <h1 className="mt-3 text-[22px] sm:text-[24px]">{step.title}</h1>
+      <p className="mt-5 text-[15px] leading-relaxed text-body">{step.question}</p>
       <div className="mt-6 flex flex-col gap-2">
         {step.options.map((o, i) => {
           const state =
@@ -228,7 +228,7 @@ function QuizStep({
                 setPicked(i);
                 onComplete();
               }}
-              className={`btn-press flex min-h-[44px] w-full items-start justify-between gap-4 rounded-[6px] border px-4 py-3 text-left text-[15px] leading-relaxed transition-colors disabled:cursor-default ${
+              className={`btn-press flex min-h-[44px] w-full items-start justify-between gap-4 rounded-[8px] border px-4 py-3 text-left text-[15px] leading-relaxed transition-colors disabled:cursor-default ${
                 mine ? "border-line-2 bg-subtle" : "border-line bg-transparent"
               } ${!answered ? "text-ink hover:bg-subtle" : state === "idle" ? "text-text-2" : "text-ink"}`}
             >

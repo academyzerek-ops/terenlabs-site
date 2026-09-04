@@ -97,8 +97,8 @@ export function ProductPage({ p }: { p: Product }) {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
             <div className="min-w-0">
               <p className="eyebrow">{t.label} · {p.topic} · {p.stage}</p>
-              <h1 className="mt-4 max-w-[20ch] text-[36px] sm:text-[48px]">{p.title}</h1>
-              <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">{p.blurb}</p>
+              <h1 className="mt-4 max-w-[20ch] text-[24px] sm:text-[38px]">{p.title}</h1>
+              <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">{p.blurb}</p>
               {p.stub && (
                 <p className="mt-5">
                   <span className="tag tag-orange">Готовим к выпуску — материал ещё в работе</span>
@@ -110,7 +110,7 @@ export function ProductPage({ p }: { p: Product }) {
             <aside className="rounded-[8px] border border-line bg-subtle p-5 lg:sticky lg:top-20">
               {p.metric && (
                 <div className="mb-4 flex items-baseline gap-2">
-                  <span className="num text-[28px] font-semibold text-ink">{p.metric.value}</span>
+                  <span className="num text-[24px] font-semibold text-ink">{p.metric.value}</span>
                   <span className="text-[13px] text-text-2">{p.metric.label}</span>
                 </div>
               )}
@@ -135,7 +135,7 @@ export function ProductPage({ p }: { p: Product }) {
         <div className="flex flex-col gap-14">
           {isPaidFinmodel && (
             <section id="zayavka" className="scroll-mt-24">
-              <h2 className="text-[22px]">Оставить заявку</h2>
+              <h2 className="text-[20px]">Оставить заявку</h2>
               <div className="mt-5">
                 <FinmodelLeadForm />
               </div>
@@ -214,7 +214,7 @@ export function ProductPage({ p }: { p: Product }) {
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-[22px]">{title}</h2>
+      <h2 className="text-[20px]">{title}</h2>
       <div className="mt-4">{children}</div>
     </section>
   );

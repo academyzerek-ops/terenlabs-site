@@ -35,7 +35,7 @@ export default async function Dashboard() {
           <h1 className="mt-2 text-[32px] sm:text-[40px]">
             {session?.user?.name ? `Привет, ${session.user.name.split(" ")[0]}` : "Привет, основатель"}
           </h1>
-          <p className="mt-2 text-[15px] text-text-2">
+          <p className="mt-2 text-[14px] text-text-2">
             {session
               ? "Память подключена к аккаунту. Что делаем сегодня?"
               : "Память хранится на этом устройстве. Войди, и она поедет с тобой."}
@@ -99,7 +99,7 @@ export default async function Dashboard() {
 
       {/* рекомендации */}
       <section className="mt-14">
-        <h2 className="text-[22px]">Рекомендуем дальше</h2>
+        <h2 className="text-[20px]">Рекомендуем дальше</h2>
         <div className="mt-4 grid gap-4 border-t border-line pt-6 sm:grid-cols-2 lg:grid-cols-3">
           {lanes.map((l) => (
             <RecRotator key={l.items[0].type} items={l.items} periodMs={l.periodMs} />

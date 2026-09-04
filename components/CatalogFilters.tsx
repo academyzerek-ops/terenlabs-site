@@ -71,7 +71,7 @@ export function CatalogFilters({ type }: { type: string }) {
             type="button"
             onClick={() => setFilter(f.id)}
             aria-pressed={active}
-            className={`inline-flex h-8 items-center rounded-[6px] border px-3 text-[14px] font-medium transition-colors duration-150 ${
+            className={`inline-flex h-8 items-center rounded-[8px] border px-3 text-[14px] font-medium transition-colors duration-150 ${
               active
                 ? "border-line-2 bg-subtle text-ink"
                 : "border-line bg-transparent text-text-2 hover:border-line-2 hover:text-ink"

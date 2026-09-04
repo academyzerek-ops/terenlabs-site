@@ -26,7 +26,7 @@ const TOPICS = [
 
 // Те же классы, что у Button (primary, md): здесь нужен <button onClick>, не ссылка
 const BTN =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
 
 function ContactCard({ t }: { t: (typeof TOPICS)[number] }) {
   const [text, setText] = useState("");
@@ -75,7 +75,7 @@ function ContactCard({ t }: { t: (typeof TOPICS)[number] }) {
         maxLength={4000}
         rows={5}
         placeholder={t.placeholder}
-        className="mt-4 w-full rounded-[6px] border border-line-2 bg-page px-3 py-2.5 text-[16px] leading-relaxed text-ink placeholder:text-faint"
+        className="mt-4 w-full rounded-[8px] border border-line-2 bg-page px-3 py-2.5 text-[16px] leading-relaxed text-ink placeholder:text-faint"
       />
       {state === "error" && (
         <p role="alert" className="mt-2 text-[14px] text-danger">

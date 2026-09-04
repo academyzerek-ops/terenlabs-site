@@ -30,9 +30,9 @@ const LETTERS = ["А", "Б", "В", "Г"];
 
 // кнопки-действия (нативные <button>, поэтому классы Button повторены здесь)
 const BTN_PRIMARY =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
 const BTN_SECONDARY =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] border border-line-2 bg-transparent px-4 text-[15px] font-medium text-ink transition-colors hover:bg-subtle";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] border border-line-2 bg-transparent px-4 text-[15px] font-medium text-ink transition-colors hover:bg-subtle";
 // панель-пояснение на интро (гейты, кулдаун, resume)
 const NOTE = "mt-6 rounded-[8px] border border-line bg-subtle p-5 text-[15px] leading-relaxed text-body";
 
@@ -309,7 +309,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   if (loadError) {
     return (
       <Container className="py-24">
-        <p className="mx-auto max-w-xl text-[17px] text-ink">Не удалось загрузить вопросы. Обнови страницу.</p>
+        <p className="mx-auto max-w-xl text-[15px] text-ink">Не удалось загрузить вопросы. Обнови страницу.</p>
       </Container>
     );
   }
@@ -336,7 +336,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
             <span>{meta.title}</span>
           </nav>
           <p className="eyebrow mt-8">{meta.title}</p>
-          <h1 className="mt-3 text-[30px] sm:text-[40px]">
+          <h1 className="mt-3 text-[24px] sm:text-[40px]">
             {meta.qCount} {isOpen ? "открытых вопросов" : "вопросов"}. Порог — {meta.floor} из 10.
           </h1>
           <p className="mt-5 text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
@@ -437,10 +437,10 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
       <Container className="py-24">
         <div className="mx-auto max-w-xl">
           <p className="eyebrow">{meta.title}</p>
-          <p className="mt-4 text-[22px] text-ink" role="status" aria-live="polite">
+          <p className="mt-4 text-[20px] text-ink" role="status" aria-live="polite">
             {isOpen ? "TEREN-AI читает твои ответы…" : "Проверяем…"}
           </p>
-          <p className="mt-2 text-[15px] text-text-2">
+          <p className="mt-2 text-[14px] text-text-2">
             {isOpen
               ? "Оцениваю каждый ответ по рубрике — это займёт несколько секунд."
               : "Считаем результат на сервере — ответы скрыты от браузера."}
@@ -456,7 +456,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
       <Container className="py-24">
         <div className="mx-auto max-w-xl">
           <p className="eyebrow">{meta.title}</p>
-          <p className="mt-4 text-[22px] text-ink" role="alert">Сервер не ответил.</p>
+          <p className="mt-4 text-[20px] text-ink" role="alert">Сервер не ответил.</p>
           <p className="mt-3 text-[15px] leading-relaxed text-text-2">
             Твои ответы не потерялись — отправь ещё раз. Если вход протух, войди заново и повтори.
           </p>
@@ -485,11 +485,11 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           <p className="eyebrow">{meta.title}</p>
           <div className="num mt-5 text-[64px] font-semibold leading-none text-ink sm:text-[80px]">
             {result.score}
-            <span className="text-[28px] font-normal text-faint sm:text-[32px]"> / 10</span>
+            <span className="text-[24px] font-normal text-faint sm:text-[32px]"> / 10</span>
           </div>
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <span className={passed ? "tag tag-blue" : "tag"}>{passed ? "Сдан" : "Не сдан"}</span>
-            <p className="text-[17px] font-medium text-ink">
+            <p className="text-[15px] font-medium text-ink">
               {passed ? "Порог пройден." : `Меньше ${meta.floor} из 10 — попытка не засчитана.`}
             </p>
           </div>
@@ -545,7 +545,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                         <span className="num text-ink">{r.awarded}/{r.max} баллов</span>
                       )}
                     </p>
-                    {q && <p className="mt-2 text-[17px] leading-relaxed text-ink">{q.q}</p>}
+                    {q && <p className="mt-2 text-[15px] leading-relaxed text-ink">{q.q}</p>}
                     {(r.criteria?.length ?? 0) > 0 && (
                       <ul className="mt-4">
                         {r.criteria!.map((c, ci) => {
@@ -597,7 +597,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                 return (
                   <div key={m.q_idx}>
                     <p className="eyebrow">Вопрос {m.q_idx + 1}</p>
-                    <p className="mt-2 text-[17px] leading-relaxed text-ink">{q.q}</p>
+                    <p className="mt-2 text-[15px] leading-relaxed text-ink">{q.q}</p>
                     <ul className="mt-4">
                       {q.opts.map((opt, oi) => {
                         const right = oi === rightShown;
@@ -712,7 +712,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
               maxLength={4000}
               rows={8}
               placeholder="Твой ответ своими словами — рассуждение и цифры ценнее «правильных слов»…"
-              className="mt-6 w-full rounded-[6px] border border-line-2 bg-card p-4 text-[16px] leading-relaxed text-ink outline-none transition-colors placeholder:text-faint focus:border-accent"
+              className="mt-6 w-full rounded-[8px] border border-line-2 bg-card p-4 text-[16px] leading-relaxed text-ink outline-none transition-colors placeholder:text-faint focus:border-accent"
             />
             <p className="num mt-2 text-right text-[13px] text-faint">
               {typeof picked === "string" ? picked.length : 0} / 4000
@@ -734,7 +734,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                     setAnswers(nextAnswers);
                     persist(questions, nextAnswers, idx);
                   }}
-                  className={`btn-press flex min-h-[44px] w-full items-start gap-3 rounded-[6px] border px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors ${
+                  className={`btn-press flex min-h-[44px] w-full items-start gap-3 rounded-[8px] border px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors ${
                     selected ? "border-line-2 bg-subtle" : "border-line bg-transparent hover:bg-subtle"
                   }`}
                 >

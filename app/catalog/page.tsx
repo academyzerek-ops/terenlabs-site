@@ -94,8 +94,8 @@ export default async function CatalogPage({
       <section className="border-b border-line">
         <Container className="pb-8 pt-14 sm:pt-20">
           <p className="eyebrow">{s.eyebrow}</p>
-          <h1 className="mt-3 text-[36px] sm:text-[48px]">{s.title}</h1>
-          <p className="mt-4 max-w-[62ch] text-[17px] leading-relaxed text-text-2">{s.desc}</p>
+          <h1 className="mt-3 text-[24px] sm:text-[38px]">{s.title}</h1>
+          <p className="mt-4 max-w-[62ch] text-[15px] leading-relaxed text-text-2">{s.desc}</p>
           {/* кейсы двух потоков: своё дело и стартап */}
           {(t === "case" || t === "bm") && (
             <div className="mt-6 flex flex-wrap gap-2">
@@ -106,7 +106,7 @@ export default async function CatalogPage({
                 <Link
                   key={o.id}
                   href={`/catalog?type=${o.id}`}
-                  className={`flex h-8 items-center rounded-[6px] border px-3 text-[14px] transition-colors ${
+                  className={`flex h-8 items-center rounded-[8px] border px-3 text-[14px] transition-colors ${
                     t === o.id ? "border-line-2 bg-subtle text-ink" : "border-line text-text-2 hover:bg-subtle hover:text-ink"
                   }`}
                 >

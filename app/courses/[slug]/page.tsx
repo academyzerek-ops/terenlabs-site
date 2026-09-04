@@ -49,8 +49,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <span>{track.title}</span>
           </nav>
           <p className="eyebrow">Академия</p>
-          <h1 className="mt-4 max-w-[20ch] text-[36px] sm:text-[48px]">{track.title}</h1>
-          <p className="mt-4 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">{track.subtitle}</p>
+          <h1 className="mt-4 max-w-[20ch] text-[24px] sm:text-[38px]">{track.title}</h1>
+          <p className="mt-4 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">{track.subtitle}</p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href={`/learn/${track.slug}`} size="lg">
               Начать курс <Arrow />
@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       {/* Программа: уроки строками, главы списком с тонкими линиями */}
       <section>
         <Container className="py-14 sm:py-16">
-          <h2 className="text-[28px] sm:text-[32px]">Программа</h2>
+          <h2 className="text-[24px] sm:text-[32px]">Программа</h2>
           <div className="mt-8">
             {track.modules.map((m, mi) => {
               const cover = m.chapters.find((c) => c.img)?.img;
@@ -83,7 +83,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     )}
                     <p className="eyebrow">Урок {mi + 1}</p>
                     {/* дубль «Урок N» из названия модуля убираем — он уже в eyebrow */}
-                    <h3 className="mt-2 text-[22px]">
+                    <h3 className="mt-2 text-[20px]">
                       {m.title.replace(/^Урок\s*\d+\s*[·.\-—:]\s*/i, "")}
                     </h3>
                     <p className="num mt-1 text-[13px] text-faint">

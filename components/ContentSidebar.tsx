@@ -39,18 +39,18 @@ export function ContentSidebar({
         <Link href={backHref} className="link text-[13px]">
           <Arrow className="rotate-180" /> {backLabel}
         </Link>
-        <h2 className="mt-2 text-[18px]">{title}</h2>
+        <h2 className="mt-2 text-[16px]">{title}</h2>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Найти…"
           aria-label={`Поиск: ${title}`}
-          className="mt-3 h-10 w-full rounded-[6px] border border-line-2 bg-page px-3 text-[16px] text-body outline-none transition-colors placeholder:text-faint focus-visible:border-accent"
+          className="mt-3 h-10 w-full rounded-[8px] border border-line-2 bg-page px-3 text-[16px] text-body outline-none transition-colors placeholder:text-faint focus-visible:border-accent"
         />
         <button
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="btn-press mt-3 h-10 w-full rounded-[6px] border border-line-2 text-[14px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
+          className="btn-press mt-3 h-10 w-full rounded-[8px] border border-line-2 text-[14px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
         >
           {open ? "Скрыть список" : `Показать список (${items.length})`}
         </button>
@@ -75,7 +75,7 @@ export function ContentSidebar({
                   href={i.href}
                   onClick={() => setOpen(false)}
                   aria-current={active ? "page" : undefined}
-                  className={`flex items-start gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[14px] leading-snug transition-colors ${
+                  className={`flex items-start gap-2.5 rounded-[8px] px-2.5 py-2 text-left text-[14px] leading-snug transition-colors ${
                     active ? "bg-hover font-medium text-ink" : "text-text-2 hover:bg-hover hover:text-ink"
                   }`}
                 >

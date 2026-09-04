@@ -22,7 +22,7 @@ export default function Error({
         <button
           type="button"
           onClick={reset}
-          className="btn-press inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2]"
+          className="btn-press inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2]"
         >
           Попробовать снова
         </button>

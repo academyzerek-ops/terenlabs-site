@@ -36,7 +36,7 @@ export function Footer() {
     <footer className="border-t border-line bg-page text-body">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-4">
         <div>
-          <div className="text-[17px] font-semibold tracking-[-0.02em] text-ink">TerenLabs</div>
+          <div className="text-[15px] font-semibold tracking-[-0.02em] text-ink">TerenLabs</div>
           <p className="mt-3 max-w-[26ch] text-[14px] leading-relaxed text-text-2">
             Глубина анализа. Сила результата. Обучение и расчёты для предпринимателей.
           </p>

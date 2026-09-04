@@ -18,7 +18,7 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-2 text-[28px] sm:text-[34px]">{title}</h2>
+      <h2 className="mt-2 text-[24px] sm:text-[20px]">{title}</h2>
       {desc && <p className="mt-3 text-[16px] leading-relaxed text-text-2">{desc}</p>}
     </div>
   );

@@ -40,7 +40,7 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
         <Container className="pb-20">
           <div className="max-w-[560px] rounded-[8px] border border-dashed border-line-2 p-8">
             <p className="eyebrow">Уровень закрыт</p>
-            <h2 className="mt-3 text-[22px]">Откроется после предыдущего</h2>
+            <h2 className="mt-3 text-[20px]">Откроется после предыдущего</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-text-2">
               Уровни «Океан» проходятся по порядку, от Ракушки к Киту. Контент этого уровня готовится.
             </p>
@@ -171,10 +171,10 @@ function LevelHero({ lvl, cta }: { lvl: Level; cta?: { href: string; label: stri
               {lvl.archetype ? ` · ${lvl.archetype}` : ""}
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
-              <h1 className="text-[40px] sm:text-[56px]">{lvl.name}</h1>
+              <h1 className="text-[32px] sm:text-[40px]">{lvl.name}</h1>
               <LevelStatusChip levelKey={lvl.key} />
             </div>
-            <p className="mt-4 max-w-[60ch] text-[18px] leading-relaxed text-body">{lvl.metaphor ?? lvl.tagline}</p>
+            <p className="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-body">{lvl.metaphor ?? lvl.tagline}</p>
             {lvl.meaning && (
               <p className="mt-3 max-w-[60ch] text-[15px] leading-relaxed text-text-2">{lvl.meaning}</p>
             )}
@@ -208,7 +208,7 @@ function Block({
   return (
     <section>
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h2 className="text-[22px]">
+        <h2 className="text-[20px]">
           {title} <span className="num ml-1 text-[14px] font-normal text-faint">{count}</span>
         </h2>
         {hint && <p className="text-[13px] text-faint">{hint}</p>}

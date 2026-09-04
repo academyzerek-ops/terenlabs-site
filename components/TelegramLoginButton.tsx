@@ -10,7 +10,7 @@ export function TelegramLoginButton({ label = "Войти через Telegram" }
   return (
     <Link
       href="/auth/sign-in"
-      className="group inline-flex h-10 items-center gap-2.5 rounded-[6px] bg-accent-600 pl-3 pr-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2]"
+      className="group inline-flex h-10 items-center gap-2.5 rounded-[8px] bg-accent-600 pl-3 pr-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2]"
     >
       <span className="flex items-center justify-center">
         <svg viewBox="0 0 240 240" className="h-5 w-5" aria-hidden="true">

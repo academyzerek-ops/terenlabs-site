@@ -242,7 +242,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
                       {passed}/{total}
                     </span>
                   )}
-                  {cur && <span className="num text-[0.62rem] font-bold uppercase tracking-wide text-teal-600">ты здесь</span>}
+                  {cur && <span className="num text-[11px] font-medium text-orange">ты здесь</span>}
                 </Link>
               );
             })}
@@ -253,7 +253,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       {/* тесты текущего уровня — статус, балл, кулдаун; всё сдаётся на сайте */}
       {progress && tests.length > 0 && (
         <div className="mt-5">
-          <p className="num text-xs font-bold uppercase tracking-wider text-muted">
+          <p className="num text-[12px] font-medium text-text-2">
             Тесты уровня «{LEVEL_RU[lvl]}»
           </p>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -294,7 +294,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       {/* бейджи — ачивки, как в Mini App */}
       {badges && badges.length > 0 && (
         <div className="mt-5">
-          <p className="num text-xs font-bold uppercase tracking-wider text-muted">Знаки</p>
+          <p className="num text-[12px] font-medium text-text-2">Знаки</p>
           {/* крупнее: пилюли читались как мелочь (Адиль 18.07) */}
           <div className="mt-3 flex flex-wrap gap-3">
             {badges.map((b) => (
@@ -317,7 +317,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       {/* общий вывод TEREN-AI по накопленной статистике (тот же бэк, что Mini App) */}
       {aiSummary && (
         <div className="mt-5 rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-5">
-          <p className="num text-[0.68rem] font-bold uppercase tracking-wider text-teal-600">
+          <p className="num text-[11px] font-medium text-accent">
             TEREN-AI · твой портрет по статистике
           </p>
           <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-body">{aiSummary}</p>
@@ -327,7 +327,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       {/* последний разбор TEREN-AI — как в кабинете Mini App */}
       {reco?.text && (
         <div className="mt-5 rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-5">
-          <p className="num text-[0.68rem] font-bold uppercase tracking-wider text-teal-600">
+          <p className="num text-[11px] font-medium text-accent">
             Разбор TEREN-AI · {LEVEL_RU[reco.level] ?? reco.level}
             {reco.created_at ? ` · ${new Date(reco.created_at).toLocaleDateString("ru-RU")}` : ""}
           </p>
@@ -348,7 +348,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       {/* личная статистика — полноценный блок, не серая строчка (Адиль 18.07) */}
       {stats && stats.attempts > 0 && (
         <div className="mt-5">
-          <p className="num text-xs font-bold uppercase tracking-wider text-muted">Моя статистика</p>
+          <p className="num text-[12px] font-medium text-text-2">Моя статистика</p>
           {/* плашки по содержимому, цифры крупные (Адиль 18.07: «шрифт больше или уже») */}
           <div className="mt-3 flex flex-wrap gap-3">
             <StatCell label="попыток всего" value={String(stats.attempts)} />

@@ -5,17 +5,17 @@ type Variant = "primary" | "secondary" | "ghost";
 // Кнопки в духе Notion: прямоугольник 6px, чёрная основная, контурная
 // вторичная, текстовая третья. Без теней, свечений и роллов текста.
 const base =
-  "btn-press inline-flex items-center justify-center gap-2 rounded-[6px] font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50 whitespace-nowrap";
+  "btn-press inline-flex items-center justify-center gap-2 rounded-[8px] font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50 whitespace-nowrap";
 
 const sizes = {
-  sm: "h-8 px-3 text-[14px]",
-  md: "h-10 px-4 text-[15px]",
-  lg: "h-12 px-5 text-[15px]",
+  sm: "h-8 px-3 text-[13px]",
+  md: "h-9 px-4 text-[14px]",
+  lg: "h-11 px-5 text-[15px]",
 };
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent-600 text-[#fff] hover:bg-[#1b6fc2]",
-  secondary: "bg-transparent text-ink border border-line-2 hover:bg-subtle",
+  primary: "bg-accent-600 text-[#fff] hover:bg-[#1f74c9]",
+  secondary: "bg-subtle text-ink border border-line hover:bg-hover",
   ghost: "bg-transparent text-text-2 hover:bg-subtle hover:text-ink",
 };
 

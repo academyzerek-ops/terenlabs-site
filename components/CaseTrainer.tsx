@@ -11,7 +11,7 @@ const fmt = (n: number) => Math.round(n).toLocaleString("ru-RU").replace(/,/g, "
 type Log = { situation: string; choice: string; feedback: string; impact: number };
 
 const BTN_PRIMARY =
-  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[6px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
+  "btn-press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1b6fc2] disabled:cursor-default disabled:opacity-50";
 
 export function CaseTrainer() {
   const C = CASE_MARKETPLACE;
@@ -53,7 +53,7 @@ export function CaseTrainer() {
         <h1 className="mt-3 text-[32px] sm:text-[40px]">
           Капитал: <span className={`num ${win ? "text-ink" : "text-danger"}`}>{fmt(capital)} ₸</span>
         </h1>
-        <p className={`num mt-2 text-[18px] font-medium ${win ? "text-accent" : "text-danger"}`}>
+        <p className={`num mt-2 text-[16px] font-medium ${win ? "text-accent" : "text-danger"}`}>
           {delta >= 0 ? "+" : "−"}{fmt(Math.abs(delta))} ₸ к старту
         </p>
         <div className="mt-6 rounded-[8px] bg-subtle p-5 text-[15px] leading-relaxed text-body">
@@ -125,14 +125,14 @@ export function CaseTrainer() {
         </div>
       )}
 
-      <h1 className="mt-8 text-[22px] leading-snug sm:text-[26px]">{node.situation}</h1>
+      <h1 className="mt-8 text-[20px] leading-snug sm:text-[20px]">{node.situation}</h1>
 
       <div className="mt-7 flex flex-col gap-2">
         {node.options!.map((o, i) => (
           <button
             key={i}
             onClick={() => choose(i)}
-            className="btn-press group flex min-h-[44px] w-full items-start gap-3 rounded-[6px] border border-line px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors hover:border-line-2 hover:bg-subtle"
+            className="btn-press group flex min-h-[44px] w-full items-start gap-3 rounded-[8px] border border-line px-4 py-3 text-left text-[15px] leading-relaxed text-ink transition-colors hover:border-line-2 hover:bg-subtle"
           >
             <span className="num mt-0.5 w-5 shrink-0 text-[13px] text-faint">{String.fromCharCode(65 + i)}</span>
             <span className="flex-1">{o.label}</span>

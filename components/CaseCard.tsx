@@ -45,11 +45,11 @@ export function CaseCard({ p }: { p: CatalogItem }) {
         {/* заголовок витрины Mini App — с em-акцентом (оранжевый) */}
         {p.titleHtml ? (
           <h3
-            className="case-title-em mt-4 line-clamp-3 text-[18px] leading-snug [&_.em]:text-orange [&_.o]:text-orange"
+            className="case-title-em mt-4 line-clamp-3 text-[16px] leading-snug [&_.em]:text-orange [&_.o]:text-orange"
             dangerouslySetInnerHTML={{ __html: p.titleHtml }}
           />
         ) : (
-          <h3 className="mt-4 line-clamp-3 text-[18px] leading-snug">{p.title}</h3>
+          <h3 className="mt-4 line-clamp-3 text-[16px] leading-snug">{p.title}</h3>
         )}
 
         {/* выжимка кейса — из витрины Mini App */}

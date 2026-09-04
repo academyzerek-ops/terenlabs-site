@@ -62,8 +62,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               <span>{p.title}</span>
             </nav>
             <p className="eyebrow">Кейс-тренажёр · ветвление решений</p>
-            <h1 className="mt-4 max-w-[20ch] text-[36px] sm:text-[48px]">{p.title}</h1>
-            <p className="mt-4 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[18px]">
+            <h1 className="mt-4 max-w-[20ch] text-[24px] sm:text-[38px]">{p.title}</h1>
+            <p className="mt-4 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
               Каждое решение меняет твой капитал. Ошибки видны в деньгах — как в реальности.
             </p>
           </Container>
@@ -137,12 +137,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                   </p>
                 )}
 
-                <h1 className="text-[34px] sm:text-[44px] lg:text-[52px]">
+                <h1 className="text-[20px] sm:text-[44px] lg:text-[40px]">
                   <span className="case-title-html" dangerouslySetInnerHTML={{ __html: doc.titleHtml }} />
                 </h1>
 
                 {doc.sub && (
-                  <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-text-2 sm:text-[19px]">
+                  <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[19px]">
                     {doc.sub}
                   </p>
                 )}
@@ -174,7 +174,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <section className="border-t border-line bg-subtle py-16">
             <Container>
               <div className="mx-auto max-w-[800px]">
-                <h2 className="text-[24px] sm:text-[28px]">Дальше читать</h2>
+                <h2 className="text-[22px] sm:text-[24px]">Дальше читать</h2>
                 <div className="mt-6">
                   {related(doc.slug).map((r) => {
                     const rt = kindTone(r.kind);
@@ -186,7 +186,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                       >
                         <div className="min-w-0">
                           <span className="tag" style={{ background: rt.bg, color: rt.ink }}>{r.kind}</span>
-                          <h3 className="mt-2 text-[17px] leading-snug">{r.title}</h3>
+                          <h3 className="mt-2 text-[15px] leading-snug">{r.title}</h3>
                         </div>
                         <span className="link shrink-0 text-[14px]">
                           Читать <Arrow />
@@ -199,7 +199,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
                 <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-[8px] border border-line bg-card p-6 sm:flex-row sm:items-center sm:p-8">
                   <div>
-                    <h3 className="text-[20px] sm:text-[22px]">Чужая ошибка разобрана. Своя — посчитана?</h3>
+                    <h3 className="text-[20px] sm:text-[20px]">Чужая ошибка разобрана. Своя — посчитана?</h3>
                     <p className="mt-2 max-w-[52ch] text-[14px] leading-relaxed text-text-2">
                       Инструмент расчета риска покажет твою точку безубыточности до того, как ты вложишься.
                     </p>

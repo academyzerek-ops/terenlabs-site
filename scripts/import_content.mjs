@@ -124,6 +124,38 @@ for (const [key, t] of Object.entries(ACADEMY_DATA)) {
   });
   academy.push({ key, slug: conf.slug, topic: conf.topic, folder, title: t.title, subtitle: t.subtitle, chapterTotal, modules });
 }
+// Дополнительные треки из vault-репо: папка с _track.json (сборщик build_academy.py, cfg.manifest).
+// Сейчас это «От идеи до инвестиций» (startup) для хаба «Стартап».
+const EXTRA_SRC = process.env.TL_EXTRA_SRC || "/Users/adil/TerenLabs/frontend";
+const EXTRA_TRACKS = { startup: { slug: "course-startup", topic: "Стартап", hub: "startup" } };
+for (const [key, conf] of Object.entries(EXTRA_TRACKS)) {
+  const dir = path.join(EXTRA_SRC, "content/ru/academy", key);
+  const manifestPath = path.join(dir, "_track.json");
+  if (!fs.existsSync(manifestPath)) { console.warn("нет манифеста трека:", manifestPath); continue; }
+  const t = JSON.parse(read(manifestPath));
+  const folder = t.folder || key;
+  let chapterTotal = 0;
+  const modules = t.modules.map((m) => {
+    const chapters = m.chapters.map((title, ci) => {
+      const file = `m${m.n}-ch${String(ci + 1).padStart(2, "0")}`;
+      const srcFile = path.join(dir, file + ".html");
+      if (!fs.existsSync(srcFile)) { report.missingChapters.push(`${folder}/${file}`); return { title, file, missing: true }; }
+      const hero = path.join(EXTRA_SRC, "_assets/academy_hero", folder, file + ".webp");
+      const hasHero = fs.existsSync(hero);
+      let html = markNextup(transformEmbedded(read(srcFile)));
+      // без обложки главы картинку не показываем, чтобы не было битого img
+      if (!hasHero) html = html.replace(/<img class="les-hero-img"[^>]*>\s*/, "");
+      else { fs.mkdirSync(path.join(SITE, "public/academy-assets/hero", folder), { recursive: true }); fs.copyFileSync(hero, path.join(SITE, "public/academy-assets/hero", folder, file + ".webp")); }
+      write(path.join(SITE, "public/academy", folder, file + ".html"),
+        html.replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>'));
+      chapterTotal++;
+      if (!hasHero) report.missingHero.push(`${folder}/${file}`);
+      return { title, file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp` : null };
+    });
+    return { id: `m${m.n}`, title: m.name, chapters };
+  });
+  academy.push({ key, slug: conf.slug, topic: conf.topic, hub: conf.hub, folder, title: t.title, subtitle: t.subtitle, chapterTotal, modules });
+}
 write(path.join(SITE, "content/academy.json"), JSON.stringify(academy, null, 1));
 report.counts.tracks = academy.length;
 report.counts.chapters = academy.reduce((s, a) => s + a.chapterTotal, 0);

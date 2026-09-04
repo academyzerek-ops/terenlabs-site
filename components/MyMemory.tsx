@@ -46,7 +46,7 @@ export function MyMemory() {
       {hasCourses && (
       <section className="mt-14">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-          <h2 className="text-[22px]">Продолжить обучение</h2>
+          <h2 className="text-[20px]">Продолжить обучение</h2>
           <div className="flex flex-wrap gap-2">
             <Chip
               value={String(progress.length)}
@@ -82,7 +82,7 @@ export function MyMemory() {
                       <p className="eyebrow">
                         глава {c.idx + 1} из {c.total}
                       </p>
-                      <h3 className="mt-1 truncate text-[17px]">{c.title}</h3>
+                      <h3 className="mt-1 truncate text-[15px]">{c.title}</h3>
                       <p className="mt-1 truncate text-[13px] text-text-2">Сейчас: {c.stepTitle}</p>
                       <span className="link mt-2 inline-flex text-[14px]">Продолжить</span>
                     </div>
@@ -98,7 +98,7 @@ export function MyMemory() {
       {hasAttempts && (
       <section className="mt-14">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-          <h2 className="text-[22px]">Мои попытки</h2>
+          <h2 className="text-[20px]">Мои попытки</h2>
           {!hasCourses && (
             <div className="flex flex-wrap gap-2">
               {avg !== null && <Chip value={`${avg}%`} label="средний балл" />}
@@ -139,7 +139,7 @@ export function MyMemory() {
 // компактная метрика в шапке секции: «2 · курса в процессе»
 function Chip({ value, label }: { value: string; label: string }) {
   return (
-    <span className="flex items-baseline gap-1.5 rounded-[6px] border border-line px-3 py-1.5 text-[12px] text-text-2">
+    <span className="flex items-baseline gap-1.5 rounded-[8px] border border-line px-3 py-1.5 text-[12px] text-text-2">
       <span className="num text-[14px] font-medium text-ink">{value}</span>
       {label}
     </span>

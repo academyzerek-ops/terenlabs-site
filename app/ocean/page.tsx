@@ -22,8 +22,8 @@ export default function OceanPage() {
             <span>Рейтинг</span>
           </nav>
           <p className="eyebrow">Живая таблица мест</p>
-          <h1 className="mt-3 text-[36px] sm:text-[48px]">Рейтинг «Океан»</h1>
-          <p className="mt-4 max-w-[62ch] text-[17px] leading-relaxed text-text-2">
+          <h1 className="mt-3 text-[24px] sm:text-[38px]">Рейтинг «Океан»</h1>
+          <p className="mt-4 max-w-[62ch] text-[15px] leading-relaxed text-text-2">
             Место в стае зарабатывают решениями: точность ответов, помноженная на скорость
             мысли. Сравнивай себя по всему Казахстану, со своими земляками по области и
             внутри своего уровня.
@@ -40,7 +40,7 @@ export default function OceanPage() {
       <section className="border-t border-line">
         <Container className="py-16">
           <p className="eyebrow">Механика</p>
-          <h2 className="mt-3 text-[28px]">Как считается место</h2>
+          <h2 className="mt-3 text-[24px]">Как считается место</h2>
           <div className="mt-6 max-w-[860px]">
             {[
               ["Очки места", "Средний балл попыток умножается на коэффициент темпа: чем быстрее верные ответы, тем выше очки. Отвечать наугад быстрее 5 секунд бессмысленно, антифрод-пол выравнивает спринтеров."],

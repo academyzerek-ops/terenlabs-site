@@ -47,13 +47,13 @@ export default function Home() {
     <>
       {/* ============ HERO ============ */}
       <section>
-        <Container className="grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-stretch lg:py-28">
+        <Container className="grid gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:py-20">
           <div className="flex flex-col gap-7">
             <p className="eyebrow">Обучение бизнесу · Казахстан</p>
-            <h1 className="max-w-[18ch] text-[40px] sm:text-[56px] lg:text-[64px]">
+            <h1 className="max-w-[18ch] text-[32px] sm:text-[40px] lg:text-[44px]">
               Единственная платформа обучения бизнесу в Казахстане
             </h1>
-            <p className="max-w-[56ch] text-[18px] leading-relaxed text-text-2 sm:text-[20px]">
+            <p className="max-w-[56ch] text-[16px] leading-relaxed text-text-2 sm:text-[17px]">
               Говорим о рисках и реальности, а не про «успешный успех». Видишь, где потеряешь
               деньги и время, до того как вложишься.
             </p>
@@ -67,11 +67,11 @@ export default function Home() {
             </div>
           </div>
 
-          {/* манифест: верх вровень с меткой hero, низ с кнопкой; цитата внизу карточки */}
-          <div className="flex flex-col gap-8 rounded-[8px] border border-line bg-subtle p-6">
+          {/* манифест: компактная панель, верх вровень с меткой hero */}
+          <div className="flex flex-col gap-5 rounded-[12px] bg-subtle p-6">
             <p className="eyebrow">Манифест</p>
-            <div className="my-auto">
-              <p className="text-[22px] font-semibold leading-snug text-ink">
+            <div>
+              <p className="text-[20px] font-semibold leading-snug text-ink">
                 «Лучше отговорить тебя от плохой идеи, чем продать надежду»
               </p>
               <p className="mt-4 text-[14px] leading-relaxed text-text-2">
@@ -144,7 +144,7 @@ export default function Home() {
       <section>
         <Container className="py-20">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
-            <h2 className="text-[30px] sm:text-[36px]">Учим бизнесу целиком</h2>
+            <h2 className="text-[22px] sm:text-[24px]">Учим бизнесу целиком</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
               <em className="italic text-body">Тебя готовили к контрольным, а не к кассовым разрывам.</em>{" "}
               Здесь три шага: понять, проверить себя, посчитать своё.
@@ -173,7 +173,7 @@ export default function Home() {
       <section className="border-y border-line bg-subtle">
         <Container className="py-20">
           <div className="max-w-[60ch]">
-            <h2 className="text-[30px] sm:text-[36px]">5 наставлений, без которых бизнес-план опасен</h2>
+            <h2 className="text-[22px] sm:text-[24px]">5 наставлений, без которых бизнес-план опасен</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-text-2">
               То, о чём молчат инфобизнесмены. Каждый пункт проходит через модули, кейсы и тесты.
             </p>
@@ -185,7 +185,7 @@ export default function Home() {
                 className="grid gap-2 border-t border-line py-5 sm:grid-cols-[56px_220px_minmax(0,1fr)] sm:gap-6"
               >
                 <span className="num text-[13px] text-faint">{n}</span>
-                <h3 className="text-[18px]">{t}</h3>
+                <h3 className="text-[16px]">{t}</h3>
                 <p className="max-w-[64ch] text-[15px] leading-relaxed text-text-2">{d}</p>
               </div>
             ))}
@@ -202,13 +202,13 @@ export default function Home() {
           <div className="grid gap-12 rounded-[10px] border border-line bg-subtle p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-8">
             <p className="eyebrow">Стартап · бизнес-модели</p>
-            <h2 className="text-[28px] sm:text-[32px]">Откуда бабки у больших</h2>
+            <h2 className="text-[22px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Механика заработка, структура выручки и развилка, за которую заплатили. Каждая цифра с
               источником.
             </p>
             <div className="mt-2 self-start">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 pb-2 text-[12px] font-medium text-text-2">
                 <span>Разбор</span><span className="text-right">Модель</span>
               </div>
               {BRANDS.filter((b) => !b.stub).slice(0, 5).map((b) => (
@@ -226,7 +226,7 @@ export default function Home() {
 
           <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-8">
             <p className="eyebrow">Океан · рейтинг</p>
-            <h2 className="text-[28px] sm:text-[32px]">В океане уже идёт гонка</h2>
+            <h2 className="text-[22px] sm:text-[24px]">В океане уже идёт гонка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Место зарабатывают решениями: точность ответов, помноженная на скорость мысли.
             </p>
