@@ -19,6 +19,8 @@ import { execFileSync } from "node:child_process";
 const SRC = process.env.TL_SRC || "/Users/adil/TerenLabs-zerek/frontend";
 const SITE = path.resolve(import.meta.dirname, "..");
 
+// Версия картинок: обложки перекрашены 09.2026, кэш браузера надо сбить
+const IMG_V = "v=7";
 const report = { missingChapters: [], missingHero: [], unknownAssets: new Set(), counts: {} };
 
 // ---------- утилиты ----------
@@ -48,6 +50,7 @@ function transformEmbedded(html, { keepLocalScripts = false } = {}) {
   out = out.replace(/src="(\.\.\/)+design-system\//g, 'src="/academy-assets/');
   out = out.replace(/src="\/frontend\/_assets\/academy_hero\//g, 'src="/academy-assets/hero/');
   out = out.replace(/src="(\.\.\/)+_assets\/niche_hero\//g, 'src="/academy-assets/niche_hero/');
+  out = out.replace(/(\/academy-assets\/(?:hero|niche_hero|cases_hero)\/[^"?]+\.webp)"/g, `$1?${IMG_V}"`);
   // карточки «Реальный кейс» в главах: относительная ссылка Mini App → страница кейса
   // на сайте; window.top — глава живёт в iframe плеера курса
   out = out.replace(/location\.href='(\.\.\/)+cases\/(case-\d+)\.html'/g, "window.top.location.href='/cases/$2'");
@@ -118,7 +121,7 @@ for (const [key, t] of Object.entries(ACADEMY_DATA)) {
       const hero = path.join(SRC, "_assets/academy_hero", folder, file + ".webp");
       const hasHero = fs.existsSync(hero);
       if (!hasHero) report.missingHero.push(`${folder}/${file}`);
-      return { title, file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp` : null };
+      return { title, file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
     });
     return { id: `m${mi + 1}`, title: m.name, chapters };
   });
@@ -150,7 +153,7 @@ for (const [key, conf] of Object.entries(EXTRA_TRACKS)) {
         html.replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>'));
       chapterTotal++;
       if (!hasHero) report.missingHero.push(`${folder}/${file}`);
-      return { title, file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp` : null };
+      return { title, file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
     });
     return { id: `m${m.n}`, title: m.name, chapters };
   });
@@ -161,10 +164,14 @@ report.counts.tracks = academy.length;
 report.counts.chapters = academy.reduce((s, a) => s + a.chapterTotal, 0);
 
 // дизайн-система и hero-картинки
-fs.cpSync(path.join(SRC, "design-system"), path.join(SITE, "public/academy-assets"), { recursive: true });
-fs.cpSync(path.join(SRC, "_assets/academy_hero"), path.join(SITE, "public/academy-assets/hero"), { recursive: true });
-fs.cpSync(path.join(SRC, "_assets/niche_hero"), path.join(SITE, "public/academy-assets/niche_hero"), { recursive: true });
-fs.cpSync(path.join(SRC, "_assets/cases_hero"), path.join(SITE, "public/academy-assets/cases_hero"), { recursive: true });
+// design-system: только недостающие файлы, lessons.css несёт локальную тёмную тему (не затирать)
+fs.cpSync(path.join(SRC, "design-system"), path.join(SITE, "public/academy-assets"), { recursive: true, force: false, errorOnExist: false });
+// Обложки: копируем только отсутствующие файлы. В ветке minimal обложки перекрашены под тёмную тему
+// (Nano Banana, 09.2026), и оригиналы из основного дерева не должны их затирать.
+const keepExisting = { recursive: true, force: false, errorOnExist: false };
+fs.cpSync(path.join(SRC, "_assets/academy_hero"), path.join(SITE, "public/academy-assets/hero"), keepExisting);
+fs.cpSync(path.join(SRC, "_assets/niche_hero"), path.join(SITE, "public/academy-assets/niche_hero"), keepExisting);
+fs.cpSync(path.join(SRC, "_assets/cases_hero"), path.join(SITE, "public/academy-assets/cases_hero"), keepExisting);
 
 // ---------- 2. КЕЙСЫ ----------
 const casesDir = path.join(SRC, "content/ru/cases");
@@ -204,7 +211,7 @@ for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort
   const badge = pick(/<span class="hdr-badge">([^<]*)<\/span>/); // «Кейс · Провал»
   const mod = pick(/<span class="hdr-mod">([^<]*)<\/span>/); // «Кофейня · Уральск»
   const ico = pick(/<span class="hero-ico">([^<]*)<\/span>/) || prevIco[slug] || "";
-  const image = `/academy-assets/cases_hero/${slug}.webp?v=1`;
+  const image = `/academy-assets/cases_hero/${slug}.webp?${IMG_V}`;
   const titleHtml = pick(/<h1>([\s\S]*?)<\/h1>/);
   const title = titleHtml.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
   const sub = pick(/<p class="hero-sub">([\s\S]*?)<\/p>/)

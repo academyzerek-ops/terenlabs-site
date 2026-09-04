@@ -742,20 +742,23 @@ html.js-reveal .c,html.js-reveal .vs,html.js-reveal .tl,html.js-reveal .ins,html
    ============================================================ */
 :root, :root.dark {
   --les-bg:#191919;
-  --les-surface:#212121;
-  --les-surface-2:#2a2a2a;
-  --les-border:#303030;
-  --les-border-2:#2a2a2a;
-  --les-text:#ffffff;
-  --les-text-2:#e0e0e0;
-  --les-text-3:#a6a6a6;
-  --les-aqua:#529cca;
-  --les-aqua-deep:#2383e2;
-  --les-aqua-soft:rgba(35,131,226,0.14);
+  --les-surface:rgba(255,255,255,0.05);
+  --les-surface-2:rgba(255,255,255,0.085);
+  --les-border:rgba(255,255,235,0.10);
+  --les-border-2:rgba(255,255,235,0.16);
+  --les-text:#f0efed;
+  --les-text-2:#d3d1cd;
+  --les-text-3:#ada9a3;
+  --les-aqua:#3d92e3;
+  --les-aqua-deep:#2783de;
+  --les-aqua-soft:rgba(39,131,222,0.14);
   --les-aqua-glow:transparent;
-  --les-accent:#529cca;
+  --les-accent:#3d92e3;
 }
-:root.dark a, :root.dark a:visited, a, a:visited { color:#ffffff; text-decoration-color:#529cca; }
-:root.dark a:hover, a:hover { color:#529cca; }
+:root.dark a, :root.dark a:visited, a, a:visited { color:#f0efed; text-decoration-color:#3d92e3; }
+:root.dark a:hover, a:hover { color:#3d92e3; }
 .sh-n, .tldr-k, .cta-price { color:#f0873a; opacity:1; }
 .page, body { background:#191919; }
+/* Заголовки читалки: тот же гротеск, что на сайте (Inter в родителе, системный в iframe) */
+h1, h2, h3, .hero h1 { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif; font-weight: 600; letter-spacing: -0.015em; }
+.hero h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; }

@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
 import { RankSketch } from "@/components/RankSketch";
-import { BRANDS } from "@/lib/content";
+import { BRANDS, plural } from "@/lib/content";
+import { ACADEMY } from "@/lib/learn";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -34,6 +35,9 @@ const MODELS = [
 
 export default function StartupPage() {
   const brands = BRANDS.filter((b) => !b.stub);
+  // трек «От идеи до инвестиций» из Академии: собранные уроки открыты, остальные помечены
+  const track = ACADEMY.find((t) => t.slug === "course-startup");
+  const built = new Map((track?.modules ?? []).map((m) => [m.id, m]));
 
   return (
     <>
@@ -62,20 +66,45 @@ export default function StartupPage() {
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
             <h2 className="text-[24px] sm:text-[20px]">Трек «От идеи до инвестиций»</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
-              Шесть уроков по цепочке настоящего проекта. Трек готовится, программа уже
-              зафиксирована, разборы брендов открыты как практика к третьему уроку.
+              Шесть уроков по цепочке настоящего проекта: от команды до условий сделки с
+              инвестором. Разборы брендов открыты как практика к третьему уроку.
             </p>
           </div>
           <div className="mt-8">
-            {PROGRAM.map(([n, t, d]) => (
-              <div key={n} className="grid gap-2 border-t border-line py-5 sm:grid-cols-[56px_260px_minmax(0,1fr)_100px] sm:items-baseline sm:gap-6">
-                <span className="num text-[13px] text-faint">{n}</span>
-                <h3 className="text-[16px]">{t}</h3>
-                <p className="max-w-[60ch] text-[15px] leading-relaxed text-text-2">{d}</p>
-                <span className="tag sm:justify-self-end">{n === "03" ? "практика открыта" : "готовится"}</span>
-              </div>
-            ))}
-            <div className="border-t border-line" />
+            {PROGRAM.map(([n, t, d]) => {
+              const m = built.get(`m${Number(n)}`);
+              const ready = !!m && m.chapters.some((c) => !c.missing);
+              const first = m?.chapters.find((c) => !c.missing);
+              const cls = "grid gap-2 border-t border-line py-5 sm:grid-cols-[56px_260px_minmax(0,1fr)_100px] sm:items-baseline sm:gap-6";
+              const row = (
+                <>
+                  <span className="num text-[13px] text-faint">{n}</span>
+                  <h3 className="text-[16px]">{t}</h3>
+                  <p className="max-w-[60ch] text-[14px] leading-relaxed text-text-2">{d}</p>
+                  {ready && m ? (
+                    <span className="num text-[13px] text-text-2 sm:justify-self-end">
+                      {m.chapters.length} {plural(m.chapters.length, "глава", "главы", "глав")}
+                    </span>
+                  ) : (
+                    <span className="tag sm:justify-self-end">готовится</span>
+                  )}
+                </>
+              );
+              return ready && first ? (
+                <Link key={n} href={`/learn/course-startup?ch=${first.file}`} className={`${cls} transition-colors hover:bg-subtle`}>
+                  {row}
+                </Link>
+              ) : (
+                <div key={n} className={cls}>{row}</div>
+              );
+            })}
+            <div className="border-t border-line pt-4">
+              {track && (
+                <Link href={`/courses/${track.slug}`} className="link text-[14px]">
+                  Программа и главы трека <Arrow />
+                </Link>
+              )}
+            </div>
           </div>
         </Container>
       </section>
