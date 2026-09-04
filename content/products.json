@@ -9,7 +9,7 @@
   "blurb": "Прибыль и риски на 36 месяцев вперёд: профессиональная финмодель с подсвеченными рисками. Excel-файл + аналитический отчёт.",
   "price": "Бесплатно",
   "badge": "Интерактив",
-  "img": "/academy-assets/niche_hero/coffee.webp?v=5"
+  "img": "/academy-assets/niche_hero/coffee.webp?v=6"
  },
  {
   "type": "finmodel",
@@ -20,7 +20,7 @@
   "title": "Бизнес-план · Грант 400 МРП",
   "blurb": "Официальный бланк «Бастау Бизнес», заполненный вашими данными, с консервативным финансовым прогнозом",
   "price": "Бесплатно",
-  "img": "/lessons/arch_m5-ch01_five-step-staircase.jpg?v=3"
+  "img": "/lessons/arch_m5-ch01_five-step-staircase.jpg?v=4"
  },
  {
   "type": "finmodel",
@@ -31,7 +31,7 @@
   "title": "Бизнес-план · Грант ССП до 5 млн ₸",
   "blurb": "Бланк + помесячная финмодель Excel",
   "price": "Бесплатно",
-  "img": "/lessons/fund_m5-ch05_coin-mountain.jpg?v=3"
+  "img": "/lessons/fund_m5-ch05_coin-mountain.jpg?v=4"
  },
  {
   "type": "finmodel",
@@ -42,7 +42,7 @@
   "title": "Управленческий учёт",
   "blurb": "Готовые шаблоны Google Таблиц бесплатно: получаешь доступ по почте → делаешь свою копию и работаешь в ней",
   "stub": true,
-  "img": "/academy-assets/niche_hero/accounting.webp?v=5"
+  "img": "/academy-assets/niche_hero/accounting.webp?v=6"
  },
  {
   "type": "finmodel",
@@ -53,7 +53,7 @@
   "title": "Индивидуальная финмодель",
   "blurb": "Под уникальный проект · по заявке, цена зависит от объёма",
   "price": "от 100 $",
-  "img": "/lessons/arch_m1-ch00_chessboard-ocean.jpg?v=3"
+  "img": "/lessons/arch_m1-ch00_chessboard-ocean.jpg?v=4"
  },
  {
   "type": "test",
@@ -468,7 +468,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/fundament/m1-ch00.webp?v=3"
+  "img": "/academy-assets/hero/fundament/m1-ch00.webp?v=4"
  },
  {
   "type": "course",
@@ -484,7 +484,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/architect/m1-ch00.webp?v=3"
+  "img": "/academy-assets/hero/architect/m1-ch00.webp?v=4"
  },
  {
   "type": "course",
@@ -500,7 +500,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/management/m1-ch01.webp?v=3"
+  "img": "/academy-assets/hero/management/m1-ch01.webp?v=4"
  },
  {
   "type": "course",
@@ -516,7 +516,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/marketing/m1-ch01.webp?v=3"
+  "img": "/academy-assets/hero/marketing/m1-ch01.webp?v=4"
  },
  {
   "type": "course",
@@ -532,7 +532,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/finance/m1-ch01.webp?v=3"
+  "img": "/academy-assets/hero/finance/m1-ch01.webp?v=4"
  },
  {
   "type": "course",
@@ -548,7 +548,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/legal/m1-ch01.webp?v=3"
+  "img": "/academy-assets/hero/legal/m1-ch01.webp?v=4"
  },
  {
   "type": "course",
@@ -564,7 +564,7 @@
    "label": "глава"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/models/m1-ch01.webp?v=3"
+  "img": "/academy-assets/hero/models/m1-ch01.webp?v=4"
  },
  {
   "type": "case",
@@ -580,7 +580,7 @@
   "tag": "y",
   "loc": "🇷🇺 RU",
   "ico": "🧹",
-  "img": "/academy-assets/cases_hero/case-002.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-002.webp?v=4"
  },
  {
   "type": "case",
@@ -596,7 +596,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "☕",
-  "img": "/academy-assets/cases_hero/case-001.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-001.webp?v=4"
  },
  {
   "type": "case",
@@ -612,7 +612,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "🦸",
-  "img": "/academy-assets/cases_hero/case-018.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-018.webp?v=4"
  },
  {
   "type": "case",
@@ -628,7 +628,7 @@
   "tag": "y",
   "loc": "🇬🇧 UK",
   "ico": "🥬",
-  "img": "/academy-assets/cases_hero/case-025.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-025.webp?v=4"
  },
  {
   "type": "case",
@@ -644,7 +644,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🏗️",
-  "img": "/academy-assets/cases_hero/case-007.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-007.webp?v=4"
  },
  {
   "type": "case",
@@ -660,7 +660,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🏠",
-  "img": "/academy-assets/cases_hero/case-003.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-003.webp?v=4"
  },
  {
   "type": "case",
@@ -676,7 +676,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🩹",
-  "img": "/academy-assets/cases_hero/case-041.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-041.webp?v=4"
  },
  {
   "type": "case",
@@ -692,7 +692,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🛒",
-  "img": "/academy-assets/cases_hero/case-014.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-014.webp?v=4"
  },
  {
   "type": "case",
@@ -708,7 +708,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "📱",
-  "img": "/academy-assets/cases_hero/case-004.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-004.webp?v=4"
  },
  {
   "type": "case",
@@ -724,7 +724,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "🚔",
-  "img": "/academy-assets/cases_hero/case-019.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-019.webp?v=4"
  },
  {
   "type": "case",
@@ -740,7 +740,7 @@
   "tag": "r",
   "loc": "🇪🇸 ES",
   "ico": "🪙",
-  "img": "/academy-assets/cases_hero/case-022.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-022.webp?v=4"
  },
  {
   "type": "case",
@@ -756,7 +756,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🌯",
-  "img": "/academy-assets/cases_hero/case-005.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-005.webp?v=4"
  },
  {
   "type": "case",
@@ -772,7 +772,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "👕",
-  "img": "/academy-assets/cases_hero/case-021.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-021.webp?v=4"
  },
  {
   "type": "case",
@@ -788,7 +788,7 @@
   "tag": "r",
   "loc": "🇷🇴 RO",
   "ico": "📉",
-  "img": "/academy-assets/cases_hero/case-023.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-023.webp?v=4"
  },
  {
   "type": "case",
@@ -804,7 +804,7 @@
   "tag": "g",
   "loc": "🇯🇵 JP",
   "ico": "🥖",
-  "img": "/academy-assets/cases_hero/case-042.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-042.webp?v=4"
  },
  {
   "type": "case",
@@ -820,7 +820,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "📦",
-  "img": "/academy-assets/cases_hero/case-006.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-006.webp?v=4"
  },
  {
   "type": "case",
@@ -836,7 +836,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "💅",
-  "img": "/academy-assets/cases_hero/case-024.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-024.webp?v=4"
  },
  {
   "type": "case",
@@ -852,7 +852,7 @@
   "tag": "y",
   "loc": "🇷🇺 RU",
   "ico": "🧀",
-  "img": "/academy-assets/cases_hero/case-020.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-020.webp?v=4"
  },
  {
   "type": "case",
@@ -868,7 +868,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🥬",
-  "img": "/academy-assets/cases_hero/case-008.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-008.webp?v=4"
  },
  {
   "type": "case",
@@ -884,7 +884,7 @@
   "tag": "r",
   "loc": "🇫🇷 FR",
   "ico": "🔥",
-  "img": "/academy-assets/cases_hero/case-029.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-029.webp?v=4"
  },
  {
   "type": "case",
@@ -900,7 +900,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "📦",
-  "img": "/academy-assets/cases_hero/case-043.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-043.webp?v=4"
  },
  {
   "type": "case",
@@ -916,7 +916,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🍉",
-  "img": "/academy-assets/cases_hero/case-009.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-009.webp?v=4"
  },
  {
   "type": "case",
@@ -932,7 +932,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "💻",
-  "img": "/academy-assets/cases_hero/case-026.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-026.webp?v=4"
  },
  {
   "type": "case",
@@ -948,7 +948,7 @@
   "tag": "g",
   "loc": "🇻🇳 VN",
   "ico": "💻",
-  "img": "/academy-assets/cases_hero/case-045.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-045.webp?v=4"
  },
  {
   "type": "case",
@@ -964,7 +964,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "💿",
-  "img": "/academy-assets/cases_hero/case-010.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-010.webp?v=4"
  },
  {
   "type": "case",
@@ -980,7 +980,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "📦",
-  "img": "/academy-assets/cases_hero/case-027.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-027.webp?v=4"
  },
  {
   "type": "case",
@@ -996,7 +996,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🐝",
-  "img": "/academy-assets/cases_hero/case-044.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-044.webp?v=4"
  },
  {
   "type": "case",
@@ -1012,7 +1012,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🧱",
-  "img": "/academy-assets/cases_hero/case-011.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-011.webp?v=4"
  },
  {
   "type": "case",
@@ -1028,7 +1028,7 @@
   "tag": "g",
   "loc": "🇮🇩 ID",
   "ico": "✍️",
-  "img": "/academy-assets/cases_hero/case-048.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-048.webp?v=4"
  },
  {
   "type": "case",
@@ -1044,7 +1044,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🚛",
-  "img": "/academy-assets/cases_hero/case-028.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-028.webp?v=4"
  },
  {
   "type": "case",
@@ -1060,7 +1060,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🛣️",
-  "img": "/academy-assets/cases_hero/case-013.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-013.webp?v=4"
  },
  {
   "type": "case",
@@ -1076,7 +1076,7 @@
   "tag": "g",
   "loc": "🇮🇹 IT",
   "ico": "🏛️",
-  "img": "/academy-assets/cases_hero/case-051.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-051.webp?v=4"
  },
  {
   "type": "case",
@@ -1092,7 +1092,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "🛡️",
-  "img": "/academy-assets/cases_hero/case-030.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-030.webp?v=4"
  },
  {
   "type": "case",
@@ -1108,7 +1108,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🚛",
-  "img": "/academy-assets/cases_hero/case-015.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-015.webp?v=4"
  },
  {
   "type": "case",
@@ -1124,7 +1124,7 @@
   "tag": "y",
   "loc": "🇸🇬 SG",
   "ico": "🎨",
-  "img": "/academy-assets/cases_hero/case-056.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-056.webp?v=4"
  },
  {
   "type": "case",
@@ -1140,7 +1140,7 @@
   "tag": "r",
   "loc": "🇮🇳 IN",
   "ico": "🛵",
-  "img": "/academy-assets/cases_hero/case-031.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-031.webp?v=4"
  },
  {
   "type": "case",
@@ -1156,7 +1156,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "⚡",
-  "img": "/academy-assets/cases_hero/case-016.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-016.webp?v=4"
  },
  {
   "type": "case",
@@ -1172,7 +1172,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🎨",
-  "img": "/academy-assets/cases_hero/case-046.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-046.webp?v=4"
  },
  {
   "type": "case",
@@ -1188,7 +1188,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "📮",
-  "img": "/academy-assets/cases_hero/case-033.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-033.webp?v=4"
  },
  {
   "type": "case",
@@ -1204,7 +1204,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🍽️",
-  "img": "/academy-assets/cases_hero/case-017.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-017.webp?v=4"
  },
  {
   "type": "case",
@@ -1220,7 +1220,7 @@
   "tag": "g",
   "loc": "🇮🇩 ID",
   "ico": "🧥",
-  "img": "/academy-assets/cases_hero/case-049.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-049.webp?v=4"
  },
  {
   "type": "case",
@@ -1236,7 +1236,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "✍️",
-  "img": "/academy-assets/cases_hero/case-032.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-032.webp?v=4"
  },
  {
   "type": "case",
@@ -1252,7 +1252,7 @@
   "tag": "y",
   "loc": "🇰🇿 KZ",
   "ico": "🍾",
-  "img": "/academy-assets/cases_hero/case-012.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-012.webp?v=4"
  },
  {
   "type": "case",
@@ -1268,7 +1268,7 @@
   "tag": "r",
   "loc": "🇮🇳 IN",
   "ico": "🏠",
-  "img": "/academy-assets/cases_hero/case-036.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-036.webp?v=4"
  },
  {
   "type": "case",
@@ -1284,7 +1284,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "🏫",
-  "img": "/academy-assets/cases_hero/case-034.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-034.webp?v=4"
  },
  {
   "type": "case",
@@ -1300,7 +1300,7 @@
   "tag": "y",
   "loc": "🇰🇿 KZ",
   "ico": "🍜",
-  "img": "/academy-assets/cases_hero/case-057.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-057.webp?v=4"
  },
  {
   "type": "case",
@@ -1316,7 +1316,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🥪",
-  "img": "/academy-assets/cases_hero/case-037.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-037.webp?v=4"
  },
  {
   "type": "case",
@@ -1332,7 +1332,7 @@
   "tag": "r",
   "loc": "🇦🇪 AE",
   "ico": "⚠️",
-  "img": "/academy-assets/cases_hero/case-038.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-038.webp?v=4"
  },
  {
   "type": "case",
@@ -1348,7 +1348,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🚚",
-  "img": "/academy-assets/cases_hero/case-047.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-047.webp?v=4"
  },
  {
   "type": "case",
@@ -1364,7 +1364,7 @@
   "tag": "r",
   "loc": "🇨🇦 CA",
   "ico": "🍽️",
-  "img": "/academy-assets/cases_hero/case-040.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-040.webp?v=4"
  },
  {
   "type": "case",
@@ -1380,7 +1380,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "☕",
-  "img": "/academy-assets/cases_hero/case-058.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-058.webp?v=4"
  },
  {
   "type": "case",
@@ -1396,7 +1396,7 @@
   "tag": "g",
   "loc": "🇦🇪 AE",
   "ico": "🚚",
-  "img": "/academy-assets/cases_hero/case-052.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-052.webp?v=4"
  },
  {
   "type": "case",
@@ -1412,7 +1412,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "🎮",
-  "img": "/academy-assets/cases_hero/case-035.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-035.webp?v=4"
  },
  {
   "type": "case",
@@ -1428,7 +1428,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🎬",
-  "img": "/academy-assets/cases_hero/case-064.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-064.webp?v=4"
  },
  {
   "type": "case",
@@ -1444,7 +1444,7 @@
   "tag": "g",
   "loc": "🇬🇱 GL",
   "ico": "🏔️",
-  "img": "/academy-assets/cases_hero/case-054.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-054.webp?v=4"
  },
  {
   "type": "case",
@@ -1460,7 +1460,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "✈️",
-  "img": "/academy-assets/cases_hero/case-039.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-039.webp?v=4"
  },
  {
   "type": "case",
@@ -1476,7 +1476,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🍗",
-  "img": "/academy-assets/cases_hero/case-059.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-059.webp?v=4"
  },
  {
   "type": "case",
@@ -1492,7 +1492,7 @@
   "tag": "y",
   "loc": "🇺🇿 UZ",
   "ico": "🍩",
-  "img": "/academy-assets/cases_hero/case-060.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-060.webp?v=4"
  },
  {
   "type": "case",
@@ -1508,7 +1508,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "💉",
-  "img": "/academy-assets/cases_hero/case-065.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-065.webp?v=4"
  },
  {
   "type": "case",
@@ -1524,7 +1524,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🍢",
-  "img": "/academy-assets/cases_hero/case-061.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-061.webp?v=4"
  },
  {
   "type": "case",
@@ -1540,7 +1540,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🥃",
-  "img": "/academy-assets/cases_hero/case-050.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-050.webp?v=4"
  },
  {
   "type": "case",
@@ -1556,7 +1556,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🐄",
-  "img": "/academy-assets/cases_hero/case-066.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-066.webp?v=4"
  },
  {
   "type": "case",
@@ -1572,7 +1572,7 @@
   "tag": "g",
   "loc": "🇬🇧 UK",
   "ico": "🍵",
-  "img": "/academy-assets/cases_hero/case-055.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-055.webp?v=4"
  },
  {
   "type": "case",
@@ -1588,7 +1588,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🎯",
-  "img": "/academy-assets/cases_hero/case-062.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-062.webp?v=4"
  },
  {
   "type": "case",
@@ -1604,7 +1604,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "💇",
-  "img": "/academy-assets/cases_hero/case-067.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-067.webp?v=4"
  },
  {
   "type": "case",
@@ -1620,7 +1620,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🥐",
-  "img": "/academy-assets/cases_hero/case-053.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-053.webp?v=4"
  },
  {
   "type": "case",
@@ -1636,7 +1636,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🍽️",
-  "img": "/academy-assets/cases_hero/case-063.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-063.webp?v=4"
  },
  {
   "type": "case",
@@ -1652,7 +1652,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "👁️",
-  "img": "/academy-assets/cases_hero/case-068.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-068.webp?v=4"
  },
  {
   "type": "case",
@@ -1668,7 +1668,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🧴",
-  "img": "/academy-assets/cases_hero/case-069.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-069.webp?v=4"
  },
  {
   "type": "case",
@@ -1684,7 +1684,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🚲",
-  "img": "/academy-assets/cases_hero/case-071.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-071.webp?v=4"
  },
  {
   "type": "case",
@@ -1700,7 +1700,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "💈",
-  "img": "/academy-assets/cases_hero/case-072.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-072.webp?v=4"
  },
  {
   "type": "case",
@@ -1716,7 +1716,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "📣",
-  "img": "/academy-assets/cases_hero/case-073.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-073.webp?v=4"
  },
  {
   "type": "case",
@@ -1732,7 +1732,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🏨",
-  "img": "/academy-assets/cases_hero/case-074.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-074.webp?v=4"
  },
  {
   "type": "case",
@@ -1748,7 +1748,7 @@
   "tag": "r",
   "loc": "🇮🇩 ID",
   "ico": "🎓",
-  "img": "/academy-assets/cases_hero/case-075.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-075.webp?v=4"
  },
  {
   "type": "case",
@@ -1764,7 +1764,7 @@
   "tag": "r",
   "loc": "🇬🇪 GE",
   "ico": "🌱",
-  "img": "/academy-assets/cases_hero/case-076.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-076.webp?v=4"
  },
  {
   "type": "case",
@@ -1780,7 +1780,7 @@
   "tag": "y",
   "loc": "🇺🇿 UZ",
   "ico": "🛵",
-  "img": "/academy-assets/cases_hero/case-077.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-077.webp?v=4"
  },
  {
   "type": "case",
@@ -1796,7 +1796,7 @@
   "tag": "r",
   "loc": "🇬🇧 UK",
   "ico": "🎁",
-  "img": "/academy-assets/cases_hero/case-078.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-078.webp?v=4"
  },
  {
   "type": "case",
@@ -1812,7 +1812,7 @@
   "tag": "g",
   "loc": "🇨🇦 CA",
   "ico": "🧕",
-  "img": "/academy-assets/cases_hero/case-079.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-079.webp?v=4"
  },
  {
   "type": "case",
@@ -1828,7 +1828,7 @@
   "tag": "g",
   "loc": "🇨🇭 CH",
   "ico": "🔪",
-  "img": "/academy-assets/cases_hero/case-080.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-080.webp?v=4"
  },
  {
   "type": "case",
@@ -1844,7 +1844,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "☕",
-  "img": "/academy-assets/cases_hero/case-081.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-081.webp?v=4"
  },
  {
   "type": "case",
@@ -1860,7 +1860,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "💺",
-  "img": "/academy-assets/cases_hero/case-082.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-082.webp?v=4"
  },
  {
   "type": "case",
@@ -1876,7 +1876,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "💸",
-  "img": "/academy-assets/cases_hero/case-083.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-083.webp?v=4"
  },
  {
   "type": "case",
@@ -1892,7 +1892,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🥂",
-  "img": "/academy-assets/cases_hero/case-084.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-084.webp?v=4"
  },
  {
   "type": "case",
@@ -1908,7 +1908,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🛵",
-  "img": "/academy-assets/cases_hero/case-085.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-085.webp?v=4"
  },
  {
   "type": "case",
@@ -1924,7 +1924,7 @@
   "tag": "r",
   "loc": "🇰🇿 KZ",
   "ico": "🏷️",
-  "img": "/academy-assets/cases_hero/case-086.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-086.webp?v=4"
  },
  {
   "type": "case",
@@ -1940,7 +1940,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🥞",
-  "img": "/academy-assets/cases_hero/case-087.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-087.webp?v=4"
  },
  {
   "type": "case",
@@ -1956,7 +1956,7 @@
   "tag": "r",
   "loc": "🇺🇸 US",
   "ico": "🌀",
-  "img": "/academy-assets/cases_hero/case-088.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-088.webp?v=4"
  },
  {
   "type": "case",
@@ -1972,7 +1972,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "🌸",
-  "img": "/academy-assets/cases_hero/case-089.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-089.webp?v=4"
  },
  {
   "type": "case",
@@ -1988,7 +1988,7 @@
   "tag": "r",
   "loc": "🇷🇺 RU",
   "ico": "👗",
-  "img": "/academy-assets/cases_hero/case-090.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-090.webp?v=4"
  },
  {
   "type": "case",
@@ -2004,7 +2004,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "💻",
-  "img": "/academy-assets/cases_hero/case-091.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-091.webp?v=4"
  },
  {
   "type": "case",
@@ -2020,7 +2020,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🎮",
-  "img": "/academy-assets/cases_hero/case-092.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-092.webp?v=4"
  },
  {
   "type": "case",
@@ -2036,7 +2036,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🎬",
-  "img": "/academy-assets/cases_hero/case-093.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-093.webp?v=4"
  },
  {
   "type": "case",
@@ -2052,7 +2052,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "📹",
-  "img": "/academy-assets/cases_hero/case-094.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-094.webp?v=4"
  },
  {
   "type": "case",
@@ -2068,7 +2068,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🧺",
-  "img": "/academy-assets/cases_hero/case-095.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-095.webp?v=4"
  },
  {
   "type": "case",
@@ -2084,7 +2084,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🐕",
-  "img": "/academy-assets/cases_hero/case-096.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-096.webp?v=4"
  },
  {
   "type": "case",
@@ -2100,7 +2100,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🪟",
-  "img": "/academy-assets/cases_hero/case-097.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-097.webp?v=4"
  },
  {
   "type": "case",
@@ -2116,7 +2116,7 @@
   "tag": "y",
   "loc": "🇷🇺 RU",
   "ico": "🛞",
-  "img": "/academy-assets/cases_hero/case-098.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-098.webp?v=4"
  },
  {
   "type": "case",
@@ -2132,7 +2132,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🚗",
-  "img": "/academy-assets/cases_hero/case-099.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-099.webp?v=4"
  },
  {
   "type": "case",
@@ -2148,7 +2148,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🧹",
-  "img": "/academy-assets/cases_hero/case-100.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-100.webp?v=4"
  },
  {
   "type": "case",
@@ -2164,7 +2164,7 @@
   "tag": "g",
   "loc": "🇹🇷 TR",
   "ico": "📓",
-  "img": "/academy-assets/cases_hero/case-101.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-101.webp?v=4"
  },
  {
   "type": "case",
@@ -2180,7 +2180,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🥟",
-  "img": "/academy-assets/cases_hero/case-102.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-102.webp?v=4"
  },
  {
   "type": "case",
@@ -2196,7 +2196,7 @@
   "tag": "g",
   "loc": "🇮🇳 IN",
   "ico": "🍵",
-  "img": "/academy-assets/cases_hero/case-103.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-103.webp?v=4"
  },
  {
   "type": "case",
@@ -2212,7 +2212,7 @@
   "tag": "g",
   "loc": "🇦🇺 AU",
   "ico": "💡",
-  "img": "/academy-assets/cases_hero/case-104.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-104.webp?v=4"
  },
  {
   "type": "case",
@@ -2228,7 +2228,7 @@
   "tag": "g",
   "loc": "🇷🇺 RU",
   "ico": "✨",
-  "img": "/academy-assets/cases_hero/case-105.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-105.webp?v=4"
  },
  {
   "type": "case",
@@ -2244,7 +2244,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🧹",
-  "img": "/academy-assets/cases_hero/case-106.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-106.webp?v=4"
  },
  {
   "type": "case",
@@ -2260,7 +2260,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "💐",
-  "img": "/academy-assets/cases_hero/case-107.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-107.webp?v=4"
  },
  {
   "type": "case",
@@ -2276,7 +2276,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🎂",
-  "img": "/academy-assets/cases_hero/case-108.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-108.webp?v=4"
  },
  {
   "type": "case",
@@ -2292,7 +2292,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🍄",
-  "img": "/academy-assets/cases_hero/case-109.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-109.webp?v=4"
  },
  {
   "type": "case",
@@ -2308,7 +2308,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🐎",
-  "img": "/academy-assets/cases_hero/case-110.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-110.webp?v=4"
  },
  {
   "type": "case",
@@ -2324,7 +2324,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🛒",
-  "img": "/academy-assets/cases_hero/case-111.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-111.webp?v=4"
  },
  {
   "type": "case",
@@ -2340,7 +2340,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🛒",
-  "img": "/academy-assets/cases_hero/case-112.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-112.webp?v=4"
  },
  {
   "type": "case",
@@ -2356,7 +2356,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🍔",
-  "img": "/academy-assets/cases_hero/case-113.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-113.webp?v=4"
  },
  {
   "type": "case",
@@ -2372,7 +2372,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "👙",
-  "img": "/academy-assets/cases_hero/case-114.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-114.webp?v=4"
  },
  {
   "type": "case",
@@ -2388,7 +2388,7 @@
   "tag": "g",
   "loc": "🇬🇧 UK",
   "ico": "🌀",
-  "img": "/academy-assets/cases_hero/case-115.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-115.webp?v=4"
  },
  {
   "type": "case",
@@ -2404,7 +2404,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "💄",
-  "img": "/academy-assets/cases_hero/case-116.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-116.webp?v=4"
  },
  {
   "type": "case",
@@ -2420,7 +2420,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🧥",
-  "img": "/academy-assets/cases_hero/case-117.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-117.webp?v=4"
  },
  {
   "type": "case",
@@ -2436,7 +2436,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🥬",
-  "img": "/academy-assets/cases_hero/case-118.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-118.webp?v=4"
  },
  {
   "type": "case",
@@ -2452,7 +2452,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "📦",
-  "img": "/academy-assets/cases_hero/case-119.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-119.webp?v=4"
  },
  {
   "type": "case",
@@ -2468,7 +2468,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "💛",
-  "img": "/academy-assets/cases_hero/case-120.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-120.webp?v=4"
  },
  {
   "type": "case",
@@ -2484,7 +2484,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "💸",
-  "img": "/academy-assets/cases_hero/case-121.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-121.webp?v=4"
  },
  {
   "type": "case",
@@ -2500,7 +2500,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "💿",
-  "img": "/academy-assets/cases_hero/case-122.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-122.webp?v=4"
  },
  {
   "type": "case",
@@ -2516,7 +2516,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🏠",
-  "img": "/academy-assets/cases_hero/case-123.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-123.webp?v=4"
  },
  {
   "type": "case",
@@ -2532,7 +2532,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🌱",
-  "img": "/academy-assets/cases_hero/case-124.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-124.webp?v=4"
  },
  {
   "type": "case",
@@ -2548,7 +2548,7 @@
   "tag": "g",
   "loc": "🇰🇿 KZ",
   "ico": "🐄",
-  "img": "/academy-assets/cases_hero/case-125.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-125.webp?v=4"
  },
  {
   "type": "case",
@@ -2564,7 +2564,7 @@
   "tag": "g",
   "loc": "🇦🇿 AZ",
   "ico": "🧁",
-  "img": "/academy-assets/cases_hero/case-126.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-126.webp?v=4"
  },
  {
   "type": "case",
@@ -2580,7 +2580,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🥤",
-  "img": "/academy-assets/cases_hero/case-127.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-127.webp?v=4"
  },
  {
   "type": "case",
@@ -2596,7 +2596,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🪦",
-  "img": "/academy-assets/cases_hero/case-128.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-128.webp?v=4"
  },
  {
   "type": "case",
@@ -2612,7 +2612,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🕯️",
-  "img": "/academy-assets/cases_hero/case-129.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-129.webp?v=4"
  },
  {
   "type": "case",
@@ -2628,7 +2628,7 @@
   "tag": "g",
   "loc": "🇺🇸 US",
   "ico": "🌶️",
-  "img": "/academy-assets/cases_hero/case-130.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-130.webp?v=4"
  },
  {
   "type": "case",
@@ -2644,7 +2644,7 @@
   "tag": "g",
   "loc": "🇷🇺 RU",
   "ico": "🧀",
-  "img": "/academy-assets/cases_hero/case-131.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-131.webp?v=4"
  },
  {
   "type": "case",
@@ -2660,7 +2660,7 @@
   "tag": "y",
   "loc": "🇷🇺 RU",
   "ico": "🥚",
-  "img": "/academy-assets/cases_hero/case-132.webp?v=3"
+  "img": "/academy-assets/cases_hero/case-132.webp?v=4"
  },
  {
   "type": "review",
@@ -2672,7 +2672,7 @@
   "title": "Бухгалтерский аутсорсинг",
   "blurb": "Один из самых низких порогов входа в сервисе и подписочный доход — но репутация рушится одной ошибкой, а штраф клиента ложится на тебя. Разбираем, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/accounting.webp?v=5"
+  "img": "/academy-assets/niche_hero/accounting.webp?v=6"
  },
  {
   "type": "review",
@@ -2684,7 +2684,7 @@
   "title": "Магазин автозапчастей",
   "blurb": "Кажется «закупил побольше товара, поставил стеллажи — клиенты сами придут». На практике весь бизнес держится на оборачиваемости склада, продавце, который умеет подобрать деталь по VIN, и борьбе с замороженным капиталом в неликвиде. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/autoparts.webp?v=5"
+  "img": "/academy-assets/niche_hero/autoparts.webp?v=6"
  },
  {
   "type": "review",
@@ -2696,7 +2696,7 @@
   "title": "Автосервис",
   "blurb": "Кажется «купил подъёмник, нанял механика — деньги пошли». На практике весь бизнес держится на одном человеке с ключом, учёте запчастей и доверии клиента, который не видит, что с его машиной. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/autoservice.webp?v=5"
+  "img": "/academy-assets/niche_hero/autoservice.webp?v=6"
  },
  {
   "type": "review",
@@ -2708,7 +2708,7 @@
   "title": "Пекарня",
   "blurb": "Это не торговля, а производство: ночная смена, food cost как главная цифра и локация на пешем потоке. Разбираем по данным, кто остаётся в плюсе.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/bakery.webp?v=5"
+  "img": "/academy-assets/niche_hero/bakery.webp?v=6"
  },
  {
   "type": "review",
@@ -2720,7 +2720,7 @@
   "title": "Барбершоп",
   "blurb": "Бум 2018–2022 закончился насыщением. Чек выше парикмахерской в 2–4 раза, но главный актив — мастера, а они уходят с клиентами. Разбираем, кто остаётся в плюсе.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/barber.webp?v=5"
+  "img": "/academy-assets/niche_hero/barber.webp?v=6"
  },
  {
   "type": "review",
@@ -2732,7 +2732,7 @@
   "title": "Салон красоты",
   "blurb": "Полный цикл услуг под одной крышей — удобно клиенту и сложно владельцу. Разбираем экономику по форматам: от кабинета до сети.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/beauty.webp?v=5"
+  "img": "/academy-assets/niche_hero/beauty.webp?v=6"
  },
  {
   "type": "review",
@@ -2744,7 +2744,7 @@
   "title": "Брови и ресницы",
   "blurb": "Один из самых низких порогов входа в бьюти — и одна из самых плотных конкуренций. Клиент идёт к рукам мастера, а не к вывеске. Разбираем экономику бровиста и лэшмейкера по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/browlash.webp?v=5"
+  "img": "/academy-assets/niche_hero/browlash.webp?v=6"
  },
  {
   "type": "review",
@@ -2756,7 +2756,7 @@
   "title": "Островок напитков / бабл-ти",
   "blurb": "Бабл-ти, смузи, фреши на островке в ТЦ. Маржа на стакан красивая — модель работает только на объёме и проходимости. Разбираем, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/bubbletea.webp?v=5"
+  "img": "/academy-assets/niche_hero/bubbletea.webp?v=6"
  },
  {
   "type": "review",
@@ -2768,7 +2768,7 @@
   "title": "Магазин стройматериалов",
   "blurb": "Большие объёмы, тяжёлый товар и красивая наценка на отделку. Но деньги замораживаются в складе, а зимой касса пустеет. Разбираем экономику по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/buildmat.webp?v=5"
+  "img": "/academy-assets/niche_hero/buildmat.webp?v=6"
  },
  {
   "type": "review",
@@ -2780,7 +2780,7 @@
   "title": "Столовая",
   "blurb": "Бизнес не на чеке, а на потоке. Зарабатывает тот, у кого совпали якорный трафик, скорость линии и контроль фудкоста. Разбираем по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/canteen.webp?v=5"
+  "img": "/academy-assets/niche_hero/canteen.webp?v=6"
  },
  {
   "type": "review",
@@ -2792,7 +2792,7 @@
   "title": "Грузоперевозки",
   "blurb": "Низкий порог входа, понятная модель — и узкая маржа, которую съедают топливо и износ. Разбираем малые внутригородские перевозки на 1–2 машинах: где живёт прибыль и почему многие не переживают первую зиму.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/cargo.webp?v=5"
+  "img": "/academy-assets/niche_hero/cargo.webp?v=6"
  },
  {
   "type": "review",
@@ -2804,7 +2804,7 @@
   "title": "Чистка ковров",
   "blurb": "Спрос держится не на моде, а на бытовом укладе: постоянный клиент чистит ковры 2–3 раза в год. Но ядро бизнеса — не машина, а логистика и сезонность. Разбираем, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/carpetclean.webp?v=5"
+  "img": "/academy-assets/niche_hero/carpetclean.webp?v=6"
  },
  {
   "type": "review",
@@ -2816,7 +2816,7 @@
   "title": "Автомойка",
   "blurb": "Кажется «поставил и забыл» — пассивный доход с боксом и водой. На практике это сезонный бизнес с ежедневной операционкой: весна кормит, зима проверяет, а аренда идёт все 12 месяцев. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/carwash.webp?v=5"
+  "img": "/academy-assets/niche_hero/carwash.webp?v=6"
  },
  {
   "type": "review",
@@ -2828,7 +2828,7 @@
   "title": "Кейтеринг",
   "blurb": "Ресторан без стен: низкий вход, но всё держится на людях, логистике и репутации. Один сорванный выезд бьёт по всему бизнесу.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/catering.webp?v=5"
+  "img": "/academy-assets/niche_hero/catering.webp?v=6"
  },
  {
   "type": "review",
@@ -2840,7 +2840,7 @@
   "title": "Кинотеатр",
   "blurb": "Капиталоёмкая ниша с высоким барьером входа. Половину кассы забирает прокатчик, а реальные деньги делает кинобар. Разбираем экономику и риски.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/cinema.webp?v=5"
+  "img": "/academy-assets/niche_hero/cinema.webp?v=6"
  },
  {
   "type": "review",
@@ -2852,7 +2852,7 @@
   "title": "Клининг",
   "blurb": "Низкий барьер входа, высокая маржа на заказ — и поэтому толпа частников, демпинг и текучка. Разбираем, на чём бизнес держится, а на чём рассыпается.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/clean.webp?v=5"
+  "img": "/academy-assets/niche_hero/clean.webp?v=6"
  },
  {
   "type": "review",
@@ -2864,7 +2864,7 @@
   "title": "Кофейня",
   "blurb": "Самый перенасыщенный рынок Казахстана. Маржа на стакан красивая — на точку не всегда. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/coffee.webp?v=5"
+  "img": "/academy-assets/niche_hero/coffee.webp?v=6"
  },
  {
   "type": "review",
@@ -2876,7 +2876,7 @@
   "title": "Компьютерный клуб",
   "blurb": "Железо устаревает за 2–3 года, а конкурент — диван клиента с домашним ПК. Высокая маржа на час, но капитал в железе и счёт за свет давят с первого дня. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/compclub.webp?v=5"
+  "img": "/academy-assets/niche_hero/compclub.webp?v=6"
  },
  {
   "type": "review",
@@ -2888,7 +2888,7 @@
   "title": "Кондитерская",
   "blurb": "Скоропортящийся продукт, ручной труд и два разных рынка в одном цехе — витрина и торты на заказ. Разбираем экономику, при которой бизнес выживает, а не «работает в стол».",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/confection.webp?v=5"
+  "img": "/academy-assets/niche_hero/confection.webp?v=6"
  },
  {
   "type": "review",
@@ -2900,7 +2900,7 @@
   "title": "Косметология",
   "blurb": "Высокая маржа и высокий порог входа одновременно. Где косметология — это бизнес, а где — лицензия, лазер и уголовная статья. Разбираем по экономике и рискам.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/cosmetology.webp?v=5"
+  "img": "/academy-assets/niche_hero/cosmetology.webp?v=6"
  },
  {
   "type": "review",
@@ -2912,7 +2912,7 @@
   "title": "Кроссфит-зал",
   "blurb": "Нишевый формат с лояльным сообществом и удержанием вдвое выше фитнеса. Но узкая аудитория, импортное оборудование и бренд под лицензией. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/crossfit.webp?v=5"
+  "img": "/academy-assets/niche_hero/crossfit.webp?v=6"
  },
  {
   "type": "review",
@@ -2924,7 +2924,7 @@
   "title": "Стоматология",
   "blurb": "Золотые руки врача и прибыльная клиника — это два разных навыка. Самый высокий порог входа среди услуг и лицензия на старте. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/dental.webp?v=5"
+  "img": "/academy-assets/niche_hero/dental.webp?v=6"
  },
  {
   "type": "review",
@@ -2936,7 +2936,7 @@
   "title": "Детейлинг авто",
   "blurb": "Высокий средний чек, премиальный клиент, климат, который сам продаёт услугу. И полная зависимость от мастера и доверия. Разбираем экономику и риски по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/detailing.webp?v=5"
+  "img": "/academy-assets/niche_hero/detailing.webp?v=6"
  },
  {
   "type": "review",
@@ -2948,7 +2948,7 @@
   "title": "Донерная",
   "blurb": "Самый доступный вход в общепит — и оттого самая жёсткая конкуренция. Наценка 200–300% на штуку, чистая маржа 10–18% на точку. Разбираем, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/doner.webp?v=5"
+  "img": "/academy-assets/niche_hero/doner.webp?v=6"
  },
  {
   "type": "review",
@@ -2960,7 +2960,7 @@
   "title": "Автошкола",
   "blurb": "Стабильный спрос и жёсткий потолок выручки: один инструктор с одной машиной — не больше 8–10 часов практики в день. Разбираем экономику, риски и лицензирование по данным TerenLabs.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/driving.webp?v=5"
+  "img": "/academy-assets/niche_hero/driving.webp?v=6"
  },
  {
   "type": "review",
@@ -2972,7 +2972,7 @@
   "title": "Химчистка одежды",
   "blurb": "Не прачечная. Премиальный сервис для вещей, которые нельзя стирать в воде. Высокий чек, дорогое оборудование, сезонность и одна испорченная шуба, способная съесть месячную выручку.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/dryclean.webp?v=5"
+  "img": "/academy-assets/niche_hero/dryclean.webp?v=6"
  },
  {
   "type": "review",
@@ -2984,7 +2984,7 @@
   "title": "Эпиляция и депиляция",
   "blurb": "Зонтичная ниша: шугаринг и воск против лазера. Вход в депиляцию — один из самых низких в бьюти. Лазер — дорогой аппарат и другая математика. Разбираем обе экономики.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/epilation.webp?v=5"
+  "img": "/academy-assets/niche_hero/epilation.webp?v=6"
  },
  {
   "type": "review",
@@ -2996,7 +2996,7 @@
   "title": "Оценочная компания",
   "blurb": "Лицензируемая, регулируемая профессия. Рынок на 70–85% держится на банковской оценке залогов. Без аккредитации в банках бизнеса нет. Разбираем экономику, вход и ответственность за каждый отчёт.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/evaluation.webp?v=5"
+  "img": "/academy-assets/niche_hero/evaluation.webp?v=6"
  },
  {
   "type": "review",
@@ -3008,7 +3008,7 @@
   "title": "Фастфуд",
   "blurb": "Бизнес скорости и потока. Маржа на бургер красивая — но её съедают комиссии агрегаторов, мясо и пустые часы. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/fastfood.webp?v=5"
+  "img": "/academy-assets/niche_hero/fastfood.webp?v=6"
  },
  {
   "type": "review",
@@ -3020,7 +3020,7 @@
   "title": "Фитнес-клуб",
   "blurb": "Капитал замораживается в железе, выручка живёт на абонементах, а половина года — «тощие» месяцы. Разбираем, кто здесь окупается, а кто кормит аренду.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/fitness.webp?v=5"
+  "img": "/academy-assets/niche_hero/fitness.webp?v=6"
  },
  {
   "type": "review",
@@ -3032,7 +3032,7 @@
   "title": "Цветочный магазин",
   "blurb": "Наценка 100–200% выглядит сказочно. Но 15–25% товара уходит в списания, а до половины годовой выручки — это несколько праздничных дней. Разбираем экономику по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/flowers.webp?v=5"
+  "img": "/academy-assets/niche_hero/flowers.webp?v=6"
  },
  {
   "type": "review",
@@ -3044,7 +3044,7 @@
   "title": "Футбольная школа",
   "blurb": "Спорт №1 в Казахстане, госфинансирование и мечта попасть в академию. Но зима режет выручку пополам, а травмы и текучка тренеров рушат экономику. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/footballschool.webp?v=5"
+  "img": "/academy-assets/niche_hero/footballschool.webp?v=6"
  },
  {
   "type": "review",
@@ -3056,7 +3056,7 @@
   "title": "Овощи и фрукты",
   "blurb": "Низкий порог входа и ежедневный спрос. Но скоропортящийся товар прощает мало ошибок: реальную прибыль съедают списания, аренда и слепой учёт.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/fruitsvegs.webp?v=5"
+  "img": "/academy-assets/niche_hero/fruitsvegs.webp?v=6"
  },
  {
   "type": "review",
@@ -3068,7 +3068,7 @@
   "title": "Мебельный магазин",
   "blurb": "Высокий чек и красивая наценка прячут главную ловушку — деньги замораживаются в товаре, который месяцами стоит в зале. Разбираем экономику по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/furniture.webp?v=5"
+  "img": "/academy-assets/niche_hero/furniture.webp?v=6"
  },
  {
   "type": "review",
@@ -3080,7 +3080,7 @@
   "title": "Продуктовый магазин",
   "blurb": "Самая плотная розница Казахстана: магазин «у дома» на каждом углу. Деньги тут делаются не наценкой, а оборачиваемостью и контролем списаний. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/grocery.webp?v=5"
+  "img": "/academy-assets/niche_hero/grocery.webp?v=6"
  },
  {
   "type": "review",
@@ -3092,7 +3092,7 @@
   "title": "Студия групповых программ",
   "blurb": "Йога, пилатес, стретчинг, фитнес-дэнс. Низкий порог входа и высокая маржа при полных группах — но бизнес держится на инструкторе и сообществе. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/groupfitness.webp?v=5"
+  "img": "/academy-assets/niche_hero/groupfitness.webp?v=6"
  },
  {
   "type": "review",
@@ -3104,7 +3104,7 @@
   "title": "Хостел и мини-отель",
   "blurb": "Турпоток растёт, мест размещения всё больше. Но выручка тут — это загрузка × цена номера минус комиссия платформ. Разбираем, кто переживает мёртвый сезон.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/hotel.webp?v=5"
+  "img": "/academy-assets/niche_hero/hotel.webp?v=6"
  },
  {
   "type": "review",
@@ -3116,7 +3116,7 @@
   "title": "Детский развивающий центр",
   "blurb": "Зонтичная ниша из десятка разных форматов: от раннего развития и подготовки к школе до логопеда и игровой в ТЦ. У каждого формата — своя экономика, лицензия и аудитория. Разбираем, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/kidscenter.webp?v=5"
+  "img": "/academy-assets/niche_hero/kidscenter.webp?v=6"
  },
  {
   "type": "review",
@@ -3128,7 +3128,7 @@
   "title": "Частный детский сад",
   "blurb": "Дефицит мест и госсубсидия делают нишу заманчивой. Но это лицензируемый бизнес с детьми, где один инцидент закрывает всё. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/kindergarten.webp?v=5"
+  "img": "/academy-assets/niche_hero/kindergarten.webp?v=6"
  },
  {
   "type": "review",
@@ -3140,7 +3140,7 @@
   "title": "Мебель в стиле лофт",
   "blurb": "Сварочное производство, а не цех с ЛДСП: металл, дерево, искры и сварщик как главный актив. От тумбы за 90 тыс. до благоустройства парка по тендеру. Разбираем экономику по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/loftfurniture.webp?v=5"
+  "img": "/academy-assets/niche_hero/loftfurniture.webp?v=6"
  },
  {
   "type": "review",
@@ -3152,7 +3152,7 @@
   "title": "Маникюрный салон",
   "blurb": "Самая массовая ниша бьюти Казахстана. Вход лёгкий — выживание сложное. Разбираем экономику по форматам: от мастера на дому до точки в ТЦ.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/manicure.webp?v=5"
+  "img": "/academy-assets/niche_hero/manicure.webp?v=6"
  },
  {
   "type": "review",
@@ -3164,7 +3164,7 @@
   "title": "Школа единоборств",
   "blurb": "Бокс, ММА, борьба, каратэ, тхэквондо. Тренерский бизнес с глубокими корнями в казахстанской культуре — и мощным трендом смешанных единоборств после UFC.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/martialarts.webp?v=5"
+  "img": "/academy-assets/niche_hero/martialarts.webp?v=6"
  },
  {
   "type": "review",
@@ -3176,7 +3176,7 @@
   "title": "Массажный салон",
   "blurb": "Низкий вход и высокая маржа на сеанс — но весь бизнес держится на одном мастере и на загрузке кушетки. Разбираем по данным, кто остаётся в плюсе.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/massage.webp?v=5"
+  "img": "/academy-assets/niche_hero/massage.webp?v=6"
  },
  {
   "type": "review",
@@ -3188,7 +3188,7 @@
   "title": "Мясная лавка",
   "blurb": "Высокая частота покупки и доверие, которого нет у супермаркета. Но свежесть нельзя нарушить ни на день, а списания съедают маржу тихо. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/meatshop.webp?v=5"
+  "img": "/academy-assets/niche_hero/meatshop.webp?v=6"
  },
  {
   "type": "review",
@@ -3200,7 +3200,7 @@
   "title": "Нотариальная контора",
   "blurb": "Не «открыть бизнес», а построить лицензируемую практику. Тарифы устанавливает государство, вход — 3–5 лет через стажировку и аттестацию. Разбираем экономику и риски профессии.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/notary.webp?v=5"
+  "img": "/academy-assets/niche_hero/notary.webp?v=6"
  },
  {
   "type": "review",
@@ -3212,7 +3212,7 @@
   "title": "Оптика",
   "blurb": "Наценка на оправы 100–300% выглядит как мечта. Но это медицинский бизнес с лицензией, оптометристом и замороженным в витрине капиталом. Разбираем экономику по данным.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/optics.webp?v=5"
+  "img": "/academy-assets/niche_hero/optics.webp?v=6"
  },
  {
   "type": "review",
@@ -3224,7 +3224,7 @@
   "title": "Зоомагазин",
   "blurb": "Корм держит трафик, но почти не даёт маржу. Деньги делают аксессуары и постоянники. А прибыль тихо съедают маркетплейсы, сроки годности и замороженный неликвид.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/petshop.webp?v=5"
+  "img": "/academy-assets/niche_hero/petshop.webp?v=6"
  },
  {
   "type": "review",
@@ -3236,7 +3236,7 @@
   "title": "Аптека",
   "blurb": "Стабильный спрос без сезонных провалов — но лицензия, регулируемая наценка и товарный запас на полбюджета. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/pharmacy.webp?v=5"
+  "img": "/academy-assets/niche_hero/pharmacy.webp?v=6"
  },
  {
   "type": "review",
@@ -3248,7 +3248,7 @@
   "title": "Пиццерия",
   "blurb": "Тонкая маржа между food cost и комиссией агрегатора. Бизнес, где скорость и температура продукта — часть рецепта. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/pizza.webp?v=5"
+  "img": "/academy-assets/niche_hero/pizza.webp?v=6"
  },
  {
   "type": "review",
@@ -3260,7 +3260,7 @@
   "title": "Пункт выдачи заказов",
   "blurb": "Не торговля и не услуга — инфраструктура последней мили. Бизнес объёма, не маржи. Доход — считанные тенге за выданную посылку, прибыль — только на потоке.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/pvz.webp?v=5"
+  "img": "/academy-assets/niche_hero/pvz.webp?v=6"
  },
  {
   "type": "review",
@@ -3272,7 +3272,7 @@
   "title": "Риэлторские услуги",
   "blurb": "Нулевые вложения в товар и иллюзия лёгких денег. Реально — низкое доверие, длинный цикл сделки и выручка «от сделки к сделке». Разбираем, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/realtor.webp?v=5"
+  "img": "/academy-assets/niche_hero/realtor.webp?v=6"
  },
  {
   "type": "review",
@@ -3284,7 +3284,7 @@
   "title": "Ремонт телефонов",
   "blurb": "Низкий вход, высокая маржа на запчастях и огромный поток. Но весь бизнес держится на одном мастере и на честной квитанции. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/repair_phone.webp?v=5"
+  "img": "/academy-assets/niche_hero/repair_phone.webp?v=6"
  },
  {
   "type": "review",
@@ -3296,7 +3296,7 @@
   "title": "Магазин полуфабрикатов",
   "blurb": "Ниша, куда можно зайти с домашней кухни и без кредита. Но между «леплю пельмени соседям» и устойчивым цехом — сертификация, холодовая цепь и узкий фудкост. Разбираем по данным, кто доходит.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/semifood.webp?v=5"
+  "img": "/academy-assets/niche_hero/semifood.webp?v=6"
  },
  {
   "type": "review",
@@ -3308,7 +3308,7 @@
   "title": "Суши-бар",
   "blurb": "Доставка кормит, рыба пугает, роллмейкер диктует условия. Бизнес, где холодовая дисциплина важнее интерьера. Разбираем по данным, кто здесь выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/sushi.webp?v=5"
+  "img": "/academy-assets/niche_hero/sushi.webp?v=6"
  },
  {
   "type": "review",
@@ -3320,7 +3320,7 @@
   "title": "Ателье одежды",
   "blurb": "Бизнес одного мастера. Ремонт держит кассу, пошив поднимает чек. Разбираем, на чём ателье живёт и где теряет деньги.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/tailor.webp?v=5"
+  "img": "/academy-assets/niche_hero/tailor.webp?v=6"
  },
  {
   "type": "review",
@@ -3332,7 +3332,7 @@
   "title": "Шиномонтаж",
   "blurb": "Кажется «низкий вход, очередь сама приедет» — переобувка два раза в год, деньги текут. На практике это бизнес двух пиков, который должен прокормить 12 месяцев аренды. Разбираем по данным, кто выживает.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/tireservice.webp?v=5"
+  "img": "/academy-assets/niche_hero/tireservice.webp?v=6"
  },
  {
   "type": "review",
@@ -3344,7 +3344,7 @@
   "title": "Цех очистки воды",
   "blurb": "Себестоимость литра — копейки, а стартовые вложения — миллионы. Бизнес выживает не на марже, а на подписке и B2B. Разбираем по данным, кто доходит до окупаемости.",
   "badge": "Обзор",
-  "img": "/academy-assets/niche_hero/waterplant.webp?v=5"
+  "img": "/academy-assets/niche_hero/waterplant.webp?v=6"
  },
  {
   "type": "bm",
