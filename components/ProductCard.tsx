@@ -2,136 +2,57 @@ import Link from "next/link";
 import Image from "next/image";
 import { CatalogItem, PRODUCT_TYPES } from "@/lib/content";
 
+// Карточка каталога: подложка, рамка, обложка 16:9 там, где она есть,
+// тип мелким капсом, заголовок, две строки описания, ярлык статуса.
 export function ProductCard({ p }: { p: CatalogItem }) {
-  // Постер (референс-стиль): кадр на всю карточку, чип-счётчик и заголовок поверх
-  if (p.img) {
-    const chip = p.metric
-      ? `${p.metric.value} ${p.metric.label}`
-      : p.type === "review"
-      ? "Бизнес-обзор · 2026"
-      : p.badge ?? null;
-    return (
-      <Link
-        href={p.href}
-        className="card-premium group relative flex min-h-[420px] flex-col overflow-hidden p-0"
-      >
-        <Image
-          src={p.img}
-          alt=""
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        {/* приглушение пёстрого кадра нейтрально-тёмным (не синим) + скрим */}
-        <div className="absolute inset-0 bg-[#101214]/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0c0e10]/85 via-[#101214]/20 to-[#0c0e10]/80" />
-        <div className="relative flex flex-1 flex-col p-6">
-          {chip && (
-            <span className="num self-start rounded-full bg-white/15 px-3.5 py-1.5 text-[0.9rem] font-semibold text-foam backdrop-blur">
-              {chip}
-            </span>
-          )}
-          <h3 className="mt-3 text-3xl leading-snug !text-foam">{p.title}</h3>
-          <p className="mt-2.5 line-clamp-3 text-[16.5px] leading-relaxed text-foam/85">{p.blurb}</p>
-          <div className="flex-1" />
-          <div className="flex items-center justify-between border-t border-white/15 pt-3.5">
-            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foam/55">
-              {PRODUCT_TYPES[p.type].label}
-            </span>
-            <span className="text-[15px] font-semibold text-teal transition-transform group-hover:translate-x-1">
-              Открыть →
-            </span>
-          </div>
-        </div>
-      </Link>
-    );
-  }
-
-  // исход кейса — деликатный тонированный ФОН карточки (не рамка, не раскраска):
-  // карточки перестают сливаться на светлом, но остаются спокойными
-  const tint =
+  const outcome =
     p.type === "case"
       ? p.badge === "Провал"
-        ? "rgba(208, 79, 51, 0.15)"
+        ? { bg: "var(--color-tag-red)", ink: "var(--color-tag-red-ink)" }
         : p.badge === "Успех"
-        ? "rgba(31, 158, 116, 0.15)"
-        : "rgba(212, 168, 43, 0.14)" // нейтральное: не убыток и не успех — просто опыт
-      : p.type === "finmodel"
-      ? "rgba(43, 168, 136, 0.12)" // зона финпродуктов — денежный изумруд
-      : p.type === "test"
-      ? "rgba(84, 104, 232, 0.10)" // зона Океана — ультрамарин
+        ? { bg: "var(--color-tag-green)", ink: "var(--color-tag-green-ink)" }
+        : { bg: "var(--color-tag-yellow)", ink: "var(--color-tag-yellow-ink)" }
       : null;
+
   return (
     <Link
       href={p.href}
-      className="card-premium group relative flex flex-col overflow-hidden p-0"
-      style={{
-        // заглушка читается как «строится»: пунктирная рамка, контент приглушён
-        ...(p.stub ? { borderStyle: "dashed" } : null),
-        ...(tint
-          ? {
-              backgroundColor: "var(--color-card)",
-              backgroundImage: `linear-gradient(0deg, ${tint}, ${tint})`,
-            }
-          : null),
-      }}
+      className={`card-premium group flex flex-col overflow-hidden ${p.stub ? "border-dashed" : ""}`}
     >
-      <div className="flex flex-1 flex-col p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <span className="eyebrow flex items-center gap-2">
-            {p.ico && <span className="text-base">{p.ico}</span>}
-            {PRODUCT_TYPES[p.type].label}
-          </span>
-          {p.badge && (
-            <span
-              className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold ${
-                p.badge === "Провал"
-                  ? "bg-[rgba(208,79,51,0.22)] text-[#b13a20]"
-                  : p.badge === "Успех"
-                  ? "bg-[rgba(31,158,116,0.22)] text-[#157a58]"
-                  : p.type === "case"
-                  ? "bg-[rgba(212,168,43,0.25)] text-[#9a7a14]"
-                  : "bg-teal-200/60 text-teal-600"
-              }`}
-            >
-              {p.badge}
-            </span>
-          )}
-          {p.stub && !p.badge && (
-            <span className="rounded-full bg-line px-2.5 py-0.5 text-[0.7rem] text-muted">скоро</span>
-          )}
+      {p.img && (
+        <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-line bg-card-2">
+          <Image
+            src={p.img}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover opacity-90 transition-opacity group-hover:opacity-100"
+          />
         </div>
-
-        {/* двухстрочные зоны: у всех карточек ряда заголовки/тексты на одних линиях */}
-        <h3 className="line-clamp-2 min-h-[2.3em] text-2xl leading-[1.15] text-heading">{p.title}</h3>
-        <p className="mt-2 line-clamp-2 min-h-[3em] text-[15px] leading-relaxed text-muted">{p.blurb}</p>
-
-        {/* у заглушки пустую середину занимает спокойная волна ожидания */}
-        {p.stub && !p.metric && (
-          <div className="mt-4 flex items-center gap-2.5 text-[13px] text-muted/75">
-            <svg width="26" height="10" viewBox="0 0 26 10" fill="none" aria-hidden="true">
-              <path
-                d="M1 5 C3.5 1.5, 6 1.5, 8.5 5 S 13.5 8.5, 16 5 S 21 1.5, 25 5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                opacity="0.65"
-              />
-            </svg>
-            готовим к выпуску
-          </div>
-        )}
+      )}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center justify-between gap-3">
+          <span className="eyebrow">{PRODUCT_TYPES[p.type].label}</span>
+          {p.badge && outcome ? (
+            <span className="tag" style={{ background: outcome.bg, color: outcome.ink }}>{p.badge}</span>
+          ) : p.badge ? (
+            <span className="tag">{p.badge}</span>
+          ) : p.stub ? (
+            <span className="tag">скоро</span>
+          ) : null}
+        </div>
+        <h3 className="mt-3 line-clamp-2 text-[18px] leading-snug">{p.title}</h3>
+        <p className="mt-2 line-clamp-2 text-[14px] leading-relaxed text-text-2">{p.blurb}</p>
         {p.metric && (
-          <div className="mt-4 flex items-baseline gap-2">
-            <span className={`num text-3xl font-semibold ${p.type === "finmodel" ? "text-[#1f9e74]" : p.type === "test" ? "text-[#5468e8]" : "text-heading"}`}>{p.metric.value}</span>
-            <span className="text-sm text-muted">{p.metric.label}</span>
-          </div>
+          <p className="mt-3 flex items-baseline gap-2">
+            <span className="num text-[22px] font-semibold text-ink">{p.metric.value}</span>
+            <span className="text-[13px] text-text-2">{p.metric.label}</span>
+          </p>
         )}
-
         <div className="flex-1" />
-        <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
-          <span className="num text-xs text-muted">{p.level} · {p.stage}</span>
-          {p.price && <span className={`num text-sm font-semibold ${p.type === "finmodel" ? "text-[#1f9e74]" : "text-teal-600"}`}>{p.price}</span>}
+        <div className="mt-4 flex items-center justify-between border-t border-line pt-3 text-[12px] text-faint">
+          <span className="num">{p.level} · {p.stage}</span>
+          {p.free ? <span className="tag">Бесплатно</span> : p.price ? <span className="num">{p.price}</span> : null}
         </div>
       </div>
     </Link>

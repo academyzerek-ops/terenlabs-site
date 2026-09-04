@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { OCEAN_RANKS } from "@/lib/content";
 import { TelegramLoginButton } from "@/components/TelegramLoginButton";
+import { RankSketch, API2KEY } from "@/components/RankSketch";
+import type { LevelKey } from "@/lib/content";
 import {
   fetchMeSummary,
   getOceanToken,
@@ -46,13 +48,6 @@ const LEVEL_RU: Record<string, string> = {
   mollusk: "Ракушка", crab: "Краб", barracuda: "Барракуда",
   dolphin: "Дельфин", shark: "Акула", whale: "Кит",
 };
-const LEVEL_IMG: Record<string, string> = Object.fromEntries(
-  OCEAN_RANKS.map((r) => [
-    { rakushka: "mollusk", krab: "crab", barrakuda: "barracuda",
-      delfin: "dolphin", akula: "shark", kit: "whale" }[r.key] as string,
-    r.img,
-  ])
-);
 const LEVEL_KEY: Record<string, string> = {
   mollusk: "rakushka", crab: "krab", barracuda: "barrakuda",
   dolphin: "delfin", shark: "akula", whale: "kit",
@@ -136,63 +131,28 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
     const route = OCEAN_RANKS.filter((r) => r.key !== "kit");
     const sizes = [40, 48, 56, 66, 78];
     return (
-      <section className="relative mt-10 overflow-hidden rounded-[var(--radius-tl)] bg-navy p-6 sm:p-8">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(110% 140% at 12% 0%, rgba(0,183,194,0.30) 0%, transparent 55%), radial-gradient(80% 100% at 95% 100%, rgba(42,171,238,0.16) 0%, transparent 60%)",
-          }}
-        />
-        <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+      <section className="rounded-[8px] border border-line bg-card p-6 sm:p-8">
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div>
             <p className="eyebrow">Океан</p>
-            <h2 className="mt-2 text-3xl text-heading">Твой путь: от Ракушки до Акулы</h2>
-            <p className="mt-3 max-w-[46ch] text-sm text-muted">
-              Попытки идут в зачёт после входа — уровень, очки и место в рейтинге соберутся сами.
+            <h2 className="mt-2 text-[24px]">Твой путь: от Ракушки до Акулы</h2>
+            <p className="mt-3 max-w-[46ch] text-[14px] leading-relaxed text-text-2">
+              Попытки идут в зачёт после входа: уровень, очки и место в рейтинге соберутся сами.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-4">
               <TelegramLoginButton label="Войти и занять место" />
-              <Link href="/ocean" className="text-sm font-semibold text-teal-600 hover:text-teal">
-                Посмотреть рейтинг →
-              </Link>
+              <Link href="/ocean" className="link text-[14px]">Посмотреть рейтинг</Link>
             </div>
           </div>
 
-          {/* маршрут уровней: медальоны растут к Акуле, пунктир ведёт вверх */}
-          <div className="relative">
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 400 120"
-              className="absolute inset-x-0 bottom-9 h-auto w-full text-teal"
-              fill="none"
-            >
-              <path
-                d="M20 100 C 110 96, 170 84, 240 58 S 360 14, 388 8"
-                stroke="currentColor"
-                strokeOpacity="0.45"
-                strokeWidth="2"
-                strokeDasharray="2 7"
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="relative flex items-end justify-between gap-2">
-              {route.map((r, i) => (
-                <div key={r.key} className="flex flex-col items-center gap-1.5">
-                  <img
-                    src={r.img}
-                    alt=""
-                    width={sizes[i]}
-                    height={sizes[i]}
-                    loading="lazy"
-                    className="drop-shadow-[0_6px_14px_rgba(0,183,194,0.25)]"
-                    style={{ width: sizes[i], height: sizes[i] }}
-                  />
-                  <span className="text-[10px] tracking-wide text-muted">{r.name}</span>
-                </div>
-              ))}
-            </div>
+          {/* маршрут уровней: эскизы растут к Акуле */}
+          <div className="flex items-end justify-between gap-2 border-t border-line pt-5 lg:border-t-0 lg:pt-0">
+            {route.map((r, i) => (
+              <div key={r.key} className="flex flex-col items-center gap-1.5">
+                <RankSketch rank={r.key as LevelKey} size={sizes[i]} className="text-body" />
+                <span className="text-[11px] text-faint">{r.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -215,27 +175,14 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
 
       {/* герой уровня: медальон на глубине + цель + ключевые цифры */}
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
-        <div className="relative overflow-hidden rounded-[var(--radius-tl)] bg-navy p-5">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0"
-            style={{ background: "radial-gradient(120% 130% at 15% 0%, rgba(0,183,194,0.28) 0%, transparent 55%)" }}
-          />
-          <div className="relative flex items-center gap-4">
-            <img
-              src={LEVEL_IMG[lvl]}
-              alt={LEVEL_RU[lvl]}
-              width={76}
-              height={76}
-              className="floaty h-[76px] w-[76px] shrink-0 object-contain drop-shadow-[0_12px_24px_rgba(4,16,28,0.55)]"
-            />
+        <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
+          <div className="flex items-center gap-4">
+            <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={64} className="text-body" />
             <div className="min-w-0">
-              <div className="text-xs uppercase tracking-wider text-foam/50">твой уровень</div>
-              <div className="font-[family-name:var(--font-display)] text-2xl font-bold !text-foam">
-                {LEVEL_RU[lvl]}
-              </div>
+              <div className="eyebrow">твой уровень</div>
+              <div className="mt-1 text-2xl font-semibold text-ink">{LEVEL_RU[lvl]}</div>
               {rank?.next_goal?.label && (
-                <p className="mt-1.5 text-xs leading-relaxed text-foam/65">{rank.next_goal.label}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-text-2">{rank.next_goal.label}</p>
               )}
             </div>
           </div>
@@ -277,14 +224,10 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
                 >
                   <span
                     className={`relative flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:-translate-y-0.5 sm:h-16 sm:w-16 ${
-                      cur ? "ring-2 ring-teal shadow-[0_0_20px_rgba(0,183,194,0.45)]" : ""
+                      cur ? "border border-line-2 bg-subtle" : ""
                     }`}
                   >
-                    <img
-                      src={LEVEL_IMG[id]}
-                      alt={LEVEL_RU[id]}
-                      className={`h-full w-full object-contain ${done || cur ? "" : "opacity-40 grayscale"}`}
-                    />
+                    <RankSketch rank={LEVEL_KEY[id] as LevelKey} size={44} className={done || cur ? "text-ink" : "text-faint"} />
                     {done && !cur && (
                       <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-teal text-[0.65rem] font-bold text-white">
                         ✓

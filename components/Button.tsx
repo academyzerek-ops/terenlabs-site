@@ -2,21 +2,21 @@ import Link from "next/link";
 
 type Variant = "primary" | "secondary" | "ghost";
 
-// система форм: интерактив = pill (как навигация), поверхности = 24px
+// Кнопки в духе Notion: прямоугольник 6px, чёрная основная, контурная
+// вторичная, текстовая третья. Без теней, свечений и роллов текста.
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:opacity-50";
+  "btn-press inline-flex items-center justify-center gap-2 rounded-[6px] font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50 whitespace-nowrap";
 
 const sizes = {
-  md: "px-5 py-2.5 text-[0.95rem]",
-  lg: "px-7 py-3.5 text-base",
+  sm: "h-8 px-3 text-[14px]",
+  md: "h-10 px-4 text-[15px]",
+  lg: "h-12 px-5 text-[15px]",
 };
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-teal text-white hover:bg-teal-600 shadow-[var(--shadow-tl-sm)] hover:shadow-[var(--shadow-tl)] hover:-translate-y-0.5",
-  secondary:
-    "bg-transparent text-heading ring-1 ring-line hover:ring-teal hover:text-teal",
-  ghost: "bg-transparent text-foam/80 hover:text-foam",
+  primary: "bg-accent-600 text-[#fff] hover:bg-[#1b6fc2]",
+  secondary: "bg-transparent text-ink border border-line-2 hover:bg-subtle",
+  ghost: "bg-transparent text-text-2 hover:bg-subtle hover:text-ink",
 };
 
 export function Button({
@@ -32,22 +32,29 @@ export function Button({
   size?: keyof typeof sizes;
   className?: string;
 }) {
-  // roll-over текста (награды-2025) — только для простого текстового лейбла
-  const rollable = typeof children === "string";
   return (
-    <Link
-      href={href}
-      className={`btn-press ${rollable ? "btn-roll" : ""} ${base} ${sizes[size]} ${variants[variant]} ${className}`}
-    >
-      {rollable ? (
-        <span className="btn-roll-inner">
-          <span className="btn-roll-text" data-text={children as string}>
-            {children}
-          </span>
-        </span>
-      ) : (
-        children
-      )}
+    <Link href={href} className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
+      {children}
     </Link>
+  );
+}
+
+// Стрелка для ссылок и кнопок: штрих, не символ
+export function Arrow({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`shrink-0 ${className}`}
+      aria-hidden="true"
+    >
+      <path d="M3 8h10M9 4l4 4-4 4" />
+    </svg>
   );
 }

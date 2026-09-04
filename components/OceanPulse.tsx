@@ -62,14 +62,13 @@ function usePulse() {
 }
 
 /** Чип «население уровня»: сколько людей сейчас держит этот ранг. */
-export function LevelCrowd({ levelKey, deep }: { levelKey: string; deep?: boolean }) {
+export function LevelCrowd({ levelKey }: { levelKey: string; deep?: boolean }) {
   const data = usePulse();
   if (!data) return null;
   const n = data.by_level[API_LEVEL[levelKey]] ?? 0;
-  const tone = deep ? "border-white/15 text-foam/65" : "border-navy/15 text-navy/60";
   return (
-    <span className={`num inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[0.72rem] font-semibold ${tone}`}>
-      <span className={`h-1.5 w-1.5 rounded-full ${n > 0 ? "bg-teal shadow-[0_0_8px_rgba(0,183,194,0.9)]" : deep ? "bg-foam/30" : "bg-navy/25"}`} />
+    <span className="num inline-flex items-center gap-1.5 text-[13px] text-faint">
+      <span className={`h-1.5 w-1.5 rounded-full ${n > 0 ? "bg-accent" : "bg-line-2"}`} />
       {n > 0
         ? `в океане: ${n} ${plural(n, "человек", "человека", "человек")}`
         : "здесь ещё никого — будь первым"}

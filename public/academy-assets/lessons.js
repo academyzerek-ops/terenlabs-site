@@ -102,13 +102,6 @@
     var aibar = document.createElement('aside');
     aibar.className = 'les-aibar';
     aibar.innerHTML =
-      '<button class="les-aibar-icon" type="button" aria-label="Меню кабинета">'+
-        '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none">'+
-          '<circle cx="6" cy="6" r="1.8"/><circle cx="12" cy="6" r="1.8"/><circle cx="18" cy="6" r="1.8"/>'+
-          '<circle cx="6" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/>'+
-          '<circle cx="6" cy="18" r="1.8"/><circle cx="12" cy="18" r="1.8"/><circle cx="18" cy="18" r="1.8"/>'+
-        '</svg>'+
-      '</button>'+
       '<button class="les-aibar-pill" type="button">'+
         '<span class="les-aibar-text">Спросить TerenLabs…</span>'+
       '</button>';
@@ -119,9 +112,6 @@
     // (academy/<модуль>/глава.html — 4 уровня, cases/case-NNN.html — 3),
     // хардкод '../../../../' с кейсов вёл на несуществующий /shell → 404.
     var shellUrl = window.location.pathname.replace(/\/content\/.*$/, '/shell/app.html');
-    aibar.querySelector('.les-aibar-icon').addEventListener('click', function(){
-      window.location.href = shellUrl + '?drawer=1';
-    });
     aibar.querySelector('.les-aibar-pill').addEventListener('click', function(){
       // from = заголовок страницы: чат передаст его бэку как context.title,
       // и retrieval сместится к материалу, который человек сейчас читает.

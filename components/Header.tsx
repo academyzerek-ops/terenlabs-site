@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Logo } from "./Logo";
 import { Container } from "./Container";
 
-// разделы платформы
+// Разделы платформы. Шапка плоская: белая полоса, тонкая линия снизу,
+// текстовый логотип, одна кнопка входа. Ничего не прячется при скролле.
 const NAV = [
   { label: "Океан", href: "/levels" },
   { label: "Академия", href: "/catalog?type=course" },
@@ -16,56 +16,36 @@ const NAV = [
 ];
 
 export function Header() {
-  const [open, setOpen] = useState(false); // мобильное меню
-  const [hidden, setHidden] = useState(false); // прячем при скролле вниз (награды-2025)
-
-  useEffect(() => {
-    let lastY = Math.max(0, window.scrollY);
-    const onScroll = () => {
-      // clamp: резиновый отскок Safari даёт отрицательный scrollY и
-      // микроколебания — без гистерезиса шапка дёргалась непредсказуемо
-      const y = Math.max(0, window.scrollY);
-      const dy = y - lastY;
-      if (Math.abs(dy) < 8) return; // игнорируем дрожание и баунс
-      setHidden(dy > 0 && y > 160);
-      lastY = y;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const sp = useSearchParams();
   const isActive = (href: string) => {
     const [base, query] = href.split("?");
-    if (base === "/levels") return pathname.startsWith("/levels");
+    if (base === "/levels") return pathname.startsWith("/levels") || pathname.startsWith("/ocean");
     if (base === "/catalog") {
       if (pathname !== "/catalog") return false;
-      const type = query?.split("=")[1];
-      return sp.get("type") === type;
+      return sp.get("type") === query?.split("=")[1];
     }
     return pathname === base;
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 px-3 pt-3 transition-transform duration-300 motion-reduce:transition-none motion-reduce:translate-y-0 ${
-        hidden && !open ? "-translate-y-[120%]" : "translate-y-0"
-      }`}
-    >
-      <div className="glass-bar relative mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6 lg:w-fit lg:justify-start lg:gap-8">
+    <header className="sticky top-0 z-50 border-b border-line bg-page/95 backdrop-blur-sm">
+      <Container className="flex h-14 items-center justify-between gap-4">
         <div className="flex items-center gap-8">
-          <Link href="/" aria-label="На главную" className="shrink-0">
-            <Logo />
+          <Link href="/" aria-label="На главную" className="text-[17px] font-semibold tracking-[-0.02em] text-ink">
+            TerenLabs
           </Link>
-
-          <nav className="hidden items-center gap-1.5 lg:flex">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Разделы">
             {NAV.map((n) => {
               const active = isActive(n.href);
               return (
                 <Link
                   key={n.href}
                   href={n.href}
-                  className={`nav-bubble ${active ? "nav-bubble--active" : ""}`}
+                  className={`rounded-[6px] px-3 py-1.5 text-[15px] transition-colors hover:bg-subtle ${
+                    active ? "font-medium text-ink" : "text-text-2 hover:text-ink"
+                  }`}
                 >
                   {n.label}
                 </Link>
@@ -77,39 +57,41 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/dashboard"
-            className="rounded-[var(--radius-tl)] bg-teal px-4 py-2 text-[0.95rem] font-medium text-white transition-colors hover:bg-teal-600"
+            className="hidden h-8 items-center rounded-[6px] border border-line-2 px-3 text-[14px] font-medium text-ink transition-colors hover:bg-subtle sm:inline-flex"
           >
-            Кабинет
+            Войти
           </Link>
-
           <button
-            className="lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-[6px] text-ink hover:bg-subtle lg:hidden"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Меню"
+            aria-label={open ? "Закрыть меню" : "Меню"}
+            aria-expanded={open}
           >
-            <div className="space-y-1.5">
-              <span className="block h-0.5 w-6 bg-navy" />
-              <span className="block h-0.5 w-6 bg-navy" />
-              <span className="block h-0.5 w-6 bg-navy" />
-            </div>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" aria-hidden="true">
+              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
           </button>
         </div>
-      </div>
+      </Container>
 
-      {/* Мобильное меню — стеклянная панель под шапкой */}
       {open && (
-        <div className="glass-bar glass-bar--panel relative mx-3 mt-2 lg:hidden">
-          <div className="flex flex-col px-5 py-3">
+        <div className="border-t border-line bg-page lg:hidden">
+          <Container className="flex flex-col py-2">
             {NAV.map((n) => (
-              <Link key={n.href} href={n.href} className="py-2.5 text-navy" onClick={() => setOpen(false)}>
+              <Link
+                key={n.href}
+                href={n.href}
+                className="rounded-[6px] px-2 py-2.5 text-[16px] text-body hover:bg-subtle"
+                onClick={() => setOpen(false)}
+              >
                 {n.label}
               </Link>
             ))}
             <div className="my-2 h-px bg-line" />
-            <Link href="/dashboard" className="py-2.5 text-navy" onClick={() => setOpen(false)}>
-              Кабинет
+            <Link href="/dashboard" className="rounded-[6px] px-2 py-2.5 text-[16px] font-medium text-ink hover:bg-subtle" onClick={() => setOpen(false)}>
+              Войти
             </Link>
-          </div>
+          </Container>
         </div>
       )}
     </header>

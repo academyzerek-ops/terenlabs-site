@@ -197,14 +197,17 @@ export function NoaChat() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Закрыть TEREN-AI" : "Открыть TEREN-AI"}
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-b from-teal to-teal-600 shadow-[0_8px_30px_rgba(0,183,194,0.45)] transition-transform hover:scale-105 active:scale-95"
+        className="fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover"
       >
         {open ? (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
             <path d="M6 6l12 12M18 6L6 18" />
           </svg>
         ) : (
-          <img src="/brand/logo_shark_white.png" alt="" width={34} height={34} className="object-contain" aria-hidden="true" />
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17H6.5A2.5 2.5 0 0 1 4 14.5z" />
+            <path d="M8 9h8M8 12.5h5" />
+          </svg>
         )}
       </button>
 
@@ -212,20 +215,17 @@ export function NoaChat() {
       {open && (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-card shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[20px] sm:border sm:border-line"
+          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-card shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[10px] sm:border sm:border-line-2"
           role="dialog"
           aria-modal="true"
           aria-label="Чат TEREN-AI"
           style={{ overscrollBehavior: "contain" }}
         >
           {/* шапка */}
-          <div className="flex items-center gap-3 border-b border-line bg-navy-900 px-4 py-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-b from-teal to-teal-600">
-              <img src="/brand/logo_shark_white.png" alt="" width={22} height={22} aria-hidden="true" />
-            </span>
+          <div className="flex items-center gap-3 border-b border-line bg-subtle px-4 py-3">
             <div className="flex-1">
-              <div className="text-sm font-bold text-foam">TEREN-AI</div>
-              <div className="text-xs text-foam/55">отвечает по базе знаний TerenLabs</div>
+              <div className="text-sm font-semibold text-ink">TEREN-AI</div>
+              <div className="text-xs text-text-2">отвечает по базе знаний TerenLabs</div>
             </div>
             <button
               onClick={() => setOpen(false)}

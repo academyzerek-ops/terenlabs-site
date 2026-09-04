@@ -212,7 +212,8 @@ export function SpatialCatalog({ items }: { items: CatalogItem[] }) {
                     <div className="mb-3 flex items-center gap-2">
                       <div className="h-1 w-1 rounded-full bg-teal shadow-[0_0_8px_rgba(0,183,194,1)]" />
                       <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-teal/70">
-                        {item.type}
+                        {/* «bm» — внутренний код типа, читателю он ничего не говорит */}
+                        {item.type === "bm" ? "разбор" : item.type}
                       </span>
                     </div>
                     

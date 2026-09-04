@@ -2,34 +2,24 @@ export function SectionHeading({
   eyebrow,
   title,
   desc,
-  light = false,
   number,
 }: {
   eyebrow?: string;
   title: string;
   desc?: string;
-  light?: boolean;
+  light?: boolean; // наследие сигнатуры, темы одна
   number?: string;
 }) {
   return (
     <div className="max-w-2xl">
-      {number && (
-        <div className="section-no">
-          <span className="no">{number}</span>
-          <span className="ln" />
-        </div>
-      )}
-      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-      <h2
-        className={`mt-3 text-3xl sm:text-4xl ${light ? "!text-foam" : ""}`}
-      >
-        {title}
-      </h2>
-      {desc && (
-        <p className={`mt-4 text-base leading-relaxed ${light ? "text-foam/70" : "text-muted"}`}>
-          {desc}
+      {(number || eyebrow) && (
+        <p className="eyebrow">
+          {number && <span className="num">{number}</span>}
+          {eyebrow}
         </p>
       )}
+      <h2 className="mt-2 text-[28px] sm:text-[34px]">{title}</h2>
+      {desc && <p className="mt-3 text-[16px] leading-relaxed text-text-2">{desc}</p>}
     </div>
   );
 }

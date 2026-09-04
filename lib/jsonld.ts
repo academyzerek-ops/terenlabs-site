@@ -54,6 +54,33 @@ export function articleJsonLd(opts: {
   };
 }
 
+/**
+ * Разбор бизнес-модели бренда (/brands/[slug]). Тот же Article, но с about →
+ * Organization: страница про чужую компанию, и в разметке это должно быть видно.
+ * Язык — ru без региона: раздел универсальный (доллар, аудитория шире Казахстана).
+ */
+export function brandArticleJsonLd(opts: {
+  headline: string;
+  description?: string;
+  path: string;
+  brand: string;
+  image?: string | null;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: opts.headline,
+    ...(opts.description ? { description: opts.description } : {}),
+    url: `${SITE_URL}${opts.path}`,
+    ...(opts.image
+      ? { image: opts.image.startsWith("http") ? opts.image : `${SITE_URL}${opts.image}` }
+      : {}),
+    about: { "@type": "Organization", name: opts.brand },
+    inLanguage: "ru",
+    publisher: ORG,
+  };
+}
+
 /** Хлебные крошки. items — по порядку, путь относительный («/catalog»). */
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {
