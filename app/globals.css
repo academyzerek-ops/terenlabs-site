@@ -10,36 +10,39 @@
 @theme {
   /* ---- Нейтрали (Notion dark) ---- */
   --color-page: #191919;       /* фон страницы */
-  --color-ink: #ececec;        /* заголовки, сильный текст */
-  --color-heading: #ececec;
-  --color-body: #d4d4d4;       /* основной текст */
-  --color-text-2: #9b9b9b;     /* вторичный текст */
-  --color-muted: #9b9b9b;
-  --color-faint: #7a7a7a;      /* подписи, плейсхолдеры */
-  --color-line: #2e2e2e;       /* разделители */
-  --color-line-2: #3d3d3d;     /* рамки контролов */
+  --color-ink: #ffffff;        /* заголовки, сильный текст, эскизы */
+  --color-heading: #ffffff;
+  --color-body: #e0e0e0;       /* основной текст */
+  --color-text-2: #a6a6a6;     /* вторичный текст */
+  --color-muted: #a6a6a6;
+  --color-faint: #808080;      /* подписи, плейсхолдеры */
+  --color-line: #303030;       /* разделители */
+  --color-line-2: #454545;     /* рамки контролов */
   --color-subtle: #202020;     /* подложка секций, панели */
   --color-hover: #2a2a2a;
-  --color-card: #202020;
-  --color-card-2: #262626;
-  --color-foam: #ececec;       /* наследие: «пена» = светлый текст */
+  --color-card: #212121;
+  --color-card-2: #2a2a2a;
+  --color-foam: #ffffff;       /* наследие: «пена» = светлый текст */
 
-  /* ---- Акцент: синий Notion, единственный цвет интерфейса ---- */
+  /* ---- Два акцента: синий (действие, ссылки) и оранжевый (ты здесь, выделение) ---- */
   --color-accent: #529cca;     /* ссылки на тёмном */
   --color-accent-600: #2383e2; /* кнопки */
   --color-accent-100: #28456c;
+  --color-orange: #f0873a;     /* второй акцент: текст, точки, маркеры */
+  --color-orange-600: #d9730d;
+  --color-orange-100: #4a2a10; /* подложка оранжевого ярлыка */
 
   /* ---- Наследие имён: teal/navy остаются как алиасы ---- */
   --color-teal: #2383e2;
   --color-teal-600: #1b6fc2;
   --color-teal-200: #28456c;
-  --color-navy: #d4d4d4;
+  --color-navy: #e0e0e0;
   --color-navy-900: #202020;
   --color-navy-700: #262626;
-  --color-navy-500: #9b9b9b;
+  --color-navy-500: #a6a6a6;
 
   /* ---- Ярлыки Notion dark (фон / текст) ---- */
-  --color-tag-gray: #373737;    --color-tag-gray-ink: #d4d4d4;
+  --color-tag-gray: #373737;    --color-tag-gray-ink: #e0e0e0;
   --color-tag-brown: #603b2c;   --color-tag-brown-ink: #e8cfbf;
   --color-tag-orange: #854c1d;  --color-tag-orange-ink: #ffd7b4;
   --color-tag-yellow: #89632a;  --color-tag-yellow-ink: #ffe8b5;
@@ -81,7 +84,7 @@
 
 :root {
   --background: #191919;
-  --foreground: #d4d4d4;
+  --foreground: #e0e0e0;
   color-scheme: dark;
 }
 
@@ -164,6 +167,10 @@ button, a { touch-action: manipulation; }
   color: var(--color-tag-gray-ink);
 }
 
+/* Оранжевый ярлык: «ты здесь», выделение */
+.tag-orange { background: var(--color-orange-100); color: var(--color-orange); }
+.tag-blue { background: var(--color-accent-100); color: #b7d2f0; }
+
 /* Тонкая линия-разделитель */
 .hair { border-top: 1px solid var(--color-line); }
 
@@ -215,12 +222,12 @@ button, a { touch-action: manipulation; }
   position: relative;
   background: var(--color-page);
   color: var(--color-body);
-  --color-heading: #ececec;
-  --color-body: #d4d4d4;
-  --color-card: #202020;
-  --color-card-2: #262626;
-  --color-muted: #9b9b9b;
-  --color-line: #2e2e2e;
+  --color-heading: #ffffff;
+  --color-body: #e0e0e0;
+  --color-card: #212121;
+  --color-card-2: #2a2a2a;
+  --color-muted: #a6a6a6;
+  --color-line: #303030;
   --color-subtle: #202020;
 }
 .deep, .hero-ocean, .atmo {
@@ -233,8 +240,8 @@ button, a { touch-action: manipulation; }
    блоки становятся серой подложкой, текст читаемый */
 .bg-navy, .bg-navy-900, .bg-navy-700, .bg-white, [class*="bg-white/"], .bg-\[\#f5f7fa\] {
   background-color: var(--color-subtle) !important;
-  --color-foam: #ececec;
-  --color-navy: #d4d4d4;
+  --color-foam: #ffffff;
+  --color-navy: #e0e0e0;
 }
 
 /* Наследие: заглушки классов, чтобы ничего не «висело» невидимым */

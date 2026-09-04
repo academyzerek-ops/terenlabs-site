@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { RankTag, API2KEY } from "./RankSketch";
+import { RankMark, API2KEY } from "./RankSketch";
 import { OCEAN_API } from "@/lib/ocean";
 
 // Компактная таблица рейтинга: место, имя, ярлык уровня, очки.
@@ -36,8 +36,8 @@ export function OceanTopTable({ limit = 3, showAll = true }: { limit?: number; s
 
   return (
     <div>
-      <div className="grid grid-cols-[32px_minmax(0,1fr)_auto_56px] gap-3 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint">
-        <span>#</span><span>Имя</span><span>Уровень</span><span className="text-right">Очки</span>
+      <div className="grid grid-cols-[32px_minmax(0,1fr)_40px_56px] gap-3 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint">
+        <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Очки</span>
       </div>
       {rows.length === 0 && (
         <div className="border-t border-line py-4 text-[14px] text-faint">
@@ -47,11 +47,11 @@ export function OceanTopTable({ limit = 3, showAll = true }: { limit?: number; s
       {rows.map((e) => (
         <div
           key={e.rank}
-          className="grid grid-cols-[32px_minmax(0,1fr)_auto_56px] items-center gap-3 border-t border-line py-3 text-[15px]"
+          className="grid grid-cols-[32px_minmax(0,1fr)_40px_56px] items-center gap-3 border-t border-line py-3 text-[15px]"
         >
           <span className="num text-faint">{e.rank}</span>
           <span className="truncate font-medium text-ink">{e.name}</span>
-          <RankTag rank={API2KEY[e.level] ?? "rakushka"} />
+          <RankMark rank={API2KEY[e.level] ?? "rakushka"} className="justify-self-center" />
           <span className="num text-right font-medium text-ink">{e.composite}</span>
         </div>
       ))}

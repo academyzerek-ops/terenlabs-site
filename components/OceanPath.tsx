@@ -80,9 +80,7 @@ export function LevelStatusChip({ levelKey }: { levelKey: string }) {
   if (!ready || !p) {
     if (levelKey === "krab") {
       return (
-        <span className="tag" style={{ background: "var(--color-tag-blue)", color: "var(--color-tag-blue-ink)" }}>
-          начни здесь
-        </span>
+        <span className="tag tag-blue">начни здесь</span>
       );
     }
     return null;
@@ -94,9 +92,7 @@ export function LevelStatusChip({ levelKey }: { levelKey: string }) {
 
   if (id === current) {
     return (
-      <span className="tag" style={{ background: "var(--color-ink)", color: "var(--color-page)" }}>
-        ты здесь
-      </span>
+      <span className="tag tag-orange">ты здесь</span>
     );
   }
   if (done) {

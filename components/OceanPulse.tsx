@@ -68,7 +68,7 @@ export function LevelCrowd({ levelKey }: { levelKey: string; deep?: boolean }) {
   const n = data.by_level[API_LEVEL[levelKey]] ?? 0;
   return (
     <span className="num inline-flex items-center gap-1.5 text-[13px] text-faint">
-      <span className={`h-1.5 w-1.5 rounded-full ${n > 0 ? "bg-accent" : "bg-line-2"}`} />
+      <span className={`h-1.5 w-1.5 rounded-full ${n > 0 ? "bg-orange" : "bg-line-2"}`} />
       {n > 0
         ? `в океане: ${n} ${plural(n, "человек", "человека", "человек")}`
         : "здесь ещё никого — будь первым"}

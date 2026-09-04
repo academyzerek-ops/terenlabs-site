@@ -48,25 +48,28 @@ export function RankSketch({
   );
 }
 
-// Ярлык уровня: цвет фона из палитры Notion, текст тёмный того же тона
-const TAG: Record<LevelKey, { bg: string; ink: string }> = {
-  rakushka: { bg: "var(--color-tag-yellow)", ink: "var(--color-tag-yellow-ink)" },
-  krab: { bg: "var(--color-tag-orange)", ink: "var(--color-tag-orange-ink)" },
-  barrakuda: { bg: "var(--color-tag-blue)", ink: "var(--color-tag-blue-ink)" },
-  delfin: { bg: "var(--color-tag-green)", ink: "var(--color-tag-green-ink)" },
-  akula: { bg: "var(--color-tag-gray)", ink: "var(--color-tag-gray-ink)" },
-  kit: { bg: "var(--color-tag-purple)", ink: "var(--color-tag-purple-ink)" },
-};
-
 const NAME: Record<LevelKey, string> = {
   rakushka: "Ракушка", krab: "Краб", barrakuda: "Барракуда",
   delfin: "Дельфин", akula: "Акула", kit: "Кит",
 };
 
-export function RankTag({ rank, className = "" }: { rank: LevelKey; className?: string }) {
-  const t = TAG[rank];
+export const RANK_NAME = NAME;
+
+// Уровень в таблице: эскиз белым штрихом, имя в подсказке и для читалок
+export function RankMark({ rank, size = 26, className = "" }: { rank: LevelKey; size?: number; className?: string }) {
   return (
-    <span className={`tag ${className}`} style={{ background: t.bg, color: t.ink }}>
+    <span className={`inline-flex items-center justify-center text-ink ${className}`} title={NAME[rank]}>
+      <RankSketch rank={rank} size={size} title={NAME[rank]} />
+    </span>
+  );
+}
+
+// Ярлык уровня: нейтральный серый, эскиз + имя. Цвета уровней не раскрашиваем,
+// акцентов на сайте два: синий и оранжевый.
+export function RankTag({ rank, className = "" }: { rank: LevelKey; className?: string }) {
+  return (
+    <span className={`tag gap-1.5 ${className}`}>
+      <RankSketch rank={rank} size={14} />
       {NAME[rank]}
     </span>
   );

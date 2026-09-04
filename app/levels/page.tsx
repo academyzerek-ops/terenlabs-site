@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Arrow } from "@/components/Button";
-import { RankSketch, RankTag } from "@/components/RankSketch";
+import { RankSketch } from "@/components/RankSketch";
 import { LevelCrowd } from "@/components/OceanPulse";
 import { OceanAccount } from "@/components/OceanAccount";
 import { LevelStatusChip, ContinueCta } from "@/components/OceanPath";
@@ -54,11 +54,10 @@ export default function LevelsPage() {
               }`}
             >
               <span className="num text-[13px] text-faint">{METERS[i]}</span>
-              <RankSketch rank={l.key} size={56} className="text-body" title={l.name} />
+              <RankSketch rank={l.key} size={56} className="text-ink" title={l.name} />
               <div className="flex min-w-0 flex-col gap-2">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                   <h2 className="text-[24px]">{l.name}</h2>
-                  <RankTag rank={l.key} />
                   <LevelStatusChip levelKey={l.key} />
                 </div>
                 <p className="max-w-[60ch] text-[15px] leading-relaxed text-text-2">

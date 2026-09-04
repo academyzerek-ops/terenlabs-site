@@ -5,7 +5,7 @@ import Link from "next/link";
 import { OCEAN_RANKS } from "@/lib/content";
 import { regionName } from "@/lib/kz-regions";
 import { OCEAN_API, getOceanToken } from "@/lib/ocean";
-import { RankSketch, RankTag, API2KEY } from "./RankSketch";
+import { RankSketch, RankMark, API2KEY } from "./RankSketch";
 import type { LevelKey } from "@/lib/content";
 
 // Живой рейтинг «Океана» (12_OCEAN.md, этап 3): пьедестал топ-3, таблица
@@ -159,8 +159,8 @@ export function OceanLeaderboard() {
       {data && (
         <div className="mt-6 grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px]">
           <div>
-            <div className="grid grid-cols-[40px_minmax(0,1fr)_auto_64px] gap-4 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint">
-              <span>#</span><span>Имя</span><span>Уровень</span><span className="text-right">Очки</span>
+            <div className="grid grid-cols-[40px_minmax(0,1fr)_48px_64px] gap-4 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint">
+              <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Очки</span>
             </div>
             {data.entries.length === 0 && (
               <p className="border-t border-line py-10 text-[15px] text-text-2">
@@ -184,7 +184,7 @@ export function OceanLeaderboard() {
 
             {/* моя позиция закреплена, даже если #847 */}
             {data.me && !meInTop && (
-              <div className="grid grid-cols-[40px_minmax(0,1fr)_auto_64px] items-center gap-4 border-t border-line-2 bg-subtle px-0 py-3.5">
+              <div className="grid grid-cols-[40px_minmax(0,1fr)_48px_64px] items-center gap-4 border-t border-line-2 bg-subtle px-0 py-3.5">
                 <span className="num text-[15px] font-medium text-ink">{data.me.rank}</span>
                 <div className="min-w-0">
                   <div className="font-medium text-ink">Ты</div>
@@ -193,7 +193,7 @@ export function OceanLeaderboard() {
                     {data.me.gap_to_top10 != null && ` · до топ-10: ${data.me.gap_to_top10} очк.`}
                   </div>
                 </div>
-                <RankTag rank={API2KEY[data.me.level] ?? "rakushka"} />
+                <RankMark rank={API2KEY[data.me.level] ?? "rakushka"} className="justify-self-center" />
                 <span className="num text-right text-[15px] font-medium text-ink">{data.me.composite}</span>
               </div>
             )}
@@ -217,11 +217,11 @@ export function OceanLeaderboard() {
                 const n = data.by_level[apiKey] ?? 0;
                 return (
                   <div key={r.key} className="flex items-center gap-3 border-t border-line py-2.5">
-                    <RankSketch rank={r.key as LevelKey} size={24} className="text-body" />
+                    <RankSketch rank={r.key as LevelKey} size={24} className="text-ink" />
                     <span className="w-24 text-[14px] text-body">{r.name}</span>
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line">
                       <div
-                        className="h-full rounded-full bg-text-2 transition-all duration-500"
+                        className="h-full rounded-full bg-accent-600 transition-all duration-500"
                         style={{ width: `${(n / maxLevelCount) * 100}%` }}
                       />
                     </div>
@@ -272,7 +272,7 @@ function Scope({
 
 function Row({ e }: { e: Entry }) {
   return (
-    <div className="grid grid-cols-[40px_minmax(0,1fr)_auto_64px] items-center gap-4 border-t border-line py-3.5 transition-colors hover:bg-subtle">
+    <div className="grid grid-cols-[40px_minmax(0,1fr)_48px_64px] items-center gap-4 border-t border-line py-3.5 transition-colors hover:bg-subtle">
       <span className="num text-[15px] text-faint">{e.rank}</span>
       <div className="min-w-0">
         <div className="truncate text-[15px] font-medium text-ink">{e.name}</div>
@@ -281,7 +281,7 @@ function Row({ e }: { e: Entry }) {
           {e.speed_badge && SPEED_RU[e.speed_badge] ? ` · ${SPEED_RU[e.speed_badge]}` : ""}
         </div>
       </div>
-      <RankTag rank={API2KEY[e.level] ?? "rakushka"} />
+      <RankMark rank={API2KEY[e.level] ?? "rakushka"} className="justify-self-center" />
       <span className="num text-right text-[15px] font-medium text-ink">{e.composite}</span>
     </div>
   );

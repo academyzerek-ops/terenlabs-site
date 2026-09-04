@@ -149,7 +149,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
           <div className="flex items-end justify-between gap-2 border-t border-line pt-5 lg:border-t-0 lg:pt-0">
             {route.map((r, i) => (
               <div key={r.key} className="flex flex-col items-center gap-1.5">
-                <RankSketch rank={r.key as LevelKey} size={sizes[i]} className="text-body" />
+                <RankSketch rank={r.key as LevelKey} size={sizes[i]} className="text-ink" />
                 <span className="text-[11px] text-faint">{r.name}</span>
               </div>
             ))}
@@ -177,7 +177,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
         <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
           <div className="flex items-center gap-4">
-            <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={64} className="text-body" />
+            <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={64} className="text-ink" />
             <div className="min-w-0">
               <div className="eyebrow">твой уровень</div>
               <div className="mt-1 text-2xl font-semibold text-ink">{LEVEL_RU[lvl]}</div>
@@ -224,7 +224,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
                 >
                   <span
                     className={`relative flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:-translate-y-0.5 sm:h-16 sm:w-16 ${
-                      cur ? "border border-line-2 bg-subtle" : ""
+                      cur ? "border border-orange/60 bg-subtle" : ""
                     }`}
                   >
                     <RankSketch rank={LEVEL_KEY[id] as LevelKey} size={44} className={done || cur ? "text-ink" : "text-faint"} />

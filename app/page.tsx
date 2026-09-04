@@ -108,7 +108,7 @@ export default function Home() {
                 href={`/levels/${r.key}`}
                 className={`group flex flex-col gap-3 py-1 pl-4 sm:border-l sm:border-line ${i === 0 ? "sm:border-l-0 sm:pl-0" : ""}`}
               >
-                <RankSketch rank={r.key as LevelKey} size={40} className="text-body transition-colors group-hover:text-ink" />
+                <RankSketch rank={r.key as LevelKey} size={40} className="text-ink" />
                 <div>
                   <div className="text-[15px] font-medium text-ink">{r.name}</div>
                   <div className="num mt-0.5 text-[12px] text-faint">{METERS[r.key as LevelKey]}</div>
@@ -191,7 +191,7 @@ export default function Home() {
               ))}
               <div className="flex items-center justify-between border-y border-line py-3 text-[15px]">
                 <span className="font-medium text-ink">Прогноз прибыли</span>
-                <span className="num font-medium text-danger">−1,4 млн ₸ / год</span>
+                <span className="num font-medium text-orange">−1,4 млн ₸ / год</span>
               </div>
             </div>
             <Link href="/finmodels/finmodel-cafe" className="link mt-1 text-[15px]">
