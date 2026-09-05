@@ -4,6 +4,7 @@ import { Button, Arrow } from "@/components/Button";
 import { RankSketch } from "@/components/RankSketch";
 import { BRANDS, plural } from "@/lib/content";
 import { ACADEMY } from "@/lib/learn";
+import { TrackCards } from "@/components/TrackCards";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -70,7 +71,12 @@ export default function StartupPage() {
               инвестором. Разборы брендов открыты как практика к третьему уроку.
             </p>
           </div>
-          <div className="mt-8">
+          {track && (
+            <div className="mt-8">
+              <TrackCards tracks={[track]} />
+            </div>
+          )}
+          <div className="mt-10">
             {PROGRAM.map(([n, t, d]) => {
               const m = built.get(`m${Number(n)}`);
               const ready = !!m && m.chapters.some((c) => !c.missing);
