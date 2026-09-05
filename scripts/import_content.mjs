@@ -433,3 +433,11 @@ console.log("counts:", report.counts);
 console.log("missingChapters:", report.missingChapters.length, report.missingChapters.slice(0, 10));
 console.log("missingHero:", report.missingHero.length, report.missingHero.slice(0, 5), "…");
 console.log("unknownAssets:", [...report.unknownAssets].slice(0, 15));
+
+// ---------- ИНДЕКС ПОИСКА ----------
+// Контент обновился — пересобираем /search-index.json, иначе ⌘K ищет по старому.
+try {
+  execFileSync("node", [path.join(import.meta.dirname, "build_search_index.mjs")], { stdio: "inherit" });
+} catch (e) {
+  console.warn("⚠ индекс поиска не пересобран:", e.message);
+}
