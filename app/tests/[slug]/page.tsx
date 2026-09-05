@@ -7,6 +7,10 @@ import { getItem, TESTS, LEVELS, PRODUCT_TYPES, plural } from "@/lib/content";
 import { OCEAN_TESTS } from "@/lib/ocean-tests";
 import { itemMetadata } from "@/lib/seo";
 
+// Все слаги известны на сборке: неизвестный отдаёт настоящий 404, а не 200
+// с пустой страницей (аудит ссылок 06.09.2026).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return TESTS.map((t) => ({ slug: t.slug }));
 }

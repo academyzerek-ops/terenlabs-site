@@ -50,6 +50,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/cases", destination: "/catalog?type=case", permanent: true },
       { source: "/reviews", destination: "/catalog?type=review", permanent: true },
+      { source: "/brands", destination: "/catalog?type=bm", permanent: true },
+      { source: "/finmodels", destination: "/catalog?type=finmodel", permanent: true },
+      { source: "/courses", destination: "/academy", permanent: true },
     ];
   },
 

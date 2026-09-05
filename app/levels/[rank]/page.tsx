@@ -9,6 +9,10 @@ import { getLevel, levelItems, Level, plural, LEVELS } from "@/lib/content";
 import { getTrack } from "@/lib/learn";
 import { pageMetadata } from "@/lib/seo";
 
+// Все слаги известны на сборке: неизвестный отдаёт настоящий 404, а не 200
+// с пустой страницей (аудит ссылок 06.09.2026).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return LEVELS.map((l) => ({ rank: l.key }));
 }

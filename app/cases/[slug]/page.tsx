@@ -13,6 +13,10 @@ import { JsonLd } from "@/components/JsonLd";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 import "./case-content.css";
 
+// Все слаги известны на сборке: неизвестный отдаёт настоящий 404, а не 200
+// с пустой страницей (аудит ссылок 06.09.2026).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return CASES.map((c) => ({ slug: c.slug }));
 }

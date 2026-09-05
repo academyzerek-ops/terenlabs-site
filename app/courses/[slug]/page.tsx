@@ -10,6 +10,10 @@ import { itemMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { courseJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 
+// Все слаги известны на сборке: неизвестный отдаёт настоящий 404, а не 200
+// с пустой страницей (аудит ссылок 06.09.2026).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return COURSES.map((c) => ({ slug: c.slug }));
 }

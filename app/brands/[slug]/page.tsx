@@ -12,6 +12,10 @@ import { JsonLd } from "@/components/JsonLd";
 import { brandArticleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 import "./brand-content.css";
 
+// Все слаги известны на сборке: неизвестный отдаёт настоящий 404, а не 200
+// с пустой страницей (аудит ссылок 06.09.2026).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return BRANDS.map((b) => ({ slug: b.slug }));
 }

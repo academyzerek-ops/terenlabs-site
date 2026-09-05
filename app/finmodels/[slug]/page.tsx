@@ -6,6 +6,10 @@ import { PRODUCT_KEYWORDS } from "@/lib/seo-keywords";
 import { JsonLd } from "@/components/JsonLd";
 import { articleJsonLd } from "@/lib/jsonld";
 
+// Все слаги известны на сборке: неизвестный отдаёт настоящий 404, а не 200
+// с пустой страницей (аудит ссылок 06.09.2026).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return FINMODELS.map((f) => ({ slug: f.slug }));
 }
