@@ -804,3 +804,12 @@ p .ic,li .ic,td .ic,.vs-d .ic,.fc-txt .ic{margin-right:.28em}
 .fc{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:13px 14px}
 .fc-ico{font-size:0;margin:0;color:var(--les-text-3)}
 .fc-ico .ic{width:17px;height:17px;margin-top:1px}
+
+/* ══════ ИСТОЧНИКИ ГЛАВЫ ══════ */
+.src{margin:36px 0 8px;padding-top:18px;border-top:1px solid var(--les-border)}
+.src-h{font-size:12px;font-weight:600;color:var(--les-text-3);letter-spacing:.06em;margin-bottom:10px}
+.src-l{margin:0;padding-left:20px}
+.src-l li{margin:0 0 6px;font-size:12.5px;line-height:1.5;color:var(--les-text-2)}
+.src-l a{color:var(--les-text-2);text-decoration:none;border-bottom:1px solid var(--les-border)}
+.src-l a:hover{color:var(--les-aqua-deep)}
+.src-d{color:var(--les-text-3)}

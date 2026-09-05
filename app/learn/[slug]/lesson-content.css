@@ -244,3 +244,15 @@
 .lesson-content .fc { display: flex; gap: 10px; align-items: flex-start; }
 .lesson-content .fc-ico { font-size: 0; margin: 1px 0 0; color: var(--color-faint); }
 .lesson-content .fc-ico .ic { width: 17px; height: 17px; }
+
+/* ══ источники главы ══ собираются из 00_main.md урока при сборке */
+.lesson-content .src { margin: 40px 0 8px; padding-top: 20px; border-top: 1px solid var(--color-line); }
+.lesson-content .src-h {
+  font-size: 12px; font-weight: 500; color: var(--color-faint);
+  letter-spacing: 0.06em; margin-bottom: 12px;
+}
+.lesson-content .src-l { margin: 0; padding: 0; list-style: none; }
+.lesson-content .src-l li { margin: 0 0 7px; font-size: 13px; line-height: 1.5; color: var(--color-text-2); }
+.lesson-content .src-l a { color: var(--color-text-2); text-decoration: none; border-bottom: 1px solid var(--color-line-2); }
+.lesson-content .src-l a:hover { color: var(--color-ink); border-bottom-color: var(--color-accent); }
+.lesson-content .src-d { color: var(--color-faint); }
