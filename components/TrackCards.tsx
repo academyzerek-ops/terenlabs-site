@@ -48,7 +48,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
     const el = ref.current;
     if (!el) return;
     const card = el.querySelector<HTMLElement>("[data-card]");
-    const step = (card?.offsetWidth ?? 320) + 16;
+    const step = (card?.offsetWidth ?? 288) + 16;
     el.scrollBy({ left: dir * step * 2, behavior: "smooth" });
   };
 
@@ -65,11 +65,11 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
               key={t.slug}
               href={`/courses/${t.slug}`}
               data-card
-              className="group flex w-[300px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-line bg-card transition-colors hover:border-line-2 hover:bg-card-2 sm:w-[320px]"
+              className="group flex w-[270px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-line bg-card transition-colors hover:border-line-2 hover:bg-card-2 sm:w-[288px]"
             >
               {/* светлое превью: обложка тушью или лист документа на серой подложке */}
               {TRACK_COVER[t.slug] ? (
-                <div className="h-[190px] overflow-hidden bg-page">
+                <div className="h-[170px] overflow-hidden bg-page">
                   <img
                     src={TRACK_COVER[t.slug]}
                     alt=""
@@ -80,7 +80,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                   />
                 </div>
               ) : (
-              <div className="h-[190px] bg-[#e9e8e4] px-6 pt-6">
+              <div className="h-[170px] bg-[#e9e8e4] px-6 pt-6">
                 <div className="h-full rounded-t-[6px] bg-[#ffffff] px-5 pt-5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]">
                   <div className="truncate text-[10px] uppercase tracking-[0.08em] text-[#9b9a97]">
                     {t.subtitle}
@@ -99,7 +99,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                 </div>
               </div>
               )}
-              <div className="flex flex-1 flex-col gap-3 p-5">
+              <div className="flex flex-1 flex-col gap-2.5 p-4">
                 <div className="text-[15px] font-semibold leading-snug text-ink">{t.title}</div>
                 <div className="num mt-auto flex items-center gap-2 text-[13px] text-text-2">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -129,7 +129,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
         type="button"
         onClick={() => scrollBy(-1)}
         aria-label="Назад"
-        className={`absolute left-2 top-[95px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
+        className={`absolute left-2 top-[85px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
           canLeft ? "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -139,7 +139,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
         type="button"
         onClick={() => scrollBy(1)}
         aria-label="Дальше"
-        className={`absolute right-2 top-[95px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
+        className={`absolute right-2 top-[85px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
           canRight ? "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
