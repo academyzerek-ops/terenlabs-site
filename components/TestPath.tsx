@@ -25,8 +25,8 @@ const STAGES: Stage[] = [
     rule: "Не входит в ранг. Результат хранится на этом устройстве.",
     nodes: [
       { slug: "t1-a04", title: "Альтернативная стоимость времени", sub: "42 вопроса", level: "mollusk", test: "a04" },
-      { slug: "t1-risks", title: "Риски ниши", sub: "готовится", level: "mollusk", test: "risks", soon: true },
-      { slug: "t1-synthesis", title: "Итоговый разбор", sub: "готовится", level: "mollusk", test: "synthesis", soon: true },
+      { slug: "t1-risks", title: "Риски ниши", sub: "12 вопросов", level: "mollusk", test: "risks" },
+      { slug: "t1-synthesis", title: "Итоговый разбор", sub: "12 вопросов", level: "mollusk", test: "synthesis" },
     ],
   },
   {

@@ -7,6 +7,8 @@
 
 import { TestQuestion } from "./learn";
 import { T1_A04_QUESTIONS } from "./content-t1a04";
+import { T1_RISKS_QUESTIONS } from "./content-t1risks";
+import { T1_SYNTHESIS_QUESTIONS } from "./content-t1synthesis";
 import productsJson from "@/content/products.json";
 import levelsJson from "@/content/levels.json";
 
@@ -102,6 +104,8 @@ export const PROOF_STATS = [
 // ---- Банки вопросов (slug → вопросы). Новые банки регистрировать здесь. ----
 const BANKS: Record<string, TestQuestion[]> = {
   "t1-a04": T1_A04_QUESTIONS,
+  "t1-risks": T1_RISKS_QUESTIONS,
+  "t1-synthesis": T1_SYNTHESIS_QUESTIONS,
 };
 
 // ================= ТИПЫ =================
