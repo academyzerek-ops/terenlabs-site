@@ -50,8 +50,6 @@
   border-radius: 3px;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--color-orange);
   background: var(--color-orange-100);
   margin-bottom: 16px;
@@ -131,8 +129,6 @@
   border-radius: 3px;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   margin-bottom: 12px;
   background: var(--color-tag-gray);
   color: var(--color-tag-gray-ink);
@@ -288,17 +284,20 @@
 .brand-content .src {
   width: 100%;
   min-width: 520px;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 13px;
   line-height: 1.5;
 }
+.brand-content .src th:nth-child(1), .brand-content .src td:nth-child(1) { width: 27%; }
+.brand-content .src th:nth-child(2), .brand-content .src td:nth-child(2) { width: 41%; }
+.brand-content .src th:nth-child(3), .brand-content .src td:nth-child(3) { width: 32%; }
+.brand-content .src td { overflow-wrap: anywhere; }
 .brand-content .src th {
   text-align: left;
   padding: 0 10px 8px;
   font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-faint);
+  color: var(--color-text-2);
   font-weight: 500;
   border-bottom: 1px solid var(--color-line);
 }
@@ -317,7 +316,6 @@
   font-variant-numeric: tabular-nums;
   color: var(--color-ink);
   font-weight: 500;
-  white-space: nowrap;
 }
 .brand-content .src-note {
   font-size: 12px;
