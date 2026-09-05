@@ -762,3 +762,7 @@ html.js-reveal .c,html.js-reveal .vs,html.js-reveal .tl,html.js-reveal .ins,html
 /* Заголовки читалки: тот же гротеск, что на сайте (Inter в родителе, системный в iframe) */
 h1, h2, h3, .hero h1 { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif; font-weight: 600; letter-spacing: -0.015em; }
 .hero h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; }
+/* табличный compare: строки-пары внутри колонок */
+.vs-table .vs-d p{margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--les-border)}
+.vs-table .vs-d p:last-child{margin-bottom:0;padding-bottom:0;border-bottom:0}
+.vs-t,.tk h3,.ex-q,.fla-lbl,.tl-date{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,sans-serif;font-variation-settings:normal}
