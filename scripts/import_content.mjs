@@ -390,11 +390,17 @@ const reviewProducts = reviews.map((r) => {
     blurb: r.sub || "Разбор ниши на цифрах: рынок, экономика, риски",
     badge: "Обзор",
     // фото ниши из самого обзора; без него — тематический фолбэк, а не серая дыра
-    img: hasHero ? `${heroPath}?v=3` : "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
+    img: hasHero ? `${heroPath}?${IMG_V}` : "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
   };
 });
 write(
   path.join(SITE, "content/products.json"),
+  JSON.stringify(
+    [...keep, ...oceanTestProducts, ...courseProducts, ...caseProducts, ...reviewProducts],
+    null,
+    1
+  )
+);
 // sync bm: разборы брендов живут в content/brands.json (scripts/build_brands.py из vault); карточки каталога подмешиваем сюда
 {
   const brandsPath = path.join(SITE, "content/brands.json");
@@ -405,12 +411,7 @@ write(
     write(pj, JSON.stringify(products, null, 1));
   }
 }
-  JSON.stringify(
-    [...keep, ...oceanTestProducts, ...courseProducts, ...caseProducts, ...reviewProducts],
-    null,
-    1
-  )
-);
+
 report.counts.products = keep.length + courseProducts.length + caseProducts.length + reviewProducts.length;
 
 // ---------- 6. ТЕМАТИЧЕСКИЕ ЭЛЕМЕНТЫ ОБЗОРОВ (фоны A) ----------
