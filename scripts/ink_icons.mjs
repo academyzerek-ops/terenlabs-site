@@ -11,6 +11,10 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const DRY = process.argv.includes("--dry");
 
+// Версия таблицы стилей глав и обзоров: иконки и блок источников описаны в
+// lessons.css, и без подъёма версии браузер отдаёт закешированный файл без них.
+const CSS_V = 11;
+
 // ---- набор иконок: 16×16, штрих, без заливки ----
 const ICONS = {
   idea: '<path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/>',
@@ -173,7 +177,10 @@ function processFile(file) {
     return `${open}${svg(pick(chars[0]) ?? "mark")}${close}`;
   });
 
-  // 2. инлайновые маркеры в тексте: флаг и галочка
+  // 2. версия таблицы стилей: иначе новые классы приедут без оформления
+  out = out.replace(/lessons\.css\?v=\d+/g, `lessons.css?v=${CSS_V}`);
+
+  // 3. инлайновые маркеры в тексте: флаг и галочка
   out = out.replace(/([🚩✅❌⚠])️?/gu, (m, ch) => {
     inline++;
     const icon = ch === "🚩" ? "flag" : ch === "✅" ? "check" : ch === "❌" ? "cross" : "warn";
