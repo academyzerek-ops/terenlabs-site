@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { RankSketch } from "@/components/RankSketch";
 import type { LevelKey } from "@/lib/content";
@@ -8,244 +8,268 @@ import { getAttempts } from "@/lib/memory";
 import { fetchOceanProgress, isTestPassed, isLevelUnlocked, cooldownLeftMs, formatCooldown, type OceanProgress } from "@/lib/ocean";
 import { DOLPHIN_CASES, SHARK_CASES } from "@/lib/ocean-tests";
 
-// Тропа тестов как погружение: узлы лежат на плавной кривой (синус), между уровнями
-// ворота с обитателем, слева линейка глубины, фон темнеет ко дну. Подписи под узлами,
-// кривая проходит через центры узлов и не пересекает текст. Пройденный отрезок кривой
-// синий, впереди пунктир. Прогресс: Океан после входа, иначе память устройства.
+// Путь тестов: вертикальный ствол погружения, на нём уровни. У каждого уровня своя
+// полоса: слева обитатель и глубина, справа его тесты плитками. Уровни отделены друг
+// от друга и подписаны, поэтому длинная змейка больше не нужна.
 
-type Node = { slug: string; title: string; sub: string; level: string; test: string };
-type Stage = { level: string; key: LevelKey; name: string; depth: string; meaning: string; nodes: Node[] };
+type Node = { slug: string; title: string; sub: string; level: string; test: string; soon?: boolean };
+type Stage = {
+  level: string; key: LevelKey; name: string; depth: string;
+  meaning: string; rule: string; unlock?: string; nodes: Node[];
+};
 
 const STAGES: Stage[] = [
-  { level: "mollusk", key: "rakushka", name: "Ракушка", depth: "0 м", meaning: "Разминка на берегу", nodes: [
-    { slug: "t1-a04", title: "Альтернативная стоимость времени", sub: "10 вопросов", level: "mollusk", test: "a04" },
-    { slug: "t1-risks", title: "Риски ниши", sub: "10 вопросов", level: "mollusk", test: "risks" },
-    { slug: "t1-synthesis", title: "Итоговый разбор", sub: "10 вопросов", level: "mollusk", test: "synthesis" },
-  ] },
-  { level: "crab", key: "krab", name: "Краб", depth: "10 м", meaning: "База: теория и счёт", nodes: [
-    { slug: "crab-t1", title: "Теория", sub: "10 вопросов · порог 7", level: "crab", test: "t1" },
-    { slug: "crab-t2", title: "Расчёты", sub: "10 вопросов · порог 7", level: "crab", test: "t2" },
-    { slug: "crab-t3", title: "Универсальный", sub: "10 вопросов · порог 6", level: "crab", test: "t3" },
-  ] },
-  { level: "barracuda", key: "barrakuda", name: "Барракуда", depth: "50 м", meaning: "Пять дисциплин", nodes: [
-    { slug: "barracuda-fin", title: "Финансы", sub: "10 вопросов · порог 7", level: "barracuda", test: "fin" },
-    { slug: "barracuda-mkt", title: "Маркетинг", sub: "10 вопросов · порог 7", level: "barracuda", test: "mkt" },
-    { slug: "barracuda-mgmt", title: "Менеджмент", sub: "10 вопросов · порог 7", level: "barracuda", test: "mgmt" },
-    { slug: "barracuda-law", title: "Право", sub: "10 вопросов · порог 7", level: "barracuda", test: "law" },
-    { slug: "barracuda-universal", title: "Универсальный", sub: "10 вопросов · порог 7", level: "barracuda", test: "universal" },
-  ] },
-  { level: "dolphin", key: "delfin", name: "Дельфин", depth: "120 м", meaning: "Открытые кейсы, проверяет TEREN-AI", nodes: DOLPHIN_CASES.map((c) => ({
-    slug: `dolphin-${c.id}`, title: c.name, sub: "открытый кейс · 5 вопросов", level: "dolphin", test: c.id,
-  })) },
-  { level: "shark", key: "akula", name: "Акула", depth: "300 м", meaning: "12 бизнесов, разбор по шагам", nodes: SHARK_CASES.map((c) => ({
-    slug: `shark-${c.id}`, title: c.name, sub: "кейс · 10 вопросов", level: "shark", test: c.id,
-  })) },
+  {
+    level: "mollusk", key: "rakushka", name: "Ракушка", depth: "0 м",
+    meaning: "Разминка на берегу: проверить себя до того, как считать деньги.",
+    rule: "Не входит в ранг. Результат хранится на этом устройстве.",
+    nodes: [
+      { slug: "t1-a04", title: "Альтернативная стоимость времени", sub: "42 вопроса", level: "mollusk", test: "a04" },
+      { slug: "t1-risks", title: "Риски ниши", sub: "готовится", level: "mollusk", test: "risks", soon: true },
+      { slug: "t1-synthesis", title: "Итоговый разбор", sub: "готовится", level: "mollusk", test: "synthesis", soon: true },
+    ],
+  },
+  {
+    level: "crab", key: "krab", name: "Краб", depth: "10 м",
+    meaning: "База: понимаешь термины и умеешь считать.",
+    rule: "3 теста по 10 вопросов. Порог 7 из 10, у последнего 6.",
+    unlock: "Открыт всем сразу. С него начинается ранг.",
+    nodes: [
+      { slug: "crab-t1", title: "Теория", sub: "10 вопросов · порог 7", level: "crab", test: "t1" },
+      { slug: "crab-t2", title: "Расчёты", sub: "10 вопросов · порог 7", level: "crab", test: "t2" },
+      { slug: "crab-t3", title: "Универсальный", sub: "10 вопросов · порог 6", level: "crab", test: "t3" },
+    ],
+  },
+  {
+    level: "barracuda", key: "barrakuda", name: "Барракуда", depth: "50 м",
+    meaning: "Пять дисциплин: деньги, спрос, люди, закон и всё вместе.",
+    rule: "5 тестов по 10 вопросов. Порог 7 из 10 в каждом.",
+    unlock: "Откроется, когда сданы все три теста Краба",
+    nodes: [
+      { slug: "barracuda-fin", title: "Финансы", sub: "10 вопросов · порог 7", level: "barracuda", test: "fin" },
+      { slug: "barracuda-mkt", title: "Маркетинг", sub: "10 вопросов · порог 7", level: "barracuda", test: "mkt" },
+      { slug: "barracuda-mgmt", title: "Менеджмент", sub: "10 вопросов · порог 7", level: "barracuda", test: "mgmt" },
+      { slug: "barracuda-law", title: "Право", sub: "10 вопросов · порог 7", level: "barracuda", test: "law" },
+      { slug: "barracuda-universal", title: "Универсальный", sub: "10 вопросов · порог 7", level: "barracuda", test: "universal" },
+    ],
+  },
+  {
+    level: "dolphin", key: "delfin", name: "Дельфин", depth: "120 м",
+    meaning: "Тут заканчиваются варианты ответов. Решение объясняешь словами.",
+    rule: "3 открытых кейса по 5 вопросов. Ответ разбирает TEREN-AI.",
+    unlock: "Откроется, когда сданы все пять тестов Барракуды",
+    nodes: DOLPHIN_CASES.map((c) => ({
+      slug: `dolphin-${c.id}`, title: c.name, sub: "открытый кейс · 5 вопросов", level: "dolphin", test: c.id,
+    })),
+  },
+  {
+    level: "shark", key: "akula", name: "Акула", depth: "300 м",
+    meaning: "12 живых бизнесов. Каждый разбираешь по шагам, от идеи до вывода.",
+    rule: "Кейс из 10 вопросов по порядку, вернуться назад нельзя.",
+    unlock: "Откроется, когда сданы все три кейса Дельфина",
+    nodes: SHARK_CASES.map((c) => ({
+      slug: `shark-${c.id}`, title: c.name, sub: "кейс · 10 вопросов", level: "shark", test: c.id,
+    })),
+  },
 ];
 
-// раскладка: змейка на всю ширину. Ячейки (ворота уровня, тесты, финал) идут слева направо,
-// следующий ряд справа налево, кривая делает разворот у края. Число колонок от ширины.
-const ROW_H = 200;
-const NODE_Y = 84; // центр узла от верха ряда: сверху место под ярлык «Начать»
+const HOW = [
+  "Пять уровней подряд. Следующий открывается, когда предыдущий сдан целиком.",
+  "Закрытые тесты: 10 вопросов, вопросы каждый раз новые. Балл считает сервер, правильных ответов в браузере нет.",
+  "Открытые кейсы Дельфина и Акулы: отвечаешь своими словами, проверяет TEREN-AI по рубрике.",
+  "Не сдал — пересдача через несколько часов. Сданное сразу идёт в ранг и в рейтинг.",
+];
 
-type Cell =
-  | { kind: "gate"; stage: Stage; index: number }
-  | { kind: "node"; node: Node; stage: Stage; i: number }
-  | { kind: "final" };
-
-const CELLS: Cell[] = (() => {
-  const out: Cell[] = [];
-  STAGES.forEach((s, si) => {
-    out.push({ kind: "gate", stage: s, index: si });
-    s.nodes.forEach((n, i) => out.push({ kind: "node", node: n, stage: s, i }));
-  });
-  out.push({ kind: "final" });
-  return out;
-})();
-
-const WAVE = 18; // лёгкая волна внутри ряда: соседние узлы чуть выше и ниже друг друга
-
-function place(i: number, cols: number, cellW: number) {
-  const row = Math.floor(i / cols);
-  let col = i % cols;
-  if (row % 2 === 1) col = cols - 1 - col;
-  const wave = Math.sin((col / Math.max(1, cols - 1)) * Math.PI * 2) * WAVE;
-  return { x: (col + 0.5) * cellW, y: row * ROW_H + NODE_Y + wave, row };
-}
-
-function snake(pts: { x: number; y: number; row: number }[], cellW: number): string {
-  if (pts.length < 2) return "";
-  let d = `M ${pts[0].x} ${pts[0].y}`;
-  for (let i = 1; i < pts.length; i++) {
-    const a = pts[i - 1], b = pts[i];
-    if (a.row === b.row) {
-      const mx = (a.x + b.x) / 2;
-      d += ` C ${mx} ${a.y}, ${mx} ${b.y}, ${b.x} ${b.y}`;
-      continue;
-    }
-    // разворот у края: дуга наружу
-    const dir = a.row % 2 === 0 ? 1 : -1;
-    const bulge = Math.min(cellW * 0.55, cellW / 2 - 12) * dir; // дуга не выходит за край сцены
-    d += ` C ${a.x + bulge} ${a.y}, ${b.x + bulge} ${b.y}, ${b.x} ${b.y}`;
-  }
-  return d;
-}
+const LockIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="3.5" y="7" width="9" height="6.5" rx="1.2" /><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" />
+  </svg>
+);
 
 export function TestPath() {
   const [progress, setProgress] = useState<OceanProgress | null>(null);
   const [local, setLocal] = useState<Set<string>>(new Set());
   const [ready, setReady] = useState(false);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(960);
-
-  useEffect(() => {
-    const el = stageRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(([e]) => setWidth(e.contentRect.width));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
 
   useEffect(() => {
     setLocal(new Set(getAttempts().filter((a) => a.passed).map((a) => a.slug)));
     fetchOceanProgress().then((p) => { setProgress(p); setReady(true); });
   }, []);
 
-  const cols = Math.max(2, Math.min(6, Math.floor(width / 190)));
-  const cellW = width / cols;
-  const rows = Math.ceil(CELLS.length / cols);
-  const height = rows * ROW_H + 8;
-  const pts = useMemo(() => CELLS.map((_, i) => place(i, cols, cellW)), [cols, cellW]);
-
-  const passed = (n: Node) => (n.level === "mollusk" ? local.has(n.slug) : isTestPassed(progress, n.level, n.test) || local.has(n.slug));
+  const passed = (n: Node) =>
+    n.level === "mollusk" ? local.has(n.slug) : isTestPassed(progress, n.level, n.test) || local.has(n.slug);
   const unlocked = (s: Stage) => (s.level === "mollusk" ? true : isLevelUnlocked(progress, s.level));
 
   const hereSlug = (() => {
     for (const s of STAGES) {
       if (!unlocked(s)) break;
-      for (const n of s.nodes) if (!passed(n)) return n.slug;
+      for (const n of s.nodes) if (!passed(n) && !n.soon) return n.slug;
     }
     return null;
   })();
-  const total = CELLS.filter((c) => c.kind === "node").length;
-  const doneCount = CELLS.filter((c) => c.kind === "node" && passed(c.node)).length;
 
-  // пройденная часть змейки: до текущего узла, а если всё сдано, до последнего сданного
-  const lastDone = Math.max(-1, ...CELLS.map((c, idx) => (c.kind === "node" && passed(c.node) ? idx : -1)));
-  const hereIdx = CELLS.findIndex((c) => c.kind === "node" && c.node.slug === hereSlug);
-  const doneUntil = hereIdx > 0 ? hereIdx : lastDone + 1;
+  const real = STAGES.flatMap((s) => s.nodes).filter((n) => !n.soon);
+  const doneCount = real.filter(passed).length;
+  const whaleOpen = isLevelUnlocked(progress, "whale");
 
   return (
     <div>
-      {/* сводка */}
-      <div className="panel mb-6 flex items-center gap-6 px-6 py-4">
-        <div className="shrink-0">
-          <div className="text-[12px] text-faint">пройдено</div>
-          <div className="num text-[20px] font-semibold leading-tight text-ink">
-            {doneCount}<span className="text-[13px] font-normal text-text-2"> из {total}</span>
+      {/* как устроен путь + общий прогресс */}
+      <div className="panel panel-split mb-10 grid gap-0 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="p-6 sm:p-8">
+          <p className="section-label">Как устроен путь</p>
+          <ul className="mt-4 grid gap-2.5">
+            {HOW.map((t, i) => (
+              <li key={t} className="flex gap-3 text-[14px] leading-relaxed text-text-2">
+                <span className="num mt-[2px] w-4 shrink-0 text-[12px] text-faint">{i + 1}</span>
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="panel-half flex flex-col justify-center gap-4 p-6 sm:p-8">
+          <div>
+            <div className="text-[12px] text-faint">пройдено тестов</div>
+            <div className="num text-[28px] font-semibold leading-tight text-ink">
+              {doneCount}<span className="text-[15px] font-normal text-text-2"> из {real.length}</span>
+            </div>
           </div>
+          <div className="h-1.5 overflow-hidden rounded-full bg-line">
+            <div className="h-full rounded-full bg-accent-600 transition-[width] duration-700" style={{ width: `${(doneCount / real.length) * 100}%` }} />
+          </div>
+          {!ready ? (
+            <div className="h-[18px]" />
+          ) : progress ? (
+            <div className="text-[13px] text-text-2">Считается в Океане, ранг обновляется сразу.</div>
+          ) : (
+            <Link href="/auth/sign-in" className="link text-[13px]">Войти, чтобы результат шёл в ранг</Link>
+          )}
         </div>
-        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line">
-          <div className="h-full rounded-full bg-accent-600 transition-[width] duration-700" style={{ width: `${(doneCount / total) * 100}%` }} />
-        </div>
-        {!ready ? null : progress ? (
-          <span className="shrink-0 text-[12px] text-faint">из Океана</span>
-        ) : (
-          <Link href="/auth/sign-in" className="link shrink-0 text-[13px]">Войти, чтобы засчитать</Link>
-        )}
       </div>
 
-      {/* сцена: змейка на всю ширину, фон темнеет ко дну */}
-      <div
-        ref={stageRef}
-        className="relative overflow-hidden rounded-[16px]"
-        style={{ height, background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,0.22) 60%, rgba(0,0,0,0.45) 100%)" }}
-      >
-        <svg className="pointer-events-none absolute inset-0" width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
-          <path d={snake(pts, cellW)} fill="none" stroke="var(--color-line-2)" strokeWidth={2} strokeDasharray="4 8" strokeLinecap="round" />
-          {doneUntil > 0 && (
-            <path d={snake(pts.slice(0, doneUntil + 1), cellW)} fill="none" stroke="var(--color-accent-600)" strokeWidth={3} strokeLinecap="round" />
-          )}
-        </svg>
-
-        {CELLS.map((c, idx) => {
-          const { x, y } = pts[idx];
-          const box = { left: x - cellW / 2, top: y - NODE_Y, width: cellW, height: ROW_H - WAVE };
-          const lockIcon = (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.2" /><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" /></svg>
-          );
-
-          if (c.kind === "gate" || c.kind === "final") {
-            const stage = c.kind === "gate" ? c.stage : null;
-            const open = stage ? unlocked(stage) : isLevelUnlocked(progress, "whale");
-            const done = stage ? stage.nodes.filter(passed).length : 0;
-            const key = stage ? stage.key : "kit";
-            const name = stage ? stage.name : "Кит";
-            const meaning = stage ? stage.meaning : "финал трека «От идеи до инвестиций»";
-            const depth = stage ? stage.depth : "1 000 м";
-            return (
-              <div key={`g-${key}`} className="absolute flex flex-col items-center px-2 text-center" style={{ ...box, paddingTop: NODE_Y - 44 }}>
-                <div className={`relative flex h-[88px] w-[88px] items-center justify-center rounded-full bg-page ${open ? "shadow-[0_0_0_1px_var(--color-line-2),0_0_60px_rgba(39,131,222,0.18)]" : "shadow-[0_0_0_1px_var(--color-line)]"}`}>
-                  <RankSketch rank={key} size={56} className={open ? "text-ink" : "text-faint"} />
-                  <span className={`num absolute -top-1 -right-2 rounded-full bg-page px-1.5 py-0.5 text-[10px] shadow-[0_0_0_1px_var(--color-line)] ${open ? "text-text-2" : "text-faint"}`}>{depth}</span>
-                  {!open && (
-                    <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-page text-faint shadow-[0_0_0_1px_var(--color-line)]">
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round"><rect x="3.5" y="7" width="9" height="6.5" rx="1.2" /><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" /></svg>
-                    </span>
-                  )}
-                </div>
-                <div className={`mt-2 text-[15px] font-semibold leading-tight ${open ? "text-ink" : "text-faint"}`}>{name}</div>
-                <div className="mt-0.5 text-[11.5px] leading-snug text-text-2">{meaning}</div>
-                {stage && (
-                  <div className="num mt-0.5 text-[11px] leading-snug text-faint">
-                    {open ? `${done} из ${stage.nodes.length}` : `после уровня «${STAGES[(c.kind === "gate" ? c.index : 0) - 1]?.name}»`}
-                  </div>
-                )}
-              </div>
-            );
-          }
-
-          const { node: n, stage: s } = c;
+      {/* ствол погружения: уровни полосами */}
+      <div className="grid gap-0">
+        {STAGES.map((s, si) => {
           const open = unlocked(s);
-          const done = passed(n);
-          const here = n.slug === hereSlug;
-          const avail = open && !done;
-          const cd = progress ? cooldownLeftMs(progress.cooldowns, n.level, n.test) : 0;
-          const body = (
-            <>
-              {here && (
-                <span className="path-bounce absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-[6px] bg-orange px-2.5 py-1 text-[11px] font-semibold text-[#1a1a1a]" style={{ top: NODE_Y - 32 - 36 }}>
-                  {cd > 0 ? `через ${formatCooldown(cd)}` : "Начать"}
-                  <span className="absolute left-1/2 top-full -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-orange" />
-                </span>
-              )}
+          const done = s.nodes.filter((n) => !n.soon).filter(passed).length;
+          const totalReal = s.nodes.filter((n) => !n.soon).length;
+          const levelDone = done === totalReal;
+
+          return (
+            <section key={s.level} className="relative pl-[76px] sm:pl-[104px]">
+              {/* сегмент ствола */}
               <span
-                className={`flex h-16 w-16 items-center justify-center rounded-full transition-transform group-hover:scale-[1.05] ${
-                  done ? "bg-accent-600 text-[#fff] shadow-[0_6px_0_#1a5ea6]"
-                  : here ? "bg-page text-orange shadow-[0_0_0_2px_var(--color-orange),0_0_36px_rgba(240,135,58,0.35)]"
-                  : avail ? "bg-[#262626] text-ink shadow-[0_0_0_1px_var(--color-line-2),0_5px_0_#141414]"
-                  : "bg-page text-faint shadow-[0_0_0_1px_var(--color-line)]"
+                aria-hidden="true"
+                className={`absolute left-[31px] top-0 h-full w-px sm:left-[45px] ${levelDone ? "bg-accent-600" : "bg-line-2/60"}`}
+                style={{ backgroundImage: levelDone ? undefined : "repeating-linear-gradient(to bottom, currentColor 0 4px, transparent 4px 12px)", color: "var(--color-line-2)" }}
+              />
+              {/* обитатель на стволе */}
+              <span
+                className={`absolute left-0 top-6 flex h-[62px] w-[62px] items-center justify-center rounded-full bg-page sm:h-[90px] sm:w-[90px] ${
+                  open ? "shadow-[0_0_0_1px_var(--color-line-2),0_0_60px_rgba(39,131,222,0.16)]" : "shadow-[0_0_0_1px_var(--color-line)]"
                 }`}
               >
-                {done ? (
-                  <svg width="24" height="24" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 8.5l3 3 7-7" /></svg>
-                ) : here ? (
-                  <span className="h-3.5 w-3.5 rounded-full bg-orange" />
-                ) : avail ? (
-                  <span className="num text-[15px] font-semibold">{c.i + 1}</span>
-                ) : lockIcon}
+                <RankSketch rank={s.key} size={44} className={`sm:hidden ${open ? "text-ink" : "text-faint"}`} />
+                <RankSketch rank={s.key} size={62} className={`hidden sm:block ${open ? "text-ink" : "text-faint"}`} />
+                {!open && (
+                  <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-page text-faint shadow-[0_0_0_1px_var(--color-line)]">
+                    <LockIcon size={12} />
+                  </span>
+                )}
               </span>
-              <span className={`mt-2 block w-full text-center text-[13px] font-medium leading-snug ${done || avail ? "text-ink" : "text-faint"}`}>{n.title}</span>
-              <span className="block w-full text-center text-[11px] leading-snug text-faint">{n.sub}</span>
-            </>
-          );
-          const cls = "group absolute flex flex-col items-center px-2";
-          const style = { ...box, paddingTop: NODE_Y - 32 };
-          return open ? (
-            <Link key={n.slug} href={`/tests/${n.slug}/take`} className={cls} style={style} aria-current={here ? "step" : undefined}>{body}</Link>
-          ) : (
-            <div key={n.slug} className={`${cls} cursor-default`} style={style} aria-disabled="true">{body}</div>
+
+              <div className="pb-12 pt-6">
+                {/* шапка уровня */}
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h2 className={`text-[20px] sm:text-[22px] ${open ? "text-ink" : "text-faint"}`}>{s.name}</h2>
+                  <span className="num text-[12px] text-faint">{s.depth}</span>
+                  <span className="ml-auto num text-[13px] text-text-2">{done} из {totalReal}</span>
+                </div>
+                <p className="mt-1.5 max-w-[62ch] text-[14.5px] leading-relaxed text-text-2">{s.meaning}</p>
+                <p className="mt-1 max-w-[62ch] text-[13px] leading-relaxed text-faint">
+                  {open ? s.rule : s.unlock}
+                </p>
+
+                {/* тесты уровня */}
+                <div className="mt-6 flex flex-wrap gap-x-4 gap-y-7">
+                  {s.nodes.map((n, i) => {
+                    const isDone = passed(n);
+                    const here = n.slug === hereSlug;
+                    const avail = open && !isDone && !n.soon;
+                    const cd = progress ? cooldownLeftMs(progress.cooldowns, n.level, n.test) : 0;
+                    const body = (
+                      <>
+                        {here && (
+                          <span className="path-bounce absolute -top-1 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-[6px] bg-orange px-2.5 py-1 text-[11px] font-semibold text-[#1a1a1a]">
+                            {cd > 0 ? `через ${formatCooldown(cd)}` : "Начать"}
+                            <span className="absolute left-1/2 top-full -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-orange" />
+                          </span>
+                        )}
+                        <span
+                          className={`flex h-[52px] w-[52px] items-center justify-center rounded-full transition-transform group-hover:scale-[1.06] ${
+                            isDone ? "bg-accent-600 text-[#fff] shadow-[0_5px_0_#1a5ea6]"
+                            : here ? "bg-page text-orange shadow-[0_0_0_2px_var(--color-orange),0_0_32px_rgba(240,135,58,0.32)]"
+                            : n.soon ? "bg-page text-faint shadow-[0_0_0_1px_var(--color-line)] [mask-image:none]"
+                            : avail ? "bg-[#262626] text-ink shadow-[0_0_0_1px_var(--color-line-2),0_4px_0_#141414]"
+                            : "bg-page text-faint shadow-[0_0_0_1px_var(--color-line)]"
+                          }`}
+                        >
+                          {isDone ? (
+                            <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 8.5l3 3 7-7" /></svg>
+                          ) : here ? (
+                            <span className="h-3 w-3 rounded-full bg-orange" />
+                          ) : n.soon ? (
+                            <span className="h-[3px] w-[14px] rounded-full bg-current opacity-60" />
+                          ) : avail ? (
+                            <span className="num text-[15px] font-semibold">{i + 1}</span>
+                          ) : <LockIcon />}
+                        </span>
+                        <span className={`mt-2.5 block w-full text-[12.5px] font-medium leading-snug ${isDone || avail ? "text-ink" : "text-faint"}`}>{n.title}</span>
+                        <span className="mt-0.5 block w-full text-[11px] leading-snug text-faint">{n.sub}</span>
+                      </>
+                    );
+                    const cls = "group relative flex w-[124px] flex-col items-center pt-6 text-center";
+                    return avail || isDone ? (
+                      <Link key={n.slug} href={`/tests/${n.slug}/take`} className={cls} aria-current={here ? "step" : undefined}>{body}</Link>
+                    ) : (
+                      <div key={n.slug} className={`${cls} cursor-default`} aria-disabled="true">{body}</div>
+                    );
+                  })}
+                </div>
+              </div>
+
+            </section>
           );
         })}
+
+        {/* финал */}
+        <section className="relative pl-[76px] sm:pl-[104px]">
+          <span
+            aria-hidden="true"
+            className="absolute left-[31px] top-0 h-[31px] w-px sm:left-[45px] sm:h-[45px]"
+            style={{ backgroundImage: "repeating-linear-gradient(to bottom, var(--color-line-2) 0 4px, transparent 4px 12px)" }}
+          />
+          <span
+            className={`absolute left-0 top-0 flex h-[62px] w-[62px] items-center justify-center rounded-full bg-page sm:h-[90px] sm:w-[90px] ${
+              whaleOpen ? "shadow-[0_0_0_1px_var(--color-accent),0_0_80px_rgba(39,131,222,0.25)]" : "shadow-[0_0_0_1px_var(--color-line)]"
+            }`}
+          >
+            <RankSketch rank="kit" size={44} className={`sm:hidden ${whaleOpen ? "text-ink" : "text-faint"}`} />
+            <RankSketch rank="kit" size={64} className={`hidden sm:block ${whaleOpen ? "text-ink" : "text-faint"}`} />
+          </span>
+          <div className="pt-1 sm:pt-4">
+            <div className="flex flex-wrap items-baseline gap-x-3">
+              <h2 className={`text-[20px] sm:text-[22px] ${whaleOpen ? "text-ink" : "text-faint"}`}>Кит</h2>
+              <span className="num text-[12px] text-faint">1 000 м</span>
+            </div>
+            <p className="mt-1.5 max-w-[62ch] text-[14.5px] leading-relaxed text-text-2">
+              Последний уровень: проект на рост, финмодель, питч и разговор с инвестором.
+            </p>
+            <p className="mt-1 max-w-[62ch] text-[13px] leading-relaxed text-faint">
+              Открывается после Акулы. Готовится вместе с треком «От идеи до инвестиций».
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   );

@@ -28,8 +28,7 @@ export default function TestsPage() {
           </div>
         </Container>
       </section>
-      {/* тропа шире обычной колонки: ей нужен весь экран */}
-      <div className="mx-auto w-full max-w-[1480px] px-5 py-12 sm:px-8 lg:px-12">
+      <div className="mx-auto w-full max-w-[1180px] px-5 py-12 sm:px-8 lg:px-12">
         <TestPath />
       </div>
     </>
