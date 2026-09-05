@@ -51,7 +51,7 @@ const GROUPS: { title: string; items: Item[] }[] = [
     title: "Учиться",
     items: [
       { label: "Академия", href: "/academy", icon: I.book, match: (p) => p === "/academy" || p.startsWith("/courses/") || p.startsWith("/learn/") },
-      { label: "Тесты", href: "/catalog?type=test", icon: I.test, match: (p, t) => (p === "/catalog" && t === "test") || p.startsWith("/tests/") },
+      { label: "Тесты", href: "/tests", icon: I.test, match: (p) => p === "/tests" || p.startsWith("/tests/") },
     ],
   },
   {

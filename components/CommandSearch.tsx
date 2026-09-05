@@ -11,6 +11,7 @@ type Hit = { label: string; sub: string; href: string };
 const SECTIONS: Hit[] = [
   { label: "Главная", sub: "раздел", href: "/" },
   { label: "Академия", sub: "раздел", href: "/academy" },
+  { label: "Тесты: тропа", sub: "раздел", href: "/tests" },
   { label: "Океан: уровни", sub: "раздел", href: "/levels" },
   { label: "Рейтинг Океана", sub: "раздел", href: "/ocean" },
   { label: "Своё дело", sub: "раздел", href: "/delo" },

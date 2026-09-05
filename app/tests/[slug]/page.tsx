@@ -89,7 +89,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               )}
               <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
                 {p.stub ? (
-                  <Button href={level ? `/levels/${level.key}` : "/catalog?type=test"} variant="secondary" size="lg">
+                  <Button href={level ? `/levels/${level.key}` : "/tests"} variant="secondary" size="lg">
                     {level ? `К уровню «${level.name}»` : "Смотреть другие тесты"}
                   </Button>
                 ) : (

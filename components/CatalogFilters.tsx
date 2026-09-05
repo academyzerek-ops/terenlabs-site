@@ -9,12 +9,8 @@ const CATEGORIES = {
     { id: "Бизнес", label: "Бизнес" },
     { id: "Маркетинг", label: "Маркетинг" },
   ],
-  test: [
-    { id: "all", label: "Все" },
-    { id: "T1", label: "Уровень T1" },
-    { id: "T2", label: "Уровень T2" },
-    { id: "T3", label: "Уровень T3" },
-  ],
+  // тесты идут одной тропой (TestPath), фильтры не нужны
+  test: [],
   // кейсы: фильтры исходов живут внутри PosterArchive (цветные точки, как в Mini App)
   case: [],
   review: [

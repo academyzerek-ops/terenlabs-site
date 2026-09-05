@@ -23,7 +23,7 @@ export default function Page() {
       desc: "Честная проверка понимания: балл, разбор каждого ответа и ранг «Океан».",
       count: freeTests.length,
       noun: ["тест", "теста", "тестов"] as const,
-      href: "/catalog?type=test",
+      href: "/tests",
     },
     {
       title: "Кейсы",

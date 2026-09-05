@@ -41,7 +41,7 @@ export default function AcademyPage() {
             в любом порядке, ранг в Океане дают тесты.
           </p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-            <Link href="/catalog?type=test" className="link text-[15px]">
+            <Link href="/tests" className="link text-[15px]">
               Тесты на ранг <Arrow />
             </Link>
             <Link href="/levels" className="link text-[15px]">

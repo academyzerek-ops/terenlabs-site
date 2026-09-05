@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { CATALOG } from "@/lib/content";
 import type { ProductType } from "@/lib/content";
 import { rotateByDay } from "@/lib/rotation";
+import { TestPath } from "@/components/TestPath";
 
 export const metadata = {
   alternates: { canonical: "/catalog" },
@@ -26,9 +27,9 @@ const SECTION: Record<ProductType | "all", { eyebrow: string; title: string; des
     desc: "Короткие главы без воды и книжной теории. Только то, что нужно на практике.",
   },
   test: {
-    eyebrow: "Проверка",
-    title: "Узнай свой ранг «Океан»",
-    desc: "Тесты, которые нельзя угадать, только понять. С разбором каждого ответа.",
+    eyebrow: "Тесты",
+    title: "Тропа вниз: от Ракушки до Кита",
+    desc: "Один путь для всех. Уровень открывается, когда сдан предыдущий; балл считает сервер, открытые кейсы проверяет TEREN-AI.",
   },
   case: {
     eyebrow: "Кейсы · Своё дело",
@@ -125,7 +126,9 @@ export default async function CatalogPage({
       </section>
 
       <Container className="py-10">
-        {list.length > 0 ? (
+        {t === "test" ? (
+          <TestPath />
+        ) : list.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {list.map((p) => (
               <ProductCard key={`${p.type}-${p.slug}`} p={p} />

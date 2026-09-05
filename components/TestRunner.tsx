@@ -25,7 +25,7 @@ const BTN_SECONDARY =
 export function TestRunner({
   title,
   questions,
-  backHref = "/catalog?type=test",
+  backHref = "/tests",
 }: {
   title: string;
   questions: TestQuestion[];

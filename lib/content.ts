@@ -19,7 +19,7 @@ export const PRODUCT_TYPES: Record<
   { label: string; one: string; path: string; href: string; blurb: string }
 > = {
   course: { label: "Академия", one: "Глава", path: "/courses", href: "/academy", blurb: "Коротко, просто и по делу — без лишней теории" },
-  test: { label: "Тесты", one: "Тест", path: "/tests", href: "/catalog?type=test", blurb: "Проверь себя — честно и с разбором каждого ответа" },
+  test: { label: "Тесты", one: "Тест", path: "/tests", href: "/tests", blurb: "Проверь себя — честно и с разбором каждого ответа" },
   case: { label: "Кейсы", one: "Кейс", path: "/cases", href: "/catalog?type=case", blurb: "Чужой опыт как способ учиться на не своих деньгах" },
   review: { label: "Ниши", one: "Обзор ниши", path: "/reviews", href: "/catalog?type=review", blurb: "Обзоры рынка по нишам: спрос, конкуренция, маржа" },
   finmodel: { label: "Финмодели", one: "Финмодель", path: "/finmodels", href: "/catalog?type=finmodel", blurb: "Рабочие модели и бизнес-планы под твой проект" },
@@ -181,7 +181,7 @@ export const COLLECTIONS = [
     hook: "Начни сегодня: тест с разбором каждого ответа",
     img: "/lessons/fund_m5-ch01_two-doors.jpg",
     filter: (x: CatalogItem) => !!x.free,
-    href: "/catalog?type=test",
+    href: "/tests",
   },
   {
     title: "Применить в деле",
