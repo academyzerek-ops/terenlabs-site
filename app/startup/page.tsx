@@ -44,7 +44,7 @@ export default function StartupPage() {
     <>
       <section className="border-b border-line">
         <Container className="py-14 sm:py-20">
-          <p className="eyebrow">Стартап · весь рынок · доллар</p>
+          <p className="eyebrow">Стартап</p>
           <h1 className="mt-3 max-w-[18ch] text-[24px] sm:text-[40px]">Проект на рост: модель, деньги, инвестиции</h1>
           <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
             Как устроен заработок компаний, которые знают все, что из этого переносится на твой

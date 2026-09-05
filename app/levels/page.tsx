@@ -88,7 +88,7 @@ export default function LevelsPage() {
         {/* правая колонка: рейтинг */}
         <aside className="panel p-6 lg:sticky lg:top-8">
           <div className="flex items-baseline justify-between">
-            <p className="eyebrow">Рейтинг · Казахстан</p>
+            <p className="eyebrow">Рейтинг</p>
           </div>
           <div className="mt-3">
             <OceanTopTable limit={5} />
