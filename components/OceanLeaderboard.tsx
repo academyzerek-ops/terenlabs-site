@@ -160,7 +160,7 @@ export function OceanLeaderboard() {
         <div className="mt-6 grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px]">
           <div>
             <div className="grid grid-cols-[40px_minmax(0,1fr)_48px_64px] gap-4 pb-2 text-[12px] font-medium text-text-2">
-              <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Очки</span>
+              <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Композит</span>
             </div>
             {data.entries.length === 0 && (
               <p className="border-t border-line py-10 text-[14px] text-text-2">

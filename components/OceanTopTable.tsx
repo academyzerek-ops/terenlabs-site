@@ -37,7 +37,7 @@ export function OceanTopTable({ limit = 3, showAll = true }: { limit?: number; s
   return (
     <div>
       <div className="grid grid-cols-[32px_minmax(0,1fr)_40px_56px] gap-3 pb-2 text-[12px] font-medium text-text-2">
-        <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Очки</span>
+        <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Композит</span>
       </div>
       {rows.length === 0 && data && (
         <div className="border-t border-line py-3 text-[15px] text-faint">В океане пока пусто</div>
