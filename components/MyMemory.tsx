@@ -44,7 +44,7 @@ export function MyMemory() {
       {/* продолжить обучение — реальное место в плеере; метрики памяти живут
           чипами в шапке секции, а не отдельными плитками на полэкрана */}
       {hasCourses && (
-      <section className="mt-14">
+      <section className="mt-10">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <h2 className="text-[20px]">Продолжить обучение</h2>
           <div className="flex flex-wrap gap-2">
@@ -74,7 +74,7 @@ export function MyMemory() {
                 <Link
                   key={c.slug}
                   href={`/learn/${c.slug}`}
-                  className="card-premium group flex items-center gap-5 p-5"
+                  className="card-premium group flex items-center gap-5 p-4"
                 >
                   <div className="flex w-full items-center gap-5">
                     <ProgressRing pct={pct} />
@@ -96,7 +96,7 @@ export function MyMemory() {
 
       {/* попытки тестов — только когда они есть */}
       {hasAttempts && (
-      <section className="mt-14">
+      <section className="mt-10">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <h2 className="text-[20px]">Мои попытки</h2>
           {!hasCourses && (
@@ -139,7 +139,7 @@ export function MyMemory() {
 // компактная метрика в шапке секции: «2 · курса в процессе»
 function Chip({ value, label }: { value: string; label: string }) {
   return (
-    <span className="flex items-baseline gap-1.5 rounded-[8px] border border-line px-3 py-1.5 text-[12px] text-text-2">
+    <span className="flex h-8 items-baseline gap-1.5 rounded-[6px] bg-subtle px-3 pt-1.5 text-[12px] text-text-2">
       <span className="num text-[14px] font-medium text-ink">{value}</span>
       {label}
     </span>

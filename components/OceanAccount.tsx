@@ -165,52 +165,39 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
   const tests = lvl === "mollusk" || lvl === "whale" ? [] : levelTestList(lvl);
 
   return (
-    <section className="mt-10">
-      <div className="flex items-baseline gap-3">
-        <h2 className="text-2xl text-heading">{title}</h2>
-        <Link href="/ocean" className="text-sm font-semibold text-teal-600 hover:text-teal">
-          рейтинг →
-        </Link>
+    <section className="mt-8">
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 className="text-[20px]">{title}</h2>
+        <Link href="/ocean" className="link text-[14px]">Рейтинг <span aria-hidden="true">→</span></Link>
       </div>
-      <div className="wave-divider my-5" />
 
-      {/* герой уровня: медальон на глубине + цель + ключевые цифры */}
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
-        <div className="rounded-[8px] bg-subtle p-5">
-          <div className="flex items-center gap-4">
-            <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={64} className="text-ink" />
-            <div className="min-w-0">
-              <div className="eyebrow">твой уровень</div>
-              <div className="mt-1 text-2xl font-semibold text-ink">{LEVEL_RU[lvl]}</div>
-              {rank?.next_goal?.label && (
-                <p className="mt-1.5 text-xs leading-relaxed text-text-2">{rank.next_goal.label}</p>
-              )}
-            </div>
+      {/* уровень и цифры одной тонкой строкой: панель, 4 ячейки через линии */}
+      <div className="panel mt-4 grid sm:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
+        <div className="flex items-center gap-4 px-5 py-4">
+          <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={44} className="shrink-0 text-ink" />
+          <div className="min-w-0">
+            <div className="text-[12px] text-faint">твой уровень</div>
+            <div className="text-[20px] font-semibold leading-tight text-ink">{LEVEL_RU[lvl]}</div>
+            {rank?.next_goal?.label && (
+              <p className="mt-0.5 truncate text-[12px] text-text-2">{rank.next_goal.label}</p>
+            )}
           </div>
         </div>
-
-        {/* место — дверь в рейтинг: целая плитка кликабельна, не микроссылка */}
-        <Link
-          href="/ocean"
-          className="group rounded-[var(--radius-tl)] border border-teal/40 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-teal hover:shadow-[var(--shadow-tl-sm)]"
-        >
-          <div className="text-xs text-muted">место в океане</div>
-          <div className="num mt-1 text-2xl font-semibold text-heading">
+        <Link href="/ocean" className="flex flex-col justify-center px-5 py-4 transition-colors hover:bg-subtle lg:border-l lg:border-line">
+          <div className="text-[12px] text-faint">место в океане</div>
+          <div className="num text-[20px] font-semibold leading-tight text-ink">
             {rank?.rank ? `#${rank.rank}` : "—"}
-            {rank && <span className="ml-1.5 text-sm font-normal text-muted">из {rank.total}</span>}
-          </div>
-          <div className="mt-1 text-xs font-semibold text-teal-600 transition-transform group-hover:translate-x-0.5">
-            смотреть рейтинг →
+            {rank && <span className="ml-1.5 text-[13px] font-normal text-text-2">из {rank.total}</span>}
           </div>
         </Link>
-        <Cell label="очки (композит)" value={String(rank?.composite ?? 0)} sub={rank && rank.peers_at_level > 1 ? `впереди ${rank.peers_below} из ${rank.peers_at_level} на уровне` : undefined} />
+        <Cell label="очки" value={String(rank?.composite ?? 0)} sub={rank && rank.peers_at_level > 1 ? `впереди ${rank.peers_below} из ${rank.peers_at_level} на уровне` : undefined} />
         <Cell label="стрик дней" value={String(rank?.streak?.current ?? 0)} sub={rank?.streak?.longest ? `рекорд ${rank.streak.longest}` : undefined} />
       </div>
 
-      {/* путь по медальонам — как «Путь» в дашборде Mini App */}
+      {/* путь по уровням: строка эскизов, пройденные с галочкой-штрихом, текущий оранжевой точкой */}
       {progress && (
-        <div className="mt-5 overflow-x-auto rounded-[8px] bg-subtle p-4">
-          <div className="flex min-w-max items-start gap-2 sm:gap-4">
+        <div className="mt-3 overflow-x-auto">
+          <div className="flex min-w-max items-start gap-1 sm:gap-2">
             {PATH_ORDER.map((id, i) => {
               const cur = lvl === id;
               const idx = PATH_ORDER.indexOf(lvl);
@@ -221,29 +208,23 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
                 <Link
                   key={id}
                   href={`/levels/${LEVEL_KEY[id]}`}
-                  className="group flex w-[72px] flex-col items-center text-center sm:w-[84px]"
+                  className={`group flex w-[92px] flex-col items-center rounded-[8px] px-2 py-3 text-center transition-colors hover:bg-subtle ${cur ? "bg-subtle" : ""}`}
                 >
-                  <span
-                    className={`relative flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:-translate-y-0.5 sm:h-16 sm:w-16 ${
-                      cur ? "border border-orange/60 bg-subtle" : ""
-                    }`}
-                  >
-                    <RankSketch rank={LEVEL_KEY[id] as LevelKey} size={44} className={done || cur ? "text-ink" : "text-faint"} />
+                  <span className="relative flex h-10 w-10 items-center justify-center">
+                    <RankSketch rank={LEVEL_KEY[id] as LevelKey} size={36} className={done || cur ? "text-ink" : "text-faint"} />
                     {done && !cur && (
-                      <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-teal text-[0.65rem] font-bold text-white">
-                        ✓
-                      </span>
+                      <svg className="absolute -right-1 -top-1 text-accent" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 6.2 4.6 8.8 10 3.4" /></svg>
                     )}
                   </span>
-                  <span className={`mt-1.5 text-[0.72rem] font-semibold ${cur ? "text-teal-600" : done ? "text-heading" : "text-muted"}`}>
+                  <span className={`mt-2 text-[12px] font-medium ${cur ? "text-ink" : done ? "text-body" : "text-faint"}`}>
                     {LEVEL_RU[id]}
                   </span>
-                  {total > 0 && (
-                    <span className="num text-[0.66rem] text-muted">
-                      {passed}/{total}
+                  <span className="num h-4 text-[11px] text-faint">{total > 0 ? `${passed}/${total}` : ""}</span>
+                  {cur && (
+                    <span className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-orange">
+                      <span className="h-1.5 w-1.5 rounded-full bg-orange" />ты здесь
                     </span>
                   )}
-                  {cur && <span className="num text-[11px] font-medium text-orange">ты здесь</span>}
                 </Link>
               );
             })}
@@ -251,64 +232,56 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
         </div>
       )}
 
-      {/* тесты текущего уровня — статус, балл, кулдаун; всё сдаётся на сайте */}
+      {/* тесты текущего уровня: строки с галочкой, без рамок */}
       {progress && tests.length > 0 && (
-        <div className="mt-5">
-          <p className="num text-[12px] font-medium text-text-2">
-            Тесты уровня «{LEVEL_RU[lvl]}»
-          </p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8">
+          <p className="text-[12px] font-medium text-text-2">Тесты уровня «{LEVEL_RU[lvl]}»</p>
+          <div className="mt-2 grid sm:grid-cols-2 sm:gap-x-10">
             {tests.map((t) => {
               const passed = isTestPassed(progress, lvl, t.test);
               const best = bestScore(progress, lvl, t.test);
               const cdMs = cooldownLeftMs(progress.cooldowns, lvl, t.test);
               return (
-                <Link
-                  key={t.slug}
-                  href={`/tests/${t.slug}/take`}
-                  className={`flex items-center justify-between gap-3 rounded-[var(--radius-tl)] border p-4 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-tl-sm)] ${
-                    passed ? "border-teal/50 bg-teal/5" : "border-line bg-card"
-                  }`}
-                >
-                  <span className="min-w-0">
-                    <span className="block truncate text-[0.95rem] font-semibold text-heading">{t.name}</span>
-                    <span className="num text-xs text-muted">
-                      {passed
-                        ? `сдан${best != null ? ` · лучший ${best}/10` : ""}`
-                        : cdMs > 0
-                        ? `⏱ пересдача через ${formatCooldown(cdMs)}`
-                        : best != null
-                        ? `лучший ${best}/10 — ещё заход?`
-                        : "не начат"}
-                    </span>
+                <Link key={t.slug} href={`/tests/${t.slug}/take`} className="row-hover flex items-center gap-3 border-t border-line py-3">
+                  <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${passed ? "bg-accent-100 text-accent" : "border border-line-2 text-faint"}`}>
+                    {passed ? (
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 6.2 4.6 8.8 10 3.4" /></svg>
+                    ) : null}
                   </span>
-                  <span className={`num shrink-0 text-sm font-bold ${passed ? "text-teal-600" : "text-muted"}`}>
-                    {passed ? "✓" : "→"}
+                  <span className="min-w-0 flex-1 truncate text-[15px] text-ink">{t.name}</span>
+                  <span className="num shrink-0 text-[12px] text-faint">
+                    {passed
+                      ? best != null ? `лучший ${best}/10` : "сдан"
+                      : cdMs > 0
+                      ? `пересдача через ${formatCooldown(cdMs)}`
+                      : best != null
+                      ? `лучший ${best}/10`
+                      : "не начат"}
                   </span>
                 </Link>
               );
             })}
           </div>
+          <div className="border-t border-line" />
         </div>
       )}
 
-      {/* бейджи — ачивки, как в Mini App */}
+      {/* знаки: штриховые иконки в стиле сайта, заработанные белым, остальные серым */}
       {badges && badges.length > 0 && (
-        <div className="mt-5">
-          <p className="num text-[12px] font-medium text-text-2">Знаки</p>
-          {/* крупнее: пилюли читались как мелочь (Адиль 18.07) */}
-          <div className="mt-3 flex flex-wrap gap-3">
+        <div className="mt-8">
+          <p className="text-[12px] font-medium text-text-2">Знаки</p>
+          <div className="mt-2 flex flex-wrap gap-2">
             {badges.map((b) => (
               <span
                 key={b.id}
                 title={b.description}
-                className={`flex items-center gap-3 rounded-full border px-5 py-2.5 ${
-                  b.earned ? "border-teal/50 bg-teal/8 text-heading" : "border-line text-muted opacity-60"
+                className={`inline-flex h-8 items-center gap-2 rounded-[6px] px-3 text-[13px] ${
+                  b.earned ? "bg-subtle text-ink" : "text-faint"
                 }`}
               >
-                <span aria-hidden="true" className="text-2xl leading-none">{b.emoji}</span>
-                <span className="text-base font-semibold">{b.name}</span>
-                {b.value && <span className="num text-sm text-muted">{b.value}</span>}
+                <BadgeIcon id={b.id} emoji={b.emoji} />
+                <span className="font-medium">{b.name}</span>
+                {b.value && <span className="num text-[12px] text-faint">{b.value}</span>}
               </span>
             ))}
           </div>
@@ -317,7 +290,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
 
       {/* общий вывод TEREN-AI по накопленной статистике (тот же бэк, что Mini App) */}
       {aiSummary && (
-        <div className="mt-5 rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-5">
+        <div className="mt-8 rounded-[8px] border-l-2 border-accent bg-subtle p-5">
           <p className="num text-[11px] font-medium text-accent">
             TEREN-AI · твой портрет по статистике
           </p>
@@ -327,7 +300,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
 
       {/* последний разбор TEREN-AI — как в кабинете Mini App */}
       {reco?.text && (
-        <div className="mt-5 rounded-[var(--radius-tl)] border-l-2 border-teal bg-subtle p-5">
+        <div className="mt-8 rounded-[8px] border-l-2 border-accent bg-subtle p-5">
           <p className="num text-[11px] font-medium text-accent">
             Разбор TEREN-AI · {LEVEL_RU[reco.level] ?? reco.level}
             {reco.created_at ? ` · ${new Date(reco.created_at).toLocaleDateString("ru-RU")}` : ""}
@@ -338,7 +311,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
           {reco.text.length > 220 && (
             <button
               onClick={() => setRecoOpen((v) => !v)}
-              className="mt-2 text-xs font-semibold text-teal-600 hover:text-teal"
+              className="link mt-2 text-[13px]"
             >
               {recoOpen ? "Свернуть" : "Читать целиком →"}
             </button>
@@ -348,10 +321,9 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
 
       {/* личная статистика — полноценный блок, не серая строчка (Адиль 18.07) */}
       {stats && stats.attempts > 0 && (
-        <div className="mt-5">
-          <p className="num text-[12px] font-medium text-text-2">Моя статистика</p>
-          {/* плашки по содержимому, цифры крупные (Адиль 18.07: «шрифт больше или уже») */}
-          <div className="mt-3 flex flex-wrap gap-3">
+        <div className="mt-8">
+          <p className="text-[12px] font-medium text-text-2">Моя статистика</p>
+          <div className="mt-2 flex flex-wrap gap-2">
             <StatCell label="попыток всего" value={String(stats.attempts)} />
             {stats.avg_score != null && (
               <StatCell label="средний балл" value={Number(stats.avg_score).toFixed(1)} sub="из 10" />
@@ -366,7 +338,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
         </div>
       )}
 
-      <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">
+      <div className="mt-8 flex flex-wrap items-center gap-4 text-[13px]">
         <button
           onClick={async () => {
             try {
@@ -376,31 +348,49 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
               setLinkCode(null);
             }
           }}
-          className="font-semibold text-teal-600 hover:text-teal"
+          className="link"
         >
           Привязать Telegram
         </button>
         {linkCode && (
-          <span className="num rounded-full border border-line px-4 py-1.5 text-heading">
-            код <strong>{linkCode}</strong> — введи в Mini App за 10 минут
+          <span className="num rounded-[6px] bg-subtle px-3 py-1.5 text-ink">
+            код <strong>{linkCode}</strong>, введи в Mini App за 10 минут
           </span>
         )}
-        <button onClick={() => oceanSignOut()} className="text-muted hover:text-heading">
-          Выйти из Океана
-        </button>
+
       </div>
     </section>
+  );
+}
+
+// знаки: штрих вместо эмодзи (молния, галочка, кубок, огонь); неизвестный id → точка
+function BadgeIcon({ id, emoji }: { id: string; emoji: string }) {
+  const key = /light|fast|молн|⚡/i.test(id + emoji) ? "bolt"
+    : /perfect|clean|error|✅/i.test(id + emoji) ? "check"
+    : /streak|series|serie|🏆/i.test(id + emoji) ? "trophy"
+    : /return|come|back|🔥/i.test(id + emoji) ? "flame" : "dot";
+  const d = {
+    bolt: <path d="M9 1.5 3.5 9h4l-.5 5.5L12.5 7h-4z" />,
+    check: <path d="M3 8.5l3 3 7-7" />,
+    trophy: <path d="M5 2.5h6v3a3 3 0 0 1-6 0zM5 3.5H3v1a2 2 0 0 0 2 2M11 3.5h2v1a2 2 0 0 1-2 2M8 8.5v3M5.5 13.5h5" />,
+    flame: <path d="M8 14c2.8 0 4.5-1.8 4.5-4.2 0-2.6-2.3-3.9-2.3-6.3-1.3.7-2.2 2-2.2 3.5-1-.5-1.5-1.6-1.5-2.5C4.8 5.6 3.5 7.6 3.5 9.8 3.5 12.2 5.2 14 8 14z" />,
+    dot: <circle cx="8" cy="8" r="2.5" />,
+  }[key];
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {d}
+    </svg>
   );
 }
 
 // компактная плашка статистики: ширина по цифре, цифра — главная
 function StatCell({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="min-w-[9.5rem] rounded-[8px] bg-subtle px-5 py-4">
-      <div className="text-xs text-muted">{label}</div>
-      <div className="num mt-1 text-4xl font-semibold text-heading">
+    <div className="min-w-[8.5rem] rounded-[8px] bg-subtle px-4 py-3">
+      <div className="text-[12px] text-faint">{label}</div>
+      <div className="num mt-0.5 text-[20px] font-semibold leading-tight text-ink">
         {value}
-        {sub && <span className="ml-1.5 text-sm font-normal text-muted">{sub}</span>}
+        {sub && <span className="ml-1.5 text-[12px] font-normal text-text-2">{sub}</span>}
       </div>
     </div>
   );
@@ -409,10 +399,10 @@ function StatCell({ label, value, sub }: { label: string; value: string; sub?: s
 
 function Cell({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="rounded-[8px] bg-subtle p-5">
-      <div className="text-xs text-muted">{label}</div>
-      <div className="num mt-1 text-2xl font-semibold text-heading">{value}</div>
-      {sub && <div className="mt-1 text-xs text-muted">{sub}</div>}
+    <div className="flex flex-col justify-center px-5 py-4 lg:border-l lg:border-line">
+      <div className="text-[12px] text-faint">{label}</div>
+      <div className="num text-[20px] font-semibold leading-tight text-ink">{value}</div>
+      {sub && <div className="mt-0.5 truncate text-[12px] text-text-2">{sub}</div>}
     </div>
   );
 }
