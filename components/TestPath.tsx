@@ -142,7 +142,7 @@ export function TestPath() {
                     <span className={`min-w-0 ${left ? "text-left" : "text-right"}`}>
                       <span className={`block truncate text-[15px] font-medium ${done || avail ? "text-ink" : "text-faint"}`}>{n.title}</span>
                       <span className="block truncate text-[12px] text-faint">
-                        {here ? "ты здесь · начать" : cd > 0 ? `пересдача через ${formatCooldown(cd)}` : n.sub}
+                        {cd > 0 ? `пересдача через ${formatCooldown(cd)}` : here ? "ты здесь · начать" : n.sub}
                       </span>
                     </span>
                   </>
