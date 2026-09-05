@@ -2,28 +2,31 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { smsStart, smsVerify } from "@/lib/ocean";
+import { codeStart, codeVerify, type CodeChannel } from "@/lib/ocean";
 
-// Вход по номеру: код приходит СМС (провайдер на бэкенде). Два шага в одной карточке.
+// Вход по одноразовому коду: номер телефона (СМС) или почта. Два шага в одной форме.
 const INPUT =
   "h-11 w-full rounded-[8px] border border-line-2 bg-transparent px-3 text-[16px] text-ink outline-none transition-colors placeholder:text-faint focus:border-accent";
 const BTN =
   "btn-press inline-flex h-11 w-full items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-4 text-[15px] font-medium text-[#fff] transition-colors hover:bg-[#1f74c9] disabled:cursor-default disabled:opacity-50";
 
-export function PhoneLogin() {
+export function CodeLogin({ channel }: { channel: CodeChannel }) {
   const router = useRouter();
-  const [phone, setPhone] = useState("+7");
+  const isPhone = channel === "phone";
+  const [to, setTo] = useState(isPhone ? "+7" : "");
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [code, setCode] = useState("");
   const [debugCode, setDebugCode] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
+  const ready = isPhone ? to.replace(/\D/g, "").length >= 10 : /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(to.trim());
+
   const start = async () => {
     setBusy(true); setErr(null);
     try {
-      const r = await smsStart(phone);
-      setSentTo(r.phone);
+      const r = await codeStart(channel, to);
+      setSentTo(r.to);
       setDebugCode(r.debug_code ?? null);
     } catch (e) {
       setErr(e instanceof Error ? e.message : "не получилось отправить код");
@@ -34,7 +37,7 @@ export function PhoneLogin() {
     if (!sentTo) return;
     setBusy(true); setErr(null);
     try {
-      const auth = await smsVerify(sentTo, code);
+      const auth = await codeVerify(channel, sentTo, code);
       router.push(auth.needs_onboarding ? "/auth/onboarding" : "/dashboard");
     } catch (e) {
       setErr(e instanceof Error ? e.message : "код не подошёл");
@@ -47,7 +50,7 @@ export function PhoneLogin() {
         <p className="text-[14px] text-text-2">
           Код отправлен на <span className="num text-ink">{sentTo}</span>.{" "}
           <button type="button" className="link text-[14px]" onClick={() => { setSentTo(null); setCode(""); setErr(null); }}>
-            Другой номер
+            {isPhone ? "Другой номер" : "Другая почта"}
           </button>
         </p>
         <input
@@ -73,17 +76,18 @@ export function PhoneLogin() {
   return (
     <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); void start(); }}>
       <input
-        className={`${INPUT} num`}
-        type="tel"
-        inputMode="tel"
-        autoComplete="tel"
-        placeholder="+7 700 000 00 00"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        className={`${INPUT} ${isPhone ? "num" : ""}`}
+        type={isPhone ? "tel" : "email"}
+        inputMode={isPhone ? "tel" : "email"}
+        autoComplete={isPhone ? "tel" : "email"}
+        placeholder={isPhone ? "+7 700 000 00 00" : "name@example.com"}
+        value={to}
+        onChange={(e) => setTo(e.target.value)}
+        autoFocus
       />
       {err && <p className="text-[13px] text-danger">{err}</p>}
-      <button type="submit" className={BTN} disabled={busy || phone.replace(/\D/g, "").length < 10}>
-        Получить код в СМС
+      <button type="submit" className={BTN} disabled={busy || !ready}>
+        {isPhone ? "Получить код в СМС" : "Получить код на почту"}
       </button>
     </form>
   );

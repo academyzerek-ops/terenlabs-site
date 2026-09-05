@@ -2,7 +2,7 @@ import { Container } from "@/components/Container";
 import { MyMemory } from "@/components/MyMemory";
 import { OceanAccount } from "@/components/OceanAccount";
 import { CabinetHeader } from "@/components/CabinetHeader";
-import { auth, signOut } from "@/auth";
+import { auth, signIn, signOut, providersConfigured } from "@/auth";
 
 export const metadata = { title: "Личный кабинет — TerenLabs", robots: { index: false, follow: false } };
 
@@ -13,6 +13,10 @@ export default async function Dashboard() {
     "use server";
     await signOut({ redirectTo: "/" });
   };
+  const doGoogle = async () => {
+    "use server";
+    await signIn("google", { redirectTo: "/auth/bridge-finish" });
+  };
 
   return (
     <Container className="py-12">
@@ -22,7 +26,7 @@ export default async function Dashboard() {
         signOutAction={session ? doSignOut : undefined}
       />
 
-      <OceanAccount nextAuthActive={!!session} />
+      <OceanAccount nextAuthActive={!!session} googleReady={providersConfigured.google} googleAction={doGoogle} />
 
       {/* мост в Mini App: тот же аккаунт, прогресс общий */}
       <p className="mt-8 text-[13px] text-faint">

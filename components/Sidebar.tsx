@@ -184,6 +184,9 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#34A853] text-[#fff]">
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
                 </span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#F0873A] text-[#fff]">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+                </span>
               </span>
             )}
           </Link>

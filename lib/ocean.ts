@@ -136,7 +136,46 @@ export async function tgLoginClaim(code: string): Promise<OceanAuth | null> {
   return auth;
 }
 
-/** Вход по СМС, шаг 1: код на номер. Без провайдера бэкенд вернёт debug_code. */
+export type CodeChannel = "phone" | "email";
+const CODE_PATH: Record<CodeChannel, string> = { phone: "/auth/sms", email: "/auth/email" };
+
+/** Вход по коду (СМС или почта), шаг 1. Без провайдера бэкенд вернёт debug_code. */
+export async function codeStart(channel: CodeChannel, to: string): Promise<{ to: string; expires_in_sec: number; debug_code?: string | null }> {
+  const res = await fetch(OCEAN_API + CODE_PATH[channel] + "/start", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(channel === "phone" ? { phone: to } : { email: to }),
+  });
+  if (!res.ok) {
+    let detail = `code start: ${res.status}`;
+    try { detail = (await res.json()).detail || detail; } catch { /* no-op */ }
+    throw new Error(detail);
+  }
+  const out = await res.json();
+  return { to: out.phone ?? out.email, expires_in_sec: out.expires_in_sec, debug_code: out.debug_code ?? null };
+}
+
+/** Вход по коду, шаг 2: проверить код, получить веб-токен. */
+export async function codeVerify(channel: CodeChannel, to: string, code: string): Promise<OceanAuth> {
+  const res = await fetch(OCEAN_API + CODE_PATH[channel] + "/verify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(channel === "phone" ? { phone: to, code } : { email: to, code }),
+  });
+  if (!res.ok) {
+    let detail = `code verify: ${res.status}`;
+    try { detail = (await res.json()).detail || detail; } catch { /* no-op */ }
+    throw new Error(detail);
+  }
+  const auth: OceanAuth = await res.json();
+  setOceanToken(auth.token);
+  try {
+    if (auth.display_name) localStorage.setItem(NAME_KEY, auth.display_name);
+  } catch { /* no-op */ }
+  return auth;
+}
+
+/** Вход по СМС, шаг 1 (совместимость). */
 export async function smsStart(phone: string): Promise<{ phone: string; expires_in_sec: number; debug_code?: string | null }> {
   const res = await fetch(OCEAN_API + "/auth/sms/start", {
     method: "POST",

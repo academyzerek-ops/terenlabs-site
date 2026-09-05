@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { OCEAN_RANKS } from "@/lib/content";
-import { TelegramLoginButton } from "@/components/TelegramLoginButton";
+import { SignInMethods } from "@/components/SignInMethods";
 import { RankSketch, API2KEY } from "@/components/RankSketch";
 import type { LevelKey } from "@/lib/content";
 import {
@@ -79,7 +79,7 @@ function bestScore(p: OceanProgress | null, level: string, test: string): number
   return null;
 }
 
-export function OceanAccount({ nextAuthActive = false, title = "Океан" }: { nextAuthActive?: boolean; title?: string }) {
+export function OceanAccount({ nextAuthActive = false, title = "Океан", googleReady = false, googleAction }: { nextAuthActive?: boolean; title?: string; googleReady?: boolean; googleAction?: () => Promise<void> }) {
   const [hasToken, setHasToken] = useState(false);
   const [rank, setRank] = useState<Rank | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -139,11 +139,10 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
             <p className="mt-3 max-w-[46ch] text-[14px] leading-relaxed text-text-2">
               Попытки идут в зачёт после входа: уровень, очки и место в рейтинге соберутся сами.
             </p>
-            <div className="mt-5 flex flex-wrap items-center gap-4">
-              <TelegramLoginButton label="Войти и занять место" />
-              <Link href="/auth/sign-in" className="link text-[14px]">Google или номер телефона</Link>
-              <Link href="/ocean" className="link text-[14px]">Посмотреть рейтинг</Link>
+            <div className="mt-6 max-w-[360px]">
+              <SignInMethods googleReady={googleReady} googleAction={googleAction} size="sm" />
             </div>
+            <Link href="/ocean" className="link mt-5 inline-flex text-[14px]">Посмотреть рейтинг</Link>
           </div>
 
           {/* маршрут уровней: эскизы растут к Акуле */}

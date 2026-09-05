@@ -3,18 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { tgLoginClaim, tgLoginStart } from "@/lib/ocean";
-import { PhoneLogin } from "@/components/PhoneLogin";
+import { CodeLogin } from "@/components/CodeLogin";
+import type { CodeChannel } from "@/lib/ocean";
 
 // Компактный вход: три круглые цветные кнопки в ряд (Telegram, Google, телефон).
 // Telegram: deep-link в бота и поллинг тикета. Google: серверное действие next-auth
 // (без ключей кнопка выключена). Телефон: раскрывает форму номера и кода.
 const ROUND = "flex h-14 w-14 items-center justify-center rounded-full text-[#fff] transition-transform hover:scale-[1.04] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100";
 
-export function SignInMethods({ googleReady, googleAction }: { googleReady: boolean; googleAction?: () => Promise<void> }) {
+export function SignInMethods({ googleReady, googleAction, size = "md" }: { googleReady: boolean; googleAction?: () => Promise<void>; size?: "md" | "sm" }) {
+  const round = size === "sm" ? ROUND.replace("h-14 w-14", "h-11 w-11") : ROUND;
   const router = useRouter();
   const [phase, setPhase] = useState<"idle" | "waiting" | "error">("idle");
   const [link, setLink] = useState<string | null>(null);
-  const [phoneOpen, setPhoneOpen] = useState(false);
+  const [channel, setChannel] = useState<CodeChannel | null>(null);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => () => { if (timer.current) clearInterval(timer.current); }, []);
 
@@ -38,10 +40,10 @@ export function SignInMethods({ googleReady, googleAction }: { googleReady: bool
 
   return (
     <div>
-      <div className="flex items-start justify-center gap-7">
+      <div className={`flex items-start justify-center ${size === "sm" ? "gap-5" : "gap-6"}`}>
         {/* Telegram */}
         <div className="flex flex-col items-center gap-2">
-          <button type="button" onClick={startTg} aria-label="Войти через Telegram" className={`${ROUND} bg-[#2AABEE]`}>
+          <button type="button" onClick={startTg} aria-label="Войти через Telegram" className={`${round} bg-[#2AABEE]`}>
             <svg viewBox="0 0 240 240" className="h-7 w-7 -ml-0.5" aria-hidden="true">
               <path fill="currentColor" d="M44.7 121.5 194.9 63.6c7-2.6 13.1 1.6 10.8 12.2l-25.6 120.6c-1.9 8.5-7 10.6-14.1 6.6l-39-28.8-18.8 18.2c-2.1 2.1-3.8 3.8-7.8 3.8l2.8-39.8 72.3-65.3c3.1-2.8-.7-4.3-4.9-1.7l-89.4 56.3-38.5-12c-8.4-2.7-8.6-8.4 2-12.2Z" />
             </svg>
@@ -53,12 +55,12 @@ export function SignInMethods({ googleReady, googleAction }: { googleReady: bool
         <div className="flex flex-col items-center gap-2">
           {googleReady && googleAction ? (
             <form action={googleAction}>
-              <button type="submit" aria-label="Войти через Google" className={`${ROUND} bg-[#ffffff]`}>
+              <button type="submit" aria-label="Войти через Google" className={`${round} bg-[#ffffff]`}>
                 <GoogleG />
               </button>
             </form>
           ) : (
-            <button type="button" disabled aria-label="Google скоро" title="Подключается после ключей Google OAuth" className={`${ROUND} bg-[#ffffff]`}>
+            <button type="button" disabled aria-label="Google скоро" title="Подключается после ключей Google OAuth" className={`${round} bg-[#ffffff]`}>
               <GoogleG />
             </button>
           )}
@@ -69,17 +71,34 @@ export function SignInMethods({ googleReady, googleAction }: { googleReady: bool
         <div className="flex flex-col items-center gap-2">
           <button
             type="button"
-            onClick={() => setPhoneOpen((v) => !v)}
-            aria-expanded={phoneOpen}
-            aria-controls="phone-login"
+            onClick={() => setChannel((c) => (c === "phone" ? null : "phone"))}
+            aria-expanded={channel === "phone"}
+            aria-controls="code-login"
             aria-label="Войти по номеру телефона"
-            className={`${ROUND} bg-[#34A853] ${phoneOpen ? "ring-2 ring-[#34A853]/40 ring-offset-2 ring-offset-page" : ""}`}
+            className={`${round} bg-[#34A853] ${channel === "phone" ? "ring-2 ring-[#34A853]/40 ring-offset-2 ring-offset-page" : ""}`}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
             </svg>
           </button>
           <span className="text-[12px] text-text-2">Телефон</span>
+        </div>
+
+        {/* Почта */}
+        <div className="flex flex-col items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setChannel((c) => (c === "email" ? null : "email"))}
+            aria-expanded={channel === "email"}
+            aria-controls="code-login"
+            aria-label="Войти по почте"
+            className={`${round} bg-[#F0873A] ${channel === "email" ? "ring-2 ring-[#F0873A]/40 ring-offset-2 ring-offset-page" : ""}`}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" />
+            </svg>
+          </button>
+          <span className="text-[12px] text-text-2">Почта</span>
         </div>
       </div>
 
@@ -103,9 +122,9 @@ export function SignInMethods({ googleReady, googleAction }: { googleReady: bool
         </p>
       )}
 
-      {phoneOpen && (
-        <div id="phone-login" className="mt-6">
-          <PhoneLogin />
+      {channel && (
+        <div id="code-login" className="mt-6">
+          <CodeLogin key={channel} channel={channel} />
         </div>
       )}
     </div>
