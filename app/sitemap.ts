@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // не индексировал пустышки. Вернуть сюда, когда наполнятся (legal/* — после оферты/политики).
   const staticPages = [
     "", "/catalog", "/free", "/ocean", "/levels", "/delo", "/startup",
+    // Академия и тропа тестов появились позже разделов выше и в карту не попадали
+    "/academy", "/tests", "/contacts",
   ].map((p) => ({
     url: `${BASE}${p || "/"}`,
     changeFrequency: "weekly" as const,
