@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { Container } from "./Container";
 
+// Живые страницы, на которые внутри сайта иначе не попасть: без ссылки в подвале
+// они существуют только по прямому адресу (аудит ссылок 06.09.2026).
+const SITE_LINKS = [
+  { label: "Открытая библиотека", href: "/free" },
+  { label: "Связь с нами", href: "/contacts" },
+]
+
 const LEGAL = [
   { label: "Пользовательское соглашение", href: "/legal/offer" },
   { label: "Политика конфиденциальности", href: "/legal/privacy" },
@@ -54,6 +61,11 @@ export function Footer() {
       <Container className="flex items-center justify-between border-t border-line py-4 text-[12px] text-faint">
         <span>© 2026 TerenLabs{build ? <span className="num ml-2 hidden sm:inline">сборка {build}</span> : null}</span>
         <span className="flex flex-wrap gap-x-4">
+          {SITE_LINKS.map((l) => (
+            <Link key={l.href} href={l.href} className="transition-colors hover:text-ink">
+              {l.label}
+            </Link>
+          ))}
           {LEGAL.map((l) => (
             <Link key={l.href} href={l.href} className="transition-colors hover:text-ink">
               {l.label}
