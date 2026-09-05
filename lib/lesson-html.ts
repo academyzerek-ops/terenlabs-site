@@ -59,6 +59,8 @@ export function loadLesson(folder: string, file: string): LessonDoc | null {
   });
   // заголовки блока «Что вынести» тоже в оглавление не идут, но якорь не нужен
   html = html.replace(/<p class="dropcap">/g, "<p>");
+  // «Что вынести» уже стоит бейджем блока: одноимённый заголовок внутри не дублируем
+  html = html.replace(/(<span class="tk-badge">Что вынести<\/span>)\s*<h3>\s*Что вынести\.?\s*<\/h3>/g, "$1");
 
   // ссылки старой читалки на кейсы → адреса сайта
   html = html.replace(/href="(?:\.\.\/)+cases\/(case-[a-z0-9-]+)\.html[^"]*"/g, 'href="/cases/$1"');
