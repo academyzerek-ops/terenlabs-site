@@ -154,7 +154,7 @@ def entry(md_path):
     title_html = esc(" ".join(words[:-1])) + ' <span class="o">' + esc(words[-1]) + "</span>" if len(words) > 1 else esc(title)
     intro_p = next((b for k, b in paragraphs(sections.get("_intro", [])) if k == "p"), "")
     year = fm.get("created", "2026")[:4]
-    sub = f"Разбор бизнес-модели · {'евро и доллар' if cur == 'EUR' else 'доллар'} · отчётность {int(year)-1}–{year}"
+    sub = f"Разбор бизнес-модели · {'евро и доллар' if cur == 'EUR' else 'доллар'} · отчётность за {int(year)-1} и {year} годы"
     model = industry.split(",")[0].strip() if industry else ""
     return {
         "type": "bm", "slug": slug, "title": title, "titleHtml": title_html, "brand": brand,
