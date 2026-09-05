@@ -766,3 +766,41 @@ h1, h2, h3, .hero h1 { font-family: ui-sans-serif, system-ui, -apple-system, "Se
 .vs-table .vs-d p{margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--les-border)}
 .vs-table .vs-d p:last-child{margin-bottom:0;padding-bottom:0;border-bottom:0}
 .vs-t,.tk h3,.ex-q,.fla-lbl,.tl-date{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,sans-serif;font-variation-settings:normal}
+
+/* ══════ ИКОНКИ ТУШЬЮ (вместо эмодзи) ══════
+   Один штрих, цвет наследуется от блока. Ставит scripts/ink_icons.mjs. */
+.ic{display:inline-block;vertical-align:-0.14em;flex:none;stroke-width:1.25}
+.ins-ico .ic,.fc-ico .ic,.vs-ico .ic{display:block}
+.ic-check{color:var(--les-green)}
+.ic-flag,.ic-cross{color:var(--les-red)}
+.ic-warn{color:var(--les-warm)}
+p .ic,li .ic,td .ic,.vs-d .ic,.fc-txt .ic{margin-right:.28em}
+
+/* ══════ БЛОК СРАВНЕНИЯ ══════ разворот на две стороны, общая рамка, текст слева */
+.vs{gap:0;border:1px solid var(--les-border);border-radius:14px;overflow:hidden;background:var(--les-surface)}
+.vs-i{background:transparent;border:0;border-radius:0;box-shadow:none;text-align:left;padding:18px 18px 20px;backdrop-filter:none;-webkit-backdrop-filter:none}
+.vs-i+.vs-i{border-top:1px solid var(--les-border)}
+.vs-i.gold,.vs-i.paper{background:transparent;border-top:0}
+.vs-i.gold+.vs-i,.vs-i.paper+.vs-i{border-top:1px solid var(--les-border)}
+.vs-ico{font-size:0;margin:0 0 10px;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid var(--les-border)}
+.vs-ico .ic{width:19px;height:19px}
+.vs-i.gold .vs-ico{color:var(--les-green);border-color:color-mix(in srgb,var(--les-green) 45%,transparent)}
+.vs-i.paper .vs-ico{color:var(--les-red);border-color:color-mix(in srgb,var(--les-red) 45%,transparent)}
+.vs-t{font-size:16px;margin-bottom:6px}
+.vs-d{font-size:13px}
+@media(min-width:720px){
+  .vs{grid-template-columns:1fr 1fr}
+  .vs-i+.vs-i{border-top:0;border-left:1px solid var(--les-border)}
+  .vs-i.gold+.vs-i,.vs-i.paper+.vs-i{border-top:0;border-left:1px solid var(--les-border)}
+}
+
+/* ══════ ВЫВОД ══════ без градиента: тонкая линия слева и иконка на полях */
+.ins{background:none;border:0;border-left:2px solid var(--les-warm);border-radius:0;padding:4px 0 4px 46px;margin:20px 0}
+.ins-ico{position:absolute;top:2px;left:14px;background:none;padding:0;font-size:0;color:var(--les-warm)}
+.ins-ico .ic{width:20px;height:20px}
+.ins p{font-size:15px}
+
+/* ══════ ФАКТ-КАРТОЧКА ══════ иконка рядом со строкой, а не над ней */
+.fc{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:13px 14px}
+.fc-ico{font-size:0;margin:0;color:var(--les-text-3)}
+.fc-ico .ic{width:17px;height:17px;margin-top:1px}

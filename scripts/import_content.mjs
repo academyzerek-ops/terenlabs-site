@@ -441,3 +441,11 @@ try {
 } catch (e) {
   console.warn("⚠ индекс поиска не пересобран:", e.message);
 }
+
+// ---------- ИКОНКИ ТУШЬЮ ----------
+// Свежие главы приходят с эмодзи — сразу меняем их на рисованные иконки.
+try {
+  execFileSync("node", [path.join(import.meta.dirname, "ink_icons.mjs")], { stdio: "inherit" });
+} catch (e) {
+  console.warn("⚠ иконки не проставлены:", e.message);
+}

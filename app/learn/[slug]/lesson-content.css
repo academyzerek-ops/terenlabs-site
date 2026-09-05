@@ -195,3 +195,52 @@
 /* стрелка раскрывающегося блока */
 .lesson-content .ex-arr { display: inline-flex; width: 20px; height: 20px; align-items: center; justify-content: center; flex: 0 0 20px; }
 .lesson-content .ex-arr svg { stroke-linecap: round; stroke-linejoin: round; }
+
+/* ══ иконки тушью вместо эмодзи (ставит scripts/ink_icons.mjs) ══
+   один штрих, цвет наследуется от блока; смысл несёт цвет стороны */
+.lesson-content .ic { display: inline-block; vertical-align: -0.14em; flex: none; }
+.lesson-content p .ic, .lesson-content li .ic, .lesson-content td .ic { margin-right: 0.3em; }
+.lesson-content .ic-check { color: var(--color-accent); }
+.lesson-content .ic-flag, .lesson-content .ic-cross { color: #e2685f; }
+.lesson-content .ic-warn { color: var(--color-orange); }
+
+/* инсайт: не плашка, а вывод на полях с линией */
+.lesson-content .ins {
+  align-items: flex-start;
+  gap: 14px;
+  padding: 2px 0 2px 16px;
+  border-radius: 0;
+  background: none;
+  border-left: 2px solid var(--color-orange);
+}
+.lesson-content .ins-ico { font-size: 0; color: var(--color-orange); margin-top: 2px; }
+.lesson-content .ins-ico .ic { width: 20px; height: 20px; }
+.lesson-content .ins p { font-size: 15.5px; }
+
+/* сравнение: один разворот с общей рамкой, иконка в рамке под цвет стороны */
+.lesson-content .vs {
+  gap: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-subtle);
+}
+.lesson-content .vs-i { border-top: 0; border-radius: 0; background: none; padding: 18px 18px 20px; }
+.lesson-content .vs-i + .vs-i { border-left: 1px solid var(--color-line); }
+@media (max-width: 640px) {
+  .lesson-content .vs-i + .vs-i { border-left: 0; border-top: 1px solid var(--color-line); }
+}
+.lesson-content .vs-ico {
+  font-size: 0; width: 32px; height: 32px; margin-bottom: 12px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-line-2); border-radius: 9px; color: var(--color-text-2);
+}
+.lesson-content .vs-ico .ic { width: 18px; height: 18px; }
+.lesson-content .vs-i.gold .vs-ico { color: var(--color-orange); border-color: color-mix(in srgb, var(--color-orange) 45%, transparent); }
+.lesson-content .vs-i.paper .vs-ico { color: var(--color-accent); border-color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
+.lesson-content .vs-t { font-size: 16px; }
+
+/* факт-карточка: иконка рядом со строкой */
+.lesson-content .fc { display: flex; gap: 10px; align-items: flex-start; }
+.lesson-content .fc-ico { font-size: 0; margin: 1px 0 0; color: var(--color-faint); }
+.lesson-content .fc-ico .ic { width: 17px; height: 17px; }
