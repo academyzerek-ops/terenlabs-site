@@ -6,7 +6,7 @@ import { TelegramLogin } from "@/components/TelegramLogin";
 import { TgDeepLinkLogin } from "@/components/TgDeepLinkLogin";
 import { PhoneLogin } from "@/components/PhoneLogin";
 import { GoogleLoginButton } from "@/components/GoogleLoginButton";
-import { auth, providersConfigured } from "@/auth";
+import { auth } from "@/auth";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata = { title: "Вход — TerenLabs", robots: { index: false, follow: false } };
@@ -43,11 +43,15 @@ export default async function Page({
           ) : (
             <TgDeepLinkLogin />
           )}
-          {providersConfigured.google && !forMiniapp && <GoogleLoginButton />}
         </div>
         <p className="mt-2 text-center text-[13px] text-faint">
           Telegram даёт тот же аккаунт, что в Mini App: прогресс общий
         </p>
+        {!forMiniapp && (
+          <div className="mt-5">
+            <GoogleLoginButton />
+          </div>
+        )}
 
         {!forMiniapp && (
           <>

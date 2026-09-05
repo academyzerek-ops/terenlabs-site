@@ -174,12 +174,12 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
 
         {/* низ: аккаунт */}
         <div className="border-t border-line p-2">
-          <Link href="/dashboard" onClick={onClose} className="flex h-10 items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors hover:bg-subtle">
+          <Link href={name ? "/dashboard" : "/auth/sign-in"} onClick={onClose} className="flex h-10 items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors hover:bg-subtle">
             <span className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-hover text-[12px] font-semibold text-ink">
               {name ? name.trim()[0]?.toUpperCase() : <Icon d={I.user} />}
             </span>
             <span className="min-w-0 flex-1 truncate text-ink">{name ?? "Войти"}</span>
-            <span className="text-[12px] text-faint">{name ? "кабинет" : "Telegram"}</span>
+            <span className="text-[12px] text-faint">{name ? "кабинет" : "Telegram · Google · СМС"}</span>
           </Link>
         </div>
       </aside>

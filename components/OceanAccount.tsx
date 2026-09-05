@@ -141,6 +141,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-4">
               <TelegramLoginButton label="Войти и занять место" />
+              <Link href="/auth/sign-in" className="link text-[14px]">Google или номер телефона</Link>
               <Link href="/ocean" className="link text-[14px]">Посмотреть рейтинг</Link>
             </div>
           </div>
