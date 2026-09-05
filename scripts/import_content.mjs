@@ -395,6 +395,16 @@ const reviewProducts = reviews.map((r) => {
 });
 write(
   path.join(SITE, "content/products.json"),
+// sync bm: разборы брендов живут в content/brands.json (scripts/build_brands.py из vault); карточки каталога подмешиваем сюда
+{
+  const brandsPath = path.join(SITE, "content/brands.json");
+  if (fs.existsSync(brandsPath)) {
+    const pj = path.join(SITE, "content/products.json");
+    const products = JSON.parse(read(pj)).filter((x) => x.type !== "bm");
+    for (const b of JSON.parse(read(brandsPath))) { const { body, ...rest } = b; products.push(rest); }
+    write(pj, JSON.stringify(products, null, 1));
+  }
+}
   JSON.stringify(
     [...keep, ...oceanTestProducts, ...courseProducts, ...caseProducts, ...reviewProducts],
     null,
