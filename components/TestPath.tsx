@@ -62,11 +62,14 @@ const CELLS: Cell[] = (() => {
   return out;
 })();
 
+const WAVE = 18; // лёгкая волна внутри ряда: соседние узлы чуть выше и ниже друг друга
+
 function place(i: number, cols: number, cellW: number) {
   const row = Math.floor(i / cols);
   let col = i % cols;
   if (row % 2 === 1) col = cols - 1 - col;
-  return { x: (col + 0.5) * cellW, y: row * ROW_H + NODE_Y, row };
+  const wave = Math.sin((col / Math.max(1, cols - 1)) * Math.PI * 2) * WAVE;
+  return { x: (col + 0.5) * cellW, y: row * ROW_H + NODE_Y + wave, row };
 }
 
 function snake(pts: { x: number; y: number; row: number }[], cellW: number): string {
@@ -74,7 +77,11 @@ function snake(pts: { x: number; y: number; row: number }[], cellW: number): str
   let d = `M ${pts[0].x} ${pts[0].y}`;
   for (let i = 1; i < pts.length; i++) {
     const a = pts[i - 1], b = pts[i];
-    if (a.row === b.row) { d += ` L ${b.x} ${b.y}`; continue; }
+    if (a.row === b.row) {
+      const mx = (a.x + b.x) / 2;
+      d += ` C ${mx} ${a.y}, ${mx} ${b.y}, ${b.x} ${b.y}`;
+      continue;
+    }
     // разворот у края: дуга наружу
     const dir = a.row % 2 === 0 ? 1 : -1;
     const bulge = Math.min(cellW * 0.55, cellW / 2 - 12) * dir; // дуга не выходит за край сцены
@@ -103,7 +110,7 @@ export function TestPath() {
     fetchOceanProgress().then((p) => { setProgress(p); setReady(true); });
   }, []);
 
-  const cols = Math.max(2, Math.min(5, Math.floor(width / 190)));
+  const cols = Math.max(2, Math.min(6, Math.floor(width / 190)));
   const cellW = width / cols;
   const rows = Math.ceil(CELLS.length / cols);
   const height = rows * ROW_H + 8;
@@ -162,7 +169,7 @@ export function TestPath() {
 
         {CELLS.map((c, idx) => {
           const { x, y } = pts[idx];
-          const box = { left: x - cellW / 2, top: y - NODE_Y, width: cellW, height: ROW_H };
+          const box = { left: x - cellW / 2, top: y - NODE_Y, width: cellW, height: ROW_H - WAVE };
           const lockIcon = (
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.2" /><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" /></svg>
           );

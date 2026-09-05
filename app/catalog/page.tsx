@@ -125,7 +125,7 @@ export default async function CatalogPage({
         </Container>
       </section>
 
-      <Container className="py-10">
+      <Container className={`py-10 ${t === "test" ? "!max-w-[1480px]" : ""}`}>
         {t === "test" ? (
           <TestPath />
         ) : list.length > 0 ? (
