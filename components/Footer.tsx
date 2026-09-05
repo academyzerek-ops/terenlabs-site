@@ -42,13 +42,13 @@ export function Footer() {
             Глубина анализа. Сила результата. Обучение и расчёты для предпринимателей.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[14px] text-text-2">
+        <div className="flex flex-wrap items-center gap-y-2 text-[14px] text-text-2">
           {SOCIAL.map((s) => (
-            <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} title={s.label} className="flex h-8 w-8 items-center justify-center rounded-[6px] text-text-2 transition-colors hover:bg-subtle hover:text-ink">
+            <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} title={s.label} className="flex h-9 w-9 items-center justify-center rounded-[6px] text-text-2 transition-colors hover:bg-subtle hover:text-ink">
               <SocialIcon name={s.label} />
             </a>
           ))}
-          <a href="mailto:info@terenlabs.kz" className="transition-colors hover:text-ink">info@terenlabs.kz</a>
+          <a href="mailto:info@terenlabs.kz" className="ml-3 transition-colors hover:text-ink">info@terenlabs.kz</a>
         </div>
       </Container>
       <Container className="flex items-center justify-between border-t border-line py-4 text-[12px] text-faint">
@@ -73,7 +73,7 @@ function SocialIcon({ name }: { name: string }) {
     ? <path d="M11.2 7.6c-.2-1.9-1.3-3-3.2-3.1-1.4 0-2.5.6-3.1 1.7M11.2 7.6c1.4.6 2 1.7 1.9 2.9-.2 2-1.9 3-3.9 3-2.9 0-4.9-2-4.9-5.5S6.3 2.5 9.1 2.5c1.6 0 2.9.6 3.7 1.7M11.2 7.6c-.7-.3-1.6-.4-2.5-.3-1.6.1-2.7.9-2.6 2 .1 1 1 1.6 2.3 1.5 1.7-.1 2.6-1.2 2.8-3.2" />
     : <path d="M13.5 2.8 2.6 7.1c-.7.3-.7.8 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.9 2.1c.5.4 1 .1 1.1-.5L14.3 3.6c.1-.7-.3-1.1-.8-.8zM5.3 9l6.6-4.2-5.2 4.9-.3 2.6" />;
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.3} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       {d}
     </svg>
   );
