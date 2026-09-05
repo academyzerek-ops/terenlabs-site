@@ -20,7 +20,7 @@ const SRC = process.env.TL_SRC || "/Users/adil/TerenLabs-zerek/frontend";
 const SITE = path.resolve(import.meta.dirname, "..");
 
 // Версия картинок: обложки перекрашены 09.2026, кэш браузера надо сбить
-const IMG_V = "v=7";
+const IMG_V = "v=8";
 const report = { missingChapters: [], missingHero: [], unknownAssets: new Set(), counts: {} };
 
 // ---------- утилиты ----------
