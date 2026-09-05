@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
+import { LESSON_COVERS } from "@/lib/lesson-covers";
 import { Button, Arrow } from "@/components/Button";
 import { ProductPage } from "@/components/ProductPage";
 import { getItem, plural, COURSES } from "@/lib/content";
@@ -69,7 +70,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <h2 className="text-[24px] sm:text-[32px]">Программа</h2>
           <div className="mt-8">
             {track.modules.map((m, mi) => {
-              const cover = m.chapters.find((c) => c.img)?.img;
+              // своя обложка урока, если нарисована; иначе первая картинка главы
+              const own = `/academy-assets/lessons_cover/${track.folder ?? ""}/${m.id}.webp?v=1`;
+              const cover = (track.folder && LESSON_COVERS.has(`${track.folder}/${m.id}`)) ? own : m.chapters.find((c) => c.img)?.img;
               return (
                 <div
                   key={m.id}
