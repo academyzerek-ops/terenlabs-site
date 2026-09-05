@@ -16,7 +16,7 @@ export default function Page() {
       desc: "Полные курсы — от финансовой грамотности до маркетинга. Открыты целиком, без звёздочек.",
       count: COURSES.length,
       noun: ["курс", "курса", "курсов"] as const,
-      href: "/catalog?type=course",
+      href: "/academy",
     },
     {
       title: "Тесты с разбором",

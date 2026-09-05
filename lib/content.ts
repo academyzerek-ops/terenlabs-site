@@ -18,7 +18,7 @@ export const PRODUCT_TYPES: Record<
   ProductType,
   { label: string; one: string; path: string; href: string; blurb: string }
 > = {
-  course: { label: "Академия", one: "Глава", path: "/courses", href: "/catalog?type=course", blurb: "Коротко, просто и по делу — без лишней теории" },
+  course: { label: "Академия", one: "Глава", path: "/courses", href: "/academy", blurb: "Коротко, просто и по делу — без лишней теории" },
   test: { label: "Тесты", one: "Тест", path: "/tests", href: "/catalog?type=test", blurb: "Проверь себя — честно и с разбором каждого ответа" },
   case: { label: "Кейсы", one: "Кейс", path: "/cases", href: "/catalog?type=case", blurb: "Чужой опыт как способ учиться на не своих деньгах" },
   review: { label: "Ниши", one: "Обзор ниши", path: "/reviews", href: "/catalog?type=review", blurb: "Обзоры рынка по нишам: спрос, конкуренция, маржа" },

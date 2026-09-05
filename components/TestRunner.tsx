@@ -77,7 +77,7 @@ export function TestRunner({
               : "Есть пробелы. Это нормально: начни с курса по основам, потом вернись."}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button href="/catalog?type=course">Подобрать курс</Button>
+            <Button href="/academy">В Академию</Button>
             <a
               href={`https://wa.me/?text=${shareText}`}
               target="_blank"

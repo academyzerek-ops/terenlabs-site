@@ -7,7 +7,7 @@ const LEGAL = [
 ];
 
 const DELO = [
-  { label: "Академия", href: "/delo#akademiya" },
+  { label: "Академия", href: "/academy" },
   { label: "Модели малого бизнеса", href: "/courses/course-models" },
   { label: "Кейсы", href: "/catalog?type=case" },
   { label: "Ниши", href: "/catalog?type=review" },

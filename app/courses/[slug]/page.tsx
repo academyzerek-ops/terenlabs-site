@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             path: `/courses/${track.slug}`,
           }),
           breadcrumbJsonLd([
-            { name: "Курсы", path: "/catalog?type=course" },
+            { name: "Академия", path: "/academy" },
             { name: track.title, path: `/courses/${track.slug}` },
           ]),
         ]}
@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <section className="border-b border-line">
         <Container className="py-14 sm:py-16">
           <nav className="mb-6 text-[13px] text-faint" aria-label="Хлебные крошки">
-            <Link href="/catalog?type=course" className="hover:text-ink">Курсы</Link>
+            <Link href="/academy" className="hover:text-ink">Академия</Link>
             <span className="mx-2">/</span>
             <span>{track.title}</span>
           </nav>

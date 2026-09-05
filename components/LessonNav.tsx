@@ -73,7 +73,7 @@ export function LessonNav({
     <aside className="border-b border-line bg-page lg:sticky lg:top-0 lg:h-dvh lg:overflow-y-auto lg:border-b-0 lg:border-r">
       <div className="px-5 pb-3 pt-5 lg:px-6">
         <Link href={`/courses/${slug}`} className="text-[13px] text-faint transition-colors hover:text-ink">
-          ← к программе трека
+          ← к треку
         </Link>
         <h2 className="mt-2 text-[15px] font-semibold leading-snug">{title}</h2>
         <div className="mt-3 flex items-center gap-3 text-[12px] text-faint">

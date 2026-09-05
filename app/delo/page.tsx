@@ -41,8 +41,8 @@ export default function DeloPage() {
             кейсы, где чужие деньги уже сгорели, и обзоры ниш с реальной экономикой рынка.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Button href="/courses/course-fundament">
-              Начать с Фундамента <Arrow />
+            <Button href="/academy">
+              В Академию <Arrow />
             </Button>
             <Link href="/tests/crab-t1/take" className="link text-[15px]">
               Или сразу тест Краба

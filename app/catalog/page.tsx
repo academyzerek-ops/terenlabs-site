@@ -1,4 +1,5 @@
 import { Container } from "@/components/Container";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CatalogFilters } from "@/components/CatalogFilters";
@@ -69,6 +70,8 @@ export default async function CatalogPage({
 }) {
   const sp = await searchParams;
   const t = typeof sp.type === "string" ? sp.type : "all";
+  // Академия живёт на своей странице двумя группами треков
+  if (t === "course") redirect("/academy");
   const s = SECTION[(t as ProductType) in SECTION ? (t as ProductType) : "all"] ?? SECTION.all;
   const f = typeof sp.filter === "string" ? sp.filter : "all";
 
