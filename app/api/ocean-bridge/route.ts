@@ -28,6 +28,7 @@ export async function POST() {
     provider,
     provider_uid: providerUid,
     name: session.user?.name ?? null,
+    email: session.user?.email ?? null,
   };
   // canonical-json: sorted keys, без пробелов — зеркало verify_bridge_signature
   const canonical = JSON.stringify(

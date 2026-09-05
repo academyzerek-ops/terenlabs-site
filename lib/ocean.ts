@@ -136,6 +136,41 @@ export async function tgLoginClaim(code: string): Promise<OceanAuth | null> {
   return auth;
 }
 
+/** Вход по СМС, шаг 1: код на номер. Без провайдера бэкенд вернёт debug_code. */
+export async function smsStart(phone: string): Promise<{ phone: string; expires_in_sec: number; debug_code?: string | null }> {
+  const res = await fetch(OCEAN_API + "/auth/sms/start", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone }),
+  });
+  if (!res.ok) {
+    let detail = `sms start: ${res.status}`;
+    try { detail = (await res.json()).detail || detail; } catch { /* no-op */ }
+    throw new Error(detail);
+  }
+  return res.json();
+}
+
+/** Вход по СМС, шаг 2: проверить код, получить веб-токен. */
+export async function smsVerify(phone: string, code: string): Promise<OceanAuth> {
+  const res = await fetch(OCEAN_API + "/auth/sms/verify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone, code }),
+  });
+  if (!res.ok) {
+    let detail = `sms verify: ${res.status}`;
+    try { detail = (await res.json()).detail || detail; } catch { /* no-op */ }
+    throw new Error(detail);
+  }
+  const auth: OceanAuth = await res.json();
+  setOceanToken(auth.token);
+  try {
+    if (auth.display_name) localStorage.setItem(NAME_KEY, auth.display_name);
+  } catch { /* no-op */ }
+  return auth;
+}
+
 /** Персональный разбор TEREN-AI после теста (общий бэкенд с Mini App). */
 export async function fetchRecommendation(
   level: string,
