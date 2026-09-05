@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Container } from "@/components/Container";
 import { Arrow } from "@/components/Button";
 import { LessonNav } from "@/components/LessonNav";
 import { LessonToc } from "@/components/LessonToc";
@@ -58,7 +57,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   }));
 
   return (
-    <div className="grid lg:grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)]">
+    <div className="grid lg:grid-cols-[280px_minmax(0,1fr)]">
       <LessonNav
         slug={slug}
         title={track.title}
@@ -71,7 +70,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       />
 
       <div className="min-w-0">
-        <Container className="grid gap-10 py-10 lg:py-14 xl:grid-cols-[minmax(0,720px)_200px] xl:justify-center xl:gap-14">
+        <div className="mx-auto grid w-full max-w-[1040px] gap-10 px-5 py-10 sm:px-8 lg:py-14 xl:grid-cols-[minmax(0,720px)_220px] xl:gap-16">
           <article className="min-w-0 xl:w-[720px]">
             <p className="eyebrow">{/^Урок\s*\d/i.test(cur.moduleTitle) ? cur.moduleTitle : `Урок ${cur.moduleIndex} · ${cur.moduleTitle}`}</p>
             <h1 className="mt-3 text-[28px] leading-[1.15] sm:text-[36px]">{doc.title || cur.title}</h1>
@@ -119,11 +118,11 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           </article>
 
           <div className="hidden xl:block">
-            <div className="sticky top-[81px]">
+            <div className="sticky top-10">
               <LessonToc items={doc.toc} />
             </div>
           </div>
-        </Container>
+        </div>
       </div>
     </div>
   );

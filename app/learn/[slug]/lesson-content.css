@@ -12,6 +12,20 @@
   line-height: 1.7;
   text-wrap: pretty;
 }
+/* выключка по ширине для прозы: браузерные переносы по русским правилам,
+   слово не короче 6 букв, не меньше 3 букв с каждой стороны, не больше 2 переносов подряд;
+   узкая колонка 720px + pretty держат межсловные пробелы ровными */
+.lesson-content p {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  hyphenate-limit-lines: 2;
+  hyphenate-limit-last: always;
+  overflow-wrap: break-word;
+}
+.lesson-content .pq p, .lesson-content .ins p, .lesson-content .vs p, .lesson-content .tk p, .lesson-content .fc p,
+.lesson-content .ex-b p, .lesson-content p.nextup, .lesson-content .tl p { text-align: left; hyphens: manual; }
 .lesson-content p { margin: 0 0 18px; }
 .lesson-content .c { margin: 0; }
 .lesson-content .c.ag, .lesson-content .c.ao { margin: 0; }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/Header";
+import { AppShell } from "@/components/AppShell";
 import { FooterGate } from "@/components/FooterGate";
 import { NoaChat } from "@/components/NoaChat";
 import { JsonLd } from "@/components/JsonLd";
@@ -62,12 +62,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <YandexMetrica />
         </Suspense>
         <a href="#main" className="skip-link">Перейти к содержимому</a>
-        <Suspense fallback={<div className="h-14" />}>
-          <Header />
-        </Suspense>
-        <main id="main" className="flex-1">{children}</main>
         <Suspense fallback={null}>
-          <FooterGate />
+          <AppShell>
+            <main id="main" className="flex-1">{children}</main>
+            <Suspense fallback={null}>
+              <FooterGate />
+            </Suspense>
+          </AppShell>
         </Suspense>
         <Suspense fallback={null}>
           <NoaChat />

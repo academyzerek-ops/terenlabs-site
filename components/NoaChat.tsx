@@ -197,7 +197,7 @@ export function NoaChat() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Закрыть TEREN-AI" : "Открыть TEREN-AI"}
-        className="fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover"
+        className="fixed bottom-5 right-5 z-[45] flex h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover"
       >
         {open ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
