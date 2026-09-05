@@ -1,0 +1,183 @@
+/* ============================================================
+   Текст главы Академии на токенах сайта. Разметка приходит из сборщика
+   (build_academy.py): .c карточки → обычные абзацы; h3 из ярлыков .lb;
+   блоки: .pq цитата · .ins инсайт · .vs сравнение · .tk «Что вынести» ·
+   .fla формула · .tl таймлайн · .ex вопрос-ответ · .fs факты · .div разделитель ·
+   .case-cta ссылка на кейс · .nextup последний абзац-крючок.
+   Одна колонка 720px, левая выключка, без переносов, рамки только у блоков.
+   ============================================================ */
+.lesson-content {
+  color: var(--color-body);
+  font-size: 17px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+.lesson-content p { margin: 0 0 18px; }
+.lesson-content .c { margin: 0; }
+.lesson-content .c.ag, .lesson-content .c.ao { margin: 0; }
+.lesson-content strong { color: var(--color-ink); font-weight: 600; }
+.lesson-content em { font-style: italic; }
+.lesson-content a { color: var(--color-accent); text-decoration: underline; text-decoration-color: rgba(61, 146, 227, 0.4); text-underline-offset: 3px; }
+.lesson-content a:hover { text-decoration-color: var(--color-accent); }
+.lesson-content .o { color: var(--color-orange); font-style: normal; }
+.lesson-content ul, .lesson-content ol { margin: 0 0 18px 22px; padding: 0; }
+.lesson-content li { margin-bottom: 6px; }
+.lesson-content li::marker { color: var(--color-faint); }
+
+.lesson-content h2, .lesson-content h3 {
+  color: var(--color-ink);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 40px 0 12px;
+  scroll-margin-top: 80px;
+}
+.lesson-content h2 { font-size: 24px; }
+.lesson-content h3 { font-size: 20px; }
+.lesson-content .c:first-child h3, .lesson-content > h3:first-child { margin-top: 0; }
+
+/* цитата-тезис */
+.lesson-content .pq {
+  margin: 28px 0;
+  padding: 2px 0 2px 18px;
+  border-left: 3px solid var(--color-ink);
+}
+.lesson-content .pq p { margin: 0; font-size: 19px; line-height: 1.5; font-weight: 500; color: var(--color-ink); }
+
+/* инсайт */
+.lesson-content .ins {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--color-subtle);
+}
+.lesson-content .ins-ico { font-size: 18px; line-height: 1.5; }
+.lesson-content .ins p { margin: 0; font-size: 15px; line-height: 1.6; }
+
+/* сравнение: две панели */
+.lesson-content .vs {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 640px) { .lesson-content .vs { grid-template-columns: 1fr; } }
+.lesson-content .vs-i {
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--color-subtle);
+  border-top: 2px solid var(--color-line-2);
+}
+.lesson-content .vs-i.gold { border-top-color: var(--color-orange); }
+.lesson-content .vs-i.paper { border-top-color: var(--color-accent); }
+.lesson-content .vs-ico { display: block; font-size: 20px; line-height: 1; margin-bottom: 10px; }
+.lesson-content .vs-ico:empty { display: none; }
+.lesson-content .vs-t { font-size: 15px; font-weight: 600; color: var(--color-ink); line-height: 1.35; margin-bottom: 8px; }
+.lesson-content .vs-d { font-size: 14px; line-height: 1.55; color: var(--color-text-2); }
+.lesson-content .vs-d p { margin: 0 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--color-line); font-size: 14px; line-height: 1.55; }
+.lesson-content .vs-d p:last-child { margin: 0; padding: 0; border: 0; }
+
+/* что вынести */
+.lesson-content .tk {
+  margin: 32px 0;
+  padding: 20px 20px 8px;
+  border-radius: 8px;
+  background: var(--color-subtle);
+}
+.lesson-content .tk-badge { display: inline-block; font-size: 12px; font-weight: 500; color: var(--color-orange); margin-bottom: 8px; }
+.lesson-content .tk h3 { margin: 0 0 12px; font-size: 18px; }
+.lesson-content .tk-pt { display: flex; gap: 12px; padding: 10px 0 12px; border-top: 1px solid var(--color-line); }
+.lesson-content .tk-n {
+  flex: 0 0 22px; height: 22px; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; color: var(--color-accent); background: var(--color-accent-100);
+  font-variant-numeric: tabular-nums;
+}
+.lesson-content .tk-t { font-size: 15px; line-height: 1.55; }
+
+/* формула */
+.lesson-content .fla {
+  margin: 24px 0;
+  padding: 16px 18px;
+  border-radius: 8px;
+  background: var(--color-subtle);
+}
+.lesson-content .fla-lbl { font-size: 12px; font-weight: 500; color: var(--color-text-2); margin-bottom: 8px; }
+.lesson-content .fla-eq { font-size: 20px; line-height: 1.4; color: var(--color-ink); font-variant-numeric: tabular-nums; font-weight: 500; letter-spacing: -0.01em; }
+.lesson-content .fla-eq .op { color: var(--color-accent); margin: 0 4px; font-weight: 400; }
+.lesson-content .fla-note { margin-top: 8px; font-size: 13px; color: var(--color-faint); }
+
+/* таймлайн */
+.lesson-content .tl { margin: 24px 0; border-left: 1px solid var(--color-line-2); padding-left: 18px; }
+.lesson-content .tl-i { position: relative; padding: 0 0 16px; }
+.lesson-content .tl-dot { position: absolute; left: -22px; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); }
+.lesson-content .tl-date { font-size: 12px; font-weight: 500; color: var(--color-text-2); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+.lesson-content .tl-txt { font-size: 15px; line-height: 1.55; }
+
+/* вопрос-ответ (раскрывается кликом, обработчик в разметке) */
+.lesson-content .ex { margin: 12px 0; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); padding: 12px 0; cursor: pointer; }
+.lesson-content .ex + .ex { border-top: 0; margin-top: -12px; }
+.lesson-content .ex-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.lesson-content .ex-q { font-size: 16px; font-weight: 500; color: var(--color-ink); }
+.lesson-content .ex-arr svg { width: 16px; height: 16px; stroke: var(--color-faint); fill: none; stroke-width: 1.6; transition: transform 0.2s; }
+.lesson-content .ex.open .ex-arr svg { transform: rotate(180deg); }
+.lesson-content .ex-b { display: none; padding-top: 10px; }
+.lesson-content .ex.open .ex-b { display: block; }
+.lesson-content .ex-b p { margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: var(--color-text-2); }
+
+/* факты: горизонтальная лента карточек */
+.lesson-content .fs {
+  display: flex; gap: 12px; margin: 24px 0; padding-bottom: 6px;
+  overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin;
+}
+.lesson-content .fc {
+  flex: 0 0 240px; scroll-snap-align: start;
+  padding: 14px; border-radius: 8px; background: var(--color-subtle);
+}
+.lesson-content .fc-ico { display: block; font-size: 20px; margin-bottom: 8px; }
+.lesson-content .fc-txt { font-size: 14px; line-height: 1.5; color: var(--color-text-2); }
+
+/* разделитель */
+.lesson-content .div { display: flex; align-items: center; gap: 10px; margin: 36px 0; }
+.lesson-content .div .ln { flex: 1; height: 1px; background: var(--color-line); }
+.lesson-content .div .dt { width: 4px; height: 4px; border-radius: 50%; background: var(--color-faint); }
+
+/* ссылка на кейс */
+.lesson-content .case-cta {
+  display: grid; gap: 4px; margin: 28px 0; padding: 16px 18px;
+  border-radius: 8px; border: 1px solid var(--color-line); background: var(--color-card);
+  text-decoration: none; transition: background-color 0.2s, border-color 0.2s;
+}
+.lesson-content .case-cta:hover { background: var(--color-card-2); border-color: var(--color-line-2); }
+.lesson-content .case-cta-flag { font-size: 12px; font-weight: 500; color: var(--color-orange); }
+.lesson-content .case-cta-pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--color-orange); margin-right: 8px; vertical-align: 1px; }
+.lesson-content .case-cta-title { font-size: 16px; font-weight: 600; color: var(--color-ink); }
+.lesson-content .case-cta-go { font-size: 14px; color: var(--color-accent); }
+.lesson-content .case-cta-arr { margin-left: 6px; }
+
+/* крючок в конец главы */
+.lesson-content p.nextup { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--color-line); color: var(--color-text-2); font-size: 15px; }
+
+/* таблицы и цифры, если встретятся */
+.lesson-content table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+.lesson-content th, .lesson-content td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+.lesson-content th { font-size: 12px; font-weight: 500; color: var(--color-text-2); }
+.lesson-content .nb-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 24px 0; }
+.lesson-content .nb { padding: 14px; border-radius: 8px; background: var(--color-subtle); }
+.lesson-content .nb-n { display: block; font-size: 26px; font-weight: 600; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.lesson-content .nb-cap { margin: 4px 0 0; font-size: 12px; color: var(--color-text-2); }
+
+@media (max-width: 640px) {
+  .lesson-content { font-size: 16px; }
+  .lesson-content h3 { font-size: 18px; }
+  .lesson-content .nb-grid { grid-template-columns: 1fr; }
+}
+
+/* крючок «В следующей главе», если сборщик завернул его в цитату: тише, без рамки */
+.lesson-content .pq:has(.nextup) { border-left: 0; padding-left: 0; margin: 28px 0 0; }
+.lesson-content .pq .nextup, .lesson-content .pq:has(.nextup) p { margin: 0; padding-top: 16px; border-top: 1px solid var(--color-line); color: var(--color-text-2); font-size: 15px; font-weight: 400; line-height: 1.6; }
+/* стрелка раскрывающегося блока */
+.lesson-content .ex-arr { display: inline-flex; width: 20px; height: 20px; align-items: center; justify-content: center; flex: 0 0 20px; }
+.lesson-content .ex-arr svg { stroke-linecap: round; stroke-linejoin: round; }
