@@ -43,7 +43,7 @@ export default async function Dashboard() {
         </div>
 
         {session?.user ? (
-          <div className="flex items-center gap-4 rounded-[8px] border border-line bg-subtle p-4">
+          <div className="panel flex items-center gap-4 p-4">
             {session.user.image ? (
               <img src={session.user.image} alt="" width={48} height={48} className="h-12 w-12 rounded-full object-cover" />
             ) : (

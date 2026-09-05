@@ -100,7 +100,14 @@ export default function Home() {
               desc: "Команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции. Модели заработка на примерах мировых компаний.",
             },
           ].map((d) => (
-            <Link key={d.href} href={d.href} className="card-premium group flex flex-col gap-3 p-6">
+            <Link key={d.href} href={d.href} className="card-premium group flex flex-col gap-3 p-7">
+              <span className="mb-2 text-faint">
+                {d.href === "/delo" ? (
+                  <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 6.5 4 3h8l1 3.5M3 6.5h10v6a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5zM6.5 13V9.5h3V13" /></svg>
+                ) : (
+                  <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9.5 2.5c2 .5 3.5 2 4 4L9 11 5 7zM5 7l-2 .5L4.5 9M9 11l.5 2L11 11.5M6.5 9.5 3 13" /></svg>
+                )}
+              </span>
               <p className="eyebrow">{d.eyebrow}</p>
               <h2 className="text-[24px]">{d.title}</h2>
               <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">{d.desc}</p>
@@ -217,6 +224,10 @@ export default function Home() {
           таблица на 5 строк с шапкой, ссылка. Всё стоит вровень. */}
       <section>
         <Container className="py-20">
+          <p className="section-label mb-3">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2.5 13.5h11M4 11V7M7 11V4M10 11V8.5M13 11V6" /></svg>
+            Сейчас на платформе
+          </p>
           <div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Стартап · бизнес-модели</p>
@@ -230,7 +241,7 @@ export default function Home() {
                 <span>Разбор</span><span className="text-right">Модель</span>
               </div>
               {BRANDS.filter((b) => !b.stub).slice(0, 5).map((b) => (
-                <Link key={b.slug} href={b.href} className="grid min-h-[52px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-t border-line py-3 text-[15px] transition-colors hover:bg-subtle">
+                <Link key={b.slug} href={b.href} className="row-hover grid min-h-[52px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-t border-line py-3 text-[15px]">
                   <span className="truncate font-medium text-ink">{b.title}</span>
                   {b.badge ? <span className="tag">{b.badge}</span> : <span className="text-[13px] text-faint">{b.sector ?? ""}</span>}
                 </Link>

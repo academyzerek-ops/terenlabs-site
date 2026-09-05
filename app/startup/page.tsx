@@ -144,7 +144,7 @@ export default function StartupPage() {
             </p>
             <div className="self-start">
               {brands.map((b) => (
-                <Link key={b.slug} href={b.href} className="flex items-center justify-between gap-4 border-t border-line py-3 text-[15px] transition-colors hover:bg-subtle">
+                <Link key={b.slug} href={b.href} className="row-hover flex items-center justify-between gap-4 border-t border-line py-3 text-[15px]">
                   <span className="truncate text-body">{b.title}</span>
                   <span className="link shrink-0 text-[14px]">
                     Читать <Arrow />

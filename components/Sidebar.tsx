@@ -166,8 +166,8 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           <div className="mb-4">
             <p className="px-2 pb-1 text-[12px] font-medium text-faint">Документы</p>
             <div className="flex flex-col gap-px">
-              {row({ label: "Пользовательское соглашение", href: "/terms", icon: I.doc }, true)}
-              {row({ label: "Политика конфиденциальности", href: "/privacy", icon: I.doc }, true)}
+              {row({ label: "Пользовательское соглашение", href: "/legal/offer", icon: I.doc }, true)}
+              {row({ label: "Политика конфиденциальности", href: "/legal/privacy", icon: I.doc }, true)}
             </div>
           </div>
         </nav>

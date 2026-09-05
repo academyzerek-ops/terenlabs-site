@@ -97,7 +97,7 @@ export default function DeloPage() {
             </p>
             <div className="self-start">
               {cases.map((c) => (
-                <Link key={c.slug} href={c.href} className="flex items-center justify-between gap-4 border-t border-line py-3 text-[15px] transition-colors hover:bg-subtle">
+                <Link key={c.slug} href={c.href} className="row-hover flex items-center justify-between gap-4 border-t border-line py-3 text-[15px]">
                   <span className="truncate text-body">{c.title}</span>
                   {c.badge && <span className="tag shrink-0">{c.badge}</span>}
                 </Link>

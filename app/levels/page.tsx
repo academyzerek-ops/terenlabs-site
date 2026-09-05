@@ -86,7 +86,7 @@ export default function LevelsPage() {
         </div>
 
         {/* правая колонка: рейтинг */}
-        <aside className="rounded-[8px] border border-line bg-subtle p-5 lg:sticky lg:top-20">
+        <aside className="panel p-6 lg:sticky lg:top-8">
           <div className="flex items-baseline justify-between">
             <p className="eyebrow">Рейтинг · Казахстан</p>
           </div>

@@ -183,18 +183,21 @@ button, a { touch-action: manipulation; }
 }
 .link:hover { color: #7ab8de; }
 
-/* Карточка: подложка чуть светлее фона, рамка 1px, без тени */
+/* Карточка как панель Notion: полупрозрачная подложка без рамки, тонкий блик по верхней кромке,
+   на наведении чуть светлее. Радиус 12. */
 .card-premium {
   position: relative;
-  background: var(--color-card);
-  border: 1px solid rgba(255, 255, 235, 0.06);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  transition: border-color 0.2s var(--ease-out-tl), background-color 0.2s var(--ease-out-tl);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: background-color 0.2s var(--ease-out-tl), box-shadow 0.2s var(--ease-out-tl), transform 0.2s var(--ease-out-tl);
 }
 .card-premium:hover {
-  border-color: rgba(255, 255, 235, 0.1);
-  background: var(--color-card-2);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
+a.card-premium:active { transform: translateY(1px); }
 
 /* Нумерация секций (наследие): цифра серым, линия */
 .section-no {
@@ -305,3 +308,16 @@ button, a { touch-action: manipulation; }
   transition: background-color 0.15s;
 }
 .rail-btn:hover { background: rgba(255, 255, 255, 0.12); color: var(--color-ink); }
+
+/* ---- Огранка ---- */
+::selection { background: rgba(39, 131, 222, 0.35); color: #fff; }
+* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.14) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.14); border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); }
+*::-webkit-scrollbar-track { background: transparent; }
+/* строка списка: на наведении подсвечивается с закруглением, выезжая за край на 8px */
+.row-hover { position: relative; border-radius: 6px; transition: background-color 0.15s; }
+.row-hover:hover { background: var(--color-subtle); box-shadow: 0 0 0 8px var(--color-subtle); }
+/* панель темнее фона внутри секций на bg-subtle */
+.bg-subtle .panel { background: rgba(25, 25, 25, 0.9); }
