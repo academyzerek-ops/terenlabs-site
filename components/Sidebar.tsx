@@ -44,12 +44,16 @@ const QUICK: Item[] = [
   { label: "Кабинет", href: "/dashboard", icon: I.user, match: (p) => p.startsWith("/dashboard") },
 ];
 
-const GROUPS: { title: string; items: Item[] }[] = [
+// Два хаба как два отдельных блока: заголовок группы сам ведёт в хаб (иконка хаба + стрелка),
+// внутри только контент. Документы в панели не дублируем: они в футере.
+const GROUPS: { title: string; href: string; icon: React.ReactNode; note: string; items: Item[] }[] = [
   {
     title: "Своё дело",
+    href: "/delo",
+    icon: I.shop,
+    note: "Казахстан · тенге",
     items: [
-      { label: "Хаб «Своё дело»", href: "/delo", icon: I.shop, match: (p) => p === "/delo" },
-      { label: "Академия", href: "/catalog?type=course", icon: I.book, match: (p, t) => (p === "/catalog" && t === "course") || p.startsWith("/courses/") || p.startsWith("/learn/") },
+      { label: "Академия", href: "/catalog?type=course", icon: I.book, match: (p, t) => (p === "/catalog" && t === "course") || (p.startsWith("/courses/") && !p.includes("course-startup")) || (p.startsWith("/learn/") && !p.includes("course-startup")) },
       { label: "Тесты", href: "/catalog?type=test", icon: I.test, match: (p, t) => (p === "/catalog" && t === "test") || p.startsWith("/tests/") },
       { label: "Кейсы", href: "/catalog?type=case", icon: I.case, match: (p, t) => (p === "/catalog" && t === "case") || p.startsWith("/cases/") },
       { label: "Ниши", href: "/catalog?type=review", icon: I.chart, match: (p, t) => (p === "/catalog" && t === "review") || p.startsWith("/reviews/") },
@@ -57,8 +61,10 @@ const GROUPS: { title: string; items: Item[] }[] = [
   },
   {
     title: "Стартап",
+    href: "/startup",
+    icon: I.rocket,
+    note: "весь рынок · доллар",
     items: [
-      { label: "Хаб «Стартап»", href: "/startup", icon: I.rocket, match: (p) => p === "/startup" },
       { label: "От идеи до инвестиций", href: "/courses/course-startup", icon: I.book, match: (p) => p.includes("course-startup") },
       { label: "Разборы брендов", href: "/catalog?type=bm", icon: I.brand, match: (p, t) => (p === "/catalog" && t === "bm") || p.startsWith("/brands/") },
     ],
@@ -157,19 +163,29 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
               </Link>
             </div>
           )}
-          {GROUPS.map((g) => (
-            <div key={g.title} className="mb-4">
-              <p className="px-2 pb-1 text-[12px] font-medium text-faint">{g.title}</p>
-              <div className="flex flex-col gap-px">{g.items.map((it) => row(it, true))}</div>
-            </div>
-          ))}
-          <div className="mb-4">
-            <p className="px-2 pb-1 text-[12px] font-medium text-faint">Документы</p>
-            <div className="flex flex-col gap-px">
-              {row({ label: "Пользовательское соглашение", href: "/legal/offer", icon: I.doc }, true)}
-              {row({ label: "Политика конфиденциальности", href: "/legal/privacy", icon: I.doc }, true)}
-            </div>
-          </div>
+          {GROUPS.map((g) => {
+            const hubActive = pathname === g.href;
+            return (
+              <div key={g.title} className="mt-3 rounded-[8px] bg-[rgba(255,255,255,0.03)] p-1.5">
+                <Link
+                  href={g.href}
+                  onClick={onClose}
+                  aria-current={hubActive ? "page" : undefined}
+                  className={`group flex items-center gap-2.5 rounded-[6px] px-2 py-1.5 transition-colors hover:bg-subtle ${hubActive ? "bg-hover" : ""}`}
+                >
+                  <span className="text-text-2"><Icon d={g.icon} /></span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[13px] font-semibold text-ink">{g.title}</span>
+                    <span className="block text-[11px] text-faint">{g.note}</span>
+                  </span>
+                  <span className="text-faint opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d="m6 3 5 5-5 5" /></svg>
+                  </span>
+                </Link>
+                <div className="mt-1 flex flex-col gap-px pl-1">{g.items.map((it) => row(it, true))}</div>
+              </div>
+            );
+          })}
         </nav>
 
         {/* низ: аккаунт */}
