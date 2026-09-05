@@ -111,7 +111,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
   return (
     <>
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-[272px] flex-col bg-[#202020] transition-transform duration-200 lg:sticky lg:top-0 lg:h-dvh lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-[272px] shrink-0 flex-col bg-[#202020] transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Навигация по сайту"
