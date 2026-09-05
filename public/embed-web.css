@@ -582,3 +582,7 @@
     border-bottom-right-radius: 0;
   }
 }
+
+/* тема сайта (minimal, 09.2026): акцентное слово в заголовках оранжевым без курсива, как на страницах брендов; метки без капса */
+.phero h1 .o,.hero h1 .o,html[data-mod] .hero h1 .o,.o{color:#f0873a;font-style:normal}
+.tldr-h,.lb,.phero-badge{text-transform:none;letter-spacing:0;font-size:12px;font-weight:500;color:var(--les-text-3)}
