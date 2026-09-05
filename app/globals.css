@@ -321,3 +321,8 @@ a.card-premium:active { transform: translateY(1px); }
 .row-hover:hover { background: var(--color-subtle); box-shadow: 0 0 0 8px var(--color-subtle); }
 /* панель темнее фона внутри секций на bg-subtle */
 .bg-subtle .panel { background: rgba(25, 25, 25, 0.9); }
+
+/* тропа тестов: ярлык «Начать» над текущим узлом мягко качается */
+@keyframes path-bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -4px); } }
+.path-bounce { animation: path-bounce 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .path-bounce { animation: none; } }
