@@ -200,7 +200,7 @@ export function TestPath() {
                     const body = (
                       <>
                         {here && (
-                          <span className="path-bounce absolute -top-1 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-[6px] bg-orange px-2.5 py-1 text-[11px] font-semibold text-[#1a1a1a]">
+                          <span className="path-bounce absolute top-0 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-[6px] bg-orange px-2.5 py-1 text-[11px] font-semibold text-[#1a1a1a]">
                             {cd > 0 ? `через ${formatCooldown(cd)}` : "Начать"}
                             <span className="absolute left-1/2 top-full -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-orange" />
                           </span>
@@ -228,7 +228,7 @@ export function TestPath() {
                         <span className="mt-0.5 block w-full text-[11px] leading-snug text-faint">{n.sub}</span>
                       </>
                     );
-                    const cls = "group relative flex w-[124px] flex-col items-center pt-6 text-center";
+                    const cls = "group relative flex w-[124px] flex-col items-center pt-10 text-center";
                     return avail || isDone ? (
                       <Link key={n.slug} href={`/tests/${n.slug}/take`} className={cls} aria-current={here ? "step" : undefined}>{body}</Link>
                     ) : (

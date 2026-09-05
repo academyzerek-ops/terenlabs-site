@@ -70,8 +70,10 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       />
 
       <div className="min-w-0">
-        <div className="mx-auto grid w-full max-w-[1040px] gap-10 px-5 py-10 sm:px-8 lg:py-14 xl:grid-cols-[minmax(0,720px)_220px] xl:gap-16">
-          <article className="min-w-0 xl:w-[720px]">
+        {/* оглавление показываем только когда рядом с колонкой текста реально есть место:
+            при двух боковых панелях 720 + 40 + 220 помещаются лишь от 2xl */}
+        <div className="mx-auto grid w-full max-w-[1040px] gap-10 px-5 py-10 sm:px-8 lg:py-14 2xl:grid-cols-[minmax(0,720px)_220px] 2xl:gap-10">
+          <article className="min-w-0 max-w-[720px] 2xl:w-[720px]">
             <p className="eyebrow">{/^Урок\s*\d/i.test(cur.moduleTitle) ? cur.moduleTitle : `Урок ${cur.moduleIndex} · ${cur.moduleTitle}`}</p>
             <h1 className="mt-3 text-[28px] leading-[1.15] sm:text-[36px]">{doc.title || cur.title}</h1>
             <p className="num mt-3 text-[13px] text-faint">
@@ -117,7 +119,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             </div>
           </article>
 
-          <div className="hidden xl:block">
+          <div className="hidden 2xl:block">
             <div className="sticky top-10">
               <LessonToc items={doc.toc} />
             </div>

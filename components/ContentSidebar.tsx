@@ -34,7 +34,7 @@ export function ContentSidebar({
     : items;
 
   return (
-    <aside className="flex min-h-0 flex-col border-b border-line bg-subtle lg:border-b-0 lg:border-r">
+    <aside className="flex min-h-0 flex-col border-b border-line bg-subtle lg:h-full lg:border-b-0 lg:border-r">
       <div className="border-b border-line p-5">
         <Link href={backHref} className="link text-[13px]">
           <Arrow className="rotate-180" /> {backLabel}

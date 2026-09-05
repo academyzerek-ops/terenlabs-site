@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const doc = getReviewDoc(slug);
   if (doc) {
     return (
-      <div className="grid h-[calc(100dvh-65px)] grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[320px_1fr] lg:grid-rows-1">
+      <div className="grid h-dvh grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[320px_1fr] lg:grid-rows-1">
         <JsonLd
           data={[
             articleJsonLd({

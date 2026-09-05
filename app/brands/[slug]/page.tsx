@@ -67,7 +67,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ]),
         ]}
       />
-      <div className="lg:sticky lg:top-16 lg:h-[calc(100dvh-65px)]">
+      <div className="lg:sticky lg:top-0 lg:h-dvh">
         <ContentSidebar
           title="Разборы брендов"
           backHref="/catalog?type=bm"
