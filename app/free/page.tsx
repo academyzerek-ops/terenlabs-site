@@ -73,7 +73,8 @@ export default function Page() {
         <div className="border-t border-line" />
 
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button href="/tests/t1-a04/take" size="lg">
+          {/* ведём на тропу, а не в один тест: у Ракушки их теперь три */}
+          <Button href="/tests" size="lg">
             Начать с теста <Arrow />
           </Button>
           <Link href="/catalog" className="link text-[15px]">
