@@ -131,7 +131,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
     const route = OCEAN_RANKS.filter((r) => r.key !== "kit");
     const sizes = [40, 48, 56, 66, 78];
     return (
-      <section className="rounded-[8px] border border-line bg-card p-6 sm:p-8">
+      <section className="panel p-6 sm:p-8">
         <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div>
             <p className="eyebrow">Океан</p>
@@ -175,7 +175,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
 
       {/* герой уровня: медальон на глубине + цель + ключевые цифры */}
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
-        <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
+        <div className="rounded-[8px] bg-subtle p-5">
           <div className="flex items-center gap-4">
             <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={64} className="text-ink" />
             <div className="min-w-0">
@@ -208,7 +208,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
 
       {/* путь по медальонам — как «Путь» в дашборде Mini App */}
       {progress && (
-        <div className="mt-5 overflow-x-auto rounded-[var(--radius-tl)] border border-line bg-card p-4">
+        <div className="mt-5 overflow-x-auto rounded-[8px] bg-subtle p-4">
           <div className="flex min-w-max items-start gap-2 sm:gap-4">
             {PATH_ORDER.map((id, i) => {
               const cur = lvl === id;
@@ -395,7 +395,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан" }: {
 // компактная плашка статистики: ширина по цифре, цифра — главная
 function StatCell({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="min-w-[9.5rem] rounded-[var(--radius-tl)] border border-line bg-card px-5 py-4">
+    <div className="min-w-[9.5rem] rounded-[8px] bg-subtle px-5 py-4">
       <div className="text-xs text-muted">{label}</div>
       <div className="num mt-1 text-4xl font-semibold text-heading">
         {value}
@@ -408,7 +408,7 @@ function StatCell({ label, value, sub }: { label: string; value: string; sub?: s
 
 function Cell({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="rounded-[var(--radius-tl)] border border-line bg-card p-5">
+    <div className="rounded-[8px] bg-subtle p-5">
       <div className="text-xs text-muted">{label}</div>
       <div className="num mt-1 text-2xl font-semibold text-heading">{value}</div>
       {sub && <div className="mt-1 text-xs text-muted">{sub}</div>}

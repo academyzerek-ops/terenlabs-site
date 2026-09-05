@@ -77,7 +77,7 @@ export default async function Dashboard() {
         href="https://t.me/terenlabs_bot"
         target="_blank"
         rel="noopener"
-        className="group mt-6 flex items-center gap-4 rounded-[8px] border border-line px-5 py-4 transition-colors hover:bg-subtle"
+        className="card-premium group mt-6 flex items-center gap-4 px-5 py-4"
       >
         <svg viewBox="0 0 240 240" className="h-5 w-5 shrink-0 text-accent" aria-hidden="true">
           <path
