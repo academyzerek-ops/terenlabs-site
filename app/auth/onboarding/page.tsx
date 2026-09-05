@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Arrow } from "@/components/Button";
 import { KZ_REGIONS } from "@/lib/kz-regions";
-import { getOceanToken, oceanFetch, type OceanAuth, setOceanToken } from "@/lib/ocean";
+import { getOceanToken, getOceanName, oceanFetch, type OceanAuth, setOceanToken } from "@/lib/ocean";
 
 // Онбординг Океана (12_OCEAN.md): страна + язык + область + имя в рейтинге.
 // Появляется один раз после первого входа. Область можно пропустить —
@@ -25,9 +25,13 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     if (!getOceanToken()) router.replace("/auth/sign-in");
+    // Google отдал имя при входе: подставляем как дефолт; телефон имени не знает, поле пустое
+    const known = getOceanName();
+    if (known) setName(known);
   }, [router]);
 
   const submit = async () => {
+    if (!name.trim()) { setErr("Напиши, как к тебе обращаться."); return; }
     setBusy(true);
     setErr(null);
     try {
@@ -50,18 +54,22 @@ export default function OnboardingPage() {
 
   return (
     <Container className="flex min-h-[70vh] items-center justify-center py-16">
-      <div className="w-full max-w-md rounded-[8px] border border-line bg-subtle p-6 sm:p-8">
+      <div className="panel w-full max-w-sm p-6 sm:p-7">
         <p className="eyebrow">Океан · полминуты</p>
-        <h1 className="mt-3 text-[24px] sm:text-[32px]">Откуда ныряешь?</h1>
+        <h1 className="mt-2 text-[22px] sm:text-[24px]">Как к тебе обращаться?</h1>
+        <p className="mt-2 text-[14px] leading-relaxed text-text-2">
+          Это имя увидят в рейтинге. Область нужна для рейтинга земляков, её можно указать позже.
+        </p>
 
-        <div className="mt-7 flex flex-col gap-5">
+        <div className="mt-6 flex flex-col gap-4">
           <label className="block">
-            <span className={LABEL}>Имя в рейтинге</span>
+            <span className={LABEL}>Имя</span>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={64}
-              placeholder="Как тебя показывать в таблице"
+              placeholder="Имя или ник для рейтинга"
+              autoFocus
               className={FIELD}
             />
           </label>
@@ -108,7 +116,7 @@ export default function OnboardingPage() {
           type="button"
           onClick={submit}
           disabled={busy}
-          className="btn-press mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-5 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:opacity-50"
+          className="btn-press mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[8px] bg-accent-600 px-5 text-[15px] font-medium text-[#fff] transition-colors duration-150 hover:bg-[#1b6fc2] disabled:opacity-50"
         >
           {busy ? "Сохраняю…" : "В океан"}
           {!busy && <Arrow />}
