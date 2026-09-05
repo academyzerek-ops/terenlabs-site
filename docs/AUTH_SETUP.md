@@ -1,14 +1,22 @@
 # Вход на сайте
 
-**Актуально (решение Адиля 15.07):** вход только через Telegram deep-link
-(`components/TgDeepLinkLogin.tsx` → бэкенд `/api/ocean/auth/tg/*`), tg_id общий
-с Mini App — прогресс сходится в один аккаунт. Для нативного приложения остаётся
-redirect-виджет Telegram (`/auth/sign-in?return=miniapp` → `/auth/tg-callback`).
+**Актуально (решение Адиля 05.09.2026: собирать базу пользователей).** Три способа,
+все сходятся в один аккаунт Океана (таблица `identities`, провайдеры telegram / google / phone):
 
-Google/Apple через NextAuth v5 (`auth.ts`, `/api/ocean-bridge`) **законсервированы**:
-код сохранён, с витрины `/auth/sign-in` кнопки убраны. Инструкция ниже — на случай,
-если их решат вернуть. Авторизация — ПО ЖЕЛАНИЮ: без ключей сайт полностью
-работает анонимно.
+1. **Telegram deep-link** (главный): `components/TgDeepLinkLogin.tsx` → бэкенд `/api/ocean/auth/tg/*`,
+   tg_id общий с Mini App. Для нативного приложения остаётся redirect-виджет
+   (`/auth/sign-in?return=miniapp` → `/auth/tg-callback`).
+2. **Google**: NextAuth v5 (`auth.ts`) → возврат на `/auth/bridge-finish` → `/api/ocean-bridge`
+   меняет сессию на веб-токен Океана и передаёт почту (`users.email`). Кнопка появляется
+   только при заполненных `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`, см. ниже.
+3. **Номер телефона + код по СМС**: `components/PhoneLogin.tsx` → бэкенд `/api/ocean/auth/sms/start`
+   и `/sms/verify` (ветка бэкенда `feat/auth-phone-google`, миграция `e1f2a3b4c5d6`).
+   Провайдер СМС: Mobizon (Казахстан), env бэкенда `MOBIZON_API_KEY` (+ `MOBIZON_SENDER`
+   при одобренном имени отправителя). Без ключа бэкенд в дев-режиме возвращает код в ответе
+   (`debug_code`), форма его показывает. Номера пока только +7 (КЗ и РФ), 6 цифр, 5 минут,
+   повтор не чаще раза в минуту и не больше 5 раз в час, 5 попыток ввода.
+
+Авторизация по желанию: без входа сайт работает полностью.
 
 ---
 
