@@ -141,3 +141,12 @@ table.dt td.fmt{font-weight:600;color:var(--les-text)}
 .dark .totop{background:var(--les-aqua);color:#002B45}
 .totop.on{opacity:1;visibility:visible;transform:translateY(0)}
 .totop svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.6;fill:none}
+
+/* ═══ тема сайта (minimal, 09.2026): один гротеск, синий акцент вместо бирюзы ═══ */
+.phero h1,.sh-n,.sh-t,.tldr-k,.donut-c,.cta-t,.cta-price{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,sans-serif;font-variation-settings:normal}
+.phero h1{font-weight:600;letter-spacing:-.02em}
+.phero h1 em,.phero h1 i{font-style:normal;color:var(--les-accent)}
+.phero-badge{background:rgba(255,255,255,.12);color:var(--les-text-2);font-size:12px;font-weight:500;letter-spacing:0;text-transform:none;padding:2px 8px;border-radius:4px;backdrop-filter:none}
+.phero{border-radius:12px}
+.sh-n{font-weight:500;opacity:.7}
+.tldr-k,.cta-price{font-weight:600}
