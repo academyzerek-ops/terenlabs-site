@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
@@ -111,31 +112,48 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ЛЕСТНИЦА «ОКЕАН» ============ */}
+      {/* ============ ЛЕСТНИЦА «ОКЕАН»: панель как в Notion ============ */}
       <section>
-        <Container className="pb-4">
-          <div className="grid gap-y-8 rounded-[10px] border border-line bg-subtle p-6 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-8 lg:p-8">
-          <div className="flex flex-col justify-center gap-1.5 lg:pr-6">
-            <p className="eyebrow">Лестница «Океан»</p>
-            <p className="text-[14px] leading-relaxed text-text-2">
-              Шесть уровней. Ранг растёт за понимание, его нельзя накликать.
-            </p>
-          </div>
-          <div className="grid grid-cols-3 gap-y-6 sm:grid-cols-6">
-            {OCEAN_RANKS.map((r, i) => (
-              <Link
-                key={r.key}
-                href={`/levels/${r.key}`}
-                className={`group flex flex-col gap-3 py-1 pl-4 sm:border-l sm:border-line ${i === 0 ? "sm:border-l-0 sm:pl-0" : ""}`}
-              >
-                <RankSketch rank={r.key as LevelKey} size={40} className="text-ink" />
-                <div>
-                  <div className="text-[15px] font-medium text-ink">{r.name}</div>
-                  <div className="mt-0.5 text-[12px] text-faint">{r.meaning}</div>
-                </div>
+        <Container className="py-6">
+          <p className="section-label mb-3">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 9c1.5 0 1.5-2 3-2s1.5 2 3 2 1.5-2 3-2 1.5 2 3 2M2 12.5c1.5 0 1.5-2 3-2s1.5 2 3 2 1.5-2 3-2 1.5 2 3 2" /></svg>
+            Океан
+          </p>
+          <div className="panel panel-split">
+            <div className="panel-half flex flex-col justify-center">
+              <RankSketch rank="rakushka" size={48} className="panel-ico" />
+              <h2 className="mt-7 max-w-[22ch] text-[22px] leading-snug sm:text-[24px]">Ранг растёт за понимание, его нельзя накликать</h2>
+              <p className="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-text-2">
+                Шесть уровней от Ракушки до Кита. Каждый открывается тестами, которые нельзя угадать, только понять.
+              </p>
+              <Link href="/levels" className="link mt-6 text-[15px]">
+                Как устроен Океан <Arrow />
               </Link>
-            ))}
-          </div>
+            </div>
+            <div className="panel-half">
+              <div className="rail">
+                {OCEAN_RANKS.map((r, i) => (
+                  <React.Fragment key={r.key}>
+                    <div className="rail-when flex min-h-[40px] flex-col justify-center">
+                      <span className="block whitespace-nowrap text-ink">{r.meaning}</span>
+                      <span className="num block">{["0 м", "10 м", "50 м", "120 м", "300 м", "1 000 м"][i]}</span>
+                    </div>
+                    <Link href={`/levels/${r.key}`} className={`rail-item block ${i === 0 ? "is-here" : ""}`}>
+                      <span className="flex items-center gap-3">
+                        <RankSketch rank={r.key as LevelKey} size={22} className="text-ink" />
+                        <span className="rail-t">{r.name}</span>
+                      </span>
+                      {i === 0 && (
+                        <span className="rail-btn">
+                          <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+                          ты здесь, начни с теста
+                        </span>
+                      )}
+                    </Link>
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
           </div>
         </Container>
       </section>
@@ -199,8 +217,8 @@ export default function Home() {
           таблица на 5 строк с шапкой, ссылка. Всё стоит вровень. */}
       <section>
         <Container className="py-20">
-          <div className="grid gap-12 rounded-[10px] border border-line bg-subtle p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
-          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-8">
+          <div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
+          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Стартап · бизнес-модели</p>
             <h2 className="text-[22px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
@@ -224,7 +242,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-8">
+          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Океан · рейтинг</p>
             <h2 className="text-[22px] sm:text-[24px]">В океане уже идёт гонка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">

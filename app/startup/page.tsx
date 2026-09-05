@@ -117,8 +117,8 @@ export default function StartupPage() {
 
       {/* модели + разборы */}
       <section className="border-b border-line">
-        <Container className="grid gap-12 py-16 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-16 lg:gap-y-0">
-          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid">
+        <Container className="py-16"><div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
+          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Бизнес-модели</p>
             <h2 className="text-[20px] sm:text-[24px]">Каталог моделей заработка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
@@ -136,7 +136,7 @@ export default function StartupPage() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid">
+          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Разборы брендов</p>
             <h2 className="text-[20px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
@@ -159,7 +159,7 @@ export default function StartupPage() {
               </div>
             </div>
           </div>
-        </Container>
+        </div></Container>
       </section>
 
       {/* связь с Океаном */}
