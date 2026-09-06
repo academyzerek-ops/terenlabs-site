@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
-import { FooterGate } from "@/components/FooterGate";
 import { NoaChat } from "@/components/NoaChat";
 import { JsonLd } from "@/components/JsonLd";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
@@ -66,7 +65,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <AppShell>
             <main id="main" className="flex-1">{children}</main>
             <Suspense fallback={null}>
-              <FooterGate />
             </Suspense>
           </AppShell>
         </Suspense>

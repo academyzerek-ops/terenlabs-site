@@ -190,6 +190,12 @@ export function NoaChat() {
 
   // Строка «Спросить TEREN-AI» живёт в боковой панели: она открывает это окно
   // и сразу отправляет вопрос. Пустая строка просто открывает чат.
+  // строка «Спросить TEREN-AI» в панели скрывается на время диалога:
+  // поле ввода окна встаёт ровно на её место, окно выглядит выросшим из строки
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("teren:ai-state", { detail: open }));
+  }, [open]);
+
   useEffect(() => {
     const onAsk = (e: Event) => {
       const q = (e as CustomEvent<string>).detail?.trim();
@@ -210,7 +216,7 @@ export function NoaChat() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Закрыть TEREN-AI" : "Открыть TEREN-AI"}
-        className={`fixed bottom-5 right-5 z-[45] h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover ${open ? "flex" : "flex lg:hidden"}`}
+        className="fixed bottom-5 right-5 z-[45] flex h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover lg:hidden"
       >
         {open ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
@@ -228,25 +234,25 @@ export function NoaChat() {
       {open && (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-[#202020] shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[12px] sm:border sm:border-line-2"
+          className="chat-rise fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-[#202020] shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-2 sm:left-2 sm:h-[min(640px,80vh)] sm:w-[430px] sm:max-w-[calc(100vw-16px)] sm:rounded-[14px] sm:border sm:border-line-2"
           role="dialog"
           aria-modal="true"
           aria-label="Чат TEREN-AI"
           style={{ overscrollBehavior: "contain" }}
         >
           {/* шапка */}
-          <div className="flex items-center gap-3 border-b border-line bg-subtle px-4 py-3">
+          <div className="flex items-center gap-3 border-b border-line px-4 py-3">
             <div className="flex-1">
-              <div className="text-sm font-semibold text-ink">TEREN-AI</div>
-              <div className="text-xs text-text-2">отвечает по базе знаний TerenLabs</div>
+              <div className="text-[14px] font-semibold text-ink">TEREN-AI</div>
+              <div className="text-[12px] text-faint">отвечает по базе знаний TerenLabs</div>
             </div>
             <button
               onClick={() => setOpen(false)}
               aria-label="Закрыть чат"
-              className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full text-foam/80 transition-colors hover:text-teal active:bg-white/10 sm:hidden"
+              className="-mr-1 flex h-8 w-8 items-center justify-center rounded-[7px] text-faint transition-colors hover:bg-subtle hover:text-ink"
             >
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" />
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+                <path d="M4 4l8 8M12 4l-8 8" />
               </svg>
             </button>
           </div>

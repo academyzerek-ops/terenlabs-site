@@ -16,12 +16,22 @@ export function SidebarAsk() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const [chatOpen, setChatOpen] = useState(false);
+
   useEffect(() => {
     setSignedIn(!!getOceanToken());
   }, [pathname]);
 
+  // пока окно чата открыто, строку прячем: её место занимает поле окна
+  useEffect(() => {
+    const onState = (e: Event) => setChatOpen(!!(e as CustomEvent<boolean>).detail);
+    window.addEventListener("teren:ai-state", onState as EventListener);
+    return () => window.removeEventListener("teren:ai-state", onState as EventListener);
+  }, []);
+
   // в плеере главы и во время теста чата нет: там он либо мешает, либо подсказывает
   if (pathname.startsWith("/learn/") || /^\/tests\/[^/]+\/take/.test(pathname)) return null;
+  if (chatOpen) return <div className="h-[52px] lg:h-[52px]" aria-hidden="true" />;
 
   const send = () => {
     const q = text.trim();
