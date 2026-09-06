@@ -64,7 +64,13 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
 
   return (
     <>
-      <LevelHero lvl={lvl} cta={firstTest ? { href: firstTest.href, label: `Пройти тест: ${firstTest.title}` } : undefined} />
+      {/* в названии теста первым идёт уровень («Дельфин · Деньги под контролем»),
+          а мы и так на его странице: на кнопке это лишнее слово, из-за которого
+          она не влезала в телефон */}
+      <LevelHero
+        lvl={lvl}
+        cta={firstTest ? { href: firstTest.href, label: `Пройти тест: ${firstTest.title.replace(/^[^·]+·\s*/, "")}` } : undefined}
+      />
 
       <Container className="pb-10 sm:pb-20">
         <div className="grid gap-8 sm:gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
@@ -249,7 +255,8 @@ function Row({
     <>
       <div className="min-w-0">
         <div className="flex items-center gap-3">
-          <div className="truncate text-[16px] font-medium text-ink">{title}</div>
+          {/* «Акула · Селлер на маркетплейсе» в одну строку на телефоне не влезает */}
+          <div className="min-w-0 text-[16px] font-medium text-ink sm:truncate">{title}</div>
           {done}
         </div>
         <div className="num mt-0.5 text-[13px] text-faint">{meta}</div>

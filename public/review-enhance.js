@@ -174,6 +174,29 @@
     }, 250);
   }
 
-  if (document.readyState !== "loading") run();
-  else document.addEventListener("DOMContentLoaded", run);
+  /* ---------- высота наверх ----------
+     На телефоне обзор показывается не в своей прокрутке, а обычной страницей:
+     рамке снаружи нужна высота содержимого. Отправляем её при загрузке, после
+     картинок и при изменении размеров. */
+  function postHeight() {
+    if (window.parent === window) return;
+    try {
+      window.parent.postMessage(
+        { type: "tl-review-h", h: document.documentElement.scrollHeight },
+        location.origin
+      );
+    } catch (e) {}
+  }
+
+  function watchHeight() {
+    postHeight();
+    window.addEventListener("load", postHeight);
+    window.addEventListener("resize", postHeight);
+    if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.documentElement);
+    var n = 0;
+    var t = setInterval(function () { postHeight(); if (++n > 20) clearInterval(t); }, 400);
+  }
+
+  if (document.readyState !== "loading") { run(); watchHeight(); }
+  else document.addEventListener("DOMContentLoaded", function () { run(); watchHeight(); });
 })();

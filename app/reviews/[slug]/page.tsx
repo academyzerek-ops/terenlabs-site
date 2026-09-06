@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ProductPage } from "@/components/ProductPage";
 import { ContentSidebar } from "@/components/ContentSidebar";
+import { ReviewFrame } from "@/components/ReviewFrame";
 import { getItem, REVIEWS } from "@/lib/content";
 import { getReviewDoc, REVIEW_DOCS } from "@/lib/reviews-data";
 import { pageMetadata } from "@/lib/seo";
@@ -34,7 +35,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const doc = getReviewDoc(slug);
   if (doc) {
     return (
-      <div className="grid h-dvh grid-rows-[auto_1fr] overflow-hidden lg:grid-cols-[320px_1fr] lg:grid-rows-1">
+      <div className="grid grid-rows-[auto_auto] lg:h-dvh lg:grid-cols-[320px_1fr] lg:grid-rows-1 lg:overflow-hidden">
         <JsonLd
           data={[
             articleJsonLd({
@@ -82,11 +83,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             href: `/reviews/${r.slug}`,
           }))}
         />
-        <iframe
-          src={doc.file}
-          title={doc.title}
-          className="h-full min-h-0 w-full border-0"
-        />
+        <ReviewFrame src={doc.file} title={doc.title} />
       </div>
     );
   }
