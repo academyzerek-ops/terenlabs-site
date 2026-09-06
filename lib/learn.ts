@@ -24,7 +24,7 @@ export type AcademyTrack = {
   subtitle: string;
   chapterTotal: number;
   modules: AcademyModule[];
-  /** хаб сайта: «delo» (по умолчанию, малый бизнес) или «startup» */
+  /** хаб сайта: «delo» (по умолчанию, своё дело) или «startup» */
   hub?: "delo" | "startup";
 };
 

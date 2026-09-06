@@ -88,6 +88,17 @@ for (let i = 0; i < adSlice.length; i++) {
 }
 const ACADEMY_DATA = new Function("return " + adSlice.slice(0, end))();
 
+// Названия треков в Mini App несут хвост «малого бизнеса». На сайте блок уже
+// называется «Предприниматель», хвост сужал и повторял его: переименовываем
+// здесь, чтобы не трогать прод Mini App. Ключ — исходное название.
+const RENAME = {
+  "Менеджмент малого бизнеса": "Менеджмент",
+  "Маркетинг малого бизнеса": "Маркетинг",
+  "Финансы малого бизнеса": "Финансы",
+  "Пять антипаттернов KPI в малом бизнесе": "Пять антипаттернов KPI",
+};
+const rename = (s) => RENAME[s] ?? s;
+
 const TRACKS = {
   fund: { slug: "course-fundament", topic: "Финансы" },
   arch: { slug: "course-architect", topic: "Бизнес" },
@@ -112,7 +123,7 @@ for (const [key, t] of Object.entries(ACADEMY_DATA)) {
       const srcFile = path.join(srcDir, file + ".html");
       if (!fs.existsSync(srcFile)) {
         report.missingChapters.push(`${folder}/${file}`);
-        return { title, file, missing: true };
+        return { title: rename(title), file, missing: true };
       }
       // копия главы с трансформацией
       write(path.join(SITE, "public/academy", folder, file + ".html"),
@@ -121,11 +132,11 @@ for (const [key, t] of Object.entries(ACADEMY_DATA)) {
       const hero = path.join(SRC, "_assets/academy_hero", folder, file + ".webp");
       const hasHero = fs.existsSync(hero);
       if (!hasHero) report.missingHero.push(`${folder}/${file}`);
-      return { title, file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
+      return { title: rename(title), file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
     });
     return { id: `m${mi + 1}`, title: m.name, chapters };
   });
-  academy.push({ key, slug: conf.slug, topic: conf.topic, folder, title: t.title, subtitle: t.subtitle, chapterTotal, modules });
+  academy.push({ key, slug: conf.slug, topic: conf.topic, folder, title: rename(t.title), subtitle: t.subtitle, chapterTotal, modules });
 }
 // Дополнительные треки из vault-репо: папка с _track.json (сборщик build_academy.py, cfg.manifest).
 // Сейчас это «От идеи до инвестиций» (startup) для хаба «Стартап».
@@ -153,11 +164,11 @@ for (const [key, conf] of Object.entries(EXTRA_TRACKS)) {
         html.replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>'));
       chapterTotal++;
       if (!hasHero) report.missingHero.push(`${folder}/${file}`);
-      return { title, file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
+      return { title: rename(title), file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
     });
     return { id: `m${m.n}`, title: m.name, chapters };
   });
-  academy.push({ key, slug: conf.slug, topic: conf.topic, hub: conf.hub, folder, title: t.title, subtitle: t.subtitle, chapterTotal, modules });
+  academy.push({ key, slug: conf.slug, topic: conf.topic, hub: conf.hub, folder, title: rename(t.title), subtitle: t.subtitle, chapterTotal, modules });
 }
 write(path.join(SITE, "content/academy.json"), JSON.stringify(academy, null, 1));
 report.counts.tracks = academy.length;

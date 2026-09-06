@@ -571,7 +571,7 @@
   "slug": "course-management",
   "topic": "Управление",
   "folder": "management",
-  "title": "Менеджмент малого бизнеса",
+  "title": "Менеджмент",
   "subtitle": "Для собственников и тех, кто планирует открывать",
   "chapterTotal": 27,
   "modules": [
@@ -658,7 +658,7 @@
       "img": "/academy-assets/hero/management/m4-ch03.webp?v=8"
      },
      {
-      "title": "Пять антипаттернов KPI в малом бизнесе",
+      "title": "Пять антипаттернов KPI",
       "file": "m4-ch04",
       "img": "/academy-assets/hero/management/m4-ch04.webp?v=8"
      }
@@ -765,7 +765,7 @@
   "slug": "course-marketing",
   "topic": "Маркетинг",
   "folder": "marketing",
-  "title": "Маркетинг малого бизнеса",
+  "title": "Маркетинг",
   "subtitle": "Для собственников и тех, кто планирует открывать",
   "chapterTotal": 28,
   "modules": [
@@ -970,7 +970,7 @@
   "slug": "course-finance",
   "topic": "Финансы",
   "folder": "finance",
-  "title": "Финансы малого бизнеса",
+  "title": "Финансы",
   "subtitle": "Для собственников и тех, кто планирует открывать",
   "chapterTotal": 47,
   "modules": [

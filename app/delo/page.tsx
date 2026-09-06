@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Предприниматель",
   description:
-    "Малый бизнес в Казахстане: Академия, модели малого бизнеса, кейсы и обзоры ниш. Считаем в тенге, говорим о рисках до того, как вложишься.",
+    "Своё дело в Казахстане: Академия, бизнес-модели, кейсы и обзоры ниш. Считаем в тенге, говорим о рисках до того, как вложишься.",
   path: "/delo",
 });
 
@@ -67,11 +67,11 @@ export default function DeloPage() {
         </Container>
       </section>
 
-      {/* Модели малого бизнеса + кейсы */}
+      {/* Бизнес-модели + кейсы */}
       <section className="border-b border-line">
         <Container className="py-16"><div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
-            <p className="eyebrow">Модели малого бизнеса</p>
+            <p className="eyebrow">Бизнес-модели</p>
             <h2 className="text-[20px] sm:text-[24px]">Решётка: какую модель выбрать для своей точки</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Услуги, торговля, производство, аренда, посредники и гибриды. У каждой модели свой
@@ -93,7 +93,7 @@ export default function DeloPage() {
             <p className="eyebrow">Кейсы</p>
             <h2 className="text-[20px] sm:text-[24px]">Где чужие деньги уже сгорели</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
-              Реальные истории малого бизнеса с главной ошибкой и уроком. Дешевле учиться на них.
+              Реальные истории своего дела с главной ошибкой и уроком. Дешевле учиться на них.
             </p>
             <div className="self-start">
               {cases.map((c) => (
