@@ -33,6 +33,17 @@ const GREETING: Msg = {
   text: "Я TEREN-AI. Спроси про свой бизнес, нишу или цифры — отвечу по базе знаний TerenLabs, без мотивашек.",
 };
 
+
+// Быстрые вопросы под рукой, как в панели ИИ у Notion: первое, что спрашивают про
+// проект и про разделы. Нажатие сразу отправляет вопрос.
+const QUICK = [
+  { text: "Чем «Фаундер» отличается от «Предпринимателя»?", icon: <path d="M8 2.4a5.6 5.6 0 1 0 0 11.2 5.6 5.6 0 0 0 0-11.2M8 2.4v11.2M2.6 8h10.8" /> },
+  { text: "Что такое бизнес-модель?", icon: <path d="M2.5 2.5h4.5v4.5H2.5zM9 2.5h4.5V7H9zM2.5 9H7v4.5H2.5zM9 9h4.5v4.5H9z" /> },
+  { text: "Что такое финансовое моделирование?", icon: <path d="M2.5 13.5h11M4 11V7M7 11V4M10 11V8.5M13 11V6" /> },
+  { text: "Что это за проект?", icon: <path d="M8 2.4a5.6 5.6 0 1 0 0 11.2 5.6 5.6 0 0 0 0-11.2M8 7.2v3.6M8 5.2v.1" /> },
+  { text: "Как устроены тесты и ранги?", icon: <path d="M3 8.5l3 3 7-7" /> },
+];
+
 export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void }) {
   const setOpen = (v: boolean) => { if (!v) onClose(); };
   const [msgs, setMsgs] = useState<Msg[]>([GREETING]);
@@ -209,7 +220,7 @@ export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void 
   return (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-panel-2 lg:static lg:z-auto lg:h-dvh lg:w-[380px] lg:shrink-0 lg:border-r lg:border-line lg:bg-panel-2"
+          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-panel-2 lg:sticky lg:top-0 lg:z-auto lg:h-dvh lg:w-[380px] lg:shrink-0 lg:border-r lg:border-line lg:bg-panel-2"
           role="dialog"
           aria-label="TEREN-AI"
           style={{ overscrollBehavior: "contain" }}
@@ -253,6 +264,25 @@ export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void 
               </div>
             )}
           </div>
+
+          {/* быстрые вопросы: видны, пока разговор не начался */}
+          {msgs.length <= 1 && !busy && (
+            <div className="px-3 pb-1">
+              {QUICK.map((q) => (
+                <button
+                  key={q.text}
+                  type="button"
+                  onClick={() => send(q.text)}
+                  className="flex w-full items-center gap-2.5 rounded-[8px] px-2 py-2 text-left text-[13.5px] text-body transition-colors hover:bg-hover"
+                >
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0 text-faint">
+                    {q.icon}
+                  </svg>
+                  <span className="min-w-0 flex-1 leading-snug">{q.text}</span>
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* ввод: одна большая рамка, кнопка внутри справа снизу */}
           <form
