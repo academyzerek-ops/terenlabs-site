@@ -243,7 +243,8 @@ export default function Home() {
               </div>
               {BRANDS.filter((b) => !b.stub).slice(0, 5).map((b) => (
                 <Link key={b.slug} href={b.href} className="row-hover grid min-h-[52px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-t border-line py-3 text-[15px]">
-                  <span className="truncate font-medium text-ink">{b.title}</span>
+                  {/* на телефоне заголовок переносится, а не обрывается многоточием */}
+                  <span className="min-w-0 font-medium text-ink sm:truncate">{b.title}</span>
                   {b.badge ? <span className="tag">{b.badge}</span> : <span className="text-[13px] text-faint">{b.sector ?? ""}</span>}
                 </Link>
               ))}

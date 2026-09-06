@@ -17,7 +17,7 @@ export default function AdminPage() {
       <h1 className="mt-3 text-[24px] sm:text-[38px]">Ученики</h1>
       <p className="mt-4 max-w-[62ch] text-[15px] leading-relaxed text-text-2">
         Кто на каком уровне, сколько тестов сдал и когда заходил в последний раз.
-        Нажмите на строку, чтобы увидеть весь путь человека.
+        Нажми на строку, чтобы увидеть весь путь человека.
       </p>
       <div className="mt-8">
         <AdminUsers />

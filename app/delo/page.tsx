@@ -99,7 +99,8 @@ export default function DeloPage() {
             <div className="min-w-0 self-start">
               {cases.map((c) => (
                 <Link key={c.slug} href={c.href} className="row-hover flex items-center justify-between gap-4 border-t border-line py-3 text-[15px]">
-                  <span className="truncate text-body">{c.title}</span>
+                  {/* на телефоне заголовок переносится, а не обрывается многоточием */}
+                  <span className="min-w-0 text-body">{c.title}</span>
                   {c.badge && <span className="tag shrink-0">{c.badge}</span>}
                 </Link>
               ))}
