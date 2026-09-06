@@ -23,6 +23,16 @@
   --color-card: rgba(255, 255, 255, 0.05);
   --color-card-2: rgba(255, 255, 255, 0.085);
   --color-foam: #f0efed;       /* наследие: «пена» = светлый текст */
+  --color-panel: #202020;      /* боковая панель */
+  --color-panel-2: #1c1c1c;    /* колонка TEREN-AI */
+  --color-raised: #252525;     /* всплывающие окна над страницей */
+  --color-raised-2: #262626;   /* кружки и фишки на странице */
+  --color-drop: #141414;       /* «дно» объёмной кнопки */
+  --color-panel-bg: rgba(32, 32, 32, 0.9);   /* подложка панели */
+  --color-panel-bg-2: rgba(25, 25, 25, 0.9); /* панель внутри серой секции */
+  --color-link-hover: #7ab8de; /* ссылка под курсором */
+  --color-scroll: rgba(255, 255, 255, 0.14); /* полоса прокрутки */
+  --color-scroll-2: rgba(255, 255, 255, 0.22);
 
   /* ---- Два акцента: синий (действие, ссылки) и оранжевый (ты здесь, выделение) ---- */
   --color-accent: #3d92e3;     /* ссылки на тёмном */
@@ -86,6 +96,79 @@
   --background: #191919;
   --foreground: #d3d1cd;
   color-scheme: dark;
+}
+
+
+/* ============================================================
+   Светлая тема. Тёмная остаётся основной: сайт рисовался под неё, обзоры ниш
+   идут своей вёрсткой и светлыми не становятся. Переключатель хранит выбор
+   в памяти устройства, скрипт в <head> ставит атрибут до первой отрисовки.
+   ============================================================ */
+:root[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #37352f;
+  color-scheme: light;
+
+  --color-page: #ffffff;
+  --color-ink: #191919;
+  --color-heading: #191919;
+  --color-body: #37352f;
+  --color-text-2: #6f6e69;
+  --color-muted: #6f6e69;
+  --color-faint: #9b9a97;
+  --color-line: rgba(0, 0, 0, 0.09);
+  --color-line-2: rgba(0, 0, 0, 0.16);
+  --color-subtle: rgba(0, 0, 0, 0.032);
+  --color-hover: rgba(0, 0, 0, 0.06);
+  --color-card: rgba(0, 0, 0, 0.025);
+  --color-card-2: rgba(0, 0, 0, 0.05);
+  --color-foam: #191919;
+  --color-panel: #f7f7f5;
+  --color-panel-2: #fbfbfa;
+  --color-raised: #ffffff;
+  --color-raised-2: #f1f0ee;
+  --color-drop: #d8d6d1;
+  --color-panel-bg: #f7f7f5;
+  --color-panel-bg-2: #f1f0ee;
+  --color-link-hover: #12558f;
+  --color-scroll: rgba(0, 0, 0, 0.18);
+  --color-scroll-2: rgba(0, 0, 0, 0.28);
+  --color-teal-600: #12558f;
+  --color-teal-200: #d3e5ef;
+  --color-navy-500: #6f6e69;
+
+  --color-accent: #1a6dc0;
+  --color-accent-600: #2383e2;
+  --color-accent-100: #d9e8f8;
+  --color-orange: #cf6a12;
+  --color-orange-600: #b85f10;
+  --color-orange-100: #fbe6d4;
+
+  --color-teal: #1a6dc0;
+  --color-navy: #191919;
+  --color-navy-900: #f7f7f5;
+  --color-navy-700: #efeeec;
+
+  --color-tag-gray: #e3e2e0;    --color-tag-gray-ink: #37352f;
+  --color-tag-brown: #eee0da;   --color-tag-brown-ink: #64473a;
+  --color-tag-orange: #fadec9;  --color-tag-orange-ink: #854c1d;
+  --color-tag-yellow: #fdecc8;  --color-tag-yellow-ink: #89632a;
+  --color-tag-green: #dbeddb;   --color-tag-green-ink: #2b593f;
+  --color-tag-blue: #d3e5ef;    --color-tag-blue-ink: #28456c;
+  --color-tag-purple: #e8deee;  --color-tag-purple-ink: #492f64;
+  --color-tag-pink: #f5e0e9;    --color-tag-pink-ink: #69314c;
+  --color-tag-red: #ffe2dd;     --color-tag-red-ink: #6e3630;
+
+  --color-rank-rakushka: #fdecc8;
+  --color-rank-krab: #fadec9;
+  --color-rank-barrakuda: #d3e5ef;
+  --color-rank-delfin: #dbeddb;
+  --color-rank-akula: #e3e2e0;
+  --color-rank-kit: #e8deee;
+
+  --shadow-tl-sm: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-tl: 0 0 0 1px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-tl-lg: 0 0 0 1px rgba(0, 0, 0, 0.07), 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
 * {
@@ -168,7 +251,7 @@ button, a { touch-action: manipulation; }
 
 /* Оранжевый ярлык: «ты здесь», выделение */
 .tag-orange { background: var(--color-orange-100); color: var(--color-orange); }
-.tag-blue { background: var(--color-accent-100); color: #b7d2f0; }
+.tag-blue { background: var(--color-accent-100); color: var(--color-tag-blue-ink); }
 
 /* Тонкая линия-разделитель */
 .hair { border-top: 1px solid var(--color-line); }
@@ -181,21 +264,21 @@ button, a { touch-action: manipulation; }
   font-weight: 500;
   color: var(--color-accent);
 }
-.link:hover { color: #7ab8de; }
+.link:hover { color: var(--color-link-hover); }
 
 /* Карточка как панель Notion: полупрозрачная подложка без рамки, тонкий блик по верхней кромке,
    на наведении чуть светлее. Радиус 12. */
 .card-premium {
   position: relative;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card);
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 var(--color-line);
   transition: background-color 0.2s var(--ease-out-tl), box-shadow 0.2s var(--ease-out-tl), transform 0.2s var(--ease-out-tl);
 }
 .card-premium:hover {
-  background: rgba(255, 255, 255, 0.075);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background: var(--color-card-2);
+  box-shadow: inset 0 1px 0 var(--color-line-2);
 }
 a.card-premium:active { transform: translateY(1px); }
 
@@ -219,18 +302,11 @@ a.card-premium:active { transform: translateY(1px); }
 .reveal.in { opacity: 1; }
 .rise, .word-rise { opacity: 1; }
 
-/* Секции-подложки наследия: обе тёмные */
+/* Секции-подложки наследия: идут за темой */
 .deck {
   position: relative;
   background: var(--color-page);
   color: var(--color-body);
-  --color-heading: #f0efed;
-  --color-body: #d3d1cd;
-  --color-card: rgba(255, 255, 255, 0.05);
-  --color-card-2: rgba(255, 255, 255, 0.085);
-  --color-muted: #ada9a3;
-  --color-line: rgba(255, 255, 235, 0.10);
-  --color-subtle: rgba(255, 255, 255, 0.045);
 }
 .deep, .hero-ocean, .atmo {
   position: relative;
@@ -242,8 +318,8 @@ a.card-premium:active { transform: translateY(1px); }
    блоки становятся серой подложкой, текст читаемый */
 .bg-navy, .bg-navy-900, .bg-navy-700, .bg-white, [class*="bg-white/"], .bg-\[\#f5f7fa\] {
   background-color: var(--color-subtle) !important;
-  --color-foam: #f0efed;
-  --color-navy: #d3d1cd;
+  --color-foam: var(--color-ink);
+  --color-navy: var(--color-body);
 }
 
 /* Наследие: заглушки классов, чтобы ничего не «висело» невидимым */
@@ -274,7 +350,7 @@ a.card-premium:active { transform: translateY(1px); }
    через тонкую вертикальную линию; заголовок секции над панелью с иконкой */
 .panel {
   border-radius: 12px;
-  background: rgba(32, 32, 32, 0.9);
+  background: var(--color-panel-bg);
   overflow: hidden;
 }
 .panel-split { display: grid; }
@@ -307,20 +383,20 @@ a.card-premium:active { transform: translateY(1px); }
   background: var(--color-hover); color: var(--color-body); font-size: 14px;
   transition: background-color 0.15s;
 }
-.rail-btn:hover { background: rgba(255, 255, 255, 0.12); color: var(--color-ink); }
+.rail-btn:hover { background: var(--color-hover); color: var(--color-ink); }
 
 /* ---- Огранка ---- */
 ::selection { background: rgba(39, 131, 222, 0.35); color: #fff; }
-* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.14) transparent; }
+* { scrollbar-width: thin; scrollbar-color: var(--color-scroll) transparent; }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
-*::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.14); border-radius: 8px; }
-*::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); }
+*::-webkit-scrollbar-thumb { background: var(--color-scroll); border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: var(--color-scroll-2); }
 *::-webkit-scrollbar-track { background: transparent; }
 /* строка списка: на наведении подсвечивается с закруглением, выезжая за край на 8px */
 .row-hover { position: relative; border-radius: 6px; transition: background-color 0.15s; }
 .row-hover:hover { background: var(--color-subtle); box-shadow: 0 0 0 8px var(--color-subtle); }
 /* панель темнее фона внутри секций на bg-subtle */
-.bg-subtle .panel { background: rgba(25, 25, 25, 0.9); }
+.bg-subtle .panel { background: var(--color-panel-bg-2); }
 
 /* тропа тестов: ярлык «Начать» над текущим узлом мягко качается */
 @keyframes path-bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -4px); } }
@@ -331,3 +407,8 @@ a.card-premium:active { transform: translateY(1px); }
 @keyframes chat-rise { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 .chat-rise { animation: chat-rise .18s ease-out both; transform-origin: left bottom; }
 @media (prefers-reduced-motion: reduce) { .chat-rise { animation: none; } }
+
+/* иконка переключателя темы: выбирает CSS, чтобы не мигала при гидратации */
+.theme-when-light { display: none; }
+:root[data-theme="light"] .theme-when-light { display: inline; }
+:root[data-theme="light"] .theme-when-dark { display: none; }

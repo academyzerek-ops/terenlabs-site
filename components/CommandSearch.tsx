@@ -105,7 +105,7 @@ export function CommandSearch({ open, onClose }: { open: boolean; onClose: () =>
 
   return (
     <div className="fixed inset-0 z-[60] flex items-start justify-center bg-black/50 px-4 pt-[12vh]" onClick={onClose} role="dialog" aria-modal="true" aria-label="Поиск по сайту">
-      <div className="w-full max-w-[600px] overflow-hidden rounded-[12px] border border-line-2 bg-[#252525] shadow-[var(--shadow-tl-lg)]" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-[600px] overflow-hidden rounded-[12px] border border-line-2 bg-raised shadow-[var(--shadow-tl-lg)]" onClick={(e) => e.stopPropagation()}>
         <input
           ref={inputRef}
           value={q}

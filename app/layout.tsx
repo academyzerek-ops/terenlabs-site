@@ -50,7 +50,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" className={`${inter.variable} h-full`}>
+    <html lang="ru" className={`${inter.variable} h-full`} suppressHydrationWarning>
+      <head>
+        {/* Тема ставится до первой отрисовки: иначе при светлом выборе экран
+            моргнёт тёмным. Скрипт короткий и синхронный намеренно. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('tl-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}",
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <Suspense fallback={null}>

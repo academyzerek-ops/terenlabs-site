@@ -209,7 +209,7 @@ export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void 
   return (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-[#1c1c1c] lg:static lg:z-auto lg:h-dvh lg:w-[380px] lg:shrink-0 lg:border-r lg:border-line lg:bg-[#1c1c1c]"
+          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-panel-2 lg:static lg:z-auto lg:h-dvh lg:w-[380px] lg:shrink-0 lg:border-r lg:border-line lg:bg-panel-2"
           role="dialog"
           aria-label="TEREN-AI"
           style={{ overscrollBehavior: "contain" }}

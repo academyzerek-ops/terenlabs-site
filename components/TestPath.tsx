@@ -210,7 +210,7 @@ export function TestPath() {
                             isDone ? "bg-accent-600 text-[#fff] shadow-[0_5px_0_#1a5ea6]"
                             : here ? "bg-page text-orange shadow-[0_0_0_2px_var(--color-orange),0_0_32px_rgba(240,135,58,0.32)]"
                             : n.soon ? "bg-page text-faint shadow-[0_0_0_1px_var(--color-line)] [mask-image:none]"
-                            : avail ? "bg-[#262626] text-ink shadow-[0_0_0_1px_var(--color-line-2),0_4px_0_#141414]"
+                            : avail ? "bg-raised-2 text-ink shadow-[0_0_0_1px_var(--color-line-2),0_4px_0_var(--color-drop)]"
                             : "bg-page text-faint shadow-[0_0_0_1px_var(--color-line)]"
                           }`}
                         >

@@ -8,6 +8,7 @@ import { getProgress, type CourseProgress } from "@/lib/memory";
 import { CommandSearch } from "./CommandSearch";
 import { SidebarDiary } from "./SidebarDiary";
 import { SharkMark } from "./SharkMark";
+import { ThemeToggle } from "./ThemeToggle";
 
 // Боковая панель как в Notion: поиск, быстрые разделы, группы ссылок серыми
 // заголовками, внизу аккаунт. На десктопе заменяет верхнюю шапку; на мобиле
@@ -163,7 +164,7 @@ export function Sidebar({
   return (
     <>
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-[272px] shrink-0 flex-col bg-[#202020] transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-[272px] shrink-0 flex-col bg-panel transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Навигация по сайту"
@@ -175,17 +176,7 @@ export function Sidebar({
             TerenLabs
           </Link>
           <div className="flex items-center gap-0.5">
-            <button
-              onClick={onToggleChat}
-              aria-label="TEREN-AI"
-              aria-pressed={chatOpen}
-              title="TEREN-AI"
-              className={`flex h-7 w-7 items-center justify-center rounded-[6px] transition-colors ${
-                chatOpen ? "bg-hover text-ink" : "text-faint hover:bg-subtle hover:text-ink"
-              }`}
-            >
-              <SharkMark size={17} />
-            </button>
+            <ThemeToggle />
             <button onClick={onClose} aria-label="Скрыть панель" className="flex h-7 w-7 items-center justify-center rounded-[6px] text-faint hover:bg-subtle hover:text-ink lg:hidden">
               <Icon d={I.panel} />
             </button>
@@ -308,8 +299,26 @@ export function Sidebar({
         </>
         )}
 
-        {/* низ: аккаунт */}
+        {/* низ: чат и аккаунт */}
         <div className="border-t border-line p-2">
+          {/* Кнопка TEREN-AI: белая, во всю ширину, прямо над входом — чтобы её
+              было видно с любой страницы. Открывает колонку чата слева. */}
+          <button
+            type="button"
+            onClick={onToggleChat}
+            aria-pressed={chatOpen}
+            className={`mb-2 flex h-10 w-full items-center gap-2.5 rounded-[8px] px-2.5 text-[14px] font-medium transition-colors ${
+              chatOpen
+                ? "bg-hover text-ink"
+                : "bg-ink text-page shadow-[var(--shadow-tl-sm)] hover:opacity-90"
+            }`}
+          >
+            <SharkMark size={19} />
+            <span className="min-w-0 flex-1 truncate text-left">Спросить TEREN-AI</span>
+            {chatOpen ? (
+              <span className="text-[12px] text-faint">закрыть</span>
+            ) : null}
+          </button>
           <Link href={name ? "/dashboard" : "/auth/sign-in"} onClick={onClose} className="flex h-10 items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors hover:bg-subtle">
             <span className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-hover text-[12px] font-semibold text-ink">
               {name ? name.trim()[0]?.toUpperCase() : <Icon d={I.user} />}

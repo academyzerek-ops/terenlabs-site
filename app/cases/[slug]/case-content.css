@@ -225,7 +225,7 @@
   font-weight: 500;
 }
 .case-content a:hover {
-  color: #7ab8de;
+  color: var(--color-link-hover);
 }
 
 /* ---- акцентное слово в заголовке (из исходного h1 кейса) ---- */
