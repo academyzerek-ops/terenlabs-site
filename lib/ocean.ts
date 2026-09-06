@@ -136,15 +136,18 @@ export async function tgLoginClaim(code: string): Promise<OceanAuth | null> {
   return auth;
 }
 
-export type CodeChannel = "phone" | "email";
-const CODE_PATH: Record<CodeChannel, string> = { phone: "/auth/sms", email: "/auth/email" };
+// СМС отключены решением Адиля 07.09.2026: платно за каждое сообщение,
+// нужен договор и регистрация имени отправителя, а почта и телеграм
+// закрывают тех же людей. Остаётся один канал.
+export type CodeChannel = "email";
+const CODE_PATH: Record<CodeChannel, string> = { email: "/auth/email" };
 
 /** Вход по коду (СМС или почта), шаг 1. Без провайдера бэкенд вернёт debug_code. */
 export async function codeStart(channel: CodeChannel, to: string): Promise<{ to: string; expires_in_sec: number; debug_code?: string | null }> {
   const res = await fetch(OCEAN_API + CODE_PATH[channel] + "/start", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(channel === "phone" ? { phone: to } : { email: to }),
+    body: JSON.stringify({ email: to }),
   });
   if (!res.ok) {
     let detail = `code start: ${res.status}`;
@@ -152,7 +155,7 @@ export async function codeStart(channel: CodeChannel, to: string): Promise<{ to:
     throw new Error(detail);
   }
   const out = await res.json();
-  return { to: out.phone ?? out.email, expires_in_sec: out.expires_in_sec, debug_code: out.debug_code ?? null };
+  return { to: out.email, expires_in_sec: out.expires_in_sec, debug_code: out.debug_code ?? null };
 }
 
 /** Вход по коду, шаг 2: проверить код, получить веб-токен. */
@@ -160,7 +163,7 @@ export async function codeVerify(channel: CodeChannel, to: string, code: string)
   const res = await fetch(OCEAN_API + CODE_PATH[channel] + "/verify", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(channel === "phone" ? { phone: to, code } : { email: to, code }),
+    body: JSON.stringify({ email: to, code }),
   });
   if (!res.ok) {
     let detail = `code verify: ${res.status}`;
@@ -176,39 +179,8 @@ export async function codeVerify(channel: CodeChannel, to: string, code: string)
 }
 
 /** Вход по СМС, шаг 1 (совместимость). */
-export async function smsStart(phone: string): Promise<{ phone: string; expires_in_sec: number; debug_code?: string | null }> {
-  const res = await fetch(OCEAN_API + "/auth/sms/start", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone }),
-  });
-  if (!res.ok) {
-    let detail = `sms start: ${res.status}`;
-    try { detail = (await res.json()).detail || detail; } catch { /* no-op */ }
-    throw new Error(detail);
-  }
-  return res.json();
-}
 
 /** Вход по СМС, шаг 2: проверить код, получить веб-токен. */
-export async function smsVerify(phone: string, code: string): Promise<OceanAuth> {
-  const res = await fetch(OCEAN_API + "/auth/sms/verify", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone, code }),
-  });
-  if (!res.ok) {
-    let detail = `sms verify: ${res.status}`;
-    try { detail = (await res.json()).detail || detail; } catch { /* no-op */ }
-    throw new Error(detail);
-  }
-  const auth: OceanAuth = await res.json();
-  setOceanToken(auth.token);
-  try {
-    if (auth.display_name) localStorage.setItem(NAME_KEY, auth.display_name);
-  } catch { /* no-op */ }
-  return auth;
-}
 
 /** Персональный разбор TEREN-AI после теста (общий бэкенд с Mini App). */
 export async function fetchRecommendation(

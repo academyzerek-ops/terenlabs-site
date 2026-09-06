@@ -12,15 +12,14 @@ const BTN =
 
 export function CodeLogin({ channel }: { channel: CodeChannel }) {
   const router = useRouter();
-  const isPhone = channel === "phone";
-  const [to, setTo] = useState(isPhone ? "+7" : "");
+  const [to, setTo] = useState("");
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [code, setCode] = useState("");
   const [debugCode, setDebugCode] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  const ready = isPhone ? to.replace(/\D/g, "").length >= 10 : /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(to.trim());
+  const ready = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(to.trim());
 
   const start = async () => {
     setBusy(true); setErr(null);
@@ -50,7 +49,7 @@ export function CodeLogin({ channel }: { channel: CodeChannel }) {
         <p className="text-[14px] text-text-2">
           Код отправлен на <span className="num text-ink">{sentTo}</span>.{" "}
           <button type="button" className="link text-[14px]" onClick={() => { setSentTo(null); setCode(""); setErr(null); }}>
-            {isPhone ? "Другой номер" : "Другая почта"}
+            {"Другая почта"}
           </button>
         </p>
         <input
@@ -76,18 +75,18 @@ export function CodeLogin({ channel }: { channel: CodeChannel }) {
   return (
     <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); void start(); }}>
       <input
-        className={`${INPUT} ${isPhone ? "num" : ""}`}
-        type={isPhone ? "tel" : "email"}
-        inputMode={isPhone ? "tel" : "email"}
-        autoComplete={isPhone ? "tel" : "email"}
-        placeholder={isPhone ? "+7 700 000 00 00" : "name@example.com"}
+        className={INPUT}
+        type="email"
+        inputMode="email"
+        autoComplete="email"
+        placeholder="name@example.com"
         value={to}
         onChange={(e) => setTo(e.target.value)}
         autoFocus
       />
       {err && <p className="text-[13px] text-danger">{err}</p>}
       <button type="submit" className={BTN} disabled={busy || !ready}>
-        {isPhone ? "Получить код в СМС" : "Получить код на почту"}
+        {"Получить код на почту"}
       </button>
     </form>
   );

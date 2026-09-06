@@ -6,10 +6,14 @@ import { tgLoginClaim, tgLoginStart } from "@/lib/ocean";
 import { CodeLogin } from "@/components/CodeLogin";
 import type { CodeChannel } from "@/lib/ocean";
 
-// Компактный вход: три круглые цветные кнопки в ряд (Telegram, Google, телефон).
-// Telegram: deep-link в бота и поллинг тикета. Google: серверное действие next-auth
-// (без ключей кнопка выключена). Телефон: раскрывает форму номера и кода.
+// Компактный вход круглыми кнопками в ряд. Telegram: deep-link в бота и поллинг
+// тикета. Google: серверное действие next-auth, без ключей кнопка выключена.
+// Почта: раскрывает форму адреса и кода, показывается только когда бэкенд умеет
+// его слать. Вход по СМС убран 07.09.2026: платно за сообщение и требует договора,
+// а тех же людей закрывают телеграм и почта.
 const ROUND = "flex h-14 w-14 items-center justify-center rounded-full text-[#fff] transition-transform hover:scale-[1.04] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100";
+
+const EMAIL_LOGIN = process.env.NEXT_PUBLIC_EMAIL_LOGIN === "1";
 
 export function SignInMethods({ googleReady, googleAction, size = "md" }: { googleReady: boolean; googleAction?: () => Promise<void>; size?: "md" | "sm" }) {
   // на узком телефоне четыре круга по 56 px с подписями не помещаются в ряд
@@ -43,7 +47,7 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
 
   return (
     <div>
-      {/* на узком телефоне четыре способа входа с промежутком 20 px не влезают */}
+      {/* на узком телефоне способы входа с промежутком 20 px не влезают */}
       <div className={`flex items-start justify-center ${size === "sm" ? "gap-3 sm:gap-5" : "gap-2 sm:gap-6"}`}>
         {/* Telegram */}
         <div className="flex flex-col items-center gap-2">
@@ -71,24 +75,10 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
           <span className="text-[12px] text-text-2">Google</span>
         </div>
 
-        {/* Телефон */}
-        <div className="flex flex-col items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setChannel((c) => (c === "phone" ? null : "phone"))}
-            aria-expanded={channel === "phone"}
-            aria-controls="code-login"
-            aria-label="Войти по номеру телефона"
-            className={`${round} bg-[#34A853] ${channel === "phone" ? "ring-2 ring-[#34A853]/40 ring-offset-2 ring-offset-page" : ""}`}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
-            </svg>
-          </button>
-          <span className="text-[12px] text-text-2">Телефон</span>
-        </div>
-
-        {/* Почта */}
+        {/* Почта. Кнопка появляется только когда бэкенд действительно умеет
+            слать код: иначе человек жмёт её первым делом и получает ошибку.
+            Включается переменной NEXT_PUBLIC_EMAIL_LOGIN. */}
+        {EMAIL_LOGIN && (
         <div className="flex flex-col items-center gap-2">
           <button
             type="button"
@@ -104,6 +94,7 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
           </button>
           <span className="text-[12px] text-text-2">Почта</span>
         </div>
+        )}
       </div>
 
       {phase === "waiting" && (
@@ -126,7 +117,7 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
         </p>
       )}
 
-      {channel && (
+      {channel && EMAIL_LOGIN && (
         <div id="code-login" className="mt-6">
           <CodeLogin key={channel} channel={channel} />
         </div>
