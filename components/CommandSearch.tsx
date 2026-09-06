@@ -16,8 +16,8 @@ const SECTIONS: Hit[] = [
   { label: "Тесты: тропа", sub: "раздел", href: "/tests" },
   { label: "Океан: уровни", sub: "раздел", href: "/levels" },
   { label: "Рейтинг Океана", sub: "раздел", href: "/ocean" },
-  { label: "Своё дело", sub: "раздел", href: "/delo" },
-  { label: "Стартап", sub: "раздел", href: "/startup" },
+  { label: "Предприниматель", sub: "раздел", href: "/delo" },
+  { label: "Фаундер", sub: "раздел", href: "/startup" },
   { label: "Кабинет", sub: "раздел", href: "/dashboard" },
 ];
 

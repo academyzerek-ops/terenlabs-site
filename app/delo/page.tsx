@@ -7,13 +7,13 @@ import { CASES } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Своё дело",
+  title: "Предприниматель",
   description:
     "Малый бизнес в Казахстане: Академия, модели малого бизнеса, кейсы и обзоры ниш. Считаем в тенге, говорим о рисках до того, как вложишься.",
   path: "/delo",
 });
 
-// Хаб «Своё дело»: локальный малый бизнес, тенге, ниши. Второй хаб — /startup.
+// Хаб «Предприниматель»: своё дело здесь и сейчас, тенге, ниши. Второй хаб — /startup.
 const NICHES = [
   { id: "food", label: "Еда и напитки" },
   { id: "beauty", label: "Бьюти" },
@@ -25,7 +25,7 @@ const NICHES = [
 ];
 
 export default function DeloPage() {
-  // в хабе «Своё дело» только треки малого бизнеса; трек стартапа живёт на /startup
+  // в хабе «Предприниматель» только треки своего дела; трек фаундера живёт на /startup
   const tracks = ACADEMY.filter((t) => (t.hub ?? "delo") === "delo");
   const models = tracks.find((t) => t.slug === "course-models");
   const cases = CASES.filter((c) => c.tag && !c.stub).slice(0, 5);
@@ -34,10 +34,10 @@ export default function DeloPage() {
     <>
       <section className="border-b border-line">
         <Container className="py-14 sm:py-20">
-          <p className="eyebrow">Своё дело</p>
+          <p className="eyebrow">Предприниматель</p>
           <h1 className="mt-3 max-w-[18ch] text-[24px] sm:text-[40px]">Бизнес здесь и сейчас: точка, мастер, магазин</h1>
           <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
-            Академия про то, как не потерять деньги в малом бизнесе, модели, по которым он живёт,
+            Академия про то, как не потерять деньги в своём деле, модели, по которым оно живёт,
             кейсы, где чужие деньги уже сгорели, и обзоры ниш с реальной экономикой рынка.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">

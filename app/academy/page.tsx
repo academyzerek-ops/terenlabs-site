@@ -13,17 +13,17 @@ export const metadata = pageMetadata({
 });
 
 // Академия одна на всю платформу: треки лежат двумя группами по аудитории.
-// «Своё дело» (малый бизнес, тенге) и «Стартап» (проект на рост, доллар). Ранг один.
+// «Предприниматель» (своё дело, тенге) и «Фаундер» (проект на рост, доллар). Ранг один.
 const GROUPS = [
   {
     hub: "delo" as const,
-    title: "Своё дело",
+    title: "Предприниматель",
     href: "/delo",
-    desc: "Точка, мастер, магазин. Деньги, модели, маркетинг, люди и право малого бизнеса.",
+    desc: "Точка, мастер, магазин. Деньги, модели, маркетинг, люди и право своего дела.",
   },
   {
     hub: "startup" as const,
-    title: "Стартап",
+    title: "Фаундер",
     href: "/startup",
     desc: "Проект на рост: команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции. В долларах.",
   },
@@ -59,7 +59,7 @@ export default function AcademyPage() {
             <Container className="py-14">
               <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
                 <div>
-                  <p className="eyebrow">{g.hub === "delo" ? "Малый бизнес" : "Проект на рост"}</p>
+                  <p className="eyebrow">{g.hub === "delo" ? "Своё дело" : "Проект на рост"}</p>
                   <h2 className="mt-2 text-[22px] sm:text-[24px]">{g.title}</h2>
                 </div>
                 <p className="text-[14px] leading-relaxed text-text-2">

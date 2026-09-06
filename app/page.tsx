@@ -83,19 +83,19 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ДВЕ ДВЕРИ: СВОЁ ДЕЛО / СТАРТАП ============ */}
+      {/* ============ ДВЕ ДВЕРИ: ПРЕДПРИНИМАТЕЛЬ / ФАУНДЕР ============ */}
       <section className="border-t border-line">
         <Container className="grid gap-4 py-8 md:grid-cols-2">
           {[
             {
               href: "/delo",
-              eyebrow: "Своё дело",
+              eyebrow: "Предприниматель",
               title: "Бизнес здесь и сейчас",
-              desc: "Академия малого бизнеса, модели, кейсы и обзоры ниш. Говорим о рисках до того, как вложишься.",
+              desc: "Академия, модели, кейсы и обзоры ниш. Говорим о рисках до того, как вложишься.",
             },
             {
               href: "/startup",
-              eyebrow: "Стартап",
+              eyebrow: "Фаундер",
               title: "Проект на рост",
               desc: "Команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции. Модели заработка на примерах мировых компаний.",
             },
@@ -230,7 +230,7 @@ export default function Home() {
           </p>
           <div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-10">
-            <p className="eyebrow">Стартап · бизнес-модели</p>
+            <p className="eyebrow">Фаундер · бизнес-модели</p>
             <h2 className="text-[22px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Механика заработка, структура выручки и развилка, за которую заплатили. Каждая цифра с
