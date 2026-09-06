@@ -60,9 +60,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
     <div className="group/row relative">
       <div
         ref={ref}
-        // На телефоне лента превращается в сетку: листать вбок нечего, все треки
-        // видны сразу. Горизонтальная прокрутка со стрелками остаётся с sm.
-        className="no-scrollbar grid grid-cols-2 gap-3 sm:flex sm:snap-x sm:snap-proximity sm:gap-4 sm:overflow-x-auto sm:pb-1"
+        className="no-scrollbar flex snap-x snap-proximity gap-4 overflow-x-auto pb-1"
       >
         {tracks.map((t) => {
           // в превью показываем содержание: у трека из одного урока — названия глав,
@@ -76,7 +74,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
               key={t.slug}
               href={`/courses/${t.slug}`}
               data-card
-              className="group flex w-full min-w-0 flex-col overflow-hidden rounded-[12px] border border-line bg-card transition-colors hover:border-line-2 hover:bg-card-2 sm:w-[259px] sm:shrink-0 sm:snap-start"
+              className="group flex w-[243px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-line bg-card transition-colors hover:border-line-2 hover:bg-card-2 sm:w-[259px]"
             >
               {/* светлое превью: обложка тушью или лист документа на серой подложке */}
               {TRACK_COVER[t.slug] ? (
@@ -110,11 +108,9 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                 </div>
               </div>
               )}
-              <div className="flex flex-1 flex-col gap-2.5 p-3 sm:p-4">
+              <div className="flex flex-1 flex-col gap-2.5 p-4">
                 <div className="text-[15px] font-semibold leading-snug text-ink">{t.title}</div>
-                {/* строка «8 уроков · 46 глав» на узкой карточке не должна ломаться
-                    так, чтобы «глав» ушло на отдельную строку одним словом */}
-                <div className="num mt-auto flex items-center gap-1.5 text-[12px] text-text-2 sm:gap-2 sm:text-[13px]">
+                <div className="num mt-auto flex items-center gap-2 text-[13px] text-text-2">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M2 3.5h4.5A1.5 1.5 0 0 1 8 5v8.5A1.5 1.5 0 0 0 6.5 12H2zM14 3.5H9.5A1.5 1.5 0 0 0 8 5v8.5a1.5 1.5 0 0 1 1.5-1.5H14z" />
                   </svg>
@@ -132,11 +128,11 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
       {/* затемнение краёв: только с той стороны, где лента продолжается */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-y-0 left-0 hidden w-20 bg-gradient-to-r from-page to-transparent transition-opacity sm:block ${canLeft ? "opacity-100" : "opacity-0"}`}
+        className={`pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-page to-transparent transition-opacity ${canLeft ? "opacity-100" : "opacity-0"}`}
       />
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-y-0 right-0 hidden w-20 bg-gradient-to-l from-page to-transparent transition-opacity sm:block ${canRight ? "opacity-100" : "opacity-0"}`}
+        className={`pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-page to-transparent transition-opacity ${canRight ? "opacity-100" : "opacity-0"}`}
       />
 
       {/* стрелки: появляются при наведении на ленту, только на десктопе */}
