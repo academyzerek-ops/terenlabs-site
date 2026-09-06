@@ -578,15 +578,95 @@
  },
  {
   "type": "course",
-  "slug": "course-startup",
+  "slug": "course-founder-team",
   "level": "T1",
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "От идеи до инвестиций",
-  "blurb": "Команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции",
+  "title": "Команда стартапа",
+  "blurb": "Кофаундер, доли, вестинг, первые наёмные",
   "metric": {
-   "value": "24",
+   "value": "3",
+   "label": "главы"
+  },
+  "badge": "Готов",
+  "img": null
+ },
+ {
+  "type": "course",
+  "slug": "course-founder-market",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Исследование рынка",
+  "blurb": "Размер рынка, конкуренты, спрос до первой строки кода",
+  "metric": {
+   "value": "4",
+   "label": "главы"
+  },
+  "badge": "Готов",
+  "img": null
+ },
+ {
+  "type": "course",
+  "slug": "course-founder-model",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Бизнес-модель",
+  "blurb": "Подписка, маркетплейс, freemium, реклама, лицензия",
+  "metric": {
+   "value": "6",
+   "label": "глав"
+  },
+  "badge": "Готов",
+  "img": null
+ },
+ {
+  "type": "course",
+  "slug": "course-founder-unit",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Финансовое моделирование",
+  "blurb": "Юнит-экономика, CAC и LTV, отток, runway",
+  "metric": {
+   "value": "4",
+   "label": "главы"
+  },
+  "badge": "Готов",
+  "img": null
+ },
+ {
+  "type": "course",
+  "slug": "course-founder-pitch",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Питч и презентация",
+  "blurb": "Что инвестор слышит и что спросит после",
+  "metric": {
+   "value": "3",
+   "label": "главы"
+  },
+  "badge": "Готов",
+  "img": null
+ },
+ {
+  "type": "course",
+  "slug": "course-founder-invest",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Привлечение инвестиций",
+  "blurb": "Ангелы, венчур, гранты, раунды, term sheet",
+  "metric": {
+   "value": "4",
    "label": "главы"
   },
   "badge": "Готов",

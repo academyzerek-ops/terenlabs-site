@@ -59,7 +59,12 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
         className="no-scrollbar flex snap-x snap-proximity gap-4 overflow-x-auto pb-1"
       >
         {tracks.map((t) => {
-          const lessons = t.modules.slice(0, 5);
+          // в превью показываем содержание: у трека из одного урока — названия глав,
+          // у остальных — названия уроков
+          const lessons =
+            t.modules.length === 1
+              ? t.modules[0].chapters.slice(0, 5).map((c, i) => ({ id: `c${i}`, title: c.title }))
+              : t.modules.slice(0, 5);
           return (
             <Link
               key={t.slug}
@@ -80,18 +85,18 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                   />
                 </div>
               ) : (
-              <div className="h-[170px] bg-[#e9e8e4] px-6 pt-6">
-                <div className="h-full rounded-t-[6px] bg-[#ffffff] px-5 pt-5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]">
-                  <div className="truncate text-[10px] uppercase tracking-[0.08em] text-[#9b9a97]">
+              <div className="h-[170px] bg-panel-bg px-6 pt-6">
+                <div className="h-full rounded-t-[6px] bg-raised px-5 pt-5 shadow-[var(--shadow-tl-sm)]">
+                  <div className="truncate text-[10px] uppercase tracking-[0.08em] text-faint">
                     {t.subtitle}
                   </div>
-                  <div className="mt-1.5 line-clamp-2 text-[16px] font-semibold leading-snug text-[#191919]">
+                  <div className="mt-1.5 line-clamp-2 text-[16px] font-semibold leading-snug text-ink">
                     {t.title}
                   </div>
                   <div className="mt-3 flex flex-col gap-[7px]">
                     {lessons.map((m) => (
-                      <div key={m.id} className="flex items-center gap-2 text-[11px] leading-none text-[#5f5e5a]">
-                        <span className="h-[3px] w-[3px] shrink-0 rounded-full bg-[#b9b7b1]" />
+                      <div key={m.id} className="flex items-center gap-2 text-[11px] leading-none text-text-2">
+                        <span className="h-[3px] w-[3px] shrink-0 rounded-full bg-faint" />
                         <span className="truncate">{m.title.replace(/^Урок \d+ · /, "")}</span>
                       </div>
                     ))}
@@ -105,8 +110,10 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M2 3.5h4.5A1.5 1.5 0 0 1 8 5v8.5A1.5 1.5 0 0 0 6.5 12H2zM14 3.5H9.5A1.5 1.5 0 0 0 8 5v8.5a1.5 1.5 0 0 1 1.5-1.5H14z" />
                   </svg>
-                  {t.modules.length} {plural(t.modules.length, "урок", "урока", "уроков")} · {t.chapterTotal}{" "}
-                  {plural(t.chapterTotal, "глава", "главы", "глав")}
+                  {t.modules.length > 1
+                    ? `${t.modules.length} ${plural(t.modules.length, "урок", "урока", "уроков")} · `
+                    : ""}
+                  {t.chapterTotal} {plural(t.chapterTotal, "глава", "главы", "глав")}
                 </div>
               </div>
             </Link>

@@ -36,9 +36,8 @@ const MODELS = [
 
 export default function StartupPage() {
   const brands = BRANDS.filter((b) => !b.stub);
-  // трек «От идеи до инвестиций» из Академии: собранные уроки открыты, остальные помечены
-  const track = ACADEMY.find((t) => t.slug === "course-startup");
-  const built = new Map((track?.modules ?? []).map((m) => [m.id, m]));
+  // программа идёт темами: каждый трек — отдельная тема, как воркшоп в акселераторе
+  const tracks = ACADEMY.filter((t) => t.hub === "startup");
 
   return (
     <>
@@ -55,62 +54,46 @@ export default function StartupPage() {
               Разборы брендов <Arrow />
             </Button>
             <Link href="#trek" className="link text-[15px]">
-              Программа трека
+              Программа
             </Link>
           </div>
         </Container>
       </section>
 
-      {/* трек */}
+      {/* программа: темы отдельными треками */}
       <section id="trek" className="border-b border-line">
         <Container className="py-16">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
-            <h2 className="text-[24px] sm:text-[20px]">Трек «От идеи до инвестиций»</h2>
+            <h2 className="text-[24px] sm:text-[20px]">Программа</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
-              Шесть уроков по цепочке настоящего проекта: от команды до условий сделки с
-              инвестором. Разборы брендов открыты как практика к третьему уроку.
+              Шесть тем по цепочке настоящего проекта: от команды до условий сделки с
+              инвестором. Каждая тема — отдельный трек, проходить можно в любом порядке.
+              Разборы брендов открыты как практика к бизнес-модели.
             </p>
           </div>
-          {track && (
+          {tracks.length > 0 && (
             <div className="mt-8">
-              <TrackCards tracks={[track]} />
+              <TrackCards tracks={tracks} />
             </div>
           )}
           <div className="mt-10">
-            {PROGRAM.map(([n, t, d]) => {
-              const m = built.get(`m${Number(n)}`);
-              const ready = !!m && m.chapters.some((c) => !c.missing);
-              const first = m?.chapters.find((c) => !c.missing);
-              const cls = "grid gap-2 border-t border-line py-5 sm:grid-cols-[56px_260px_minmax(0,1fr)_100px] sm:items-baseline sm:gap-6";
-              const row = (
-                <>
-                  <span className="num text-[13px] text-faint">{n}</span>
-                  <h3 className="text-[16px]">{t}</h3>
-                  <p className="max-w-[60ch] text-[14px] leading-relaxed text-text-2">{d}</p>
-                  {ready && m ? (
-                    <span className="num text-[13px] text-text-2 sm:justify-self-end">
-                      {m.chapters.length} {plural(m.chapters.length, "глава", "главы", "глав")}
-                    </span>
-                  ) : (
-                    <span className="tag sm:justify-self-end">готовится</span>
-                  )}
-                </>
-              );
-              return ready && first ? (
-                <Link key={n} href={`/learn/course-startup?ch=${first.file}`} className={`${cls} transition-colors hover:bg-subtle`}>
-                  {row}
+            {tracks.map((t, i) => {
+              const desc = PROGRAM[i]?.[2] ?? t.subtitle;
+              return (
+                <Link
+                  key={t.slug}
+                  href={`/courses/${t.slug}`}
+                  className="grid gap-2 border-t border-line py-5 transition-colors hover:bg-subtle sm:grid-cols-[56px_260px_minmax(0,1fr)_100px] sm:items-baseline sm:gap-6"
+                >
+                  <span className="num text-[13px] text-faint">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="text-[16px]">{t.title}</h3>
+                  <p className="max-w-[60ch] text-[14px] leading-relaxed text-text-2">{desc}</p>
+                  <span className="num text-[13px] text-text-2 sm:justify-self-end">
+                    {t.chapterTotal} {plural(t.chapterTotal, "глава", "главы", "глав")}
+                  </span>
                 </Link>
-              ) : (
-                <div key={n} className={cls}>{row}</div>
               );
             })}
-            <div className="border-t border-line pt-4">
-              {track && (
-                <Link href={`/courses/${track.slug}`} className="link text-[14px]">
-                  Программа и главы трека <Arrow />
-                </Link>
-              )}
-            </div>
           </div>
         </Container>
       </section>

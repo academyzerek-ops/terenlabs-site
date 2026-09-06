@@ -1682,14 +1682,14 @@
   ]
  },
  {
-  "key": "startup",
-  "slug": "course-startup",
+  "key": "startup-1",
+  "slug": "course-founder-team",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "От идеи до инвестиций",
-  "subtitle": "Команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции",
-  "chapterTotal": 24,
+  "title": "Команда стартапа",
+  "subtitle": "Кофаундер, доли, вестинг, первые наёмные",
+  "chapterTotal": 3,
   "modules": [
    {
     "id": "m1",
@@ -1711,7 +1711,19 @@
       "img": null
      }
     ]
-   },
+   }
+  ]
+ },
+ {
+  "key": "startup-2",
+  "slug": "course-founder-market",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Исследование рынка",
+  "subtitle": "Размер рынка, конкуренты, спрос до первой строки кода",
+  "chapterTotal": 4,
+  "modules": [
    {
     "id": "m2",
     "title": "Аналитика рынка",
@@ -1737,7 +1749,19 @@
       "img": null
      }
     ]
-   },
+   }
+  ]
+ },
+ {
+  "key": "startup-3",
+  "slug": "course-founder-model",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Бизнес-модель",
+  "subtitle": "Подписка, маркетплейс, freemium, реклама, лицензия",
+  "chapterTotal": 6,
+  "modules": [
    {
     "id": "m3",
     "title": "Каталог бизнес-моделей",
@@ -1773,7 +1797,19 @@
       "img": null
      }
     ]
-   },
+   }
+  ]
+ },
+ {
+  "key": "startup-4",
+  "slug": "course-founder-unit",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Финансовое моделирование",
+  "subtitle": "Юнит-экономика, CAC и LTV, отток, runway",
+  "chapterTotal": 4,
+  "modules": [
    {
     "id": "m4",
     "title": "Юнит-экономика и финмодель",
@@ -1799,7 +1835,19 @@
       "img": null
      }
     ]
-   },
+   }
+  ]
+ },
+ {
+  "key": "startup-5",
+  "slug": "course-founder-pitch",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Питч и презентация",
+  "subtitle": "Что инвестор слышит и что спросит после",
+  "chapterTotal": 3,
+  "modules": [
    {
     "id": "m5",
     "title": "Питч",
@@ -1820,7 +1868,19 @@
       "img": null
      }
     ]
-   },
+   }
+  ]
+ },
+ {
+  "key": "startup-6",
+  "slug": "course-founder-invest",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Привлечение инвестиций",
+  "subtitle": "Ангелы, венчур, гранты, раунды, term sheet",
+  "chapterTotal": 4,
+  "modules": [
    {
     "id": "m6",
     "title": "Инвестиции",

@@ -141,7 +141,19 @@ for (const [key, t] of Object.entries(ACADEMY_DATA)) {
 // Дополнительные треки из vault-репо: папка с _track.json (сборщик build_academy.py, cfg.manifest).
 // Сейчас это «От идеи до инвестиций» (startup) для хаба «Стартап».
 const EXTRA_SRC = process.env.TL_EXTRA_SRC || "/Users/adil/TerenLabs/frontend";
-const EXTRA_TRACKS = { startup: { slug: "course-startup", topic: "Стартап", hub: "startup" } };
+const EXTRA_TRACKS = {
+  startup: {
+    slug: "course-startup", topic: "Стартап", hub: "startup",
+    split: [
+      { mod: 1, slug: "course-founder-team",   title: "Команда стартапа",         subtitle: "Кофаундер, доли, вестинг, первые наёмные" },
+      { mod: 2, slug: "course-founder-market", title: "Исследование рынка",       subtitle: "Размер рынка, конкуренты, спрос до первой строки кода" },
+      { mod: 3, slug: "course-founder-model",  title: "Бизнес-модель",            subtitle: "Подписка, маркетплейс, freemium, реклама, лицензия" },
+      { mod: 4, slug: "course-founder-unit",   title: "Финансовое моделирование", subtitle: "Юнит-экономика, CAC и LTV, отток, runway" },
+      { mod: 5, slug: "course-founder-pitch",  title: "Питч и презентация",       subtitle: "Что инвестор слышит и что спросит после" },
+      { mod: 6, slug: "course-founder-invest", title: "Привлечение инвестиций",   subtitle: "Ангелы, венчур, гранты, раунды, term sheet" },
+    ],
+  },
+};
 for (const [key, conf] of Object.entries(EXTRA_TRACKS)) {
   const dir = path.join(EXTRA_SRC, "content/ru/academy", key);
   const manifestPath = path.join(dir, "_track.json");
@@ -168,7 +180,23 @@ for (const [key, conf] of Object.entries(EXTRA_TRACKS)) {
     });
     return { id: `m${m.n}`, title: m.name, chapters };
   });
-  academy.push({ key, slug: conf.slug, topic: conf.topic, hub: conf.hub, folder, title: rename(t.title), subtitle: t.subtitle, chapterTotal, modules });
+  if (conf.split) {
+    // Блок «Фаундер» идёт темами, как программа акселератора: один толстый трек
+    // «От идеи до инвестиций» разбирается на самостоятельные треки по темам.
+    // Папка сборки и файлы глав общие — делится только витрина сайта.
+    for (const sp of conf.split) {
+      const mod = modules.find((m) => m.id === `m${sp.mod}`);
+      if (!mod) { console.warn("нет модуля для трека:", sp.slug, sp.mod); continue; }
+      academy.push({
+        key: `${key}-${sp.mod}`, slug: sp.slug, topic: conf.topic, hub: conf.hub, folder,
+        title: sp.title, subtitle: sp.subtitle,
+        chapterTotal: mod.chapters.filter((c) => !c.missing).length,
+        modules: [mod],
+      });
+    }
+  } else {
+    academy.push({ key, slug: conf.slug, topic: conf.topic, hub: conf.hub, folder, title: rename(t.title), subtitle: t.subtitle, chapterTotal, modules });
+  }
 }
 write(path.join(SITE, "content/academy.json"), JSON.stringify(academy, null, 1));
 report.counts.tracks = academy.length;
