@@ -57,6 +57,15 @@
 .bar-f{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--les-aqua-deep),var(--les-aqua))}
 .bar-f.crit{background:linear-gradient(90deg,var(--les-red),#ff9a6b)}
 .bar-v{font-size:13px;font-weight:700;color:var(--les-text);text-align:right;font-variant-numeric:tabular-nums}
+/* Телефон: три колонки в одной строке не живут — и подпись формата
+   («Корпоративный кейтеринг»), и значение справа бывают словами, а не числом.
+   Подпись уходит на свою строку, под ней полоса и значение. */
+@media (max-width:600px){
+  .bar{grid-template-columns:1fr auto;gap:5px 10px;margin-bottom:12px}
+  .bar-l{grid-column:1 / -1;font-size:12.5px;overflow-wrap:anywhere}
+  .bar-t{grid-column:1}
+  .bar-v{grid-column:2;font-size:12px;text-align:right;overflow-wrap:anywhere}
+}
 
 /* сезонность */
 .season{display:flex;align-items:flex-end;gap:5px;height:120px;margin:4px 2px 8px;padding-top:10px}
@@ -133,7 +142,7 @@ table.dt td.fmt{font-weight:600;color:var(--les-text)}
 /* риск-карточки (яркие) */
 .risk{background:var(--les-surface);border:0.5px solid var(--les-border);border-left:4px solid var(--les-red);border-radius:14px;padding:18px;margin-bottom:11px;box-shadow:0 4px 18px rgba(255,107,107,.06)}
 .risk.warn{border-left-color:var(--les-warn);box-shadow:0 4px 18px rgba(240,201,94,.06)}
-.risk-h{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.risk-h{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:9px}
 .risk-ic{font-size:22px;line-height:1}
 .risk-n{font-weight:700;font-size:15.5px;color:var(--les-text);flex:1}
 .risk-sev{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 8px;border-radius:5px;color:var(--les-red);background:var(--les-red-soft);white-space:nowrap}
@@ -154,6 +163,7 @@ table.dt td.fmt{font-weight:600;color:var(--les-text)}
 
 /* CTA */
 .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+@media (max-width:600px){.cta-grid{grid-template-columns:1fr}}
 .cta{background:var(--les-surface-2);border:0.5px solid var(--les-border);border-radius:16px;padding:22px 16px;text-align:center}
 .cta-t{font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:18px;color:var(--les-text);margin-bottom:10px}
 .cta-price{font-family:'Newsreader',Georgia,serif;font-weight:700;font-size:38px;color:var(--les-accent);line-height:1;margin-bottom:14px}
