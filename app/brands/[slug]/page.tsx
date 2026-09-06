@@ -93,7 +93,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <Container className="py-12 sm:py-14">
             <div className="mx-auto w-full max-w-[800px]">
               <nav aria-label="Хлебные крошки" className="mb-6 flex items-center gap-2 text-[13px] text-faint">
-                <Link href="/catalog?type=bm" className="shrink-0 hover:text-ink">Бренды</Link>
+                <Link href="/catalog?type=bm" className="shrink-0 py-1.5 hover:text-ink lg:py-0">Бренды</Link>
                 <span>/</span>
                 <span className="truncate">{doc.brand}</span>
               </nav>
@@ -202,7 +202,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     <Link
                       key={r.slug}
                       href={`/brands/${r.slug}`}
-                      className="flex items-center justify-between gap-6 border-t border-line py-4 transition-colors hover:bg-hover"
+                      className="flex items-center justify-between gap-3 border-t border-line py-4 sm:gap-6 transition-colors hover:bg-hover"
                     >
                       <div className="min-w-0">
                         <span className="eyebrow">{r.brand}</span>

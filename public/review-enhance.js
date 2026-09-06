@@ -4,6 +4,24 @@
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- подписи колонок в таблицах ----------
+     На телефоне таблица из четырёх колонок листалась вбок. Чтобы она могла
+     разложиться карточками, каждой ячейке проставляем заголовок её колонки,
+     а CSS уже выводит его через ::before. */
+  function labelCells(table) {
+    if (table.dataset.lab) return;
+    table.dataset.lab = "1";
+    var heads = [].slice.call(table.querySelectorAll("thead th")).map(function (th) {
+      return (th.textContent || "").trim();
+    });
+    if (!heads.length) return;
+    [].slice.call(table.querySelectorAll("tbody tr")).forEach(function (tr) {
+      [].slice.call(tr.children).forEach(function (td, i) {
+        if (heads[i]) td.setAttribute("data-l", heads[i]);
+      });
+    });
+  }
+
   /* ---------- пончик ---------- */
   function enhanceDonut(wrap) {
     var svg = wrap.querySelector(".donut");
@@ -106,6 +124,7 @@
 
   /* ---------- появление блоков ---------- */
   function run() {
+    document.querySelectorAll("table.dt").forEach(labelCells);
     document.querySelectorAll(".donut-wrap").forEach(enhanceDonut);
     try { placeElement(); } catch (e) {}
 

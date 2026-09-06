@@ -174,7 +174,7 @@ export function Sidebar({
           </Link>
           <div className="flex items-center gap-0.5">
             <ThemeToggle />
-            <button onClick={onClose} aria-label="Скрыть панель" className="flex h-7 w-7 items-center justify-center rounded-[6px] text-faint hover:bg-subtle hover:text-ink lg:hidden">
+            <button onClick={onClose} aria-label="Скрыть панель" className="flex h-9 w-9 items-center justify-center rounded-[6px] lg:h-7 lg:w-7 text-faint hover:bg-subtle hover:text-ink lg:hidden">
               <Icon d={I.panel} />
             </button>
           </div>

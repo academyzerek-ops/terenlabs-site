@@ -130,7 +130,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <Container className="py-12 sm:py-14">
               <div className="mx-auto w-full max-w-[800px]">
                 <nav aria-label="Хлебные крошки" className="mb-6 flex items-center gap-2 text-[13px] text-faint">
-                  <Link href="/catalog?type=case" className="shrink-0 hover:text-ink">Кейсы</Link>
+                  <Link href="/catalog?type=case" className="shrink-0 py-1.5 hover:text-ink lg:py-0">Кейсы</Link>
                   <span>/</span>
                   <span className="truncate">{doc.title}</span>
                 </nav>
@@ -186,7 +186,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                       <Link
                         key={r.slug}
                         href={`/cases/${r.slug}`}
-                        className="flex items-center justify-between gap-6 border-t border-line py-4 transition-colors hover:bg-hover"
+                        className="flex items-center justify-between gap-3 border-t border-line py-4 sm:gap-6 transition-colors hover:bg-hover"
                       >
                         <div className="min-w-0">
                           <span className="tag" style={{ background: rt.bg, color: rt.ink }}>{r.kind}</span>

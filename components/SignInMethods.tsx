@@ -12,7 +12,10 @@ import type { CodeChannel } from "@/lib/ocean";
 const ROUND = "flex h-14 w-14 items-center justify-center rounded-full text-[#fff] transition-transform hover:scale-[1.04] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100";
 
 export function SignInMethods({ googleReady, googleAction, size = "md" }: { googleReady: boolean; googleAction?: () => Promise<void>; size?: "md" | "sm" }) {
-  const round = size === "sm" ? ROUND.replace("h-14 w-14", "h-11 w-11") : ROUND;
+  // на узком телефоне четыре круга по 56 px с подписями не помещаются в ряд
+  const round = size === "sm"
+    ? ROUND.replace("h-14 w-14", "h-11 w-11")
+    : ROUND.replace("h-14 w-14", "h-12 w-12 sm:h-14 sm:w-14");
   const router = useRouter();
   const [phase, setPhase] = useState<"idle" | "waiting" | "error">("idle");
   const [link, setLink] = useState<string | null>(null);
@@ -40,7 +43,8 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
 
   return (
     <div>
-      <div className={`flex items-start justify-center ${size === "sm" ? "gap-5" : "gap-6"}`}>
+      {/* на узком телефоне четыре способа входа с промежутком 20 px не влезают */}
+      <div className={`flex items-start justify-center ${size === "sm" ? "gap-3 sm:gap-5" : "gap-2 sm:gap-6"}`}>
         {/* Telegram */}
         <div className="flex flex-col items-center gap-2">
           <button type="button" onClick={startTg} aria-label="Войти через Telegram" className={`${round} bg-[#2AABEE]`}>

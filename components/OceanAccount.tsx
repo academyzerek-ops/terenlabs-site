@@ -133,11 +133,11 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
     // панели, поэтому у svg задана ещё и ширина классом: viewBox масштабирует.
     const sizes = [40, 48, 56, 66, 78];
     const sizeCls = [
-      "w-[30px] sm:w-[40px]",
-      "w-[36px] sm:w-[48px]",
-      "w-[42px] sm:w-[56px]",
-      "w-[50px] sm:w-[66px]",
-      "w-[58px] sm:w-[78px]",
+      "w-[26px] sm:w-[40px]",
+      "w-[30px] sm:w-[48px]",
+      "w-[36px] sm:w-[56px]",
+      "w-[42px] sm:w-[66px]",
+      "w-[48px] sm:w-[78px]",
     ];
     return (
       <section className="panel p-6 sm:p-8">
@@ -155,7 +155,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
           </div>
 
           {/* маршрут уровней: эскизы растут к Акуле */}
-          <div className="flex items-end justify-between gap-1 border-t border-line pt-5 sm:gap-2 lg:border-t-0 lg:pt-0">
+          <div className="flex items-end justify-between gap-0.5 border-t border-line pt-5 sm:gap-2 lg:border-t-0 lg:pt-0">
             {route.map((r, i) => (
               <div key={r.key} className="flex flex-col items-center gap-1.5">
                 <RankSketch rank={r.key as LevelKey} size={sizes[i]} className={`h-auto text-ink ${sizeCls[i]}`} />

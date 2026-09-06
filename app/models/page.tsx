@@ -24,7 +24,7 @@ export default function ModelsPage() {
       <section className="border-b border-line">
         <Container className="py-14 sm:py-20">
           <nav aria-label="Хлебные крошки" className="mb-6 flex items-center gap-2 text-[13px] text-faint">
-            <Link href="/startup" className="shrink-0 hover:text-ink">Фаундер</Link>
+            <Link href="/startup" className="shrink-0 py-1.5 hover:text-ink lg:py-0">Фаундер</Link>
             <span>/</span>
             <span>Справочник моделей</span>
           </nav>

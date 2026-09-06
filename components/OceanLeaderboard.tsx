@@ -276,7 +276,7 @@ function Row({ e }: { e: Entry }) {
       <span className="num text-[15px] text-faint">{e.rank}</span>
       <div className="min-w-0">
         <div className="truncate text-[15px] font-medium text-ink">{e.name}</div>
-        <div className="text-[12px] text-faint">
+        <div className="truncate text-[12px] text-faint">
           в океане {days(e.days_in_ocean)}
           {e.speed_badge && SPEED_RU[e.speed_badge] ? ` · ${SPEED_RU[e.speed_badge]}` : ""}
         </div>

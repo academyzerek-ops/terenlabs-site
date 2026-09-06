@@ -41,8 +41,13 @@
 .tldr-k{font-family:'Newsreader',Georgia,serif;font-weight:700;font-size:21px;line-height:1.05;color:var(--les-accent);flex:0 0 84px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .tldr-v{font-size:13.5px;color:var(--les-text-2);line-height:1.5}
 .tldr-v strong{color:var(--les-text);font-weight:700}
-/* мобайл: диапазоны вида «1 500–2 500» не переносятся (колонка шире, шрифт чуть мельче) */
-@media (max-width:600px){.tldr-k{flex-basis:124px;font-size:18px}}
+/* мобайл: две колонки в 390 px оставляли тексту полосу в 170 px, строки рвались
+   по два слова. Ставим число строкой над текстом, диапазон при этом не переносится */
+@media (max-width:600px){
+  .tldr-row{flex-direction:column;gap:3px;margin-bottom:14px}
+  .tldr-k{flex:none;font-size:18px}
+  .tldr-v{font-size:14px}
+}
 
 /* бар-чарт городов */
 .bars{margin-bottom:6px}
@@ -80,6 +85,24 @@ table.dt td{padding:9px 11px;border-top:0.5px solid var(--les-border-2);color:va
 table.dt td.n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--les-text);text-align:right;white-space:nowrap}
 table.dt tr.peak td{background:var(--les-green-soft)}
 table.dt td.fmt{font-weight:600;color:var(--les-text)}
+/* Телефон: четыре колонки не влезают, таблица листалась вбок. Строка становится
+   карточкой: формат заголовком, остальные ячейки парами «подпись — значение».
+   Подписи проставляет review-enhance.js из шапки таблицы (data-l). */
+@media (max-width:600px){
+  .dtw{overflow-x:visible}
+  table.dt{display:block;font-size:13.5px}
+  table.dt thead{display:none}
+  table.dt tbody,table.dt tr{display:block}
+  table.dt tr{padding:11px 12px;border-top:0.5px solid var(--les-border-2)}
+  table.dt tbody tr:first-child{border-top:0}
+  table.dt td{display:flex;gap:12px;justify-content:space-between;align-items:baseline;
+    padding:3px 0;border:0;text-align:right;white-space:normal}
+  table.dt td::before{content:attr(data-l);flex:0 0 auto;text-align:left;
+    font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:var(--les-text-2);opacity:.7}
+  table.dt td.fmt{display:block;text-align:left;padding:0 0 6px;font-weight:700;color:var(--les-text)}
+  table.dt td.fmt::before{content:none}
+  table.dt td.n{white-space:normal}
+}
 
 /* бары структуры затрат (line items) */
 .pr{margin-bottom:11px}.pr:last-child{margin-bottom:0}

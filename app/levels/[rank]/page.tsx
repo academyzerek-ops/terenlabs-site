@@ -263,7 +263,7 @@ function Row({
       )}
     </>
   );
-  const cls = "flex items-center justify-between gap-6 border-t border-line py-4";
+  const cls = "flex items-center justify-between gap-3 border-t border-line py-4 sm:gap-6";
   if (!href) return <div className={`${cls} opacity-60`}>{inner}</div>;
   return (
     <Link href={href} className={`${cls} transition-colors hover:bg-subtle`}>

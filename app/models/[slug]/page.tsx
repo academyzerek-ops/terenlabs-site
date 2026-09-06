@@ -75,7 +75,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <Container className="py-12 sm:py-14">
             <div className="mx-auto w-full max-w-[800px]">
               <nav aria-label="Хлебные крошки" className="mb-6 flex items-center gap-2 text-[13px] text-faint">
-                <Link href="/models" className="shrink-0 hover:text-ink">Модели</Link>
+                <Link href="/models" className="shrink-0 py-1.5 hover:text-ink lg:py-0">Модели</Link>
                 <span>/</span>
                 <span className="truncate">{model.title}</span>
               </nav>

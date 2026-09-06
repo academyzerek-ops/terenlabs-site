@@ -27,7 +27,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       onClick={flip}
       aria-label="Светлая или тёмная тема"
       title="Светлая или тёмная тема"
-      className={`flex h-7 w-7 items-center justify-center rounded-[6px] text-faint transition-colors hover:bg-subtle hover:text-ink ${className}`}
+      className={`flex h-9 w-9 lg:h-7 lg:w-7 items-center justify-center rounded-[6px] text-faint transition-colors hover:bg-subtle hover:text-ink ${className}`}
     >
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {/* рисуем то, куда ведёт нажатие: днём луна, ночью солнце */}
