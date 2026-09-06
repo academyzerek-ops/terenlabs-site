@@ -7,8 +7,8 @@ import { getOceanName, getOceanToken } from "@/lib/ocean";
 import { getProgress, type CourseProgress } from "@/lib/memory";
 import { CommandSearch } from "./CommandSearch";
 import { SidebarDiary } from "./SidebarDiary";
-import { SharkMark } from "./SharkMark";
 import { ThemeToggle } from "./ThemeToggle";
+import { AskButton } from "./AskButton";
 
 // Боковая панель как в Notion: поиск, быстрые разделы, группы ссылок серыми
 // заголовками, внизу аккаунт. На десктопе заменяет верхнюю шапку; на мобиле
@@ -299,26 +299,11 @@ export function Sidebar({
         </>
         )}
 
-        {/* низ: чат и аккаунт */}
+        {/* низ: круглая кнопка TEREN-AI и аккаунт */}
+        <div className="flex justify-end px-3 pb-3">
+          <AskButton open={chatOpen} onToggle={onToggleChat} />
+        </div>
         <div className="border-t border-line p-2">
-          {/* Кнопка TEREN-AI: белая, во всю ширину, прямо над входом — чтобы её
-              было видно с любой страницы. Открывает колонку чата слева. */}
-          <button
-            type="button"
-            onClick={onToggleChat}
-            aria-pressed={chatOpen}
-            className={`mb-2 flex h-10 w-full items-center gap-2.5 rounded-[8px] px-2.5 text-[14px] font-medium transition-colors ${
-              chatOpen
-                ? "bg-hover text-ink"
-                : "bg-ink text-page shadow-[var(--shadow-tl-sm)] hover:opacity-90"
-            }`}
-          >
-            <SharkMark size={19} />
-            <span className="min-w-0 flex-1 truncate text-left">Спросить TEREN-AI</span>
-            {chatOpen ? (
-              <span className="text-[12px] text-faint">закрыть</span>
-            ) : null}
-          </button>
           <Link href={name ? "/dashboard" : "/auth/sign-in"} onClick={onClose} className="flex h-10 items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors hover:bg-subtle">
             <span className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-hover text-[12px] font-semibold text-ink">
               {name ? name.trim()[0]?.toUpperCase() : <Icon d={I.user} />}

@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { Sidebar } from "./Sidebar";
 import { NoaChat } from "./NoaChat";
-import { SharkMark } from "./SharkMark";
 
 // Каркас сайта: слева панель (на десктопе всегда), сверху на мобиле тонкая полоса с кнопкой панели.
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -29,14 +28,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" aria-hidden="true"><path d="M2.5 3.5h11v9h-11zM6 3.5v9" /></svg>
           </button>
           <Link href="/" className="flex-1 text-[15px] font-semibold text-ink">TerenLabs</Link>
-          <button
-            onClick={() => setChat((v) => !v)}
-            aria-label="TEREN-AI"
-            aria-pressed={chat}
-            className={`flex h-8 w-8 items-center justify-center rounded-[6px] transition-colors ${chat ? "bg-hover text-ink" : "text-text-2 hover:bg-subtle hover:text-ink"}`}
-          >
-            <SharkMark size={19} />
-          </button>
         </div>
         {children}
       </div>

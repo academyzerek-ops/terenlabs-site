@@ -30,9 +30,9 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       className={`flex h-7 w-7 items-center justify-center rounded-[6px] text-faint transition-colors hover:bg-subtle hover:text-ink ${className}`}
     >
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        {/* луна — ночь включена, нажатие даст день */}
-        <path className="theme-when-dark" d="M13 9.6A5.4 5.4 0 0 1 6.4 3 5.5 5.5 0 1 0 13 9.6" />
-        <g className="theme-when-light">
+        {/* рисуем то, куда ведёт нажатие: днём луна, ночью солнце */}
+        <path className="theme-when-light" d="M13 9.6A5.4 5.4 0 0 1 6.4 3 5.5 5.5 0 1 0 13 9.6" />
+        <g className="theme-when-dark">
           <circle cx="8" cy="8" r="2.9" />
           <path d="M8 1.6v1.4M8 13v1.4M14.4 8H13M3 8H1.6M12.5 3.5l-1 1M4.5 11.5l-1 1M12.5 12.5l-1-1M4.5 4.5l-1-1" />
         </g>

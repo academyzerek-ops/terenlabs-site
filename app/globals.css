@@ -30,6 +30,7 @@
   --color-drop: #141414;       /* «дно» объёмной кнопки */
   --color-panel-bg: rgba(32, 32, 32, 0.9);   /* подложка панели */
   --color-panel-bg-2: rgba(25, 25, 25, 0.9); /* панель внутри серой секции */
+  --shadow-fab: 0 4px 18px rgba(0, 0, 0, 0.45); /* круглая кнопка TEREN-AI */
   --color-link-hover: #7ab8de; /* ссылка под курсором */
   --color-scroll: rgba(255, 255, 255, 0.14); /* полоса прокрутки */
   --color-scroll-2: rgba(255, 255, 255, 0.22);
@@ -130,6 +131,7 @@
   --color-drop: #d8d6d1;
   --color-panel-bg: #f7f7f5;
   --color-panel-bg-2: #f1f0ee;
+  --shadow-fab: 0 4px 14px rgba(0, 0, 0, 0.16);
   --color-link-hover: #12558f;
   --color-scroll: rgba(0, 0, 0, 0.18);
   --color-scroll-2: rgba(0, 0, 0, 0.28);
