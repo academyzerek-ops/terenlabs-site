@@ -36,7 +36,7 @@ const I = {
 
 function Icon({ d }: { d: React.ReactNode }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px] shrink-0 lg:h-4 lg:w-4">
       {d}
     </svg>
   );
@@ -148,7 +148,7 @@ export function Sidebar({
         href={it.href}
         onClick={onClose}
         aria-current={active ? "page" : undefined}
-        className={`flex items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors ${dense ? "h-[30px]" : "h-[32px]"} ${
+        className={`flex items-center gap-2.5 rounded-[6px] px-2 text-[16px] transition-colors lg:text-[14px] ${dense ? "h-11 lg:h-[30px]" : "h-11 lg:h-[32px]"} ${
           active ? "bg-hover font-medium text-ink" : "text-text-2 hover:bg-subtle hover:text-ink"
         }`}
       >
@@ -161,15 +161,15 @@ export function Sidebar({
   return (
     <>
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-[272px] shrink-0 flex-col bg-panel transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-[min(88vw,340px)] shrink-0 flex-col bg-panel transition-transform duration-200 lg:sticky lg:top-0 lg:w-[272px] lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Навигация по сайту"
       >
         {/* верх: логотип и действия */}
-        <div className="flex h-12 items-center justify-between px-3 pt-1">
-          <Link href="/" onClick={onClose} className="flex items-center gap-2 rounded-[6px] px-1.5 py-1 text-[14px] font-semibold text-ink hover:bg-subtle">
-            <span className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-ink text-[11px] font-bold text-page">T</span>
+        <div className="flex h-12 items-center justify-between px-4 pt-1 lg:px-3">
+          <Link href="/" onClick={onClose} className="flex items-center gap-2 rounded-[6px] px-1.5 py-1 text-[16px] font-semibold text-ink hover:bg-subtle lg:text-[14px]">
+            <span className="flex h-6 w-6 items-center justify-center rounded-[4px] bg-ink text-[12px] font-bold text-page lg:h-5 lg:w-5 lg:text-[11px]">T</span>
             TerenLabs
           </Link>
           <div className="flex items-center gap-0.5">
@@ -181,20 +181,20 @@ export function Sidebar({
         </div>
 
         {/* поиск */}
-        <div className="px-3 pt-1">
+        <div className="px-4 pt-1 lg:px-3">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
-            className="flex h-8 w-full items-center gap-2 rounded-[8px] border border-line px-2 text-[14px] text-faint transition-colors hover:bg-subtle hover:text-text-2"
+            className="flex h-11 w-full items-center gap-2 rounded-[8px] border border-line px-3 text-[16px] text-faint transition-colors hover:bg-subtle hover:text-text-2 lg:h-8 lg:px-2 lg:text-[14px]"
           >
             <Icon d={I.search} />
             <span className="flex-1 text-left">Найти</span>
-            <kbd className="rounded-[4px] bg-hover px-1.5 py-0.5 text-[11px] text-faint">⌘K</kbd>
+            <kbd className="hidden rounded-[4px] bg-hover px-1.5 py-0.5 text-[11px] text-faint lg:block">⌘K</kbd>
           </button>
         </div>
 
         {/* вкладки: активная с подписью, остальные значком, как в Notion */}
-        <div className="flex items-center gap-1 px-3 pt-3">
+        <div className="flex items-center gap-1 px-4 pt-3 lg:px-3">
           {TABS.map((t) => {
             const active = tab === t.id;
             return (
@@ -204,8 +204,8 @@ export function Sidebar({
                 onClick={() => setTab(t.id)}
                 aria-pressed={active}
                 title={t.label}
-                className={`flex h-8 items-center gap-2 rounded-[7px] text-[14px] transition-colors ${
-                  active ? "bg-hover px-2.5 font-medium text-ink" : "w-8 justify-center text-faint hover:bg-subtle hover:text-ink"
+                className={`flex h-10 items-center gap-2 rounded-[7px] text-[15px] transition-colors lg:h-8 lg:text-[14px] ${
+                  active ? "bg-hover px-3 font-medium text-ink lg:px-2.5" : "w-10 justify-center text-faint hover:bg-subtle hover:text-ink lg:w-8"
                 }`}
               >
                 <Icon d={t.icon} />
@@ -220,10 +220,10 @@ export function Sidebar({
             <SidebarDiary onNavigate={onClose} />
           </nav>
         ) : tab === "about" ? (
-          <nav className="min-h-0 flex-1 overflow-y-auto px-3 pb-3 pt-4">
+          <nav className="min-h-0 flex-1 overflow-y-auto px-4 pb-3 pt-4 lg:px-3">
             {ABOUT.map((g) => (
               <div key={g.title} className="mb-4">
-                <p className="px-2 pb-1 text-[12px] font-medium text-faint">{g.title}</p>
+                <p className="px-2 pb-1 text-[13px] font-medium text-faint lg:text-[12px]">{g.title}</p>
                 <div className="flex flex-col gap-px">{g.items.map((it) => row(it, true))}</div>
               </div>
             ))}
@@ -243,7 +243,7 @@ export function Sidebar({
                     rel="noopener noreferrer"
                     aria-label={s.label}
                     title={s.label}
-                    className="flex h-8 w-8 items-center justify-center rounded-[6px] text-faint transition-colors hover:bg-subtle hover:text-ink"
+                    className="flex h-10 w-10 items-center justify-center rounded-[6px] text-faint transition-colors hover:bg-subtle hover:text-ink lg:h-8 lg:w-8"
                   >
                     <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       {s.icon}
@@ -254,7 +254,7 @@ export function Sidebar({
                   href="mailto:info@terenlabs.kz"
                   aria-label="Почта"
                   title="info@terenlabs.kz"
-                  className="flex h-8 w-8 items-center justify-center rounded-[6px] text-faint transition-colors hover:bg-subtle hover:text-ink"
+                  className="flex h-10 w-10 items-center justify-center rounded-[6px] text-faint transition-colors hover:bg-subtle hover:text-ink lg:h-8 lg:w-8"
                 >
                   <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="1.9" y="3.9" width="12.2" height="8.2" rx="1.4" />
@@ -270,14 +270,14 @@ export function Sidebar({
         ) : (
         <>
         {/* быстрые разделы */}
-        <div className="flex flex-col gap-px px-3 pt-3">{QUICK.map((it) => row(it))}</div>
+        <div className="flex flex-col gap-px px-4 pt-3 lg:px-3">{QUICK.map((it) => row(it))}</div>
 
         {/* группы */}
-        <nav className="min-h-0 flex-1 overflow-y-auto px-3 pb-3 pt-4">
+        <nav className="min-h-0 flex-1 overflow-y-auto px-4 pb-3 pt-4 lg:px-3">
           {resume && (
             <div className="mb-4">
-              <p className="px-2 pb-1 text-[12px] font-medium text-faint">Продолжить</p>
-              <Link href={`/learn/${resume.slug}?ch=${resume.stepId}`} onClick={onClose} className="flex items-start gap-2.5 rounded-[6px] px-2 py-1.5 text-[14px] text-text-2 transition-colors hover:bg-subtle hover:text-ink">
+              <p className="px-2 pb-1 text-[13px] font-medium text-faint lg:text-[12px]">Продолжить</p>
+              <Link href={`/learn/${resume.slug}?ch=${resume.stepId}`} onClick={onClose} className="flex items-start gap-2.5 rounded-[6px] px-2 py-2 text-[16px] text-text-2 transition-colors hover:bg-subtle hover:text-ink lg:py-1.5 lg:text-[14px]">
                 <span className="mt-[3px] text-orange"><Icon d={I.book} /></span>
                 <span className="min-w-0">
                   <span className="block truncate text-ink">{resume.stepTitle || resume.title}</span>
@@ -288,7 +288,7 @@ export function Sidebar({
           )}
           {GROUPS.map((g) => (
             <div key={g.title} className="mb-4">
-              <p className="px-2 pb-1 text-[12px] font-medium text-faint">{g.title}</p>
+              <p className="px-2 pb-1 text-[13px] font-medium text-faint lg:text-[12px]">{g.title}</p>
               <div className="flex flex-col gap-px">{g.items.map((it) => row(it, true))}</div>
             </div>
           ))}
@@ -299,7 +299,7 @@ export function Sidebar({
         {/* Низ: только круглая кнопка TEREN-AI. Строка аккаунта отсюда убрана:
             она дублировала пункт «Кабинет» в быстрых ссылках, а неавторизованный
             попадает на вход тем же пунктом — на странице кабинета есть «Войти». */}
-        <div className="flex justify-end px-3 pb-3">
+        <div className="flex justify-end px-4 pb-3 lg:px-3">
           <AskButton open={chatOpen} onToggle={onToggleChat} />
         </div>
       </aside>
