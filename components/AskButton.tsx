@@ -18,9 +18,9 @@ export function AskButton({ open, onToggle }: { open: boolean; onToggle: () => v
       aria-label="Спросить TEREN-AI"
       aria-pressed={open}
       title="Спросить TEREN-AI"
-      className={`flex h-12 w-12 items-center justify-center rounded-full transition-transform duration-200 hover:scale-[1.06] active:scale-95 ${
-        open ? "bg-hover text-ink" : "bg-ink text-page shadow-[var(--shadow-fab)]"
-      }`}
+      // Кнопка выглядит одинаково открытой и закрытой: на светлой теме чёрный круг
+      // с белой акулой, на тёмной наоборот. Что чат открыт, видно по самой колонке.
+      className="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-page shadow-[var(--shadow-fab)] transition-transform duration-200 hover:scale-[1.06] active:scale-95"
     >
       <SharkMark size={32} />
     </button>
