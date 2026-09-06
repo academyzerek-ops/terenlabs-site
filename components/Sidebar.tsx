@@ -6,6 +6,8 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { getOceanName, getOceanToken } from "@/lib/ocean";
 import { getProgress, type CourseProgress } from "@/lib/memory";
 import { CommandSearch } from "./CommandSearch";
+import { SidebarDiary } from "./SidebarDiary";
+import { SidebarAsk } from "./SidebarAsk";
 
 // Боковая панель как в Notion: поиск, быстрые разделы, группы ссылок серыми
 // заголовками, внизу аккаунт. На десктопе заменяет верхнюю шапку; на мобиле
@@ -28,6 +30,8 @@ const I = {
   doc: <path d="M4 2.5h5l3 3v8H4zM9 2.5v3h3M6 9h4M6 11.5h4" />,
   search: <path d="M7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10zM10.5 10.5 14 14" />,
   panel: <path d="M2.5 3.5h11v9h-11zM6 3.5v9" />,
+  calendar: <path d="M2.5 4h11v9.5h-11zM2.5 7h11M5.5 2.5v3M10.5 2.5v3" />,
+  info: <path d="M8 2.4a5.6 5.6 0 1 0 0 11.2 5.6 5.6 0 0 0 0-11.2M8 7.2v3.6M8 5.2v.1" />,
 };
 
 function Icon({ d }: { d: React.ReactNode }) {
@@ -38,8 +42,9 @@ function Icon({ d }: { d: React.ReactNode }) {
   );
 }
 
+// «Главная» из списка убрана: на неё ведут логотип сверху и вкладка с тем же
+// именем, три одинаковых слова в одной панели читались как ошибка.
 const QUICK: Item[] = [
-  { label: "Главная", href: "/", icon: I.home, match: (p) => p === "/" },
   { label: "Океан", href: "/levels", icon: I.wave, match: (p) => p.startsWith("/levels") || p.startsWith("/ocean") },
   { label: "Кабинет", href: "/dashboard", icon: I.user, match: (p) => p.startsWith("/dashboard") },
 ];
@@ -64,7 +69,35 @@ const GROUPS: { title: string; items: Item[] }[] = [
   },
 ];
 
+// Вторая вкладка: то, что нужно редко, но должно быть под рукой.
+const ABOUT: { title: string; items: Item[] }[] = [
+  {
+    title: "О проекте",
+    items: [
+      { label: "О компании", href: "/about", icon: I.info },
+      { label: "Открытая библиотека", href: "/free", icon: I.book },
+      { label: "Связь с нами", href: "/contacts", icon: I.doc },
+    ],
+  },
+  {
+    title: "Правила",
+    items: [
+      { label: "Соглашение", href: "/legal/offer", icon: I.doc },
+      { label: "Конфиденциальность", href: "/legal/privacy", icon: I.doc },
+    ],
+  },
+];
+
+type Tab = "home" | "diary" | "about";
+
+const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
+  { id: "home", label: "Главная", icon: I.home },
+  { id: "diary", label: "Дневник", icon: I.calendar },
+  { id: "about", label: "О проекте", icon: I.info },
+];
+
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [tab, setTab] = useState<Tab>("home");
   const pathname = usePathname();
   const sp = useSearchParams();
   const type = sp.get("type");
@@ -139,6 +172,46 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           </button>
         </div>
 
+        {/* вкладки: активная с подписью, остальные значком, как в Notion */}
+        <div className="flex items-center gap-1 px-3 pt-3">
+          {TABS.map((t) => {
+            const active = tab === t.id;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setTab(t.id)}
+                aria-pressed={active}
+                title={t.label}
+                className={`flex h-8 items-center gap-2 rounded-[7px] text-[14px] transition-colors ${
+                  active ? "bg-hover px-2.5 font-medium text-ink" : "w-8 justify-center text-faint hover:bg-subtle hover:text-ink"
+                }`}
+              >
+                <Icon d={t.icon} />
+                {active && <span>{t.label}</span>}
+              </button>
+            );
+          })}
+        </div>
+
+        {tab === "diary" ? (
+          <nav className="min-h-0 flex-1 overflow-y-auto pt-3">
+            <SidebarDiary onNavigate={onClose} />
+          </nav>
+        ) : tab === "about" ? (
+          <nav className="min-h-0 flex-1 overflow-y-auto px-3 pb-3 pt-4">
+            {ABOUT.map((g) => (
+              <div key={g.title} className="mb-4">
+                <p className="px-2 pb-1 text-[12px] font-medium text-faint">{g.title}</p>
+                <div className="flex flex-col gap-px">{g.items.map((it) => row(it, true))}</div>
+              </div>
+            ))}
+            <p className="px-2 pt-1 text-[12px] leading-relaxed text-faint">
+              Вся линейка бесплатна. Пишите, если чего-то не хватает: мы читаем каждое сообщение.
+            </p>
+          </nav>
+        ) : (
+        <>
         {/* быстрые разделы */}
         <div className="flex flex-col gap-px px-3 pt-3">{QUICK.map((it) => row(it))}</div>
 
@@ -163,8 +236,11 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             </div>
           ))}
         </nav>
+        </>
+        )}
 
-        {/* низ: аккаунт */}
+        {/* низ: строка к TEREN-AI и аккаунт */}
+        <SidebarAsk />
         <div className="border-t border-line p-2">
           <Link href={name ? "/dashboard" : "/auth/sign-in"} onClick={onClose} className="flex h-10 items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors hover:bg-subtle">
             <span className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-hover text-[12px] font-semibold text-ink">

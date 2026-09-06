@@ -123,8 +123,8 @@ export function NoaChat() {
       }, 24);
     });
 
-  const send = async () => {
-    const question = input.trim();
+  const send = async (preset?: string) => {
+    const question = (preset ?? input).trim();
     if (!question || busy) return;
     setInput("");
     setBusy(true);
@@ -188,6 +188,19 @@ export function NoaChat() {
     }
   };
 
+  // Строка «Спросить TEREN-AI» живёт в боковой панели: она открывает это окно
+  // и сразу отправляет вопрос. Пустая строка просто открывает чат.
+  useEffect(() => {
+    const onAsk = (e: Event) => {
+      const q = (e as CustomEvent<string>).detail?.trim();
+      setOpen(true);
+      if (q) void send(q);
+    };
+    window.addEventListener("teren:ai-ask", onAsk as EventListener);
+    return () => window.removeEventListener("teren:ai-ask", onAsk as EventListener);
+    // send пересоздаётся на каждый рендер, но замыкание нам нужно свежее
+  });
+
   // в плеере курса не показываем — там и так полный экран контента
   if (pathname.startsWith("/learn/") || inTest) return null;
 
@@ -197,7 +210,7 @@ export function NoaChat() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Закрыть TEREN-AI" : "Открыть TEREN-AI"}
-        className="fixed bottom-5 right-5 z-[45] flex h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover"
+        className={`fixed bottom-5 right-5 z-[45] h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover ${open ? "flex" : "flex lg:hidden"}`}
       >
         {open ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
@@ -215,7 +228,7 @@ export function NoaChat() {
       {open && (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-card shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[10px] sm:border sm:border-line-2"
+          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-[#202020] shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[12px] sm:border sm:border-line-2"
           role="dialog"
           aria-modal="true"
           aria-label="Чат TEREN-AI"
