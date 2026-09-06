@@ -8,7 +8,11 @@ import { plural } from "@/lib/content";
 // Обложки треков в стиле «тушь» (public/academy-assets/tracks). Пока обложки нет,
 // превью рисуется как лист документа с названием и первыми уроками.
 const TRACK_COVER: Record<string, string> = Object.fromEntries(
-  ["fundament", "architect", "management", "marketing", "finance", "legal", "models", "startup"].map((k) => [
+  [
+    "fundament", "architect", "management", "marketing", "finance", "legal", "models", "startup",
+    // темы блока «Фаундер»
+    "founder-team", "founder-market", "founder-model", "founder-unit", "founder-pitch", "founder-invest",
+  ].map((k) => [
     `course-${k}`,
     `/academy-assets/tracks/track-${k}.webp?v=6`,
   ])
