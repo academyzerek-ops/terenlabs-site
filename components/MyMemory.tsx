@@ -44,7 +44,7 @@ export function MyMemory() {
       {/* продолжить обучение — реальное место в плеере; метрики памяти живут
           чипами в шапке секции, а не отдельными плитками на полэкрана */}
       {hasCourses && (
-      <section className="mt-10">
+      <section className="mt-6 sm:mt-10">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <h2 className="text-[20px]">Продолжить обучение</h2>
           <div className="flex flex-wrap gap-2">
@@ -96,7 +96,7 @@ export function MyMemory() {
 
       {/* попытки тестов — только когда они есть */}
       {hasAttempts && (
-      <section className="mt-10">
+      <section className="mt-6 sm:mt-10">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <h2 className="text-[20px]">Мои попытки</h2>
           {!hasCourses && (

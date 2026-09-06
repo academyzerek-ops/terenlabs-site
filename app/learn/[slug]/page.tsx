@@ -72,17 +72,17 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <div className="min-w-0">
         {/* оглавление показываем только когда рядом с колонкой текста реально есть место:
             при двух боковых панелях 720 + 40 + 220 помещаются лишь от 2xl */}
-        <div className="mx-auto grid w-full max-w-[1040px] gap-10 px-5 py-10 sm:px-8 lg:py-14 2xl:grid-cols-[minmax(0,720px)_220px] 2xl:gap-10">
+        <div className="mx-auto grid w-full max-w-[1040px] gap-6 sm:gap-10 px-5 py-6 sm:py-10 sm:px-8 lg:py-14 2xl:grid-cols-[minmax(0,720px)_220px] 2xl:gap-10">
           <article className="min-w-0 max-w-[720px] 2xl:w-[720px]">
             <p className="eyebrow">{/^Урок\s*\d/i.test(cur.moduleTitle) ? cur.moduleTitle : `Урок ${cur.moduleIndex} · ${cur.moduleTitle}`}</p>
             <h1 className="mt-3 text-[28px] leading-[1.15] sm:text-[36px]">{doc.title || cur.title}</h1>
             <p className="num mt-3 text-[13px] text-faint">
               Глава {cur.chapterIndex} из {cur.chapterCount} · {doc.minutes} мин чтения
             </p>
-            <div className="lesson-content mt-10" dangerouslySetInnerHTML={{ __html: doc.html }} />
+            <div className="lesson-content mt-6 sm:mt-10" dangerouslySetInnerHTML={{ __html: doc.html }} />
 
             {/* дальше по треку */}
-            <div className="mt-14 grid gap-3 border-t border-line pt-8 sm:grid-cols-2">
+            <div className="mt-8 sm:mt-14 grid gap-3 border-t border-line pt-8 sm:grid-cols-2">
               {prev ? (
                 <Link href={`/learn/${slug}?ch=${prev.file}`} className="card-premium flex flex-col gap-1 p-4">
                   <span className="text-[12px] text-faint">Назад</span>

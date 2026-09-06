@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </Container>
         </section>
 
-        <section className="py-12">
+        <section className="py-7 sm:py-12">
           <Container>
             <div className="mx-auto w-full max-w-[800px]">
               <ModelBody model={body} />
@@ -101,7 +101,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </section>
 
         {brands.length > 0 && (
-          <section className="border-t border-line py-12">
+          <section className="border-t border-line py-7 sm:py-12">
             <Container>
               <div className="mx-auto w-full max-w-[800px]">
                 <h2 className="text-[20px] sm:text-[24px]">У кого это видно</h2>
@@ -141,7 +141,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </section>
         )}
 
-        <section className="border-t border-line bg-subtle py-16">
+        <section className="border-t border-line bg-subtle py-9 sm:py-16">
           <Container>
             <div className="mx-auto grid max-w-[800px] gap-8 lg:grid-cols-2">
               <div>

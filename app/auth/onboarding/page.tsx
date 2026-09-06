@@ -53,7 +53,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <Container className="flex min-h-[70vh] items-center justify-center py-16">
+    <Container className="flex min-h-[70vh] items-center justify-center py-9 sm:py-16">
       <div className="panel w-full max-w-sm p-6 sm:p-7">
         <p className="eyebrow">Океан · полминуты</p>
         <h1 className="mt-2 text-[22px] sm:text-[24px]">Как к тебе обращаться?</h1>

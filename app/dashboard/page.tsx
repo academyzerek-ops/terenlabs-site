@@ -19,7 +19,7 @@ export default async function Dashboard() {
   };
 
   return (
-    <Container className="py-12">
+    <Container className="py-7 sm:py-12">
       <CabinetHeader
         sessionName={session?.user?.name ?? null}
         sessionImage={session?.user?.image ?? null}
@@ -28,14 +28,6 @@ export default async function Dashboard() {
 
       <OceanAccount nextAuthActive={!!session} googleReady={providersConfigured.google} googleAction={doGoogle} />
 
-      {/* мост в Mini App: тот же аккаунт, прогресс общий */}
-      <p className="mt-8 text-[13px] text-faint">
-        С телефона удобнее в{" "}
-        <a href="https://t.me/terenlabs_bot" target="_blank" rel="noopener" className="link">
-          Mini App в Telegram
-        </a>
-        , аккаунт и прогресс общие.
-      </p>
 
       <MyMemory />
     </Container>

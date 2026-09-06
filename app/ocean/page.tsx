@@ -32,13 +32,13 @@ export default function OceanPage() {
       </section>
 
       <section className="deck">
-        <Container className="py-12">
+        <Container className="py-7 sm:py-12">
           <OceanLeaderboard />
         </Container>
       </section>
 
       <section className="border-t border-line">
-        <Container className="py-16">
+        <Container className="py-9 sm:py-16">
           <p className="eyebrow">Механика</p>
           <h2 className="mt-3 text-[24px]">Как считается место</h2>
           <div className="mt-6 max-w-[860px]">
@@ -55,7 +55,7 @@ export default function OceanPage() {
             <div className="border-t border-line" />
           </div>
 
-          <div className="mt-10 flex flex-col gap-4 rounded-[8px] border border-line bg-subtle p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-6 sm:mt-10 flex flex-col gap-4 rounded-[8px] border border-line bg-subtle p-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="text-[20px]">Хочешь в таблицу?</h3>
               <p className="mt-1 text-[14px] text-text-2">

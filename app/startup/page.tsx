@@ -56,7 +56,7 @@ export default function StartupPage() {
 
       {/* программа: темы отдельными треками */}
       <section id="trek" className="border-b border-line">
-        <Container className="py-16">
+        <Container className="py-9 sm:py-16">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
             <h2 className="text-[20px] sm:text-[24px]">Программа</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
@@ -70,7 +70,7 @@ export default function StartupPage() {
               <TrackCards tracks={tracks} />
             </div>
           )}
-          <div className="mt-10">
+          <div className="mt-6 sm:mt-10">
             {tracks.map((t, i) => {
               const desc = PROGRAM[i]?.[2] ?? t.subtitle;
               return (
@@ -94,7 +94,7 @@ export default function StartupPage() {
 
       {/* модели + разборы */}
       <section className="border-b border-line">
-        <Container className="py-16"><div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
+        <Container className="py-9 sm:py-16"><div className="panel grid gap-7 sm:gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Бизнес-модели</p>
             <h2 className="text-[20px] sm:text-[24px]">Справочник моделей заработка</h2>
@@ -125,7 +125,7 @@ export default function StartupPage() {
             </div>
           </div>
 
-          <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
+          <div className="grid min-w-0 gap-4 border-t border-line pt-7 lg:border-t-0 lg:pt-0 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Разборы брендов</p>
             <h2 className="text-[20px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
@@ -134,9 +134,12 @@ export default function StartupPage() {
             <div className="min-w-0 self-start">
               {brands.map((b) => (
                 <Link key={b.slug} href={b.href} className="row-hover flex items-center justify-between gap-4 border-t border-line py-3 text-[15px]">
-                  <span className="truncate text-body">{b.title}</span>
+                  {/* на телефоне заголовок переносится, а слово «Читать» уходит:
+                      строка целиком и так ссылка, стрелки достаточно */}
+                  <span className="min-w-0 text-body">{b.title}</span>
                   <span className="link shrink-0 text-[14px]">
-                    Читать <Arrow />
+                    <span className="hidden sm:inline">Читать </span>
+                    <Arrow />
                   </span>
                 </Link>
               ))}
@@ -153,7 +156,7 @@ export default function StartupPage() {
 
       {/* связь с Океаном */}
       <section>
-        <Container className="grid gap-8 py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
+        <Container className="grid gap-8 py-9 sm:py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
           <div>
             <p className="eyebrow">Океан</p>
             <h2 className="mt-3 text-[20px] sm:text-[24px]">Этот трек ведёт к Киту</h2>

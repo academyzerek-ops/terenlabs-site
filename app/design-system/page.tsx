@@ -278,7 +278,7 @@ export default function DesignSystem() {
         ))}
         <div className="border-t border-line" />
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+        <div className="mt-6 sm:mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
           <div>
             <p className="eyebrow">Пара «ключ · значение»</p>
             <div className="mt-3 max-w-[460px]">
@@ -359,7 +359,7 @@ export default function DesignSystem() {
 function Section({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
   return (
     <section className="border-t border-line">
-      <Container className="py-14">
+      <Container className="py-8 sm:py-14">
         <h2 className="text-[24px]">{title}</h2>
         {hint && <p className="mt-2 max-w-[72ch] text-[15px] leading-relaxed text-text-2">{hint}</p>}
         <div className="mt-8">{children}</div>

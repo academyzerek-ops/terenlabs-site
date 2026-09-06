@@ -51,7 +51,7 @@ export default function Page() {
         </p>
       </Container>
 
-      <Container className="pb-20">
+      <Container className="pb-10 sm:pb-20">
         <div className="hidden grid-cols-[220px_minmax(0,1fr)_120px] gap-6 pb-2 text-[12px] font-medium text-text-2 sm:grid">
           <span>Раздел</span>
           <span>Что внутри</span>
@@ -72,7 +72,7 @@ export default function Page() {
         ))}
         <div className="border-t border-line" />
 
-        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <div className="mt-6 sm:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
           {/* ведём на тропу, а не в один тест: у Ракушки их теперь три */}
           <Button href="/tests" size="lg">
             Начать с теста <Arrow />

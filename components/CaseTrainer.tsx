@@ -63,7 +63,7 @@ export function CaseTrainer() {
         </div>
 
         {/* Разбор пути */}
-        <h2 className="mt-12 text-[24px]">
+        <h2 className="mt-7 sm:mt-12 text-[24px]">
           Разбор решений <span className="num ml-1 text-[14px] font-normal text-faint">{log.length}</span>
         </h2>
         <ol className="mt-5">

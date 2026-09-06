@@ -39,14 +39,14 @@ const PRECEPTS = [
 export function PreceptsSection() {
   return (
     <section className="border-y border-line bg-subtle">
-      <Container className="py-20">
+      <Container className="py-10 sm:py-20">
         <SectionHeading
           number="03"
           title="5 наставлений"
           desc="То, о чём молчат инфобизнесмены. Без этих блоков любой бизнес-план — опасная иллюзия."
         />
 
-        <div className="mt-10">
+        <div className="mt-6 sm:mt-10">
           {PRECEPTS.map((p, i) => (
             <div
               key={p.title}

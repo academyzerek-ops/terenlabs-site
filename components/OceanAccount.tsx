@@ -180,7 +180,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
       </div>
 
       {/* уровень и цифры одной тонкой строкой: панель, 4 ячейки через линии */}
-      <div className="panel mt-4 grid sm:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
+      <div className="panel cells mt-4 grid sm:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
         <div className="flex items-start gap-4 px-5 py-4">
           <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={44} className="shrink-0 text-ink" />
           <div className="min-w-0">
@@ -191,7 +191,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
             )}
           </div>
         </div>
-        <Link href="/ocean" className="flex flex-col justify-start px-5 py-4 transition-colors hover:bg-subtle lg:border-l lg:border-line">
+        <Link href="/ocean" className="flex flex-col justify-start px-5 py-4 transition-colors hover:bg-subtle">
           <div className="text-[12px] text-faint">место в океане</div>
           <div className="num text-[20px] font-semibold leading-tight text-ink">
             {rank?.rank ? `#${rank.rank}` : "—"}
@@ -370,7 +370,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
         </button>
         {linkCode && (
           <span className="num rounded-[6px] bg-subtle px-3 py-1.5 text-ink">
-            код <strong>{linkCode}</strong>, введи в Mini App за 10 минут
+            код <strong>{linkCode}</strong>, введи в боте за 10 минут
           </span>
         )}
 
@@ -415,7 +415,7 @@ function StatCell({ label, value, sub }: { label: string; value: string; sub?: s
 
 function Cell({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="flex flex-col justify-start px-5 py-4 lg:border-l lg:border-line">
+    <div className="flex flex-col justify-start px-5 py-4">
       <div className="text-[12px] text-faint">{label}</div>
       <div className="num text-[20px] font-semibold leading-tight text-ink">{value}</div>
       {sub && <div className="mt-0.5 truncate text-[12px] text-text-2">{sub}</div>}

@@ -133,14 +133,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </Container>
         </section>
 
-        <section className="py-12">
+        <section className="py-7 sm:py-12">
           <Container>
             <article className="brand-content" dangerouslySetInnerHTML={{ __html: doc.body }} />
           </Container>
         </section>
 
         {chapters.length > 0 && (
-          <section className="border-t border-line py-12">
+          <section className="border-t border-line py-7 sm:py-12">
             <Container>
               <div className="mx-auto max-w-[800px]">
                 <h2 className="text-[22px] sm:text-[24px]">Где это в курсе</h2>
@@ -166,7 +166,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         )}
 
         {models.length > 0 && (
-          <section className="border-t border-line py-12">
+          <section className="border-t border-line py-7 sm:py-12">
             <Container>
               <div className="mx-auto max-w-[800px]">
                 <h2 className="text-[22px] sm:text-[24px]">Из каких моделей собран поток</h2>
@@ -193,7 +193,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         )}
 
         {more.length > 0 && (
-          <section className="border-t border-line bg-subtle py-16">
+          <section className="border-t border-line bg-subtle py-9 sm:py-16">
             <Container>
               <div className="mx-auto max-w-[800px]">
                 <h2 className="text-[22px] sm:text-[24px]">Дальше читать</h2>

@@ -107,7 +107,7 @@ export function TestPath() {
   return (
     <div>
       {/* как устроен путь + общий прогресс */}
-      <div className="panel panel-split mb-10 grid gap-0 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="panel panel-split mb-6 sm:mb-10 grid gap-0 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="p-6 sm:p-8">
           <p className="section-label">Как устроен путь</p>
           <ul className="mt-4 grid gap-2.5">
@@ -170,7 +170,7 @@ export function TestPath() {
                 )}
               </span>
 
-              <div className="pb-12 pt-6">
+              <div className="pb-7 sm:pb-12 pt-6">
                 {/* шапка уровня */}
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <h2 className={`text-[20px] sm:text-[22px] ${open ? "text-ink" : "text-faint"}`}>{s.name}</h2>

@@ -237,7 +237,7 @@ export function ModelKapkan({ model }: { model: ModelCard }) {
 
 export function ModelBody({ model }: { model: ModelCard }) {
   return (
-    <div className="grid gap-12">
+    <div className="grid gap-7 sm:gap-12">
       <ModelFlow model={model} />
       {model.blocks.map((b, i) => (
         <Block key={i} block={b} />

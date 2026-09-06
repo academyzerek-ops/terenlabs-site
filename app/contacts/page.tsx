@@ -16,7 +16,7 @@ export default function Page() {
         </p>
       </Container>
 
-      <Container className="border-t border-line pb-20 pt-10">
+      <Container className="border-t border-line pb-10 sm:pb-20 pt-6 sm:pt-10">
         <p className="mb-8 max-w-[64ch] text-[15px] leading-relaxed text-text-2">
           Выберите, о чём хотите написать, и опишите коротко. Заявка попадёт напрямую команде — мы
           отвечаем на всё по существу. Быстрее всего — написать боту{" "}

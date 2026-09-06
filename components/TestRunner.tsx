@@ -115,11 +115,11 @@ export function TestRunner({
 
         {/* разбор ошибок — как в Mini App: только промахи */}
         {mistakes.length > 0 && (
-          <div className="mx-auto mt-14 max-w-2xl">
+          <div className="mx-auto mt-8 sm:mt-14 max-w-2xl">
             <h2 className="text-[24px]">
               Разбор ошибок <span className="num ml-1 text-[14px] font-normal text-faint">{mistakes.length}</span>
             </h2>
-            <div className="mt-6 flex flex-col gap-10">
+            <div className="mt-6 flex flex-col gap-6 sm:gap-10">
               {mistakes.map((m) => (
                 <div key={m.i}>
                   <p className="eyebrow">Вопрос {m.i + 1}</p>

@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
     return (
       <>
         <LevelHero lvl={lvl} />
-        <Container className="pb-20">
+        <Container className="pb-10 sm:pb-20">
           <div className="max-w-[560px] rounded-[8px] border border-dashed border-line-2 p-8">
             <p className="eyebrow">Уровень закрыт</p>
             <h2 className="mt-3 text-[20px]">Откроется после предыдущего</h2>
@@ -66,9 +66,9 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
     <>
       <LevelHero lvl={lvl} cta={firstTest ? { href: firstTest.href, label: `Пройти тест: ${firstTest.title}` } : undefined} />
 
-      <Container className="pb-20">
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
-          <div className="flex flex-col gap-14">
+      <Container className="pb-10 sm:pb-20">
+        <div className="grid gap-8 sm:gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+          <div className="flex flex-col gap-8 sm:gap-14">
             <Block
               title="Тесты уровня"
               count={items.tests.length}

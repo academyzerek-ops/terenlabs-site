@@ -28,14 +28,14 @@ const FAQ_INDFM = [
   { q: "Кто делает модель?", a: "Финансовые эксперты с опытом Big 4, вручную по международному стандарту FAST." },
   { q: "Под какие проекты?", a: "Любой сложности и отрасли: SaaS, производство, строительство и др." },
   { q: "Сколько стоит и какие сроки?", a: "От $100 — зависит от сложности и объёма. Сроки обсуждаем после брифа." },
-  { q: "Как заказать?", a: "Оставляете заявку в Mini App — эксперт связывается в Telegram и уточняет детали." },
+  { q: "Как заказать?", a: "Оставляете заявку на сайте — эксперт связывается в Telegram и уточняет детали." },
 ];
 
 // «Формат» — по типу продукта: у финпродуктов нет ни рангов, ни кабинета,
 // показывать им океанские строки — ляп (Адиль 18.07)
 const FORMAT_BY_TYPE: Record<string, string[]> = {
   finmodel: [
-    "Бесплатно — сборка в Mini App @terenlabs_bot",
+    "Бесплатно — сборка в боте @terenlabs_bot",
     "Результат остаётся у тебя (документ/таблица)",
     "Считаем по твоим цифрам, не по шаблонным",
   ],
@@ -65,8 +65,8 @@ export function ProductPage({ p }: { p: Product }) {
       : p.stub
       ? // ещё не открыто — «смотреть другие» вместо обещания
         { href: "/catalog?type=finmodel", label: "Скоро — смотреть другие" }
-      : // бесплатные финпродукты — сборка в Mini App
-        { href: "https://t.me/terenlabs_bot", label: "Открыть в Mini App" };
+      : // бесплатные финпродукты собираются в боте: своей сборки на сайте пока нет
+        { href: "https://t.me/terenlabs_bot", label: "Открыть в Telegram" };
 
   const formatLines = isPaidFinmodel
     ? [
@@ -94,7 +94,7 @@ export function ProductPage({ p }: { p: Product }) {
             <Link href={t.href} className="hover:text-ink">{t.label}</Link>
           </nav>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+          <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
             <div className="min-w-0">
               <p className="eyebrow">{t.label} · {p.topic} · {p.stage}</p>
               <h1 className="mt-4 max-w-[20ch] text-[24px] sm:text-[38px]">{p.title}</h1>
@@ -131,8 +131,8 @@ export function ProductPage({ p }: { p: Product }) {
       </section>
 
       {/* Тело */}
-      <Container className="grid gap-12 py-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-        <div className="flex flex-col gap-14">
+      <Container className="grid gap-7 sm:gap-12 py-8 sm:py-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+        <div className="flex flex-col gap-8 sm:gap-14">
           {isPaidFinmodel && (
             <section id="zayavka" className="scroll-mt-24">
               <h2 className="text-[20px]">Оставить заявку</h2>

@@ -54,7 +54,7 @@ export default function DeloPage() {
 
       {/* Академия: треки списком */}
       <section id="akademiya" className="border-b border-line">
-        <Container className="py-16">
+        <Container className="py-9 sm:py-16">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
             <h2 className="text-[24px] sm:text-[20px]">Академия</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
@@ -70,7 +70,7 @@ export default function DeloPage() {
 
       {/* Бизнес-модели + кейсы */}
       <section className="border-b border-line">
-        <Container className="py-16"><div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
+        <Container className="py-9 sm:py-16"><div className="panel grid gap-7 sm:gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Бизнес-модели</p>
             <h2 className="text-[20px] sm:text-[24px]">Решётка: какую модель выбрать для своей точки</h2>
@@ -90,7 +90,7 @@ export default function DeloPage() {
             </div>
           </div>
 
-          <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
+          <div className="grid min-w-0 gap-4 border-t border-line pt-7 lg:border-t-0 lg:pt-0 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Кейсы</p>
             <h2 className="text-[20px] sm:text-[24px]">Где чужие деньги уже сгорели</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
@@ -115,7 +115,7 @@ export default function DeloPage() {
 
       {/* Ниши */}
       <section>
-        <Container className="py-16">
+        <Container className="py-9 sm:py-16">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
             <h2 className="text-[24px] sm:text-[20px]">Ниши: обзоры рынка</h2>
             <p className="text-[15px] leading-relaxed text-text-2">

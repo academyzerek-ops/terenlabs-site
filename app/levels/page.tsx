@@ -31,7 +31,7 @@ export default function LevelsPage() {
 
       </Container>
 
-      <Container className="grid gap-12 pb-20 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <Container className="grid gap-7 sm:gap-12 pb-10 sm:pb-20 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         {/* реестр уровней */}
         <div>
           <div className="hidden grid-cols-[56px_minmax(0,1fr)_96px] gap-5 pb-2 text-[12px] font-medium text-text-2 sm:grid">
@@ -92,7 +92,7 @@ export default function LevelsPage() {
       </Container>
 
       <section className="border-t border-line">
-        <Container className="py-16">
+        <Container className="py-9 sm:py-16">
           <p className="eyebrow">Механика</p>
           <h2 className="mt-3 text-[20px] sm:text-[24px]">Как считается место</h2>
 

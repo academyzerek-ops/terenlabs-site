@@ -59,7 +59,7 @@ export default function AcademyPage() {
         if (tracks.length === 0) return null;
         return (
           <section key={g.hub} className={i > 0 ? "border-t border-line" : ""}>
-            <Container className="py-14">
+            <Container className="py-8 sm:py-14">
               <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
                 <div>
                   <p className="eyebrow">{g.hub === "delo" ? "Своё дело" : "Проект на рост"}</p>

@@ -20,7 +20,7 @@ export default function Page() {
         </Container>
       </section>
 
-      <Container className="max-w-3xl border-t border-line pb-20 pt-10">
+      <Container className="max-w-3xl border-t border-line pb-10 sm:pb-20 pt-6 sm:pt-10">
         <div className="rounded-[8px] border border-line bg-subtle p-6">
           <p className="eyebrow">Коротко</p>
           <p className="mt-3 text-[15px] leading-relaxed text-body">
@@ -31,13 +31,13 @@ export default function Page() {
           </p>
         </div>
 
-        <div className="mt-10 space-y-8">
+        <div className="mt-6 sm:mt-10 space-y-8">
           <Sec n="1" t="Оператор данных">
             <p>
               Оператором персональных данных выступает проект <strong>TerenLabs</strong>, Республика
-              Казахстан. Сервис предоставляется в виде Telegram Mini App через бота{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>{" "}
-              и веб-сайта TerenLabs. По любым вопросам о данных — контакты в конце страницы.
+              Казахстан. Сервис предоставляется в виде веб-сайта TerenLabs и Telegram-бота{" "}
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>.
+              По любым вопросам о данных — контакты в конце страницы.
             </p>
           </Sec>
 
@@ -175,7 +175,7 @@ export default function Page() {
           </Sec>
         </div>
 
-        <div className="hair my-10" />
+        <div className="hair my-6 sm:my-10" />
         <p className="text-[13px] leading-relaxed text-faint">
           Политика действует с июля 2026 года. Документ носит информационный характер; при
           необходимости условия могут уточняться юридическим сопровождением.

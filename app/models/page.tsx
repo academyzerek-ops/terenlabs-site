@@ -47,7 +47,7 @@ export default function ModelsPage() {
 
       {MODEL_GROUPS.map((g) => (
         <section key={g.key} className="border-b border-line">
-          <Container className="py-12">
+          <Container className="py-7 sm:py-12">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-baseline">
               <h2 className="text-[20px] sm:text-[24px]">
                 <span className="num mr-3 text-[15px] text-faint">{g.key}</span>
@@ -78,7 +78,7 @@ export default function ModelsPage() {
 
       {/* сквозные слои: они не про отдельную модель, а про то, что происходит со всеми */}
       <section className="border-b border-line">
-        <Container className="py-12">
+        <Container className="py-7 sm:py-12">
           <h2 className="text-[20px] sm:text-[24px]">Поверх всех моделей</h2>
           <p className="mt-4 max-w-[62ch] text-[15px] leading-relaxed text-text-2">
             Четыре среза, которые работают в любой модели: чем она привлекает клиента, какими
@@ -102,7 +102,7 @@ export default function ModelsPage() {
       </section>
 
       <section>
-        <Container className="py-16">
+        <Container className="py-9 sm:py-16">
           <p className="eyebrow">Дальше</p>
           <h2 className="mt-3 text-[20px] sm:text-[24px]">Та же механика на живых компаниях</h2>
           <p className="mt-4 max-w-[62ch] text-[15px] leading-relaxed text-text-2">
@@ -116,9 +116,12 @@ export default function ModelsPage() {
                 href={b.href}
                 className="row-hover flex items-center justify-between gap-4 border-t border-line py-3 text-[15px]"
               >
-                <span className="truncate text-body">{b.title}</span>
+                {/* на телефоне заголовок переносится, а слово «Читать» уходит:
+                    строка целиком и так ссылка, стрелки достаточно */}
+                <span className="min-w-0 text-body">{b.title}</span>
                 <span className="link shrink-0 text-[14px]">
-                  Читать <Arrow />
+                  <span className="hidden sm:inline">Читать </span>
+                  <Arrow />
                 </span>
               </Link>
             ))}

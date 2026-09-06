@@ -48,7 +48,7 @@ export default function Home() {
     <>
       {/* ============ HERO ============ */}
       <section>
-        <Container className="grid gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:py-20">
+        <Container className="grid gap-7 sm:gap-12 py-9 sm:py-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:py-20">
           <div className="flex flex-col gap-7">
             <p className="eyebrow">Обучение бизнесу · Казахстан</p>
             <h1 className="max-w-[18ch] text-[32px] sm:text-[40px] lg:text-[44px]">
@@ -166,7 +166,7 @@ export default function Home() {
 
       {/* ============ УЧИМ БИЗНЕСУ ЦЕЛИКОМ ============ */}
       <section>
-        <Container className="py-20">
+        <Container className="py-10 sm:py-20">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
             <h2 className="text-[22px] sm:text-[24px]">Учим бизнесу целиком</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
@@ -175,11 +175,13 @@ export default function Home() {
             </p>
           </div>
           {/* три шага одной сеткой строк: метка, заголовок, текст, ссылка стоят вровень */}
-          <div className="mt-12 grid gap-10 md:grid-cols-3 md:grid-rows-[auto_auto_1fr_auto] md:gap-x-0 md:gap-y-0">
+          <div className="mt-7 sm:mt-12 grid gap-6 sm:gap-10 md:grid-cols-3 md:grid-rows-[auto_auto_1fr_auto] md:gap-x-0 md:gap-y-0">
             {PATH.map((s, i) => (
               <div
                 key={s.title}
-                className={`grid gap-3 md:row-span-4 md:grid-rows-subgrid md:pr-8 ${i > 0 ? "md:border-l md:border-line md:pl-8" : ""}`}
+                className={`grid gap-3 md:row-span-4 md:grid-rows-subgrid md:pr-8 ${
+                  i > 0 ? "border-t border-line pt-6 md:border-t-0 md:border-l md:border-line md:pl-8 md:pt-0" : ""
+                }`}
               >
                 <p className="eyebrow">{s.sub}</p>
                 <h3 className="text-[24px]">{s.title}</h3>
@@ -195,14 +197,14 @@ export default function Home() {
 
       {/* ============ 5 НАСТАВЛЕНИЙ ============ */}
       <section className="border-y border-line bg-subtle">
-        <Container className="py-20">
+        <Container className="py-10 sm:py-20">
           <div className="max-w-[60ch]">
             <h2 className="text-[22px] sm:text-[24px]">5 наставлений, без которых бизнес-план опасен</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-text-2">
               То, о чём молчат инфобизнесмены. Каждый пункт проходит через модули, кейсы и тесты.
             </p>
           </div>
-          <div className="mt-10">
+          <div className="mt-6 sm:mt-10">
             {PRECEPTS.map(([n, t, d]) => (
               <div
                 key={n}
@@ -222,12 +224,12 @@ export default function Home() {
           две колонки одной сеткой строк (subgrid): метка, заголовок, лид,
           таблица на 5 строк с шапкой, ссылка. Всё стоит вровень. */}
       <section>
-        <Container className="py-20">
+        <Container className="py-10 sm:py-20">
           <p className="section-label mb-3">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2.5 13.5h11M4 11V7M7 11V4M10 11V8.5M13 11V6" /></svg>
             Сейчас на платформе
           </p>
-          <div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
+          <div className="panel grid gap-7 sm:gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid min-w-0 gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Фаундер · бизнес-модели</p>
             <h2 className="text-[22px] sm:text-[24px]">Откуда бабки у больших</h2>
@@ -252,7 +254,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid min-w-0 gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
+          <div className="grid min-w-0 gap-4 border-t border-line pt-7 lg:border-t-0 lg:pt-0 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Океан · рейтинг</p>
             <h2 className="text-[22px] sm:text-[24px]">В океане уже идёт гонка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">

@@ -376,6 +376,19 @@ a.card-premium:active { transform: translateY(1px); }
 .panel-half { padding: 40px 44px; }
 @media (max-width: 640px) { .panel-half { padding: 24px 20px; } }
 .panel-ico { width: 48px; height: 48px; color: var(--color-faint); }
+/* Ячейки одной панели: линия между соседями при любом числе колонок. Раньше
+   разделители появлялись только на десктопе, и на телефоне четыре цифры шли
+   сплошным столбиком без единой границы. Раскладка: 1 колонка, 2 от 640, 4 от 1024. */
+.cells > * { border-top: 1px solid var(--color-line); }
+.cells > *:first-child { border-top: 0; }
+@media (min-width: 640px) {
+  .cells > *:nth-child(-n + 2) { border-top: 0; }
+  .cells > *:nth-child(even) { border-left: 1px solid var(--color-line); }
+}
+@media (min-width: 1024px) {
+  .cells > * { border-top: 0; border-left: 1px solid var(--color-line); }
+  .cells > *:first-child { border-left: 0; }
+}
 .section-label {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 13px; font-weight: 500; color: var(--color-text-2);

@@ -136,7 +136,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             })}
             <div className="border-t border-line" />
           </div>
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="mt-6 sm:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href={`/learn/${track.slug}`} size="lg">
               Начать с первой главы <Arrow />
             </Button>

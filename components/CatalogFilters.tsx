@@ -58,7 +58,7 @@ export function CatalogFilters({ type }: { type: string }) {
   if (filters.length <= 1) return null;
 
   return (
-    <div className="mt-6 mb-10 flex flex-wrap items-center gap-2">
+    <div className="mt-6 mb-6 sm:mb-10 flex flex-wrap items-center gap-2">
       {filters.map((f) => {
         const active = currentFilter === f.id;
         return (

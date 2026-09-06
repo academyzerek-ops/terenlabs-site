@@ -17,7 +17,7 @@ export default function BridgeFinish() {
     });
   }, [router]);
   return (
-    <Container className="flex min-h-[60vh] items-center justify-center py-16">
+    <Container className="flex min-h-[60vh] items-center justify-center py-9 sm:py-16">
       <div className="text-center text-[15px] text-text-2">
         {failed ? (
           <>

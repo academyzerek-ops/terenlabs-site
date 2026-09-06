@@ -308,7 +308,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
 
   if (loadError) {
     return (
-      <Container className="py-24">
+      <Container className="py-12 sm:py-24">
         <p className="mx-auto max-w-xl text-[15px] text-ink">Не удалось загрузить вопросы. Обнови страницу.</p>
       </Container>
     );
@@ -341,8 +341,8 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           </h1>
           <p className="mt-5 text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
             {isOpen
-              ? "Отвечаешь развёрнуто, своими словами — TEREN-AI оценивает каждый ответ по рубрике. Итог из 10, попытка идёт в твой рейтинг — тот же зачёт, что в Mini App. Прогресс сохраняется: можно отвлечься и вернуться на тот же вопрос."
-              : "По одному вопросу из каждой темы уровня, варианты перемешаны, пересдача даёт другие вопросы. Подсказок по ходу нет — это не игра в угадайку. Балл и разбор ошибок считает сервер «Океана», попытка идёт в твой рейтинг — тот же зачёт, что в Mini App."}
+              ? "Отвечаешь развёрнуто, своими словами — TEREN-AI оценивает каждый ответ по рубрике. Итог из 10, попытка идёт в твой рейтинг. Прогресс сохраняется: можно отвлечься и вернуться на тот же вопрос."
+              : "По одному вопросу из каждой темы уровня, варианты перемешаны, пересдача даёт другие вопросы. Подсказок по ходу нет — это не угадайка. Балл и разбор ошибок считает сервер «Океана», попытка идёт в твой рейтинг."}
           </p>
           {authed === false ? (
             <>
@@ -425,7 +425,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
 
   if (!questions) {
     return (
-      <Container className="py-24">
+      <Container className="py-12 sm:py-24">
         <p className="mx-auto max-w-xl text-[15px] text-faint">Собираю вопросы из пула…</p>
       </Container>
     );
@@ -434,7 +434,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   // ── сервер считает результат ──
   if (phase === "checking") {
     return (
-      <Container className="py-24">
+      <Container className="py-12 sm:py-24">
         <div className="mx-auto max-w-xl">
           <p className="eyebrow">{meta.title}</p>
           <p className="mt-4 text-[20px] text-ink" role="status" aria-live="polite">
@@ -453,7 +453,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   // ── сеть упала: попытка не потеряна (идемпотентно по client_attempt_id) ──
   if (phase === "submit-error") {
     return (
-      <Container className="py-24">
+      <Container className="py-12 sm:py-24">
         <div className="mx-auto max-w-xl">
           <p className="eyebrow">{meta.title}</p>
           <p className="mt-4 text-[20px] text-ink" role="alert">Сервер не ответил.</p>
@@ -521,7 +521,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
 
         {/* слово наставника: разбор попытки / левел-ап / застревание */}
         {reco && (
-          <div className="mx-auto mt-12 max-w-2xl rounded-[8px] bg-subtle p-5 sm:p-6">
+          <div className="mx-auto mt-7 sm:mt-12 max-w-2xl rounded-[8px] bg-subtle p-5 sm:p-6">
             <p className="eyebrow">TEREN-AI · разбор попытки</p>
             <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-body">{reco}</p>
           </div>
@@ -529,12 +529,12 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
 
         {/* открытый: разбор по рубрике на каждый ответ (как renderOpenReview) */}
         {isOpen && result.review.length > 0 && (
-          <div className="mx-auto mt-14 max-w-2xl">
+          <div className="mx-auto mt-8 sm:mt-14 max-w-2xl">
             <h2 className="text-[24px]">Разбор по кейсам</h2>
             <p className="mt-2 text-[14px] text-text-2">
               ИИ оценил каждый ответ по рубрике — смотри, что раскрыл и чего не хватило.
             </p>
-            <div className="mt-6 flex flex-col gap-10">
+            <div className="mt-6 flex flex-col gap-6 sm:gap-10">
               {result.review.map((r) => {
                 const q = byIdx.get(r.q_idx);
                 return (
@@ -582,11 +582,11 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
         {/* закрытый: разбор ошибок — только промахи, «верно» / «твой ответ».
             Сервер отдаёт исходные индексы — переводим в отображаемые через _orig */}
         {!isOpen && closedMistakes.length > 0 && (
-          <div className="mx-auto mt-14 max-w-2xl">
+          <div className="mx-auto mt-8 sm:mt-14 max-w-2xl">
             <h2 className="text-[24px]">
               Разбор ошибок <span className="num ml-1 text-[14px] font-normal text-faint">{closedMistakes.length}</span>
             </h2>
-            <div className="mt-6 flex flex-col gap-10">
+            <div className="mt-6 flex flex-col gap-6 sm:gap-10">
               {closedMistakes.map((m) => {
                 const q = byIdx.get(m.q_idx);
                 if (!q) return null;
@@ -639,7 +639,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
   const picked = answers[idx];
 
   return (
-    <Container className="py-12">
+    <Container className="py-7 sm:py-12">
       <div className="mx-auto max-w-2xl">
         {/* шапка попытки */}
         <div className="flex items-center justify-between gap-4 text-[13px] text-faint">

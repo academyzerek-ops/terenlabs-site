@@ -21,7 +21,7 @@ export default function Page() {
         </Container>
       </section>
 
-      <Container className="max-w-3xl border-t border-line pb-20 pt-10">
+      <Container className="max-w-3xl border-t border-line pb-10 sm:pb-20 pt-6 sm:pt-10">
         <div className="rounded-[8px] border border-line bg-subtle p-6">
           <p className="eyebrow">Коротко</p>
           <p className="mt-3 text-[15px] leading-relaxed text-body">
@@ -31,13 +31,13 @@ export default function Page() {
           </p>
         </div>
 
-        <div className="mt-10 space-y-8">
+        <div className="mt-6 sm:mt-10 space-y-8">
           <Sec n="1" t="Общие положения">
             <p>
               Настоящее соглашение регулирует использование сервиса <strong>TerenLabs</strong>{" "}
-              (Республика Казахстан), работающего как Telegram Mini App через бота{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>{" "}
-              и как веб-сайт TerenLabs. Начиная пользоваться приложением или сайтом, вы
+              (Республика Казахстан), работающего как веб-сайт TerenLabs и Telegram-бот{" "}
+              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>.
+              Начиная пользоваться сайтом или ботом, вы
               подтверждаете, что прочитали и принимаете эти условия и{" "}
               <Link href="/legal/privacy" className="text-accent hover:underline">
                 Политику конфиденциальности
@@ -132,7 +132,7 @@ export default function Page() {
           </Sec>
         </div>
 
-        <div className="hair my-10" />
+        <div className="hair my-6 sm:my-10" />
         <p className="text-[13px] leading-relaxed text-faint">
           Редакция от августа 2026 года; соглашение действует с июля 2026 года. Документ носит информационный характер; при
           необходимости условия могут уточняться юридическим сопровождением.

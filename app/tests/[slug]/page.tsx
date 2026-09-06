@@ -80,7 +80,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             )}
           </nav>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+          <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
             <div className="min-w-0">
               <p className="eyebrow">{t.label} · {p.topic} · {p.stage}</p>
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -138,8 +138,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       </section>
 
       {/* тело */}
-      <Container className="grid gap-14 py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-        <div className="flex flex-col gap-14">
+      <Container className="grid gap-8 sm:gap-14 py-9 sm:py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+        <div className="flex flex-col gap-8 sm:gap-14">
           <section>
             <h2 className="text-[24px]">Что ты получишь</h2>
             <div className="mt-4">

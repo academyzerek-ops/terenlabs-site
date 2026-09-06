@@ -26,7 +26,7 @@ export default async function Page({
   if (session && !forMiniapp) redirect("/dashboard");
 
   return (
-    <Container className="flex min-h-[70vh] items-center justify-center py-16">
+    <Container className="flex min-h-[70vh] items-center justify-center py-9 sm:py-16">
       <div className="panel w-full max-w-sm p-6 sm:p-7">
         <p className="eyebrow">Вход · по желанию</p>
         <h1 className="mt-2 text-[22px] sm:text-[24px]">Свой профиль в океане</h1>

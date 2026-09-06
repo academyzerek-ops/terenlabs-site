@@ -11,7 +11,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <Container className="flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
+    <Container className="flex min-h-[60vh] flex-col items-center justify-center py-12 sm:py-24 text-center">
       <p className="eyebrow">Ошибка</p>
       <h1 className="mt-3 max-w-[24ch] text-[32px] sm:text-[40px]">Что-то пошло не по расчёту</h1>
       <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed text-text-2">

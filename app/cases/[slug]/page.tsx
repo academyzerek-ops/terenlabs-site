@@ -167,7 +167,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             </Container>
           </section>
 
-          <section className="py-12">
+          <section className="py-7 sm:py-12">
             <Container>
               <article className="case-content" dangerouslySetInnerHTML={{ __html: doc.body }} />
             </Container>
@@ -175,7 +175,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
           {/* Дальше читать + мягкий мост к финмодели (Академию в воронку не превращаем,
               кейсы — можно: чужая ошибка → посчитай свою) */}
-          <section className="border-t border-line bg-subtle py-16">
+          <section className="border-t border-line bg-subtle py-9 sm:py-16">
             <Container>
               <div className="mx-auto max-w-[800px]">
                 <h2 className="text-[22px] sm:text-[24px]">Дальше читать</h2>
@@ -201,7 +201,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                   <div className="border-t border-line" />
                 </div>
 
-                <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-[8px] border border-line bg-card p-6 sm:flex-row sm:items-center sm:p-8">
+                <div className="mt-6 sm:mt-10 flex flex-col items-start justify-between gap-5 rounded-[8px] border border-line bg-card p-6 sm:flex-row sm:items-center sm:p-8">
                   <div>
                     <h3 className="text-[20px] sm:text-[20px]">Чужая ошибка разобрана. Своя — посчитана?</h3>
                     <p className="mt-2 max-w-[52ch] text-[14px] leading-relaxed text-text-2">

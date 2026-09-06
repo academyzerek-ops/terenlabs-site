@@ -29,7 +29,7 @@ export default function TestsPage() {
           </div>
         </div>
       </section>
-      <div className="mx-auto w-full max-w-[1180px] px-5 py-12 sm:px-8 lg:px-12">
+      <div className="mx-auto w-full max-w-[1180px] px-5 py-7 sm:py-12 sm:px-8 lg:px-12">
         <TestPath />
       </div>
     </>
