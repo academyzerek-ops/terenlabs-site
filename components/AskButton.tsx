@@ -22,7 +22,7 @@ export function AskButton({ open, onToggle }: { open: boolean; onToggle: () => v
         open ? "bg-hover text-ink" : "bg-ink text-page shadow-[var(--shadow-fab)]"
       }`}
     >
-      <SharkMark size={26} />
+      <SharkMark size={32} />
     </button>
   );
 }
