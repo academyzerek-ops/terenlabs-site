@@ -1,3 +1,5 @@
+import { saveChapterMark } from "./state";
+
 // «Память» сайта: попытки тестов и прогресс обучения.
 // v1 — localStorage (работает и анониму на этом устройстве);
 // этап B — синк на бэкенд под аккаунтом (Google/Apple) и зачёт в рейтинг.
@@ -53,6 +55,9 @@ export function saveProgress(p: CourseProgress): void {
     sub: p.title,
     href: `/learn/${p.slug}?ch=${p.stepId}`,
   });
+  // и в аккаунт: без этого успеваемость видна только на том устройстве,
+  // где человек читал, и анализировать её нечем
+  void saveChapterMark(p.slug, p.stepId, p.stepTitle || p.title, p.title);
 }
 
 export function getProgress(): Record<string, CourseProgress> {

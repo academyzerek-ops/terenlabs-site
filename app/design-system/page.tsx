@@ -46,10 +46,6 @@ const TYPE_SCALE: [string, string, string][] = [
   ["Подпись", "text-[13px] text-faint", "10 вопросов из пула · порог 7 из 10"],
 ];
 
-const RANK_METERS: Record<LevelKey, string> = {
-  rakushka: "0 м", krab: "20 м", barrakuda: "50 м", delfin: "120 м", akula: "300 м", kit: "1 000 м",
-};
-
 const FIELD =
   "h-10 w-full rounded-[8px] border border-line-2 bg-page px-3 text-[16px] text-ink placeholder:text-faint";
 
@@ -230,7 +226,6 @@ export default function DesignSystem() {
               <div>
                 <div className="text-[15px] font-medium text-ink">{r.name}</div>
                 <div className="text-[13px] text-text-2">{r.meaning}</div>
-                <div className="num mt-0.5 text-[12px] text-faint">{RANK_METERS[r.key as LevelKey]}</div>
               </div>
             </div>
           ))}
@@ -262,14 +257,12 @@ export default function DesignSystem() {
       {/* ---------- Строки и карточки ---------- */}
       <Section title="Строки" hint="Однородные вещи идут строками: border-t border-line, сетка колонок на sm, одна колонка на телефоне.">
         <div className="hidden grid-cols-[72px_56px_minmax(0,1fr)_140px] gap-6 pb-2 text-[12px] uppercase tracking-[0.08em] text-faint sm:grid">
-          <span>Глубина</span>
           <span />
           <span>Уровень</span>
           <span>Статус</span>
         </div>
         {OCEAN_RANKS.slice(0, 3).map((r, i) => (
           <div key={r.key} className="grid gap-4 border-t border-line py-5 sm:grid-cols-[72px_56px_minmax(0,1fr)_140px] sm:items-center sm:gap-6">
-            <span className="num text-[13px] text-faint">{RANK_METERS[r.key as LevelKey]}</span>
             <RankSketch rank={r.key as LevelKey} size={56} className="text-ink" title={r.name} />
             <div className="flex min-w-0 flex-col gap-1.5">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">

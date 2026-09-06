@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { RankMark, API2KEY } from "./RankSketch";
+import { Button } from "./Button";
 import { OCEAN_API } from "@/lib/ocean";
 
 // Компактная таблица рейтинга: место, имя, ярлык уровня, очки.
@@ -36,7 +37,7 @@ export function OceanTopTable({ limit = 3, showAll = true }: { limit?: number; s
 
   return (
     <div>
-      <div className="grid grid-cols-[32px_minmax(0,1fr)_40px_56px] gap-3 pb-2 text-[12px] font-medium text-text-2">
+      <div className="grid grid-cols-[32px_minmax(0,1fr)_40px_64px] gap-3 pb-2 text-[12px] font-medium text-text-2">
         <span>#</span><span>Имя</span><span className="text-center">Ур.</span><span className="text-right">Композит</span>
       </div>
       {rows.length === 0 && data && (
@@ -47,7 +48,7 @@ export function OceanTopTable({ limit = 3, showAll = true }: { limit?: number; s
           <div
             key={`ph-${i}`}
             aria-hidden="true"
-            className="grid grid-cols-[32px_minmax(0,1fr)_40px_56px] min-h-[52px] items-center gap-3 border-t border-line py-3 text-[15px] text-faint"
+            className="grid grid-cols-[32px_minmax(0,1fr)_40px_64px] min-h-[52px] items-center gap-3 border-t border-line py-3 text-[15px] text-faint"
           >
             <span className="num">{i + 1}</span>
             <span className="h-3 w-24 rounded-[3px] bg-line" />
@@ -58,7 +59,7 @@ export function OceanTopTable({ limit = 3, showAll = true }: { limit?: number; s
       {rows.map((e) => (
         <div
           key={e.rank}
-          className="grid min-h-[52px] grid-cols-[32px_minmax(0,1fr)_40px_56px] items-center gap-3 border-t border-line py-3 text-[15px]"
+          className="grid min-h-[52px] grid-cols-[32px_minmax(0,1fr)_40px_64px] items-center gap-3 border-t border-line py-3 text-[15px]"
         >
           <span className="num text-faint">{e.rank}</span>
           <span className="truncate font-medium text-ink">{e.name}</span>
@@ -68,11 +69,10 @@ export function OceanTopTable({ limit = 3, showAll = true }: { limit?: number; s
       ))}
       <div className="border-t border-line" />
       {showAll && (
-        <div className="pt-3">
-          <Link href="/ocean" className="link text-[14px]">
+        <div className="pt-4">
+          <Button href="/ocean" variant="orange" className="w-full">
             Весь рейтинг
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
-          </Link>
+          </Button>
         </div>
       )}
     </div>

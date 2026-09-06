@@ -324,6 +324,19 @@
   margin-top: 10px;
 }
 
+/* Телефон: таблицу источников не листают вбок. Строка встаёт столбиком, шапка
+   не нужна — порядок и так читается: факт, число, откуда взято. */
+@media (max-width: 640px) {
+  .brand-content .src-wrap { overflow-x: visible; }
+  .brand-content .src { min-width: 0; table-layout: auto; display: block; }
+  .brand-content .src thead { display: none; }
+  .brand-content .src tbody, .brand-content .src tr { display: block; }
+  .brand-content .src tr { padding: 10px 0; border-bottom: 1px solid var(--color-line); }
+  .brand-content .src td { display: block; width: auto; padding: 0; border: 0; }
+  .brand-content .src td:nth-child(2) { margin-top: 2px; }
+  .brand-content .src td:nth-child(3) { margin-top: 4px; font-size: 12px; color: var(--color-faint); }
+}
+
 /* ---- десктоп: проза шире и крупнее ---- */
 @media (min-width: 768px) {
   .brand-content .c p,

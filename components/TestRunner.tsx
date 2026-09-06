@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Container } from "./Container";
 import { Button } from "./Button";
 import { RankTag } from "./RankSketch";
 import { TestQuestion, rankByScore } from "@/lib/learn";
+import { saveTestMark } from "@/lib/state";
+import { saveAttempt } from "@/lib/memory";
 import type { LevelKey } from "@/lib/content";
 
 // Механика как в Mini App: выбор без мгновенной подсказки → «Дальше» →
@@ -26,10 +28,13 @@ export function TestRunner({
   title,
   questions,
   backHref = "/tests",
+  slug,
 }: {
   title: string;
   questions: TestQuestion[];
   backHref?: string;
+  /** слаг теста: под ним результат ложится в аккаунт */
+  slug?: string;
 }) {
   const [i, setI] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(
@@ -46,6 +51,15 @@ export function TestRunner({
     if (isLast) setFinished(true);
     else setI(i + 1);
   };
+
+  // Результат уходит в аккаунт: до этого он жил только на экране и умирал при
+  // обновлении страницы, поэтому в кабинете и на тропе тестов было пусто.
+  useEffect(() => {
+    if (!finished || !slug) return;
+    const passed = correct >= Math.ceil(questions.length * 0.7);
+    saveTestMark(slug, correct, questions.length, passed);
+    saveAttempt({ slug, title, score: correct, total: questions.length, passed, at: new Date().toISOString() });
+  }, [finished, slug, correct, questions.length, title]);
 
   if (finished) {
     const rank = rankByScore(correct, questions.length);

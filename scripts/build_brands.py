@@ -3,14 +3,17 @@
 
 Разметка тела повторяет ручную вёрстку пилотов (bm-netflix, bm-ufc): блоки .c с ярлыками .lb,
 сетка цифр .nb-grid из callout [!numbers], таблица «Откуда цифры» .src, блок «Главное» .tk.
-Пилоты netflix и ufc не перегенерируются: их HTML в json оставлен как есть.
+Все разборы собираются из md одинаково.
 """
 import json, re, html, pathlib, sys
 
 VAULT = pathlib.Path("/Users/adil/TerenLabs/Разборы")
 SITE = pathlib.Path(__file__).resolve().parent.parent
 OUT = SITE / "content/brands.json"
-KEEP = {"bm-netflix", "bm-ufc"}
+# Пилоты больше не заморожены. Их ручную вёрстку берегли, пока разборы писались
+# по старому канону; с переходом на новый (07.09.2026) их тексты переписываются
+# вместе со всеми, и заморозка просто не пускала бы правки на сайт.
+KEEP = set()
 
 SECTOR = [
     (r"стриминг|медиа|мессенджер|соцсет|видео|реклам|платформ", "media"),
@@ -97,28 +100,45 @@ def render_block(kind, blocks, label=None, label_cls="purple", dropcap=False):
 
 DIV = '  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>'
 
-def build_body(sections):
-    out = []
-    intro = paragraphs(sections.get("_intro", []))
-    out.append(render_block("al", intro, "Парадокс"))
-    out.append(render_block("", paragraphs(sections.get("Как устроено", [])), "Как устроено", dropcap=True))
-    out.append(DIV)
-    money = paragraphs(sections.get("Откуда деньги", []))
-    nums = [b for b in money if b[0] == "numbers"]
-    before = []; after = []; seen = False
-    for b in money:
-        if b[0] == "numbers": seen = True; continue
-        (after if seen else before).append(b)
-    out.append(render_block("", before, "Откуда деньги"))
-    for _, items in nums:
-        cells = "".join(f'    <div class="nb"><span class="nb-n">{esc(n)}</span><p class="nb-cap">{esc(c)}</p></div>\n' for n, c in items)
-        out.append(f'  <div class="nb-grid">\n{cells}  </div>')
-    if after: out.append(render_block("", after))
-    out.append(DIV)
-    out.append(render_block("ao", paragraphs(sections.get("Развилка", [])), "Развилка", "orange"))
-    out.append(render_block("", paragraphs(sections.get("Что это убивает", [])), "Что это убивает", "red"))
-    out.append(DIV)
-    out.append(render_block("al", paragraphs(sections.get("Мост", [])), "Мост"))
+# Оформление раздела по его имени. Неизвестные разделы всё равно рендерятся
+# обычным блоком: канон меняется, и молча терять текст нельзя.
+ACCENT = {
+    "С чего начали": ("", "purple", True),
+    "Как это работает": ("", "purple", False),
+    "Чем заплатили": ("ao", "orange", False),
+    "Сколько это приносит": ("", "purple", False),
+    "Мост": ("al", "purple", False),
+    # старые имена: файлы, которые ещё не переписаны под канон 07.09.2026
+    "Как устроено": ("", "purple", True),
+    "Откуда деньги": ("", "purple", False),
+    "Развилка": ("ao", "orange", False),
+    "Что это убивает": ("", "red", False),
+}
+
+# после каких разделов ставится разделительная звёздочка
+BREAK_AFTER = {"Как это работает", "Чем заплатили", "Откуда деньги", "Что это убивает"}
+
+
+def build_body(sections, order):
+    """Тело разбора: разделы идут в том же порядке, что и в файле.
+
+    Раньше здесь был зашит список имён из старого канона, и когда канон
+    поменялся, новые разделы просто исчезали из html: у UFC так потерялась
+    половина текста. Теперь порядок берётся из самого файла.
+    """
+    out = [render_block("al", paragraphs(sections.get("_intro", [])), "Парадокс")]
+
+    for name in order:
+        if name in ("_intro", "Откуда цифры", "Главное"):
+            continue
+        kind, cls, dropcap = ACCENT.get(name, ("", "purple", False))
+        blocks = paragraphs(sections.get(name, []))
+        if not blocks:
+            continue
+        out.append(render_block(kind, blocks, name, cls, dropcap=dropcap))
+        if name in BREAK_AFTER:
+            out.append(DIV)
+
     src = paragraphs(sections.get("Откуда цифры", []))
     for k, v in src:
         if k == "table":
@@ -128,6 +148,7 @@ def build_body(sections):
             out.append(f'  <div class="src-wrap">\n    <table class="src">\n      <thead><tr>{th}</tr></thead>\n      <tbody>\n{trs}\n      </tbody>\n    </table>\n  </div>')
         elif k == "p":
             out.append(f'    <p class="src-note">{inline(v)}</p>')
+
     main = paragraphs(sections.get("Главное", []))
     items = [i for k, v in main if k == "ol" for i in v]
     if items:
@@ -154,14 +175,14 @@ def entry(md_path):
     title_html = esc(" ".join(words[:-1])) + ' <span class="o">' + esc(words[-1]) + "</span>" if len(words) > 1 else esc(title)
     intro_p = next((b for k, b in paragraphs(sections.get("_intro", [])) if k == "p"), "")
     year = fm.get("created", "2026")[:4]
-    sub = f"Разбор бизнес-модели · {'евро и доллар' if cur == 'EUR' else 'доллар'} · отчётность за {int(year)-1} и {year} годы"
+    sub = f"{'Евро и доллар' if cur == 'EUR' else 'Доллар'} · отчётность за {int(year)-1} и {year} годы"
     model = industry.split(",")[0].strip() if industry else ""
     return {
         "type": "bm", "slug": slug, "title": title, "titleHtml": title_html, "brand": brand,
-        "sub": sub, "blurb": first_sentence(intro_p), "badge": "Разбор",
+        "sub": sub, "blurb": first_sentence(intro_p),
         "mod": f"{brand} · {model}" if model else brand, "sector": sector,
         "level": "T1", "topic": "Бизнес", "stage": "Применение", "free": True, "img": None,
-        "body": build_body(sections),
+        "body": build_body(sections, order),
     }
 
 def sync_products(brands):

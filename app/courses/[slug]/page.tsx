@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
+import { chapterLinks } from "@/lib/chapter-links";
+import { getItem as getCatalogItem } from "@/lib/content";
 import { LESSON_COVERS } from "@/lib/lesson-covers";
 import { Button, Arrow } from "@/components/Button";
 import { ProductPage } from "@/components/ProductPage";
@@ -98,20 +100,35 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     </p>
                   </div>
                   <ol>
-                    {m.chapters.map((c, ci) => (
-                      <li key={c.file}>
-                        <Link
-                          href={`/learn/${track.slug}?ch=${c.file}`}
-                          className="group flex min-h-[48px] items-center gap-4 border-t border-line py-3 transition-colors hover:bg-hover"
-                        >
-                          <span className="num w-7 shrink-0 text-[13px] text-faint">
-                            {String(ci + 1).padStart(2, "0")}
-                          </span>
-                          <span className="flex-1 text-[15px] leading-snug text-body group-hover:text-ink">{c.title}</span>
-                          <Arrow className="shrink-0 text-text-2 group-hover:text-ink" />
-                        </Link>
-                      </li>
-                    ))}
+                    {m.chapters.map((c, ci) => {
+                      // разборы, на которых эта глава показывается вживую;
+                      // ссылки стоят отдельной строкой: вложенная ссылка в ссылке невалидна
+                      const examples = chapterLinks(c.file).filter((x) => getCatalogItem("bm", x.review));
+                      return (
+                        <li key={c.file} className="border-t border-line">
+                          <Link
+                            href={`/learn/${track.slug}?ch=${c.file}`}
+                            className="group flex min-h-[48px] items-center gap-4 py-3 transition-colors hover:bg-hover"
+                          >
+                            <span className="num w-7 shrink-0 text-[13px] text-faint">
+                              {String(ci + 1).padStart(2, "0")}
+                            </span>
+                            <span className="flex-1 text-[15px] leading-snug text-body group-hover:text-ink">{c.title}</span>
+                            <Arrow className="shrink-0 text-text-2 group-hover:text-ink" />
+                          </Link>
+                          {examples.length > 0 && (
+                            <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 pb-3 pl-11 text-[13px] text-faint">
+                              <span>На примерах:</span>
+                              {examples.map((x) => (
+                                <Link key={x.review} href={`/brands/${x.review}`} className="link" title={x.note}>
+                                  {x.brand}
+                                </Link>
+                              ))}
+                            </p>
+                          )}
+                        </li>
+                      );
+                    })}
                     <li className="border-t border-line" aria-hidden="true" />
                   </ol>
                 </div>
@@ -119,10 +136,17 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             })}
             <div className="border-t border-line" />
           </div>
-          <div className="mt-10">
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href={`/learn/${track.slug}`} size="lg">
               Начать с первой главы <Arrow />
             </Button>
+            {/* справочник моделей открывается только отсюда и из хаба «Фаундер»:
+                он подпорка к теории, а не отдельный тип контента */}
+            {track.slug === "course-founder-model" && (
+              <Link href="/models" className="link text-[15px]">
+                Справочник моделей заработка
+              </Link>
+            )}
           </div>
         </Container>
       </section>

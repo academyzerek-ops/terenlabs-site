@@ -5,6 +5,9 @@ import { Container } from "@/components/Container";
 import { Arrow } from "@/components/Button";
 import { getItem, BRANDS } from "@/lib/content";
 import { getBrandDoc, BRAND_DOCS } from "@/lib/brands-data";
+import { modelsForReview } from "@/lib/models-data";
+import { chaptersForReview } from "@/lib/chapter-links";
+import { brandLogo } from "@/lib/brand-logos";
 import { pageMetadata } from "@/lib/seo";
 import { brandSeo } from "@/lib/seo-keywords";
 import { ContentSidebar } from "@/components/ContentSidebar";
@@ -48,6 +51,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   // Панель соседних разборов слева (как у кейсов), тело — нативно в DOM:
   // текст разбора должен индексироваться, поэтому никакого iframe.
   const more = related(slug);
+  // обратная связь с каталогом: из какой механики собран поток этой компании
+  const models = modelsForReview(slug);
+  // где эта механика объясняется теорией: главы курса «Фаундер»
+  const chapters = chaptersForReview(slug);
   const sidebarItems = BRAND_DOCS.map((b) => ({
     slug: b.slug,
     title: b.title,
@@ -66,14 +73,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             image: doc.img,
           }),
           breadcrumbJsonLd([
-            { name: "Разборы брендов", path: "/catalog?type=bm" },
+            { name: "Бренды", path: "/catalog?type=bm" },
             { name: doc.title, path: `/brands/${doc.slug}` },
           ]),
         ]}
       />
       <div className="lg:sticky lg:top-0 lg:h-dvh">
         <ContentSidebar
-          title="Разборы брендов"
+          title="Бренды"
           backHref="/catalog?type=bm"
           backLabel="к каталогу"
           activeSlug={slug}
@@ -86,16 +93,19 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <Container className="py-12 sm:py-14">
             <div className="mx-auto w-full max-w-[800px]">
               <nav aria-label="Хлебные крошки" className="mb-6 flex items-center gap-2 text-[13px] text-faint">
-                <Link href="/catalog?type=bm" className="shrink-0 hover:text-ink">Разборы</Link>
+                <Link href="/catalog?type=bm" className="shrink-0 hover:text-ink">Бренды</Link>
                 <span>/</span>
                 <span className="truncate">{doc.brand}</span>
               </nav>
 
-              {doc.mod && (
-                <p className="mb-4">
-                  <span className="tag tag-blue">{doc.mod}</span>
-                </p>
-              )}
+              <div className="mb-4 flex items-center gap-3">
+                {brandLogo(slug) && (
+                  <span className="flex h-9 min-w-9 max-w-[120px] items-center justify-center overflow-hidden rounded-[7px] bg-[#fff] px-1.5">
+                    <img src={brandLogo(slug)!} alt="" height={22} className="h-[22px] w-auto max-w-full object-contain" />
+                  </span>
+                )}
+                {doc.mod && <span className="tag tag-blue">{doc.mod}</span>}
+              </div>
 
               <h1 className="text-[20px] sm:text-[44px] lg:text-[40px]">
                 <span className="brand-title-html" dangerouslySetInnerHTML={{ __html: doc.titleHtml }} />
@@ -128,6 +138,59 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <article className="brand-content" dangerouslySetInnerHTML={{ __html: doc.body }} />
           </Container>
         </section>
+
+        {chapters.length > 0 && (
+          <section className="border-t border-line py-12">
+            <Container>
+              <div className="mx-auto max-w-[800px]">
+                <h2 className="text-[22px] sm:text-[24px]">Где это в курсе</h2>
+                <p className="mt-4 text-[15px] leading-relaxed text-text-2">
+                  Главы «Фаундера», которые этот разбор показывает на живой компании.
+                </p>
+                <div className="mt-6">
+                  {chapters.map((c) => (
+                    <Link
+                      key={c.file}
+                      href={`/learn/${c.track}?ch=${c.file}`}
+                      className="grid gap-1 border-t border-line py-3 text-[15px] transition-colors hover:bg-hover"
+                    >
+                      <span className="font-medium text-ink">{c.title}</span>
+                      <span className="text-[14px] leading-relaxed text-text-2">{c.note}</span>
+                    </Link>
+                  ))}
+                  <div className="border-t border-line" />
+                </div>
+              </div>
+            </Container>
+          </section>
+        )}
+
+        {models.length > 0 && (
+          <section className="border-t border-line py-12">
+            <Container>
+              <div className="mx-auto max-w-[800px]">
+                <h2 className="text-[22px] sm:text-[24px]">Из каких моделей собран поток</h2>
+                <p className="mt-4 text-[15px] leading-relaxed text-text-2">
+                  Разбор показывает эту компанию, справочник — саму механику и то, где она ломается
+                  у всех, кто её повторяет.
+                </p>
+                <div className="mt-6">
+                  {models.map((m) => (
+                    <Link
+                      key={m.slug}
+                      href={`/models/${m.slug}`}
+                      className="grid gap-1 border-t border-line py-3 text-[15px] transition-colors hover:bg-hover sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-4"
+                    >
+                      <span className="font-medium text-ink">{m.title}</span>
+                      <span className="text-text-2">{m.formula}</span>
+                    </Link>
+                  ))}
+                  <div className="border-t border-line" />
+                </div>
+              </div>
+            </Container>
+          </section>
+        )}
 
         {more.length > 0 && (
           <section className="border-t border-line bg-subtle py-16">

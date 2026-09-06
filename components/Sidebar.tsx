@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { getOceanName, getOceanToken } from "@/lib/ocean";
 import { getProgress, type CourseProgress } from "@/lib/memory";
 import { CommandSearch } from "./CommandSearch";
 import { SidebarDiary } from "./SidebarDiary";
@@ -122,12 +121,10 @@ export function Sidebar({
   const pathname = usePathname();
   const sp = useSearchParams();
   const type = sp.get("type");
-  const [name, setName] = useState<string | null>(null);
   const [resume, setResume] = useState<CourseProgress | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
-    setName(getOceanToken() ? getOceanName() : null);
     const all = Object.values(getProgress()).sort((a, b) => (a.at < b.at ? 1 : -1));
     setResume(all[0] ?? null);
   }, [pathname]);
@@ -299,25 +296,11 @@ export function Sidebar({
         </>
         )}
 
-        {/* низ: круглая кнопка TEREN-AI и аккаунт */}
+        {/* Низ: только круглая кнопка TEREN-AI. Строка аккаунта отсюда убрана:
+            она дублировала пункт «Кабинет» в быстрых ссылках, а неавторизованный
+            попадает на вход тем же пунктом — на странице кабинета есть «Войти». */}
         <div className="flex justify-end px-3 pb-3">
           <AskButton open={chatOpen} onToggle={onToggleChat} />
-        </div>
-        <div className="border-t border-line p-2">
-          <Link href={name ? "/dashboard" : "/auth/sign-in"} onClick={onClose} className="flex h-10 items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors hover:bg-subtle">
-            <span className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-hover text-[12px] font-semibold text-ink">
-              {name ? name.trim()[0]?.toUpperCase() : <Icon d={I.user} />}
-            </span>
-            <span className="min-w-0 flex-1 truncate text-ink">{name ?? "Войти"}</span>
-            {name ? (
-              <span className="text-[12px] text-faint">кабинет</span>
-            ) : (
-              // Четыре брендовых кружка красили монохромную панель и обещали выбор,
-              // которого тут нет: способы входа объясняет страница входа. Подписи
-              // справа тоже нет: слово «Войти» уже сказано слева.
-              null
-            )}
-          </Link>
         </div>
       </aside>
 

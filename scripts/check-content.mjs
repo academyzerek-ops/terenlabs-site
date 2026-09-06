@@ -8,8 +8,8 @@ const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), "utf8"));
 const products = read("content/products.json");
 const levels = read("content/levels.json");
 
-const TYPES = ["course", "test", "case", "review", "finmodel"];
-const TOPICS = ["Финансы", "Бизнес", "Маркетинг", "Аналитика", "Управление"];
+const TYPES = ["course", "test", "case", "review", "finmodel", "bm"];
+const TOPICS = ["Финансы", "Бизнес", "Маркетинг", "Аналитика", "Управление", "Стартап"];
 const STAGES = ["Обучение", "Проверка", "Применение"];
 
 const errors = [];

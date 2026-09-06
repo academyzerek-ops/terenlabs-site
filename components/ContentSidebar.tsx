@@ -35,25 +35,33 @@ export function ContentSidebar({
 
   return (
     <aside className="flex min-h-0 flex-col border-b border-line bg-subtle lg:h-full lg:border-b-0 lg:border-r">
-      <div className="border-b border-line p-5">
+      {/* На телефоне эта шапка стоит над самим материалом, поэтому она не должна
+          съедать первый экран: заголовок и кнопка списка идут одной строкой, а
+          поле поиска показывается только вместе с раскрытым списком. Искать по
+          спрятанному списку всё равно нечем. */}
+      <div className="border-b border-line p-4 lg:p-5">
         <Link href={backHref} className="link text-[13px]">
           <Arrow className="rotate-180" /> {backLabel}
         </Link>
-        <h2 className="mt-2 text-[16px]">{title}</h2>
+        <div className="mt-2 flex items-center gap-3">
+          <h2 className="min-w-0 truncate text-[16px]">{title}</h2>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            className="btn-press ml-auto h-9 shrink-0 rounded-[8px] border border-line-2 px-3 text-[13px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
+          >
+            {open ? "Скрыть" : `Список (${items.length})`}
+          </button>
+        </div>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Найти…"
           aria-label={`Поиск: ${title}`}
-          className="mt-3 h-10 w-full rounded-[8px] border border-line-2 bg-page px-3 text-[16px] text-body outline-none transition-colors placeholder:text-faint focus-visible:border-accent"
+          className={`mt-3 h-10 w-full rounded-[8px] border border-line-2 bg-page px-3 text-[16px] text-body outline-none transition-colors placeholder:text-faint focus-visible:border-accent lg:block ${
+            open ? "block" : "hidden"
+          }`}
         />
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          className="btn-press mt-3 h-10 w-full rounded-[8px] border border-line-2 text-[14px] font-medium text-ink transition-colors hover:bg-hover lg:hidden"
-        >
-          {open ? "Скрыть список" : `Показать список (${items.length})`}
-        </button>
       </div>
       <nav className={`${open ? "block" : "hidden"} min-h-0 flex-1 overflow-y-auto p-3 lg:block`}>
         {visible.length === 0 && (

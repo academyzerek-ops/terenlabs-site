@@ -60,7 +60,9 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
     <div className="group/row relative">
       <div
         ref={ref}
-        className="no-scrollbar flex snap-x snap-proximity gap-4 overflow-x-auto pb-1"
+        // На телефоне лента превращается в сетку: листать вбок нечего, все треки
+        // видны сразу. Горизонтальная прокрутка со стрелками остаётся с sm.
+        className="no-scrollbar grid grid-cols-2 gap-3 sm:flex sm:snap-x sm:snap-proximity sm:gap-4 sm:overflow-x-auto sm:pb-1"
       >
         {tracks.map((t) => {
           // в превью показываем содержание: у трека из одного урока — названия глав,
@@ -74,11 +76,11 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
               key={t.slug}
               href={`/courses/${t.slug}`}
               data-card
-              className="group flex w-[270px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-line bg-card transition-colors hover:border-line-2 hover:bg-card-2 sm:w-[288px]"
+              className="group flex w-full min-w-0 flex-col overflow-hidden rounded-[12px] border border-line bg-card transition-colors hover:border-line-2 hover:bg-card-2 sm:w-[259px] sm:shrink-0 sm:snap-start"
             >
               {/* светлое превью: обложка тушью или лист документа на серой подложке */}
               {TRACK_COVER[t.slug] ? (
-                <div className="h-[170px] overflow-hidden bg-page">
+                <div className="h-[153px] overflow-hidden bg-page">
                   <img
                     src={TRACK_COVER[t.slug]}
                     alt=""
@@ -89,7 +91,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                   />
                 </div>
               ) : (
-              <div className="h-[170px] bg-panel-bg px-6 pt-6">
+              <div className="h-[153px] bg-panel-bg px-6 pt-6">
                 <div className="h-full rounded-t-[6px] bg-raised px-5 pt-5 shadow-[var(--shadow-tl-sm)]">
                   <div className="truncate text-[10px] uppercase tracking-[0.08em] text-faint">
                     {t.subtitle}
@@ -108,9 +110,11 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
                 </div>
               </div>
               )}
-              <div className="flex flex-1 flex-col gap-2.5 p-4">
+              <div className="flex flex-1 flex-col gap-2.5 p-3 sm:p-4">
                 <div className="text-[15px] font-semibold leading-snug text-ink">{t.title}</div>
-                <div className="num mt-auto flex items-center gap-2 text-[13px] text-text-2">
+                {/* строка «8 уроков · 46 глав» на узкой карточке не должна ломаться
+                    так, чтобы «глав» ушло на отдельную строку одним словом */}
+                <div className="num mt-auto flex items-center gap-1.5 text-[12px] text-text-2 sm:gap-2 sm:text-[13px]">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M2 3.5h4.5A1.5 1.5 0 0 1 8 5v8.5A1.5 1.5 0 0 0 6.5 12H2zM14 3.5H9.5A1.5 1.5 0 0 0 8 5v8.5a1.5 1.5 0 0 1 1.5-1.5H14z" />
                   </svg>
@@ -128,11 +132,11 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
       {/* затемнение краёв: только с той стороны, где лента продолжается */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-page to-transparent transition-opacity ${canLeft ? "opacity-100" : "opacity-0"}`}
+        className={`pointer-events-none absolute inset-y-0 left-0 hidden w-20 bg-gradient-to-r from-page to-transparent transition-opacity sm:block ${canLeft ? "opacity-100" : "opacity-0"}`}
       />
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-page to-transparent transition-opacity ${canRight ? "opacity-100" : "opacity-0"}`}
+        className={`pointer-events-none absolute inset-y-0 right-0 hidden w-20 bg-gradient-to-l from-page to-transparent transition-opacity sm:block ${canRight ? "opacity-100" : "opacity-0"}`}
       />
 
       {/* стрелки: появляются при наведении на ленту, только на десктопе */}
@@ -140,7 +144,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
         type="button"
         onClick={() => scrollBy(-1)}
         aria-label="Назад"
-        className={`absolute left-2 top-[85px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
+        className={`absolute left-2 top-[77px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
           canLeft ? "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -150,7 +154,7 @@ export function TrackCards({ tracks }: { tracks: AcademyTrack[] }) {
         type="button"
         onClick={() => scrollBy(1)}
         aria-label="Дальше"
-        className={`absolute right-2 top-[85px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
+        className={`absolute right-2 top-[77px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-opacity hover:bg-hover md:flex ${
           canRight ? "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100" : "pointer-events-none opacity-0"
         }`}
       >

@@ -5,11 +5,11 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Тесты",
-  description: "Тропа тестов Океана: от разминки Ракушки до кейсов Акулы. Пройденное засчитывается в ранг после входа.",
+  description: "Погружение по уровням Океана: от первых тестов Краба до кейсов Акулы. Пройденное засчитывается в ранг после входа.",
   path: "/tests",
 });
 
-// Тесты как одна тропа сверху вниз: уровни, между ними ворота с обитателем. Раньше были плитки.
+// Тесты как одно погружение сверху вниз: уровни, между ними ворота с обитателем. Раньше были плитки.
 export default function TestsPage() {
   return (
     <>
@@ -17,7 +17,7 @@ export default function TestsPage() {
         <div className="mx-auto w-full max-w-[1180px] px-5 py-12 sm:px-8 sm:py-16 lg:px-12">
           <p className="eyebrow">Тесты</p>
           <div className="mt-3 grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-end lg:gap-12">
-            <h1 className="text-[30px] leading-[1.1] text-balance sm:text-[42px]">Тропа вниз: от Ракушки до Кита</h1>
+            <h1 className="text-[30px] leading-[1.1] text-balance sm:text-[42px]">Погружение: от Краба до Кита</h1>
             <p className="text-[15px] leading-relaxed text-text-2">
               Один путь для всех. Каждый уровень открывается, когда сдан предыдущий, а угадать нельзя:
               балл считает сервер, открытые кейсы проверяет TEREN-AI. Пройденное даёт ранг и место в рейтинге.

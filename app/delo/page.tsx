@@ -37,8 +37,9 @@ export default function DeloPage() {
           <p className="eyebrow">Предприниматель</p>
           <h1 className="mt-3 max-w-[18ch] text-[24px] sm:text-[40px]">Бизнес здесь и сейчас: точка, мастер, магазин</h1>
           <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
-            Академия про то, как не потерять деньги в своём деле, модели, по которым оно живёт,
-            кейсы, где чужие деньги уже сгорели, и обзоры ниш с реальной экономикой рынка.
+            Навыки, чтобы вести своё дело: деньги, люди, маркетинг, право и модель, по которой
+            оно живёт. Порядок не важен, бери тему, которая горит. Рядом кейсы, где чужие деньги
+            уже сгорели, и обзоры ниш с реальной экономикой рынка.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href="/academy">
@@ -70,14 +71,14 @@ export default function DeloPage() {
       {/* Бизнес-модели + кейсы */}
       <section className="border-b border-line">
         <Container className="py-16"><div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
-          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
+          <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Бизнес-модели</p>
             <h2 className="text-[20px] sm:text-[24px]">Решётка: какую модель выбрать для своей точки</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Услуги, торговля, производство, аренда, посредники и гибриды. У каждой модели свой
               потолок и свой капкан, решётка показывает их до того, как ты в них попадёшь.
             </p>
-            <div className="self-start">
+            <div className="min-w-0 self-start">
               {(models?.modules ?? []).slice(0, 6).map((m) => (
                 <div key={m.id} className="border-t border-line py-3 text-[15px] text-body">{m.title}</div>
               ))}
@@ -89,13 +90,13 @@ export default function DeloPage() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
+          <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Кейсы</p>
             <h2 className="text-[20px] sm:text-[24px]">Где чужие деньги уже сгорели</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Реальные истории своего дела с главной ошибкой и уроком. Дешевле учиться на них.
             </p>
-            <div className="self-start">
+            <div className="min-w-0 self-start">
               {cases.map((c) => (
                 <Link key={c.slug} href={c.href} className="row-hover flex items-center justify-between gap-4 border-t border-line py-3 text-[15px]">
                   <span className="truncate text-body">{c.title}</span>

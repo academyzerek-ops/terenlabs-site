@@ -2,16 +2,16 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { loginTelegram, OCEAN_API } from "@/lib/ocean";
+import { loginTelegram } from "@/lib/ocean";
 
 // Коллбэк Telegram Login Widget в redirect-режиме (data-auth-url) — для
 // нативного приложения: попапы в WKWebView зажаты, весь вход идёт в одном
 // окне. Виджет редиректит сюда с подписанными параметрами (id, hash,
-// auth_date…); обмениваем их на веб-токен Океана и возвращаемся в Mini App
-// с токеном во фрагменте (#tl_login=…) — фрагмент на сервер не уходит.
-// Mini App живёт на бэкенде Океана — домен берём из того же NEXT_PUBLIC_AI_API,
-// что и API, а не хардкодим railway (аудит 23.08, SITE-07).
-const MINIAPP = OCEAN_API.replace(/\/api\/ocean$/, "") + "/frontend/shell/app.html";
+// auth_date…), мы обмениваем их на веб-токен Океана.
+//
+// Раньше отсюда возвращались в Mini App и передавали токен фрагментом. Mini App
+// удаляется, а токен и имя loginTelegram кладёт сам, поэтому просто уходим
+// обратно на сайт: в кабинет или туда, откуда человек начал вход.
 
 function Inner() {
   const params = useSearchParams();
@@ -27,11 +27,10 @@ function Inner() {
       return;
     }
     loginTelegram(user)
-      .then((out) => {
-        const name = encodeURIComponent(out.display_name ?? "");
-        window.location.replace(
-          `${MINIAPP}#tl_login=${encodeURIComponent(out.token)}&name=${name}`
-        );
+      .then(() => {
+        // куда вернуться: параметр next, если он свой, иначе кабинет
+        const next = params.get("next");
+        window.location.replace(next && next.startsWith("/") ? next : "/dashboard");
       })
       .catch(() => setErr("Не получилось войти — попробуй ещё раз."));
   }, [params]);

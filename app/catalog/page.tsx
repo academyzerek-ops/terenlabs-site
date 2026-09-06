@@ -28,7 +28,7 @@ const SECTION: Record<ProductType | "all", { eyebrow: string; title: string; des
   },
   test: {
     eyebrow: "Тесты",
-    title: "Тропа вниз: от Ракушки до Кита",
+    title: "Погружение: от Краба до Кита",
     desc: "Один путь для всех. Уровень открывается, когда сдан предыдущий; балл считает сервер, открытые кейсы проверяет TEREN-AI.",
   },
   case: {
@@ -42,7 +42,7 @@ const SECTION: Record<ProductType | "all", { eyebrow: string; title: string; des
     desc: "Как устроен рынок в конкретной нише: спрос, конкуренция, маржа и где обычно теряют деньги.",
   },
   bm: {
-    eyebrow: "Кейсы · Фаундер",
+    eyebrow: "Фаундер",
     title: "Откуда бабки у больших",
     desc: "Из чего собран денежный поток мировых компаний, чем за это платят и какая развилка достаётся вам. Всё в долларах, каждая цифра с источником.",
   },
@@ -100,25 +100,6 @@ export default async function CatalogPage({
           <p className="eyebrow">{s.eyebrow}</p>
           <h1 className="mt-3 text-[24px] sm:text-[38px]">{s.title}</h1>
           <p className="mt-4 max-w-[62ch] text-[15px] leading-relaxed text-text-2">{s.desc}</p>
-          {/* кейсы двух потоков: своё дело и стартап */}
-          {(t === "case" || t === "bm") && (
-            <div className="mt-6 flex flex-wrap gap-2">
-              {[
-                { id: "case", label: "Предприниматель" },
-                { id: "bm", label: "Фаундер · бренды" },
-              ].map((o) => (
-                <Link
-                  key={o.id}
-                  href={`/catalog?type=${o.id}`}
-                  className={`flex h-8 items-center rounded-[8px] border px-3 text-[14px] transition-colors ${
-                    t === o.id ? "border-line-2 bg-subtle text-ink" : "border-line text-text-2 hover:bg-subtle hover:text-ink"
-                  }`}
-                >
-                  {o.label}
-                </Link>
-              ))}
-            </div>
-          )}
           <Suspense fallback={null}>
             <CatalogFilters type={t} />
           </Suspense>
@@ -131,7 +112,7 @@ export default async function CatalogPage({
         ) : list.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {list.map((p) => (
-              <ProductCard key={`${p.type}-${p.slug}`} p={p} />
+              <ProductCard key={`${p.type}-${p.slug}`} p={p} hideType={t !== "all"} />
             ))}
           </div>
         ) : (

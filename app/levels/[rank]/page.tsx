@@ -4,6 +4,7 @@ import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
 import { RankSketch } from "@/components/RankSketch";
 import { LevelStatusChip } from "@/components/OceanPath";
+import { TestDone } from "@/components/TestDone";
 import { LevelCrowd } from "@/components/OceanPulse";
 import { getLevel, levelItems, Level, plural, LEVELS } from "@/lib/content";
 import { getTrack } from "@/lib/learn";
@@ -23,10 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ rank: str
   if (!lvl) return {};
   return pageMetadata({ title: `Уровень «${lvl.name}»`, description: lvl.tagline, path: `/levels/${rank}` });
 }
-
-const METERS: Record<string, string> = {
-  rakushka: "0 м", krab: "20 м", barrakuda: "50 м", delfin: "120 м", akula: "300 м", kit: "1 000 м",
-};
 
 export default async function Page({ params }: { params: Promise<{ rank: string }> }) {
   const { rank } = await params;
@@ -72,7 +69,17 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
       <Container className="pb-20">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
           <div className="flex flex-col gap-14">
-            <Block title="Тесты уровня" count={items.tests.length} hint="Порог сдачи 7 из 10. Пересдача через кулдаун.">
+            <Block
+              title="Тесты уровня"
+              count={items.tests.length}
+              // у Ракушки тесты свои, с собственным банком вопросов, и в ранг не идут.
+              // Результат при этом сохраняется под аккаунтом, как и везде
+              hint={
+                lvl.key === "rakushka"
+                  ? "Разминка на берегу: в ранг не идёт, но результат сохраняется."
+                  : "Порог сдачи 7 из 10. Пересдача через кулдаун."
+              }
+            >
               {items.tests.map((t) => (
                 <Row
                   key={t.slug}
@@ -89,6 +96,7 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
                       : "10 вопросов из пула"
                   }
                   cta="Пройти"
+                  done={t.stub ? undefined : <TestDone levelKey={lvl.key} slug={t.slug} />}
                 />
               ))}
             </Block>
@@ -122,9 +130,9 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
             </Block>
           </div>
 
-          {/* соседи по лестнице */}
+          {/* соседние уровни */}
           <aside className="rounded-[8px] border border-line bg-subtle p-5 lg:sticky lg:top-20">
-            <p className="eyebrow">Лестница</p>
+            <p className="eyebrow">Уровни</p>
             <div className="mt-3">
               {LEVELS.map((l) => {
                 const current = l.key === lvl.key;
@@ -139,7 +147,6 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
                     <RankSketch rank={l.key} size={22} className={current ? "text-ink" : "text-text-2"} />
                     <span className={current ? "font-medium" : ""}>{l.name}</span>
                     {current && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />}
-                    {!current && <span className="num ml-auto text-[12px] text-faint">{METERS[l.key]}</span>}
                   </Link>
                 );
               })}
@@ -170,10 +177,7 @@ function LevelHero({ lvl, cta }: { lvl: Level; cta?: { href: string; label: stri
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-12">
           <RankSketch rank={lvl.key} size={160} className="text-ink sm:shrink-0" title={lvl.name} />
           <div className="min-w-0">
-            <p className="eyebrow">
-              <span className="num">{METERS[lvl.key]}</span>
-              {lvl.archetype ? ` · ${lvl.archetype}` : ""}
-            </p>
+            {lvl.archetype && <p className="eyebrow">{lvl.archetype}</p>}
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
               <h1 className="text-[32px] sm:text-[40px]">{lvl.name}</h1>
               <LevelStatusChip levelKey={lvl.key} />
@@ -231,17 +235,23 @@ function Row({
   meta,
   cta,
   stub,
+  done,
 }: {
   href?: string;
   title: string;
   meta: string;
   cta: string;
   stub?: boolean;
+  /** отметка «сдан», если тест уже пройден */
+  done?: React.ReactNode;
 }) {
   const inner = (
     <>
       <div className="min-w-0">
-        <div className="truncate text-[16px] font-medium text-ink">{title}</div>
+        <div className="flex items-center gap-3">
+          <div className="truncate text-[16px] font-medium text-ink">{title}</div>
+          {done}
+        </div>
         <div className="num mt-0.5 text-[13px] text-faint">{meta}</div>
       </div>
       {href ? (

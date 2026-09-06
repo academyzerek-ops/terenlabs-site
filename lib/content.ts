@@ -30,7 +30,7 @@ export const PRODUCT_TYPES: Record<
   bm: { label: "Разборы брендов", one: "Разбор", path: "/brands", href: "/catalog?type=bm", blurb: "Механика заработка мировых компаний: из чего собран денежный поток" },
 };
 
-export const TOPICS = ["Финансы", "Бизнес", "Маркетинг", "Аналитика", "Управление"];
+export const TOPICS = ["Финансы", "Бизнес", "Маркетинг", "Аналитика", "Управление", "Стартап"];
 export const STAGES = ["Обучение", "Проверка", "Применение"];
 
 export const INTENTS = [
@@ -45,7 +45,7 @@ export const OCEAN_RANKS = [
   { key: "krab", name: "Краб", meaning: "Продвижение", color: "var(--color-rank-krab)", img: "/brand/ranks/krab.webp?v=13" },
   { key: "barrakuda", name: "Барракуда", meaning: "Ускорение", color: "var(--color-rank-barrakuda)", img: "/brand/ranks/barrakuda.webp?v=13" },
   { key: "delfin", name: "Дельфин", meaning: "Мастерство", color: "var(--color-rank-delfin)", img: "/brand/ranks/delfin.webp?v=13" },
-  { key: "akula", name: "Акула", meaning: "Этапный партнёр", color: "var(--color-rank-akula)", img: "/brand/ranks/akula.webp?v=13" },
+  { key: "akula", name: "Акула", meaning: "Сложные решения", color: "var(--color-rank-akula)", img: "/brand/ranks/akula.webp?v=13" },
   { key: "kit", name: "Кит", meaning: "Вершина", color: "var(--color-rank-kit)", img: "/brand/ranks/kit.webp?v=13" },
 ];
 

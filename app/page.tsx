@@ -91,13 +91,13 @@ export default function Home() {
               href: "/delo",
               eyebrow: "Предприниматель",
               title: "Бизнес здесь и сейчас",
-              desc: "Академия, модели, кейсы и обзоры ниш. Говорим о рисках до того, как вложишься.",
+              desc: "Навыки, чтобы вести своё дело: деньги, люди, маркетинг, право. Плюс кейсы и обзоры ниш, где видно, на чём теряют.",
             },
             {
               href: "/startup",
               eyebrow: "Фаундер",
               title: "Проект на рост",
-              desc: "Команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции. Модели заработка на примерах мировых компаний.",
+              desc: "Дорожная карта проекта на рост: команда, рынок, модель, юнит-экономика, питч, инвестиции. По шагам, до сделки с инвестором.",
             },
           ].map((d) => (
             <Link key={d.href} href={d.href} className="card-premium group flex flex-col gap-3 p-7">
@@ -131,7 +131,7 @@ export default function Home() {
               <RankSketch rank="rakushka" size={48} className="panel-ico" />
               <h2 className="mt-7 max-w-[22ch] text-[22px] leading-snug sm:text-[24px]">Ранг растёт за понимание, его нельзя накликать</h2>
               <p className="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-text-2">
-                Шесть уровней от Ракушки до Кита. Каждый открывается тестами, которые нельзя угадать, только понять.
+                Ракушку выдают за вход, дальше от Краба до Кита каждый уровень открывается тестами, которые нельзя угадать, только понять.
               </p>
               <Link href="/levels" className="link mt-6 text-[15px]">
                 Как устроен Океан <Arrow />
@@ -141,9 +141,8 @@ export default function Home() {
               <div className="rail">
                 {OCEAN_RANKS.map((r, i) => (
                   <React.Fragment key={r.key}>
-                    <div className="rail-when flex min-h-[40px] flex-col justify-center">
-                      <span className="block whitespace-nowrap text-ink">{r.meaning}</span>
-                      <span className="num block">{["0 м", "10 м", "50 м", "120 м", "300 м", "1 000 м"][i]}</span>
+                    <div className="rail-when flex flex-col justify-center sm:min-h-[40px]">
+                      <span className="block text-ink sm:whitespace-nowrap">{r.meaning}</span>
                     </div>
                     <Link href={`/levels/${r.key}`} className={`rail-item block ${i === 0 ? "is-here" : ""}`}>
                       <span className="flex items-center gap-3">
@@ -229,14 +228,14 @@ export default function Home() {
             Сейчас на платформе
           </p>
           <div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
-          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-10">
+          <div className="grid min-w-0 gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Фаундер · бизнес-модели</p>
             <h2 className="text-[22px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Механика заработка, структура выручки и развилка, за которую заплатили. Каждая цифра с
               источником.
             </p>
-            <div className="mt-2 self-start">
+            <div className="mt-2 min-w-0 self-start">
               <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 pb-2 text-[12px] font-medium text-text-2">
                 <span>Разбор</span><span className="text-right">Модель</span>
               </div>
@@ -253,13 +252,13 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
+          <div className="grid min-w-0 gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Океан · рейтинг</p>
             <h2 className="text-[22px] sm:text-[24px]">В океане уже идёт гонка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Место зарабатывают решениями: точность ответов, помноженная на скорость мысли.
             </p>
-            <div className="mt-2 self-start">
+            <div className="mt-2 min-w-0 self-start">
               <OceanTopTable limit={5} showAll={false} />
             </div>
             <Link href="/ocean" className="link self-start text-[15px]">

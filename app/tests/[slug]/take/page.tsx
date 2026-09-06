@@ -17,11 +17,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   const t = getTestBySlug(slug);
   if (t && t.questions && t.questions.length > 0) {
-    return <TestRunner title={t.title} questions={t.questions} backHref="/levels/rakushka" />;
+    return <TestRunner slug={slug} title={t.title} questions={t.questions} backHref="/levels/rakushka" />;
   }
 
   if (slug === "test-unit-economics") {
-    return <TestRunner title={DEMO_TEST.title} questions={DEMO_TEST.questions} backHref="/levels/rakushka" />;
+    return <TestRunner slug={slug} title={DEMO_TEST.title} questions={DEMO_TEST.questions} backHref="/levels/rakushka" />;
   }
 
   // тест существует, но банк вопросов ещё не подключён — честная заглушка;

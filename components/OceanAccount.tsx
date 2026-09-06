@@ -129,7 +129,16 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
     // маршрут медальонов с пунктиром + биолюминесценция + фирменная TG-кнопка.
     // Кит не показываем: отдельная ветка, в путь уровней не входит.
     const route = OCEAN_RANKS.filter((r) => r.key !== "kit");
+    // Эскизы растут к Акуле. На телефоне тот же ряд из пяти не влезает в ширину
+    // панели, поэтому у svg задана ещё и ширина классом: viewBox масштабирует.
     const sizes = [40, 48, 56, 66, 78];
+    const sizeCls = [
+      "w-[30px] sm:w-[40px]",
+      "w-[36px] sm:w-[48px]",
+      "w-[42px] sm:w-[56px]",
+      "w-[50px] sm:w-[66px]",
+      "w-[58px] sm:w-[78px]",
+    ];
     return (
       <section className="panel p-6 sm:p-8">
         <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
@@ -146,11 +155,11 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
           </div>
 
           {/* маршрут уровней: эскизы растут к Акуле */}
-          <div className="flex items-end justify-between gap-2 border-t border-line pt-5 lg:border-t-0 lg:pt-0">
+          <div className="flex items-end justify-between gap-1 border-t border-line pt-5 sm:gap-2 lg:border-t-0 lg:pt-0">
             {route.map((r, i) => (
               <div key={r.key} className="flex flex-col items-center gap-1.5">
-                <RankSketch rank={r.key as LevelKey} size={sizes[i]} className="text-ink" />
-                <span className="text-[11px] text-faint">{r.name}</span>
+                <RankSketch rank={r.key as LevelKey} size={sizes[i]} className={`h-auto text-ink ${sizeCls[i]}`} />
+                <span className="text-[10px] text-faint sm:text-[11px]">{r.name}</span>
               </div>
             ))}
           </div>
@@ -172,7 +181,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
 
       {/* уровень и цифры одной тонкой строкой: панель, 4 ячейки через линии */}
       <div className="panel mt-4 grid sm:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]">
-        <div className="flex items-center gap-4 px-5 py-4">
+        <div className="flex items-start gap-4 px-5 py-4">
           <RankSketch rank={API2KEY[lvl] ?? "rakushka"} size={44} className="shrink-0 text-ink" />
           <div className="min-w-0">
             <div className="text-[12px] text-faint">твой уровень</div>
@@ -182,7 +191,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
             )}
           </div>
         </div>
-        <Link href="/ocean" className="flex flex-col justify-center px-5 py-4 transition-colors hover:bg-subtle lg:border-l lg:border-line">
+        <Link href="/ocean" className="flex flex-col justify-start px-5 py-4 transition-colors hover:bg-subtle lg:border-l lg:border-line">
           <div className="text-[12px] text-faint">место в океане</div>
           <div className="num text-[20px] font-semibold leading-tight text-ink">
             {rank?.rank ? `#${rank.rank}` : "—"}
@@ -195,8 +204,10 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
 
       {/* путь по уровням: строка эскизов, пройденные с галочкой-штрихом, текущий оранжевой точкой */}
       {progress && (
-        <div className="mt-3 overflow-x-auto">
-          <div className="flex min-w-max items-start gap-1 sm:gap-2">
+        <div className="mt-3 sm:overflow-x-auto">
+          {/* шесть равных колонок во всю ширину; на телефоне те же шесть уровней
+              ложатся в две строки по три, чтобы ничего не листать вбок */}
+          <div className="grid grid-cols-3 items-start gap-y-3 sm:min-w-[560px] sm:grid-cols-6 sm:gap-y-0">
             {PATH_ORDER.map((id, i) => {
               const cur = lvl === id;
               const idx = PATH_ORDER.indexOf(lvl);
@@ -207,7 +218,13 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
                 <Link
                   key={id}
                   href={`/levels/${LEVEL_KEY[id]}`}
-                  className={`group flex w-[92px] flex-col items-center rounded-[8px] px-2 py-3 text-center transition-colors hover:bg-subtle ${cur ? "bg-subtle" : ""}`}
+                  // пунктир между уровнями рисуем псевдоэлементом на высоте центра
+                  // эскиза: он тянется от края соседней иконки до края этой
+                  className={`group relative flex flex-col items-center rounded-[8px] px-2 py-3 text-center transition-colors hover:bg-subtle ${
+                    i > 0
+                      ? "sm:before:absolute sm:before:top-[31px] sm:before:left-[calc(-50%+22px)] sm:before:right-[calc(50%+22px)] sm:before:border-t sm:before:border-dashed sm:before:border-line-2 sm:before:content-['']"
+                      : ""
+                  } ${cur ? "bg-subtle" : ""}`}
                 >
                   <span className="relative flex h-10 w-10 items-center justify-center">
                     <RankSketch rank={LEVEL_KEY[id] as LevelKey} size={36} className={done || cur ? "text-ink" : "text-faint"} />
@@ -398,7 +415,7 @@ function StatCell({ label, value, sub }: { label: string; value: string; sub?: s
 
 function Cell({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="flex flex-col justify-center px-5 py-4 lg:border-l lg:border-line">
+    <div className="flex flex-col justify-start px-5 py-4 lg:border-l lg:border-line">
       <div className="text-[12px] text-faint">{label}</div>
       <div className="num text-[20px] font-semibold leading-tight text-ink">{value}</div>
       {sub && <div className="mt-0.5 truncate text-[12px] text-text-2">{sub}</div>}

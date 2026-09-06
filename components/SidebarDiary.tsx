@@ -4,10 +4,16 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { dayKey, getJournal, seedJournalFromAttempts, streakFromJournal, type JournalEntry } from "@/lib/memory";
 import { plural } from "@/lib/content";
+import { fetchMarks } from "@/lib/state";
 
 // Дневник занятий в боковой панели: месяц точками и список дня.
 // Показывает не оценку, а привычку — единственное, чем ученик управляет сам.
-// Данные локальные (память устройства), поэтому работают и без входа.
+//
+// Два источника. Локальный журнал даёт историю по дням на этом устройстве и
+// работает без входа. Отметки аккаунта подтягивают то, что человек прошёл с
+// другого устройства, но помнят только последнее касание каждой главы и теста:
+// одна отметка на пару «вид, ключ». Поэтому день из аккаунта появляется в
+// календаре один раз, а не столько раз, сколько человек туда заходил.
 
 const WD = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"];
 const MONTHS = [
@@ -33,7 +39,26 @@ export function SidebarDiary({ onNavigate }: { onNavigate?: () => void }) {
 
   useEffect(() => {
     seedJournalFromAttempts();
-    setEntries(getJournal());
+    const local = getJournal();
+    setEntries(local);
+    fetchMarks().then((marks) => {
+      const seen = new Set(local.map((e) => `${e.kind}:${e.title}:${dayKey(e.at)}`));
+      const fromAccount: JournalEntry[] = [];
+      for (const m of marks) {
+        if (!m.updated_at || m.kind === "course") continue;
+        const title = String(m.payload?.title ?? m.key);
+        const key = `${m.kind}:${title}:${dayKey(m.updated_at)}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        fromAccount.push({
+          kind: m.kind === "test" ? "test" : "chapter",
+          title,
+          sub: m.payload?.course ? String(m.payload.course) : undefined,
+          at: m.updated_at,
+        });
+      }
+      if (fromAccount.length) setEntries([...local, ...fromAccount]);
+    });
   }, []);
 
   const byDay = useMemo(() => {

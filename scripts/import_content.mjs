@@ -1,9 +1,11 @@
 // ============================================================
 // Импорт реального контента из основного репо TerenLabs в сайт.
-// Источник по умолчанию: /Users/adil/TerenLabs-zerek/frontend — worktree ветки main
+// Источник по умолчанию: /Users/adil/TerenLabs-zerek/frontend — worktree ветки main.
+// Читается только содержание (content/, design-system/, _assets/, products/):
+// код Mini App (shell/) сайту больше не нужен и может быть удалён.
 // (прод). Рабочее дерево /Users/adil/TerenLabs стоит на другой ветке и отстаёт
 // по обзорам (нет пекарни) — импорт из него снёс бы контент на сайте.
-//   - ACADEMY_DATA (shell/app.html) → content/academy.json + public/academy/*.html
+//   - content/ru/academy/_manifest.json → content/academy.json + public/academy/*.html
 //   - content/ru/cases/*.html      → content/cases.json (нативный рендер)
 //   - content/ru/niches/*.html     → public/reviews-html/*.html + content/reviews.json
 //   - products.json: курсы/кейсы/обзоры регенерируются ИЗ ДАННЫХ
@@ -71,21 +73,12 @@ function markNextup(html) {
 }
 
 // ---------- 1. АКАДЕМИЯ ----------
-// ACADEMY_DATA переехал из shell/app.html в shell/app.js (2026-06) — берём откуда есть
-const shellJs = path.join(SRC, "shell/app.js");
-const appHtml = fs.existsSync(shellJs) && read(shellJs).includes("var ACADEMY_DATA = {")
-  ? read(shellJs)
-  : read(path.join(SRC, "shell/app.html"));
-const adStart = appHtml.indexOf("var ACADEMY_DATA = {");
-if (adStart === -1) throw new Error("ACADEMY_DATA не найден ни в shell/app.js, ни в shell/app.html");
-const adSlice = appHtml.slice(adStart + "var ACADEMY_DATA = ".length);
-// найти закрывающую скобку объекта по балансу
-let depth = 0, end = 0;
-for (let i = 0; i < adSlice.length; i++) {
-  if (adSlice[i] === "{") depth++;
-  else if (adSlice[i] === "}") { depth--; if (depth === 0) { end = i + 1; break; } }
-}
-const ACADEMY_DATA = new Function("return " + adSlice.slice(0, end))();
+// Структура Академии лежит отдельным файлом рядом с содержанием. Раньше её
+// вынимали из кода Mini App (переменная ACADEMY_DATA в shell/app.js), и сайт
+// не собирался без него. Mini App удаляется, содержание остаётся.
+const manifestPath = path.join(SRC, "content/ru/academy/_manifest.json");
+if (!fs.existsSync(manifestPath)) throw new Error("нет манифеста Академии: " + manifestPath);
+const ACADEMY_DATA = JSON.parse(read(manifestPath));
 
 // Названия треков в Mini App несут хвост «малого бизнеса». На сайте блок уже
 // называется «Предприниматель», хвост сужал и повторял его: переименовываем
@@ -147,7 +140,7 @@ const EXTRA_TRACKS = {
     split: [
       { mod: 1, slug: "course-founder-team",   title: "Команда стартапа",         subtitle: "Кофаундер, доли, вестинг, первые наёмные" },
       { mod: 2, slug: "course-founder-market", title: "Исследование рынка",       subtitle: "Размер рынка, конкуренты, спрос до первой строки кода" },
-      { mod: 3, slug: "course-founder-model",  title: "Бизнес-модель",            subtitle: "Подписка, маркетплейс, freemium, реклама, лицензия" },
+      { mod: 3, slug: "course-founder-model",  title: "Выбор бизнес-модели",      subtitle: "Подписка, маркетплейс, freemium, реклама, лицензия" },
       { mod: 4, slug: "course-founder-unit",   title: "Финансовое моделирование", subtitle: "Юнит-экономика, CAC и LTV, отток, runway" },
       { mod: 5, slug: "course-founder-pitch",  title: "Питч и презентация",       subtitle: "Что инвестор слышит и что спросит после" },
       { mod: 6, slug: "course-founder-invest", title: "Привлечение инвестиций",   subtitle: "Ангелы, венчур, гранты, раунды, term sheet" },
@@ -213,27 +206,13 @@ try {
   for (const c of JSON.parse(read(path.join(SITE, "content/cases.json")))) if (c.ico) prevIco[c.slug] = c.ico;
 } catch {}
 
-// Канон карточек — витрина Mini App (shell/app.html #cases-list): цвет-тэг
-// r/y/g, гео-флаг, короткий заголовок с <span class="em">-акцентом, выжимка
-// и КУРАТОРСКИЙ ПОРЯДОК. Site рендерит карточки из этих полей, а не из hero кейса.
-const miniCards = new Map(); // slug → {tag, loc, cardTitleHtml, excerpt, order}
-{
-  const appHtml2 = read(path.join(SRC, "shell/app.html"));
-  const re = /<div class="case ([gyr])" data-tag="[gyr]" onclick="window\.location\.href='\.\.\/content\/ru\/cases\/(case-\d+)\.html'">([\s\S]*?)<\/p><\/div>/g;
-  let m, order = 0;
-  while ((m = re.exec(appHtml2)) !== null) {
-    const [, tag, slug, body] = m;
-    const pick2 = (r) => (body.match(r) || [, ""])[1].trim();
-    miniCards.set(slug, {
-      tag,
-      loc: pick2(/<span class="case-loc">([^<]*)<\/span>/),
-      cardTitleHtml: pick2(/<h3 class="case-title">([\s\S]*?)<\/h3>/),
-      excerpt: pick2(/<p class="case-excerpt">([\s\S]*?)$/).replace(/<[^>]+>/g, "").trim(),
-      order: order++,
-    });
-  }
-  if (miniCards.size === 0) throw new Error("витрина кейсов Mini App не найдена в shell/app.html");
-}
+// Канон карточек кейсов: цвет-тэг r/y/g, гео-флаг, короткий заголовок с
+// <span class="em">-акцентом, выжимка и КУРАТОРСКИЙ ПОРЯДОК. Site рендерит
+// карточки из этих полей, а не из hero кейса. Раньше всё это выковыривалось
+// регуляркой из вёрстки Mini App; теперь лежит отдельным файлом содержания.
+const cardsPath = path.join(SRC, "content/ru/cases/_cards.json");
+if (!fs.existsSync(cardsPath)) throw new Error("нет карточек кейсов: " + cardsPath);
+const miniCards = new Map(Object.entries(JSON.parse(read(cardsPath))));
 
 const cases = [];
 for (const f of fs.readdirSync(casesDir).filter((x) => x.endsWith(".html")).sort()) {

@@ -4,33 +4,25 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { RankSketch } from "@/components/RankSketch";
 import type { LevelKey } from "@/lib/content";
-import { getAttempts } from "@/lib/memory";
+import { fetchMarks, isTestMarkPassed, type Mark } from "@/lib/state";
 import { fetchOceanProgress, isTestPassed, isLevelUnlocked, cooldownLeftMs, formatCooldown, type OceanProgress } from "@/lib/ocean";
 import { DOLPHIN_CASES, SHARK_CASES } from "@/lib/ocean-tests";
 
 // Путь тестов: вертикальный ствол погружения, на нём уровни. У каждого уровня своя
-// полоса: слева обитатель и глубина, справа его тесты плитками. Уровни отделены друг
+// полоса: слева обитатель, справа его тесты плитками. Уровни отделены друг
 // от друга и подписаны, поэтому длинная змейка больше не нужна.
 
 type Node = { slug: string; title: string; sub: string; level: string; test: string; soon?: boolean };
 type Stage = {
-  level: string; key: LevelKey; name: string; depth: string;
+  level: string; key: LevelKey; name: string;
   meaning: string; rule: string; unlock?: string; nodes: Node[];
 };
 
+// Лестница начинается с Краба: у Ракушки тестов нет, уровень выдаётся за вход
+// (канон docs/context/12_OCEAN.md). Три теста Т1 остались в каталоге как разминка.
 const STAGES: Stage[] = [
   {
-    level: "mollusk", key: "rakushka", name: "Ракушка", depth: "0 м",
-    meaning: "Разминка на берегу: проверить себя до того, как считать деньги.",
-    rule: "Не входит в ранг. Результат хранится на этом устройстве.",
-    nodes: [
-      { slug: "t1-a04", title: "Альтернативная стоимость времени", sub: "42 вопроса", level: "mollusk", test: "a04" },
-      { slug: "t1-risks", title: "Риски ниши", sub: "12 вопросов", level: "mollusk", test: "risks" },
-      { slug: "t1-synthesis", title: "Итоговый разбор", sub: "12 вопросов", level: "mollusk", test: "synthesis" },
-    ],
-  },
-  {
-    level: "crab", key: "krab", name: "Краб", depth: "10 м",
+    level: "crab", key: "krab", name: "Краб",
     meaning: "База: понимаешь термины и умеешь считать.",
     rule: "3 теста по 10 вопросов. Порог 7 из 10, у последнего 6.",
     unlock: "Открыт всем сразу. С него начинается ранг.",
@@ -41,7 +33,7 @@ const STAGES: Stage[] = [
     ],
   },
   {
-    level: "barracuda", key: "barrakuda", name: "Барракуда", depth: "50 м",
+    level: "barracuda", key: "barrakuda", name: "Барракуда",
     meaning: "Пять дисциплин: деньги, спрос, люди, закон и всё вместе.",
     rule: "5 тестов по 10 вопросов. Порог 7 из 10 в каждом.",
     unlock: "Откроется, когда сданы все три теста Краба",
@@ -54,7 +46,7 @@ const STAGES: Stage[] = [
     ],
   },
   {
-    level: "dolphin", key: "delfin", name: "Дельфин", depth: "120 м",
+    level: "dolphin", key: "delfin", name: "Дельфин",
     meaning: "Тут заканчиваются варианты ответов. Решение объясняешь словами.",
     rule: "3 открытых кейса по 5 вопросов. Ответ разбирает TEREN-AI.",
     unlock: "Откроется, когда сданы все пять тестов Барракуды",
@@ -63,7 +55,7 @@ const STAGES: Stage[] = [
     })),
   },
   {
-    level: "shark", key: "akula", name: "Акула", depth: "300 м",
+    level: "shark", key: "akula", name: "Акула",
     meaning: "12 живых бизнесов. Каждый разбираешь по шагам, от идеи до вывода.",
     rule: "Кейс из 10 вопросов по порядку, вернуться назад нельзя.",
     unlock: "Откроется, когда сданы все три кейса Дельфина",
@@ -88,17 +80,17 @@ const LockIcon = ({ size = 16 }: { size?: number }) => (
 
 export function TestPath() {
   const [progress, setProgress] = useState<OceanProgress | null>(null);
-  const [local, setLocal] = useState<Set<string>>(new Set());
+  const [marks, setMarks] = useState<Mark[]>([]);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setLocal(new Set(getAttempts().filter((a) => a.passed).map((a) => a.slug)));
+    fetchMarks().then(setMarks);
     fetchOceanProgress().then((p) => { setProgress(p); setReady(true); });
   }, []);
 
   const passed = (n: Node) =>
-    n.level === "mollusk" ? local.has(n.slug) : isTestPassed(progress, n.level, n.test) || local.has(n.slug);
-  const unlocked = (s: Stage) => (s.level === "mollusk" ? true : isLevelUnlocked(progress, s.level));
+    isTestPassed(progress, n.level, n.test) || isTestMarkPassed(marks, n.slug);
+  const unlocked = (s: Stage) => isLevelUnlocked(progress, s.level);
 
   const hereSlug = (() => {
     for (const s of STAGES) {
@@ -182,7 +174,6 @@ export function TestPath() {
                 {/* шапка уровня */}
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <h2 className={`text-[20px] sm:text-[22px] ${open ? "text-ink" : "text-faint"}`}>{s.name}</h2>
-                  <span className="num text-[12px] text-faint">{s.depth}</span>
                   <span className="ml-auto num text-[13px] text-text-2">{done} из {totalReal}</span>
                 </div>
                 <p className="mt-1.5 max-w-[62ch] text-[14.5px] leading-relaxed text-text-2">{s.meaning}</p>
@@ -260,7 +251,6 @@ export function TestPath() {
           <div className="pt-1 sm:pt-4">
             <div className="flex flex-wrap items-baseline gap-x-3">
               <h2 className={`text-[20px] sm:text-[22px] ${whaleOpen ? "text-ink" : "text-faint"}`}>Кит</h2>
-              <span className="num text-[12px] text-faint">1 000 м</span>
             </div>
             <p className="mt-1.5 max-w-[62ch] text-[14.5px] leading-relaxed text-text-2">
               Последний уровень: проект на рост, финмодель, питч и разговор с инвестором.

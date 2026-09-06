@@ -124,7 +124,7 @@ export const DEMO_TEST: { slug: string; title: string; questions: TestQuestion[]
 export function rankByScore(correct: number, total: number) {
   const r = correct / total;
   if (r >= 0.9) return { name: "Кит", meaning: "Вершина", color: "var(--color-rank-kit)" };
-  if (r >= 0.75) return { name: "Акула", meaning: "Этапный партнёр", color: "var(--color-rank-akula)" };
+  if (r >= 0.75) return { name: "Акула", meaning: "Сложные решения", color: "var(--color-rank-akula)" };
   if (r >= 0.6) return { name: "Дельфин", meaning: "Мастерство", color: "var(--color-rank-delfin)" };
   if (r >= 0.4) return { name: "Барракуда", meaning: "Ускорение", color: "var(--color-rank-barrakuda)" };
   if (r >= 0.2) return { name: "Краб", meaning: "Продвижение", color: "var(--color-rank-krab)" };

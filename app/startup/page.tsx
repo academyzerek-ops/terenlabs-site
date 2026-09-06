@@ -5,12 +5,13 @@ import { RankSketch } from "@/components/RankSketch";
 import { BRANDS, plural } from "@/lib/content";
 import { ACADEMY } from "@/lib/learn";
 import { TrackCards } from "@/components/TrackCards";
+import { getModel, MODEL_SHOWCASE } from "@/lib/models-data";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Фаундер",
   description:
-    "Проект на рост: команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции. Разбираем модели заработка на примерах мировых компаний. Всё в долларах, без привязки к стране.",
+    "Дорожная карта проекта на рост: команда, рынок, бизнес-модель, юнит-экономика, питч, инвестиции. Каждый шаг на примерах мировых компаний. Всё в долларах, без привязки к стране.",
   path: "/startup",
 });
 
@@ -25,14 +26,6 @@ const PROGRAM = [
   ["06", "Инвестиции", "Ангелы, венчур, гранты, раунды и доли. Чем платят за деньги."],
 ];
 
-const MODELS = [
-  ["Подписка", "платят вперёд и регулярно, кассовых провалов нет, риск в оттоке"],
-  ["Маркетплейс и комиссия", "сводишь двоих и берёшь процент, курица и яйцо на старте"],
-  ["Freemium", "бесплатно многим, платят единицы, вся экономика в конверсии"],
-  ["Реклама", "продукт бесплатный, товар это внимание аудитории"],
-  ["Лицензия и франшиза", "продаёшь право, а не вещь, растёшь чужими руками"],
-  ["Железо плюс сервис", "продаёшь устройство, зарабатываешь на подписке к нему"],
-];
 
 export default function StartupPage() {
   const brands = BRANDS.filter((b) => !b.stub);
@@ -46,8 +39,9 @@ export default function StartupPage() {
           <p className="eyebrow">Фаундер</p>
           <h1 className="mt-3 max-w-[18ch] text-[24px] sm:text-[40px]">Проект на рост: модель, деньги, инвестиции</h1>
           <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
-            Как устроен заработок компаний, которые знают все, что из этого переносится на твой
-            проект и чем платят за инвестиции. Без географии и местных налогов.
+            Шаги идут по цепочке настоящего проекта: от команды до условий сделки с инвестором.
+            Каждый шаг доказан на мировых компаниях: как устроен их заработок и чем за него
+            заплачено. Без географии и местных налогов.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href="/catalog?type=bm">
@@ -64,9 +58,9 @@ export default function StartupPage() {
       <section id="trek" className="border-b border-line">
         <Container className="py-16">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
-            <h2 className="text-[24px] sm:text-[20px]">Программа</h2>
+            <h2 className="text-[20px] sm:text-[24px]">Программа</h2>
             <p className="text-[15px] leading-relaxed text-text-2">
-              Шесть тем по цепочке настоящего проекта: от команды до условий сделки с
+              Темы идут по цепочке настоящего проекта: от команды до условий сделки с
               инвестором. Каждая тема — отдельный трек, проходить можно в любом порядке.
               Разборы брендов открыты как практика к бизнес-модели.
             </p>
@@ -101,31 +95,43 @@ export default function StartupPage() {
       {/* модели + разборы */}
       <section className="border-b border-line">
         <Container className="py-16"><div className="panel grid gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
-          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
+          <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:p-10">
             <p className="eyebrow">Бизнес-модели</p>
-            <h2 className="text-[20px] sm:text-[24px]">Каталог моделей заработка</h2>
+            <h2 className="text-[20px] sm:text-[24px]">Справочник моделей заработка</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Не «какие они молодцы», а из чего собран денежный поток, чем за это заплатили и что
               модель убивает.
             </p>
-            <div className="self-start">
-              {MODELS.map(([t, d]) => (
-                <div key={t} className="grid gap-1 border-t border-line py-3 text-[15px] sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-4">
-                  <span className="font-medium text-ink">{t}</span>
-                  <span className="text-text-2">{d}</span>
-                </div>
-              ))}
-              <div className="border-t border-line" />
+            <div className="min-w-0 self-start">
+              {MODEL_SHOWCASE.map((slug) => {
+                const m = getModel(slug);
+                if (!m) return null;
+                return (
+                  <Link
+                    key={slug}
+                    href={`/models/${slug}`}
+                    className="grid gap-1 border-t border-line py-3 text-[15px] transition-colors hover:bg-subtle sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-4"
+                  >
+                    <span className="font-medium text-ink">{m.title}</span>
+                    <span className="text-text-2">{m.formula}</span>
+                  </Link>
+                );
+              })}
+              <div className="border-t border-line pt-3">
+                <Link href="/models" className="link text-[14px]">
+                  Весь справочник моделей <Arrow />
+                </Link>
+              </div>
             </div>
           </div>
 
-          <div className="grid gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
+          <div className="grid min-w-0 gap-4 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Разборы брендов</p>
             <h2 className="text-[20px] sm:text-[24px]">Откуда бабки у больших</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
               Механика заработка, структура выручки, развилка и её цена. Каждая цифра с источником.
             </p>
-            <div className="self-start">
+            <div className="min-w-0 self-start">
               {brands.map((b) => (
                 <Link key={b.slug} href={b.href} className="row-hover flex items-center justify-between gap-4 border-t border-line py-3 text-[15px]">
                   <span className="truncate text-body">{b.title}</span>

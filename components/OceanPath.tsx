@@ -72,7 +72,14 @@ function useOceanPath() {
 }
 
 /** Чип статуса уровня на карте погружения: ✓ пройден / ты здесь / начни здесь. */
-export function LevelStatusChip({ levelKey }: { levelKey: string }) {
+export function LevelStatusChip({
+  levelKey,
+  /** не показывать «пройден»: там, где рядом уже стоит галочка статуса */
+  hideDone,
+}: {
+  levelKey: string;
+  hideDone?: boolean;
+}) {
   const { ready, p } = useOceanPath();
   const id = KEY2ID[levelKey];
 
@@ -95,7 +102,7 @@ export function LevelStatusChip({ levelKey }: { levelKey: string }) {
       <span className="tag tag-orange">ты здесь</span>
     );
   }
-  if (done) {
+  if (done && !hideDone) {
     return (
       <span className="tag">пройден</span>
     );

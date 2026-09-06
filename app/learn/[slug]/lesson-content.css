@@ -150,6 +150,11 @@
   flex: 0 0 240px; scroll-snap-align: start;
   padding: 14px; border-radius: 8px; background: var(--color-subtle);
 }
+/* Телефон: лента фактов не листается вбок, карточки идут одна под другой. */
+@media (max-width: 640px) {
+  .lesson-content .fs { display: grid; overflow-x: visible; gap: 10px; }
+  .lesson-content .fc { flex: none; }
+}
 .lesson-content .fc-ico { display: block; font-size: 20px; margin-bottom: 8px; }
 .lesson-content .fc-txt { font-size: 14px; line-height: 1.5; color: var(--color-text-2); }
 
