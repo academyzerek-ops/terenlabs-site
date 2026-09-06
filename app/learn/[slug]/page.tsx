@@ -79,16 +79,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             <p className="num mt-3 text-[13px] text-faint">
               Глава {cur.chapterIndex} из {cur.chapterCount} · {doc.minutes} мин чтения
             </p>
-            {doc.cover && (
-              <img
-                src={doc.cover}
-                alt=""
-                width={1400}
-                height={584}
-                className="mt-8 aspect-[2.4/1] w-full rounded-[12px] object-cover"
-                loading="eager"
-              />
-            )}
             <div className="lesson-content mt-10" dangerouslySetInnerHTML={{ __html: doc.html }} />
 
             {/* дальше по треку */}

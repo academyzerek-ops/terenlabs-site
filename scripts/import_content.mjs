@@ -21,7 +21,7 @@ const SITE = path.resolve(import.meta.dirname, "..");
 
 // Версия картинок: обложки перекрашены 09.2026, кэш браузера надо сбить
 const IMG_V = "v=8";
-const report = { missingChapters: [], missingHero: [], unknownAssets: new Set(), counts: {} };
+const report = { missingChapters: [], unknownAssets: new Set(), counts: {} };
 
 // ---------- утилиты ----------
 const read = (p) => fs.readFileSync(p, "utf8");
@@ -48,9 +48,8 @@ function transformEmbedded(html, { keepLocalScripts = false } = {}) {
   // пути на дизайн-систему и hero-картинки
   out = out.replace(/href="(\.\.\/)+design-system\//g, 'href="/academy-assets/');
   out = out.replace(/src="(\.\.\/)+design-system\//g, 'src="/academy-assets/');
-  out = out.replace(/src="\/frontend\/_assets\/academy_hero\//g, 'src="/academy-assets/hero/');
   out = out.replace(/src="(\.\.\/)+_assets\/niche_hero\//g, 'src="/academy-assets/niche_hero/');
-  out = out.replace(/(\/academy-assets\/(?:hero|niche_hero|cases_hero)\/[^"?]+\.webp)"/g, `$1?${IMG_V}"`);
+  out = out.replace(/(\/academy-assets\/(?:niche_hero|cases_hero)\/[^"?]+\.webp)"/g, `$1?${IMG_V}"`);
   // карточки «Реальный кейс» в главах: относительная ссылка Mini App → страница кейса
   // на сайте; window.top — глава живёт в iframe плеера курса
   out = out.replace(/location\.href='(\.\.\/)+cases\/(case-\d+)\.html'/g, "window.top.location.href='/cases/$2'");
@@ -99,13 +98,17 @@ const RENAME = {
 };
 const rename = (s) => RENAME[s] ?? s;
 
+// Обложка главы: 3D-рендеры с синим неоном не легли в стиль сайта, а рисовать 284
+// новых картинки дороже, чем они стоят. Страница главы идёт текстом, рисунок несут
+// карточки трека и урока.
+const stripHero = (html) => html.replace(/<img class="les-hero-img"[^>]*>\s*/g, "");
+
 const TRACKS = {
   fund: { slug: "course-fundament", topic: "Финансы" },
   arch: { slug: "course-architect", topic: "Бизнес" },
   mgmt: { slug: "course-management", topic: "Управление" },
-  // у маркетинга/финансов нет hero-артов глав — карточке каталога даём тематический арт
-  mkt: { slug: "course-marketing", topic: "Маркетинг", fallbackImg: "/lessons/fund_m2-ch04_store-maze.jpg" },
-  fin: { slug: "course-finance", topic: "Финансы", fallbackImg: "/lessons/fund_m5-ch05_coin-mountain.jpg" },
+  mkt: { slug: "course-marketing", topic: "Маркетинг" },
+  fin: { slug: "course-finance", topic: "Финансы" },
   legal: { slug: "course-legal", topic: "Бизнес" },
   models: { slug: "course-models", topic: "Бизнес" }, // «Бизнес-модели» — 7-й трек (июль 2026)
 };
@@ -125,14 +128,11 @@ for (const [key, t] of Object.entries(ACADEMY_DATA)) {
         report.missingChapters.push(`${folder}/${file}`);
         return { title: rename(title), file, missing: true };
       }
-      // копия главы с трансформацией
+      // копия главы с трансформацией; hero-картинку срезаем — страница главы идёт текстом
       write(path.join(SITE, "public/academy", folder, file + ".html"),
-        markNextup(transformEmbedded(read(srcFile))).replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>'));
+        stripHero(markNextup(transformEmbedded(read(srcFile)))).replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>'));
       chapterTotal++;
-      const hero = path.join(SRC, "_assets/academy_hero", folder, file + ".webp");
-      const hasHero = fs.existsSync(hero);
-      if (!hasHero) report.missingHero.push(`${folder}/${file}`);
-      return { title: rename(title), file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
+      return { title: rename(title), file, img: null };
     });
     return { id: `m${mi + 1}`, title: m.name, chapters };
   });
@@ -166,17 +166,11 @@ for (const [key, conf] of Object.entries(EXTRA_TRACKS)) {
       const file = `m${m.n}-ch${String(ci + 1).padStart(2, "0")}`;
       const srcFile = path.join(dir, file + ".html");
       if (!fs.existsSync(srcFile)) { report.missingChapters.push(`${folder}/${file}`); return { title, file, missing: true }; }
-      const hero = path.join(EXTRA_SRC, "_assets/academy_hero", folder, file + ".webp");
-      const hasHero = fs.existsSync(hero);
-      let html = markNextup(transformEmbedded(read(srcFile)));
-      // без обложки главы картинку не показываем, чтобы не было битого img
-      if (!hasHero) html = html.replace(/<img class="les-hero-img"[^>]*>\s*/, "");
-      else { fs.mkdirSync(path.join(SITE, "public/academy-assets/hero", folder), { recursive: true }); fs.copyFileSync(hero, path.join(SITE, "public/academy-assets/hero", folder, file + ".webp")); }
+      const html = stripHero(markNextup(transformEmbedded(read(srcFile))));
       write(path.join(SITE, "public/academy", folder, file + ".html"),
         html.replace("</body>", '<script src="/review-enhance.js?v=3" defer></script>\n</body>'));
       chapterTotal++;
-      if (!hasHero) report.missingHero.push(`${folder}/${file}`);
-      return { title: rename(title), file, img: hasHero ? `/academy-assets/hero/${folder}/${file}.webp?${IMG_V}` : null };
+      return { title: rename(title), file, img: null };
     });
     return { id: `m${m.n}`, title: m.name, chapters };
   });
@@ -208,7 +202,6 @@ fs.cpSync(path.join(SRC, "design-system"), path.join(SITE, "public/academy-asset
 // Обложки: копируем только отсутствующие файлы. В ветке minimal обложки перекрашены под тёмную тему
 // (Nano Banana, 09.2026), и оригиналы из основного дерева не должны их затирать.
 const keepExisting = { recursive: true, force: false, errorOnExist: false };
-fs.cpSync(path.join(SRC, "_assets/academy_hero"), path.join(SITE, "public/academy-assets/hero"), keepExisting);
 fs.cpSync(path.join(SRC, "_assets/niche_hero"), path.join(SITE, "public/academy-assets/niche_hero"), keepExisting);
 fs.cpSync(path.join(SRC, "_assets/cases_hero"), path.join(SITE, "public/academy-assets/cases_hero"), keepExisting);
 
@@ -397,11 +390,8 @@ const courseProducts = academy.map((a) => ({
   title: a.title, blurb: a.subtitle,
   metric: { value: String(a.chapterTotal), label: plural(a.chapterTotal, "глава", "главы", "глав") },
   badge: "Готов",
-  // визуал карточки каталога — первый арт главы трека (или тематический фолбэк)
-  img:
-    a.modules.flatMap((m) => m.chapters).find((c) => c.img)?.img ??
-    TRACKS[a.key]?.fallbackImg ??
-    null,
+  // визуал карточки каталога — обложка трека
+  img: `/academy-assets/tracks/track-${a.slug.replace(/^course-/, "")}.webp?${IMG_V}`,
 }));
 const caseProducts = cases.map((c) => ({
   type: "case", slug: c.slug, level: "T1", topic: "Бизнес", stage: "Применение", free: true,
@@ -470,7 +460,6 @@ try {
 // ---------- ОТЧЁТ ----------
 console.log("counts:", report.counts);
 console.log("missingChapters:", report.missingChapters.length, report.missingChapters.slice(0, 10));
-console.log("missingHero:", report.missingHero.length, report.missingHero.slice(0, 5), "…");
 console.log("unknownAssets:", [...report.unknownAssets].slice(0, 15));
 
 // ---------- ИНДЕКС ПОИСКА ----------

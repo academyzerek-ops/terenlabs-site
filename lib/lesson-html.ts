@@ -9,7 +9,6 @@ import path from "node:path";
 export type LessonToc = { id: string; text: string };
 export type LessonDoc = {
   title: string;
-  cover: string | null;
   html: string;
   toc: LessonToc[];
   minutes: number;
@@ -40,8 +39,7 @@ export function loadLesson(folder: string, file: string): LessonDoc | null {
   const mainEnd = src.lastIndexOf("</main>");
   let html = mainStart >= 0 && mainEnd > mainStart ? src.slice(mainStart + '<main class="page">'.length, mainEnd) : src;
 
-  // обложка и заголовок из шапки старой читалки
-  const cover = html.match(/<img class="les-hero-img" src="([^"]+)"/)?.[1] ?? null;
+  // заголовок из шапки старой читалки; hero-картинку срезал импортёр
   const title = strip(html.match(/<div class="hero">\s*<h1>([\s\S]*?)<\/h1>/)?.[1] ?? "");
   html = html.replace(/<img class="les-hero-img"[^>]*>\s*/g, "");
   html = html.replace(/<div class="hero">[\s\S]*?<\/div>\s*/, "");
@@ -66,7 +64,7 @@ export function loadLesson(folder: string, file: string): LessonDoc | null {
   html = html.replace(/href="(?:\.\.\/)+cases\/(case-[a-z0-9-]+)\.html[^"]*"/g, 'href="/cases/$1"');
 
   const words = strip(html).split(" ").filter(Boolean).length;
-  const doc: LessonDoc = { title, cover, html: html.trim(), toc, minutes: Math.max(1, Math.round(words / 170)), words };
+  const doc: LessonDoc = { title, html: html.trim(), toc, minutes: Math.max(1, Math.round(words / 170)), words };
   cache.set(key, doc);
   return doc;
 }

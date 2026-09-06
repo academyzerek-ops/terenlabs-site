@@ -478,7 +478,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/fundament/m1-ch00.webp?v=8"
+  "img": "/academy-assets/tracks/track-fundament.webp?v=8"
  },
  {
   "type": "course",
@@ -494,7 +494,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/architect/m1-ch00.webp?v=8"
+  "img": "/academy-assets/tracks/track-architect.webp?v=8"
  },
  {
   "type": "course",
@@ -510,7 +510,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/management/m1-ch01.webp?v=8"
+  "img": "/academy-assets/tracks/track-management.webp?v=8"
  },
  {
   "type": "course",
@@ -526,7 +526,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/marketing/m1-ch01.webp?v=8"
+  "img": "/academy-assets/tracks/track-marketing.webp?v=8"
  },
  {
   "type": "course",
@@ -542,7 +542,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/finance/m1-ch01.webp?v=8"
+  "img": "/academy-assets/tracks/track-finance.webp?v=8"
  },
  {
   "type": "course",
@@ -558,7 +558,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/legal/m1-ch01.webp?v=8"
+  "img": "/academy-assets/tracks/track-legal.webp?v=8"
  },
  {
   "type": "course",
@@ -574,7 +574,7 @@
    "label": "глава"
   },
   "badge": "Готов",
-  "img": "/academy-assets/hero/models/m1-ch01.webp?v=8"
+  "img": "/academy-assets/tracks/track-models.webp?v=8"
  },
  {
   "type": "course",
@@ -590,7 +590,7 @@
    "label": "главы"
   },
   "badge": "Готов",
-  "img": null
+  "img": "/academy-assets/tracks/track-founder-team.webp?v=8"
  },
  {
   "type": "course",
@@ -606,7 +606,7 @@
    "label": "главы"
   },
   "badge": "Готов",
-  "img": null
+  "img": "/academy-assets/tracks/track-founder-market.webp?v=8"
  },
  {
   "type": "course",
@@ -622,7 +622,7 @@
    "label": "глав"
   },
   "badge": "Готов",
-  "img": null
+  "img": "/academy-assets/tracks/track-founder-model.webp?v=8"
  },
  {
   "type": "course",
@@ -638,7 +638,7 @@
    "label": "главы"
   },
   "badge": "Готов",
-  "img": null
+  "img": "/academy-assets/tracks/track-founder-unit.webp?v=8"
  },
  {
   "type": "course",
@@ -654,7 +654,7 @@
    "label": "главы"
   },
   "badge": "Готов",
-  "img": null
+  "img": "/academy-assets/tracks/track-founder-pitch.webp?v=8"
  },
  {
   "type": "course",
@@ -670,7 +670,7 @@
    "label": "главы"
   },
   "badge": "Готов",
-  "img": null
+  "img": "/academy-assets/tracks/track-founder-invest.webp?v=8"
  },
  {
   "type": "case",
