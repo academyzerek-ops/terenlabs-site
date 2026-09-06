@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
-import { NoaChat } from "@/components/NoaChat";
 import { JsonLd } from "@/components/JsonLd";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { YandexMetrica } from "@/components/YandexMetrica";
@@ -69,7 +68,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </AppShell>
         </Suspense>
         <Suspense fallback={null}>
-          <NoaChat />
         </Suspense>
       </body>
     </html>

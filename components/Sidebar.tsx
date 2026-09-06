@@ -7,7 +7,7 @@ import { getOceanName, getOceanToken } from "@/lib/ocean";
 import { getProgress, type CourseProgress } from "@/lib/memory";
 import { CommandSearch } from "./CommandSearch";
 import { SidebarDiary } from "./SidebarDiary";
-import { SidebarAsk } from "./SidebarAsk";
+import { SharkMark } from "./SharkMark";
 
 // Боковая панель как в Notion: поиск, быстрые разделы, группы ссылок серыми
 // заголовками, внизу аккаунт. На десктопе заменяет верхнюю шапку; на мобиле
@@ -105,7 +105,17 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
   { id: "about", label: "О проекте", icon: I.info },
 ];
 
-export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Sidebar({
+  open,
+  onClose,
+  chatOpen,
+  onToggleChat,
+}: {
+  open: boolean;
+  onClose: () => void;
+  chatOpen: boolean;
+  onToggleChat: () => void;
+}) {
   const [tab, setTab] = useState<Tab>("home");
   const build = process.env.NEXT_PUBLIC_BUILD;
   const pathname = usePathname();
@@ -164,9 +174,22 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             <span className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-ink text-[11px] font-bold text-page">T</span>
             TerenLabs
           </Link>
-          <button onClick={onClose} aria-label="Скрыть панель" className="flex h-7 w-7 items-center justify-center rounded-[6px] text-faint hover:bg-subtle hover:text-ink lg:hidden">
-            <Icon d={I.panel} />
-          </button>
+          <div className="flex items-center gap-0.5">
+            <button
+              onClick={onToggleChat}
+              aria-label="TEREN-AI"
+              aria-pressed={chatOpen}
+              title="TEREN-AI"
+              className={`flex h-7 w-7 items-center justify-center rounded-[6px] transition-colors ${
+                chatOpen ? "bg-hover text-ink" : "text-faint hover:bg-subtle hover:text-ink"
+              }`}
+            >
+              <SharkMark size={17} />
+            </button>
+            <button onClick={onClose} aria-label="Скрыть панель" className="flex h-7 w-7 items-center justify-center rounded-[6px] text-faint hover:bg-subtle hover:text-ink lg:hidden">
+              <Icon d={I.panel} />
+            </button>
+          </div>
         </div>
 
         {/* поиск */}
@@ -285,8 +308,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         </>
         )}
 
-        {/* низ: строка к TEREN-AI и аккаунт */}
-        <SidebarAsk />
+        {/* низ: аккаунт */}
         <div className="border-t border-line p-2">
           <Link href={name ? "/dashboard" : "/auth/sign-in"} onClick={onClose} className="flex h-10 items-center gap-2.5 rounded-[6px] px-2 text-[14px] transition-colors hover:bg-subtle">
             <span className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-hover text-[12px] font-semibold text-ink">

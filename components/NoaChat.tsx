@@ -33,8 +33,8 @@ const GREETING: Msg = {
   text: "Я TEREN-AI. Спроси про свой бизнес, нишу или цифры — отвечу по базе знаний TerenLabs, без мотивашек.",
 };
 
-export function NoaChat() {
-  const [open, setOpen] = useState(false);
+export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const setOpen = (v: boolean) => { if (!v) onClose(); };
   const [msgs, setMsgs] = useState<Msg[]>([GREETING]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -188,56 +188,30 @@ export function NoaChat() {
     }
   };
 
-  // Строка «Спросить TEREN-AI» живёт в боковой панели: она открывает это окно
-  // и сразу отправляет вопрос. Пустая строка просто открывает чат.
-  // строка «Спросить TEREN-AI» в панели скрывается на время диалога:
-  // поле ввода окна встаёт ровно на её место, окно выглядит выросшим из строки
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent("teren:ai-state", { detail: open }));
-  }, [open]);
-
+  // Вопрос можно прислать снаружи событием: колонка откроется и сразу отправит.
   useEffect(() => {
     const onAsk = (e: Event) => {
       const q = (e as CustomEvent<string>).detail?.trim();
-      setOpen(true);
       if (q) void send(q);
     };
     window.addEventListener("teren:ai-ask", onAsk as EventListener);
     return () => window.removeEventListener("teren:ai-ask", onAsk as EventListener);
-    // send пересоздаётся на каждый рендер, но замыкание нам нужно свежее
+    // send пересоздаётся на каждый рендер, замыкание нужно свежее
   });
 
   // в плеере курса не показываем — там и так полный экран контента
   if (pathname.startsWith("/learn/") || inTest) return null;
 
-  return (
-    <>
-      {/* плавающая кнопка */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Закрыть TEREN-AI" : "Открыть TEREN-AI"}
-        className="fixed bottom-5 right-5 z-[45] flex h-12 w-12 items-center justify-center rounded-full border border-line-2 bg-subtle text-ink shadow-[var(--shadow-tl)] transition-colors hover:bg-hover lg:hidden"
-      >
-        {open ? (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        ) : (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17H6.5A2.5 2.5 0 0 1 4 14.5z" />
-            <path d="M8 9h8M8 12.5h5" />
-          </svg>
-        )}
-      </button>
+  if (!open) return null;
 
-      {/* панель чата */}
-      {open && (
+  // Колонка TEREN-AI: на десктопе встаёт второй колонкой слева и ужимает
+  // контент, на телефоне разворачивается на весь экран.
+  return (
         <div
           ref={dialogRef}
-          className="chat-rise fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-[#202020] shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-2 sm:left-2 sm:h-[min(640px,80vh)] sm:w-[430px] sm:max-w-[calc(100vw-16px)] sm:rounded-[14px] sm:border sm:border-line-2"
+          className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-[#1c1c1c] lg:static lg:z-auto lg:h-dvh lg:w-[380px] lg:shrink-0 lg:border-r lg:border-line lg:bg-[#1c1c1c]"
           role="dialog"
-          aria-modal="true"
-          aria-label="Чат TEREN-AI"
+          aria-label="TEREN-AI"
           style={{ overscrollBehavior: "contain" }}
         >
           {/* шапка */}
@@ -266,7 +240,7 @@ export function NoaChat() {
                   key={i}
                   className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                     m.role === "user"
-                      ? "ml-auto rounded-br-md bg-teal text-white"
+                      ? "ml-auto rounded-br-md bg-accent-600 text-[#fff]"
                       : "rounded-bl-md bg-subtle text-body"
                   }`}
                 >
@@ -274,47 +248,50 @@ export function NoaChat() {
                 </div>
               ))}
             {busy && msgs[msgs.length - 1]?.text === "" && (
-              <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-subtle px-3.5 py-2.5 text-sm text-muted">
+              <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-subtle px-3.5 py-2.5 text-sm text-faint">
                 TEREN-AI думает…
               </div>
             )}
           </div>
 
-          {/* ввод */}
+          {/* ввод: одна большая рамка, кнопка внутри справа снизу */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
               send();
             }}
-            className="flex items-end gap-2 border-t border-line p-3"
+            className="p-3"
           >
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  send();
-                }
-              }}
-              rows={1}
-              placeholder="Спроси про бизнес…"
-              aria-label="Вопрос для TEREN-AI"
-              className="max-h-28 flex-1 resize-none rounded-xl border border-line bg-subtle px-3.5 py-2.5 text-[16px] sm:text-sm text-body outline-none transition-colors placeholder:text-muted focus-visible:border-teal"
-            />
-            <button
-              type="submit"
-              disabled={busy || !input.trim()}
-              aria-label="Отправить"
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal text-white transition-colors hover:bg-teal-600 disabled:opacity-40"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" />
-              </svg>
-            </button>
+            <div className="rounded-[12px] border border-line bg-page p-2 transition-colors focus-within:border-accent/60">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    send();
+                  }
+                }}
+                rows={2}
+                placeholder="Спроси про свой бизнес, нишу или цифры"
+                aria-label="Вопрос для TEREN-AI"
+                className="max-h-40 w-full resize-none bg-transparent px-1.5 pb-1 pt-0.5 text-[16px] leading-relaxed text-ink outline-none focus:outline-none focus-visible:outline-none placeholder:text-faint sm:text-[14px]"
+              />
+              <div className="flex items-center justify-between pl-1.5">
+                <span className="text-[11.5px] text-faint">Enter отправит, Shift и Enter перенесут строку</span>
+                <button
+                  type="submit"
+                  disabled={busy || !input.trim()}
+                  aria-label="Отправить"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-600 text-[#fff] transition-opacity disabled:bg-hover disabled:text-faint"
+                >
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M8 13V3.5M4.2 7 8 3.2 11.8 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </form>
         </div>
-      )}
-    </>
   );
 }
