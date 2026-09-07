@@ -156,7 +156,7 @@ export async function authMethods(): Promise<{ telegram: boolean; email: boolean
 export type CodeChannel = "email";
 const CODE_PATH: Record<CodeChannel, string> = { email: "/auth/email" };
 
-/** Вход по коду (СМС или почта), шаг 1. Без провайдера бэкенд вернёт debug_code. */
+/** Вход по коду на почту, шаг 1. Без провайдера бэкенд вернёт debug_code. */
 export async function codeStart(channel: CodeChannel, to: string): Promise<{ to: string; expires_in_sec: number; debug_code?: string | null }> {
   const res = await fetch(OCEAN_API + CODE_PATH[channel] + "/start", {
     method: "POST",
@@ -191,10 +191,6 @@ export async function codeVerify(channel: CodeChannel, to: string, code: string)
   } catch { /* no-op */ }
   return auth;
 }
-
-/** Вход по СМС, шаг 1 (совместимость). */
-
-/** Вход по СМС, шаг 2: проверить код, получить веб-токен. */
 
 /** Персональный разбор TEREN-AI после теста (общий бэкенд с Mini App). */
 export async function fetchRecommendation(
