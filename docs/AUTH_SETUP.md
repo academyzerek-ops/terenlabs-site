@@ -1,83 +1,89 @@
 # Вход на сайте
 
-**Актуально (решение Адиля 05.09.2026: собирать базу пользователей).** Три способа,
-все сходятся в один аккаунт Океана (таблица `identities`, провайдеры telegram / google / phone):
+Три способа, все сходятся в один аккаунт Океана (таблица `identities`,
+провайдеры telegram / google / email).
 
 1. **Telegram deep-link** (главный): `components/TgDeepLinkLogin.tsx` → бэкенд `/api/ocean/auth/tg/*`,
    tg_id общий с Mini App. Для нативного приложения остаётся redirect-виджет
    (`/auth/sign-in?return=miniapp` → `/auth/tg-callback`).
-2. **Google**: NextAuth v5 (`auth.ts`) → возврат на `/auth/bridge-finish` → `/api/ocean-bridge`
-   меняет сессию на веб-токен Океана и передаёт почту (`users.email`). Кнопка появляется
-   только при заполненных `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`, см. ниже.
-3. **Номер телефона + код по СМС**: `components/PhoneLogin.tsx` → бэкенд `/api/ocean/auth/sms/start`
-   и `/sms/verify` (ветка бэкенда `feat/auth-phone-google`, миграция `e1f2a3b4c5d6`).
-   Провайдер СМС: Mobizon (Казахстан), env бэкенда `MOBIZON_API_KEY` (+ `MOBIZON_SENDER`
-   при одобренном имени отправителя). Без ключа бэкенд в дев-режиме возвращает код в ответе
-   (`debug_code`), форма его показывает. Номера пока только +7 (КЗ и РФ), 6 цифр, 5 минут,
-   повтор не чаще раза в минуту и не больше 5 раз в час, 5 попыток ввода.
+2. **Почта + код**: `components/CodeLogin.tsx` → бэкенд `/api/ocean/auth/email/start`
+   и `/email/verify`. Код 6 цифр на 10 минут, одноразовый. Работает с 07.09.2026.
+3. **Google**: NextAuth v5 (`auth.ts`) → возврат на `/auth/bridge-finish` → `/api/ocean-bridge`
+   меняет сессию на веб-токен Океана и передаёт почту (`users.email`). Работает с 08.09.2026.
 
-4. **Почта + код**: та же форма (`components/CodeLogin.tsx`, канал `email`) → бэкенд `/api/ocean/auth/email/start`
-   и `/email/verify`. Отправка через любой SMTP: env бэкенда `SMTP_HOST`, `SMTP_PORT` (587), `SMTP_USER`,
-   `SMTP_PASS`, `SMTP_FROM`. Без `SMTP_HOST` дев-режим с `debug_code`. Код 6 цифр на 10 минут. Если адрес
-   уже пришёл из Google, вход попадает в тот же аккаунт.
-
-Все четыре способа показаны одним рядом круглых кнопок (`components/SignInMethods.tsx`) на `/auth/sign-in`
-и в кабинете анониму.
+Способы показаны одним рядом круглых кнопок (`components/SignInMethods.tsx`) на
+`/auth/sign-in` и в кабинете анониму. Кнопка почты включается сама по ответу
+`/api/ocean/auth/methods`, кнопка Google — по наличию ключей в env.
 
 Авторизация по желанию: без входа сайт работает полностью.
 
+**Вход по СМС удалён 07.09.2026**: платно за каждое сообщение и требует договора
+с оператором. Восстанавливать не планируем.
+
 ---
 
-## Подключение входа Google / Apple (законсервировано)
+## Анкета после входа
 
-Ключи кладутся в `.env.local` (в git не попадает) — и провайдер появляется
-на `/auth/sign-in` сам, если вернуть кнопки на витрину.
+`/auth/onboarding` — имя, год рождения, пол, область РК. Имя вводится руками,
+остальное выпадающими списками. Бэкенд считает анкету пройденной только когда
+заполнены все четыре поля (`needs_onboarding`), иначе пользователь из Telegram
+не увидел бы её никогда: имя оттуда подставляется само. Пустое поле не затирает
+уже сохранённый ответ, анкету можно дозаполнить вторым заходом.
 
-## Google (5 минут)
+Данные лежат в `users`: `display_name`, `birth_year`, `gender` (m / f / na),
+`region_code` (ISO 3166-2:KZ). Год рождения и пол в рейтинге не показываются.
 
-1. https://console.cloud.google.com → выбери проект (или создай новый)
-2. APIs & Services → OAuth consent screen → External → заполни имя «TerenLabs» + почта
-3. APIs & Services → Credentials → Create Credentials → **OAuth client ID**
-   - Application type: **Web application**
-   - Authorized redirect URIs — добавить ОБА:
-     - `http://localhost:3001/api/auth/callback/google` (разработка)
-     - `https://ДОМЕН/api/auth/callback/google` (прод — добавить, когда будет домен)
-4. Скопировать Client ID и Client Secret → в `.env.local`:
+---
+
+## Почта: как устроена отправка
+
+Письма с кодом уходят через **Resend по HTTP API**, не по SMTP: контейнер Railway
+не пускает исходящие соединения ни на 465, ни на 587. Домен отправителя
+`mail.terenlabs.kz` подтверждён в Resend, DKIM и SPF стоят на поддомене — почта
+`info@terenlabs.kz` в Zoho не затронута.
+
+Env бэкенда: `RESEND_API_KEY`, `SMTP_FROM` (адрес отправителя, имя переменной
+осталось от прежней схемы). Без ключа бэкенд отдаёт `debug_code` в ответе, и
+форма его показывает — так удобно щупать вход локально.
+
+---
+
+## Google: что уже сделано
+
+Проект Google Cloud `gen-lang-client-0423344092`, экран согласия опубликован
+(«In production»), клиент **TerenLabs сайт**, тип Web application.
+
+Разрешённые адреса возврата:
 
 ```
-AUTH_GOOGLE_ID=xxxxx.apps.googleusercontent.com
-AUTH_GOOGLE_SECRET=GOCSPX-xxxxx
+https://terenlabs.kz/api/auth/callback/google
+https://terenlabs-site-production.up.railway.app/api/auth/callback/google
+http://localhost:3001/api/auth/callback/google
 ```
 
-5. Перезапустить дев-сервер. Кнопка «Войти через Google» появится сама.
+Env сайта на Railway: `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `AUTH_SECRET`,
+`AUTH_URL=https://terenlabs.kz`. Локально те же переменные кладутся
+в `.env.local` (в git не попадает), после чего кнопка появляется сама.
 
-## Apple (требует Apple Developer Program, $99/год)
+Новый адрес возврата (например, ещё один домен) добавляется в том же клиенте:
+Google Cloud → Google Auth Platform → Clients → TerenLabs сайт.
+
+---
+
+## Apple (не подключён)
+
+Требует Apple Developer Program, 99 долларов в год, и https-домен.
 
 1. developer.apple.com → Certificates, Identifiers & Profiles
 2. Identifiers → App ID (если нет) → затем **Services ID** (это и есть client_id),
-   включить «Sign in with Apple», привязать домен + return URL:
-   `https://ДОМЕН/api/auth/callback/apple`
+   включить «Sign in with Apple», привязать домен и адрес возврата:
+   `https://terenlabs.kz/api/auth/callback/apple`
 3. Keys → создать ключ с «Sign in with Apple» → скачать .p8
-4. Из .p8 + Team ID + Key ID собирается client_secret (JWT). NextAuth принимает
-   готовый секрет: сгенерировать можно скриптом из доков Auth.js
+4. Из .p8 плюс Team ID и Key ID собирается client_secret (JWT). NextAuth принимает
+   готовый секрет, сгенерировать можно скриптом из доков Auth.js
    (https://authjs.dev/getting-started/providers/apple)
 
 ```
 AUTH_APPLE_ID=cc.terenlabs.site   (Services ID)
-AUTH_APPLE_SECRET=eyJ...          (сгенерированный JWT, живёт до 6 мес)
+AUTH_APPLE_SECRET=eyJ...          (сгенерированный JWT, живёт до 6 месяцев)
 ```
-
-⚠️ Apple не работает с localhost и требует https-домен — подключать после
-появления постоянного домена.
-
-## Прод
-
-На хостинге (Railway/Vercel) добавить те же переменные + `AUTH_SECRET`
-(значение из `.env.local`) и `AUTH_URL=https://ДОМЕН`.
-
-## Что дальше (этап B — бэкенд)
-
-Сейчас «память» (прогресс курсов, попытки тестов) живёт в localStorage устройства
-и работает даже анониму. После входа — этап B: таблица site-юзеров на бэкенде
-(email ↔ tg_id), синк памяти между устройствами и зачёт попыток сайта
-в рейтинг «Океана».
