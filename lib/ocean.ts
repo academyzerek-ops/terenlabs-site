@@ -139,6 +139,20 @@ export async function tgLoginClaim(code: string): Promise<OceanAuth | null> {
 // СМС отключены решением Адиля 07.09.2026: платно за каждое сообщение,
 // нужен договор и регистрация имени отправителя, а почта и телеграм
 // закрывают тех же людей. Остаётся один канал.
+/** Какие способы входа сейчас работают. Спрашиваем бэкенд, а не держим копию
+ *  настроек на сайте: почта включается переменными окружения бэкенда, и кнопка
+ *  должна ожить без отдельного деплоя сайта. Сеть отвалилась — считаем, что
+ *  почты нет: показать выключенную кнопку честнее, чем вести в ошибку. */
+export async function authMethods(): Promise<{ telegram: boolean; email: boolean }> {
+  try {
+    const res = await fetch(OCEAN_API + "/auth/methods");
+    if (!res.ok) return { telegram: true, email: false };
+    return await res.json();
+  } catch {
+    return { telegram: true, email: false };
+  }
+}
+
 export type CodeChannel = "email";
 const CODE_PATH: Record<CodeChannel, string> = { email: "/auth/email" };
 

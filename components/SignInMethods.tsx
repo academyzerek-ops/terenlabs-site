@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { tgLoginClaim, tgLoginStart } from "@/lib/ocean";
+import { authMethods, tgLoginClaim, tgLoginStart } from "@/lib/ocean";
 import { CodeLogin } from "@/components/CodeLogin";
 import type { CodeChannel } from "@/lib/ocean";
 
@@ -13,8 +13,6 @@ import type { CodeChannel } from "@/lib/ocean";
 // а тех же людей закрывают телеграм и почта.
 const ROUND = "flex h-14 w-14 items-center justify-center rounded-full text-[#fff] transition-transform hover:scale-[1.04] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100";
 
-const EMAIL_LOGIN = process.env.NEXT_PUBLIC_EMAIL_LOGIN === "1";
-
 export function SignInMethods({ googleReady, googleAction, size = "md" }: { googleReady: boolean; googleAction?: () => Promise<void>; size?: "md" | "sm" }) {
   // на узком телефоне четыре круга по 56 px с подписями не помещаются в ряд
   const round = size === "sm"
@@ -24,6 +22,11 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
   const [phase, setPhase] = useState<"idle" | "waiting" | "error">("idle");
   const [link, setLink] = useState<string | null>(null);
   const [channel, setChannel] = useState<CodeChannel | null>(null);
+  // Включена ли отправка кода на почту — знает только бэкенд (там настройки SMTP).
+  const [emailOn, setEmailOn] = useState(false);
+  useEffect(() => {
+    authMethods().then((m) => setEmailOn(m.email));
+  }, []);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => () => { if (timer.current) clearInterval(timer.current); }, []);
 
@@ -75,17 +78,18 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
           <span className="text-[12px] text-text-2">Google</span>
         </div>
 
-        {/* Почта. Кнопка появляется только когда бэкенд действительно умеет
-            слать код: иначе человек жмёт её первым делом и получает ошибку.
-            Включается переменной NEXT_PUBLIC_EMAIL_LOGIN. */}
-        {EMAIL_LOGIN && (
+        {/* Почта. Кнопка на месте всегда, но пока бэкенду нечем слать код, она
+            выключена с подсказкой — как у Google. Пропадать она не должна:
+            исчезнувший способ входа выглядит поломкой, а не настройкой. */}
         <div className="flex flex-col items-center gap-2">
           <button
             type="button"
+            disabled={!emailOn}
             onClick={() => setChannel((c) => (c === "email" ? null : "email"))}
             aria-expanded={channel === "email"}
             aria-controls="code-login"
-            aria-label="Войти по почте"
+            aria-label={emailOn ? "Войти по почте" : "Почта скоро"}
+            title={emailOn ? undefined : "Подключается после настройки почты"}
             className={`${round} bg-[#F0873A] ${channel === "email" ? "ring-2 ring-[#F0873A]/40 ring-offset-2 ring-offset-page" : ""}`}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -94,7 +98,6 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
           </button>
           <span className="text-[12px] text-text-2">Почта</span>
         </div>
-        )}
       </div>
 
       {phase === "waiting" && (
@@ -117,7 +120,7 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
         </p>
       )}
 
-      {channel && EMAIL_LOGIN && (
+      {channel && emailOn && (
         <div id="code-login" className="mt-6">
           <CodeLogin key={channel} channel={channel} />
         </div>
