@@ -100,7 +100,9 @@ export default function OnboardingPage() {
             />
           </label>
 
-          <div className="grid grid-cols-2 gap-3">
+          {/* На узких экранах два поля в ряд режут подпись в списке:
+              до 380px ставим их друг под друга. */}
+          <div className="grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 min-[380px]:gap-3">
             <label className="block">
               <span className={LABEL}>Год рождения</span>
               <select
