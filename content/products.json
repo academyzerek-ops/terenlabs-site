@@ -586,8 +586,8 @@
   "title": "Команда стартапа",
   "blurb": "Кофаундер, доли, вестинг, первые наёмные",
   "metric": {
-   "value": "4",
-   "label": "главы"
+   "value": "5",
+   "label": "глав"
   },
   "badge": "Готов",
   "img": "/academy-assets/tracks/track-founder-team.webp?v=8"
@@ -602,8 +602,8 @@
   "title": "Исследование рынка",
   "blurb": "Размер рынка, конкуренты, спрос до первой строки кода",
   "metric": {
-   "value": "4",
-   "label": "главы"
+   "value": "5",
+   "label": "глав"
   },
   "badge": "Готов",
   "img": "/academy-assets/tracks/track-founder-market.webp?v=8"
@@ -682,7 +682,7 @@
   "title": "Привлечение инвестиций",
   "blurb": "Ангелы, венчур, гранты, лестница раундов, SAFE, term sheet",
   "metric": {
-   "value": "7",
+   "value": "8",
    "label": "глав"
   },
   "badge": "Готов",
