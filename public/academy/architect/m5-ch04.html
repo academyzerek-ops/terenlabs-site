@@ -7,16 +7,12 @@
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
-<title>Первая транзакция: воронка продаж, письмо о намерениях и архитектура ручных продаж</title>
-<meta name="description" content="Мы обсудили, как собрать MVP и замерить интерес. Но лайки, регистрации и теплые слова на интервью не платят зарплату твоей команде.
-
-Первый девиз…">
+<title>Ты — Герой: Архитектура идентичности и миф о «чистой накрутке» (Кейс Nike)</title>
+<meta name="description" content="В прошлой главе мы говорили о том, как люксовые конгломераты защищают свой экономический ров через отказ от скидок. Теперь поговорим о том, как компании…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
-<meta property="og:title" content="Первая транзакция: воронка продаж, письмо о намерениях и архитектура ручных продаж">
-<meta property="og:description" content="Мы обсудили, как собрать MVP и замерить интерес. Но лайки, регистрации и теплые слова на интервью не платят зарплату твоей команде.
-
-Первый девиз…">
+<meta property="og:title" content="Ты — Герой: Архитектура идентичности и миф о «чистой накрутке» (Кейс Nike)">
+<meta property="og:description" content="В прошлой главе мы говорили о том, как люксовые конгломераты защищают свой экономический ров через отказ от скидок. Теперь поговорим о том, как компании…">
 <meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m5-ch04.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m5-ch04.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,113 +22,129 @@
 <body>
 <main class="page">
   <div class="hero">
-    <h1>Первая транзакция: воронка продаж, письмо о намерениях и архитектура ручных продаж</h1>
+    <h1>Ты — Герой: Архитектура идентичности и миф о «чистой накрутке» (Кейс Nike)</h1>
   </div>
 
   <div class="c al">
-    <p class="dropcap">Мы обсудили, как собрать MVP и замерить интерес. Но лайки, регистрации и теплые слова на интервью не платят зарплату твоей команде.</p>
-    <p>Первый девиз акселератора Y Combinator: <em>«Make something people want» (Сделай то, что нужно людям)</em>. Но у его основателя Пола Грэма есть второе, гораздо более прагматичное правило для старта: <strong>«Do things that don't scale» (Делай то, что не масштабируется)</strong>.</p>
-  </div>
-
-  <div class="pq"><p>Твоя цель на старте — не построить воронку, а загнать в кассу первые «грязные» деньги от холодного клиента.</p></div>
-
-  <div class="c">
-    <p>Твоя цель на старте — не построить автоматизированную воронку продаж. Твоя цель — загнать в кассу первые "грязные" деньги от холодного клиента. Первая транзакция доказывает, что твоя юнит-экономика существует за пределами твоих фантазий.</p>
-    <p>Разберем четыре тактики закрытия первых сделок без капитальных затрат на инфраструктуру.</p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Тактика 1: Продажа намерений (предоплата, LOI и пилоты)</div>
-    <p>В рознице это называется "предзаказ" (как у Tesla), а в малом деле — обычная предоплата: аванс за ремонт, предзаказ тортов к празднику, депозит за банкет. В продажах компаниям это называется <strong>письмо о намерениях (LOI)</strong> или платное пилотное внедрение.</p>
-    <p>Если ты строишь сложный софт для финансового мониторинга, разработка займет месяцы. Ты идешь к корпоративному клиенту с макетами и говоришь: <em>"Мы пишем этот софт под вашу боль. Подпишите письмо о намерениях, что вы купите годовую лицензию за $10,000, когда мы сдадим релиз"</em>.</p>
-  </div>
-
-  <div class="ins">
-    <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
-    <p></p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Тактика 2: Консьерж как Консалтинг</div>
-    <p>Самый надежный способ продать IT-продукт, которого еще нет — оказать его функцию руками в формате дорогого консалтинга.</p>
-    <p>Если ты строишь биржу проверенных специалистов (условно, платформу для поиска финансовых аналитиков), не пиши сложный портал с личными кабинетами и алгоритмами подбора. Найди компанию, которой прямо сейчас нужен человек для сборки управленческого учета. Заключи договор на подбор. Вручную проверь кандидата, руками проверь его финмодель и "продай" его клиенту.</p>
-    <p>Ты выполнишь работу как маленькое агентство. Это абсолютно не масштабируемо. Но ты получишь первые деньги, отработаешь методологию и поймешь, за что именно клиент готов платить комиссию.</p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Тактика 3: Скидка за Риск (а не по дружбе)</div>
-    <p>В бизнесе нет друзей, есть контрагенты. Продажа другу со скидкой 50% — это мусорный сигнал, он покупает из жалости.</p>
+    <p class="dropcap">В прошлой главе мы говорили о том, как люксовые конгломераты защищают свой экономический ров через отказ от скидок. Теперь поговорим о том, как компании масс-маркета создают добавочную стоимость бренда (Brand Equity), продавая миллионы товаров каждый день.</p>
   </div>
 
   <div class="vs">
     <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="people" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.2a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2M2.4 13.2c0-2 1.6-3.3 3.6-3.3s3.6 1.3 3.6 3.3M10.7 4.3a2 2 0 0 1 0 3.9M11.6 10.2c1.3.4 2 1.4 2 3"/></svg></span>
-      <div class="vs-t">Скидка по дружбе</div>
-      <div class="vs-d">Друг берёт из жалости. Мусорный сигнал — спрос не доказан.</div>
+      <span class="vs-ico"><svg class="ic" data-ic="snow" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9v12.2M2.7 4.9l10.6 6.2M13.3 4.9 2.7 11.1M8 4.3 6.4 3M8 4.3 9.6 3M8 11.7l-1.6 1.3M8 11.7l1.6 1.3"/></svg></span>
+      <div class="vs-t">Новички</div>
+      <div class="vs-d">Верят: Nike продаёт кроссовки. Чуть мудрее — «Nike продаёт мечту».</div>
     </div>
     <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="target" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.6a5.4 5.4 0 1 0 0 10.8A5.4 5.4 0 0 0 8 2.6M8 5.6a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8M8 7.6v.1"/></svg></span>
-      <div class="vs-t">Цена для первых клиентов</div>
-      <div class="vs-d">Холодный клиент берёт риск за выгоду. Деньги + публичный кейс.</div>
+      <span class="vs-ico"><svg class="ic" data-ic="scales" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.7v10.6M4.4 13.3h7.2M3.2 4.3h9.6M3.2 4.3 1.4 8.6h3.6zM12.8 4.3 11 8.6h3.6zM1.4 8.6a1.8 1.8 0 0 0 3.6 0M11 8.6a1.8 1.8 0 0 0 3.6 0"/></svg></span>
+      <div class="vs-t">Архитектор</div>
+      <div class="vs-d">Знает: Nike продаёт <strong>идентичность (Brand Identity)</strong>.</div>
     </div>
   </div>
 
   <div class="c">
-    <p>Правильная тактика Архитектора — это <strong>цена для первых клиентов (Early Adopter Pricing)</strong>. Ты приходишь к холодному клиенту и говоришь: <em>"Наша система стоит $5000 в месяц. Вы будете первым клиентом, поэтому мы зафиксируем за вами цену $2000 навсегда, если вы дадите нам честный фидбек и позволите написать публичный кейс"</em>.</p>
-    <p>Клиент получает экономическую выгоду за то, что берет на себя риск внедрения сырого продукта. Ты получаешь первые деньги и социальное доказательство для следующих продаж.</p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Тактика 4: Прямой выход на клиента (Ручной поиск)</div>
-    <p>Когда Airbnb начинали, они не покупали таргет и не ждали органики. Они написали скрипт, собрали базу арендодателей у гигантского конкурента (доски объявлений Craigslist) и начали писать им письма вручную, переманивая на свою пустую платформу. Это классический партизанский Outbound (исходящие продажи — когда ты сам идешь к клиенту, а не ждешь его).</p>
-    <p>На старте тебе не нужны сложные системы лидогенерации. Тебе нужен простой учет клиентов — CRM-система или хотя бы Google-таблица, куда ты руками занесешь 100 целевых компаний, найдешь контакты их лиц, принимающих решения (ЛПР), и сделаешь 100 звонков или точечных писем. Основатель — это первый и единственный продавец в компании. Пока ты сам не продашь свой продукт 10 раз, ты не сможешь написать скрипт продаж ни для одного менеджера.</p>
+    <p>Разберем, как Фил Найт превратил компанию по продаже японской обуви в монополию на спортивный героизм, и почему миф о «кроссовках за 5 долларов» опасен для твоего бизнеса.</p>
   </div>
 
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
 
-  <div class="ins">
-    <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
-    <p>Запомни жесткое правило. Продавать то, чего нет — можно. <strong>Обещать то, чего не можешь выполнить — нельзя (это обман).</strong> В IT ты можешь продать подписку на софт, которого нет, честно сказав: <em>"Релиз через 2 месяца"</em>.
-Но в сфере сложных физических или интеллектуальных услуг это не работает. Если ты продаешь аудит компаниям, ты можешь не иметь офиса, логотипа и сайта, но твоя базовая компетенция — навык проведения аудита — уже должна существовать на уровне эксперта.</p>
+  <div class="c al">
+    <div class="lb purple">Кризис 1980-х и Архитектурный разворот</div>
+    <p>К середине 1980-х годов Nike проигрывала войну конкурентам из Reebok, которые удачно зашли в нишу аэробики и лайфстайла. У Nike была отличная технология (вафельная подошва, воздушная подушка), но продажа технологии больше не работала.</p>
+    <p>Nike сделала два структурных разворота:</p>
+  </div>
+
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">1984 · Спонсорский рычаг</div><div class="tl-txt"><strong>Контракт с Майклом Джорданом.</strong> Endorsement — контракт со звездой, которая продвигает бренд. Nike не просто наняла рекламное лицо. Она создала суб-бренд <em>Air Jordan</em>. Это была первая сделка, где продукт слился с личностью атлета до степени смешения.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">1988 · Смена нарратива</div><div class="tl-txt"><strong>«Just Do It».</strong> Агентство Wieden+Kennedy совершило революцию. В рекламе Nike больше не показывала обувь и ее характеристики. Она показывала пот, кровь и преодоление.</div></div>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Идентичность против Инструмента</div>
+    <p>В Nike любят повторять слова сооснователя компании Билла Бауэрмана о том, что каждый, у кого есть тело, — уже атлет. Это гениальная архитектура позиционирования. Nike не говорит: «Наши кроссовки сделают тебя быстрее» (это продажа инструмента). Nike не говорит: «Ты толстый, купи кроссовки и похудей» (это манипуляция через вину).</p>
+    <p>Nike говорит: «Ты уже часть племени победителей, просто двигайся». Когда потребитель покупает Nike, он платит не за кусок резины. Он покупает <strong>социальный маркер</strong>. Он сигнализирует окружающим: «Я разделяю эти ценности». Эта идентичность позволяет Nike удерживать миллионы клиентов вне зависимости от того, что делают конкуренты.</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Финансовая анатомия: Миф о «накрутке за эмоцию»</div>
+    <p>В соцсетях любят повторять: мол, себестоимость кроссовок $5, продают за $200 — вот она, сила бренда, делай так же.</p>
+    <p>Если ты попытаешься продать кусок резины за $200 без системного фундамента, ты обанкротишься. Архитектор должен видеть структуру цены:</p>
+  </div>
+
+  <div class="fla">
+    <div class="fla-lbl">Анатомия цены кроссовок за $200</div>
+    <div class="fla-eq"><span class="cu" data-to="200">0</span> цена <span class="op">−</span> <span class="cu" data-to="20">0</span> COGS <span class="op">−</span> <span class="cu" data-to="156">0</span> OPEX <span class="op">=</span> <span class="cu" data-to="24">0</span> прибыль → <span class="cu" data-to="12">0</span> % Net Margin</div>
+    <div class="fla-note">COGS — около $15–25 (материалы + фабричная сборка). Ещё ~$156 — это OPEX: R&amp;D, глобальная логистика, дистрибуция, спонсорские контракты, содержание тысяч магазинов. Чистая прибыль (Net Margin) — лишь 10–12 %.</div>
+  </div>
+
+  <div class="fs">
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="building" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 13.4V3.1L9.9 1.8v11.6M9.9 5.6h2.9v7.8M1.9 13.4h12.2M5.3 4.6v.1M7.4 4.4v.1M5.3 7v.1M7.4 6.9v.1M5.3 9.4v.1M7.4 9.3v.1"/></svg></span><div class="fc-txt"><strong>COGS $15–25</strong> — реальная производственная себестоимость: материалы и фабричная сборка.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt"><strong>~$156 OPEX</strong> — разработка технологий (R&amp;D), логистика, дистрибуция, спонсорские контракты, магазины.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="up" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12.4 6 8l2.6 2.4L13.6 4.6M13.9 7.9V4.4H10.4"/></svg></span><div class="fc-txt"><strong>10–12 % Net Margin</strong> — вот вся «магия» бренда после вычета бюджетов.</div></div>
   </div>
 
   <div class="c">
-    <p>Продай экспертизу. Инфраструктуру (юрлицо, красивый офис, секретаря и маркетинговый отдел) ты оплатишь уже с первых контрактов.</p>
+    <p>Бренд не позволяет тебе «делать деньги из воздуха». Бренд позволяет тебе закладывать в цену колоссальные бюджеты на маркетинг и R&amp;D, оставаясь при этом лидером рынка.</p>
   </div>
 
-  <a class="case-cta" href="../../cases/case-097.html?from=lesson">
-    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
-    <span class="case-cta-title">Первый заказ окупил всё</span>
-    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
-  </a>
+  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
+  <div class="c al">
+    <div class="lb purple">Снижение рисков: Почему B2B и B2C работают одинаково</div>
+    <p>Существует опасный стереотип: «В B2C (продажах людям) нужно продавать эмоции, а в B2B (продажах компаниям) — только цифры и таблицы».</p>
+    <p>Архитектор понимает, что за любой корпоративной сделкой стоит живой менеджер.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico"><svg class="ic" data-ic="cart" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.9 2.9h1.7l1.8 6.9h6.2l1.5-4.8H4.3M6.4 12.6v.1M11 12.6v.1"/></svg></span>
+      <div class="vs-t">B2C — человек</div>
+      <div class="vs-d">Покупает Nike, чтобы снизить <strong>социальный риск</strong> — не выглядеть глупо в спортзале.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico"><svg class="ic" data-ic="building" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 13.4V3.1L9.9 1.8v11.6M9.9 5.6h2.9v7.8M1.9 13.4h12.2M5.3 4.6v.1M7.4 4.4v.1M5.3 7v.1M7.4 6.9v.1M5.3 9.4v.1M7.4 9.3v.1"/></svg></span>
+      <div class="vs-t">B2B — директор</div>
+      <div class="vs-d">Покупает дорогой софт Microsoft или IBM не за лучшие таблицы, а чтобы снизить <strong>репутационный и карьерный риск</strong>: «Никого ещё не увольняли за покупку IBM».</div>
+    </div>
+  </div>
+
+  <div class="c">
+    <p>В любой продаже есть рациональный фундамент (цифры, характеристики, окупаемость) и эмоциональный слой (идентичность, доверие, снижение страха). Меняется только пропорция.</p>
+  </div>
 
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
 
   <div class="tk">
     <span class="tk-badge">Что вынести</span>
-    <h3>Архитектура первой транзакции</h3>
-    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Деньги — единственный KPI.</strong> До поступления первого транша на расчетный счет твой проект — это хобби. Первые продажи делаются не через красивый бренд, а через личные переговоры и продажу решения проблемы.</span></div>
-    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Делай то, что не масштабируется.</strong> На старте твое преимущество перед корпорациями — ручной сервис. Сопровождай первых клиентов так, словно они купили VIP-консалтинг, даже если они платят 10 долларов за подписку.</span></div>
-    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Прямые продажи бьют ожидание.</strong> Не жди, пока заработает SEO или сарафанное радио. Собери базу, заведи учет сделок и иди в "холодные" продажи. Это быстрее и дешевле всего покажет, есть ли спрос.</span></div>
+    <h3>Идентичность, математика, человек</h3>
+    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Продавай Идентичность, а не Инструмент.</strong> Если ты продаешь «серверы» — ты конкурируешь с заводами в Тайване по цене. Если ты продаешь «безопасность данных для финтеха» — ты продаешь спокойствие руководителя и можешь устанавливать премию к рынку.</span></div>
+    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Сильный бренд — это не «накрутка».</strong> Добавочная стоимость бренда позволяет финансировать агрессивный R&amp;D и захватывать каналы дистрибуции. Но в основе этой наценки всегда лежит фундаментальная операционная математика.</span></div>
+    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Любая продажа — это B2H (Business to Human — бизнес для человека).</strong> Корпорации не принимают решений. Решения принимают менеджеры, которые боятся ошибиться и потерять бонус. Архитектор проектирует сделки так, чтобы снять страх с конкретного человека, который принимает решение.</span></div>
   </div>
+
+  <div class="c">
+    <p>История Nike показала нам, как смещение фокуса с характеристик товара на идентичность клиента может перезапустить падающую корпорацию. Мы увидели, что в основе любой эмоциональной продажи лежит жесткий финансовый и психологический расчет.</p>
+  </div>
+
+  <div class="pq"><p class="nextup">В следующей главе — обратная ситуация: что делать, если ты выходишь на рынок, где уже сидит гигант с бездонным рекламным бюджетом. Разберём, как Burger King троллил McDonald's с помощью технологий — и какая математика стояла за этой дерзостью.</p></div>
+
+  <a class="case-cta" href="../../cases/case-117.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Продал ценности, не куртку</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
 
   <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p>Мы разобрали архитектуру первых сделок. Мы выяснили, что на старте основатель должен забыть про "систему" и стать охотником, который вручную переводит абстрактные потребности рынка в твердые контракты.</p>
-  </div>
-
-  <div class="pq"><p>Но привлечь клиента — полдела. Настоящие деньги приносит клиент, который остается с тобой годами.</p></div>
-
-  <div class="c">
-    <p>Но привлечь клиента — полдела. Настоящие деньги приносит клиент, который остается с тобой годами. В следующей главе мы разберем самую прочную защиту выручки — стоимость перехода: почему клиенты не уходят даже к более дешевым конкурентам. Препарируем это на самом известном примере — экосистеме Apple — и переведем механику на язык твоего бизнеса.</p>
+    <p>Идентичность продаётся дороже функции. В следующей главе спустимся на землю: как маленькими бюджетами перехватывают чужой трафик прямо у входа в чужой магазин.</p>
   </div>
 
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m5-ch04"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=5'">← Содержание</button>
-  <button class="nb nb-next" onclick="location.href='m5-ch05.html'">Дальше →</button>
+  <button class="nb nb-prev notranslate" translate="no" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=5'">← Содержание</button>
+  <button class="nb nb-next notranslate" translate="no" onclick="location.href='m5-ch05.html'">Дальше →</button>
 </div>
 <script src="/review-enhance.js?v=3" defer></script>
 </body>

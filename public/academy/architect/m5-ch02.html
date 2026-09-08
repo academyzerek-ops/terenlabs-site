@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
-<title>Анатомия CustDev: Как заставить клиента сказать правду до того, как ты напишешь код</title>
-<meta name="description" content="В прошлой главе мы установили жесткое правило: идея ничего не стоит, пока она не прошла валидацию деньгами. Но чтобы дойти до этапа предоплаты, ты должен…">
+<title>Империя без заводов: Как медиа-машина Red Bull взломала социальное доказательство</title>
+<meta name="description" content="В прошлой главе мы обсуждали, что продукт — это фундамент, а маркетинг — усилитель. Теперь мы разберем архитектурную аномалию: компанию, которая…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
-<meta property="og:title" content="Анатомия CustDev: Как заставить клиента сказать правду до того, как ты напишешь код">
-<meta property="og:description" content="В прошлой главе мы установили жесткое правило: идея ничего не стоит, пока она не прошла валидацию деньгами. Но чтобы дойти до этапа предоплаты, ты должен…">
+<meta property="og:title" content="Империя без заводов: Как медиа-машина Red Bull взломала социальное доказательство">
+<meta property="og:description" content="В прошлой главе мы обсуждали, что продукт — это фундамент, а маркетинг — усилитель. Теперь мы разберем архитектурную аномалию: компанию, которая…">
 <meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m5-ch02.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m5-ch02.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -21,133 +22,85 @@
 <body>
 <main class="page">
   <div class="hero">
-    <h1>Анатомия CustDev: Как заставить клиента сказать правду до того, как ты напишешь код</h1>
+    <h1>Империя без заводов: Как медиа-машина Red Bull взломала социальное доказательство</h1>
   </div>
 
   <div class="c al">
-    <p class="dropcap">В прошлой главе мы установили жесткое правило: идея ничего не стоит, пока она не прошла валидацию деньгами. Но чтобы дойти до этапа предоплаты, ты должен знать, кому именно ты продаешь и какая у него боль.</p>
-    <p>Серийный предприниматель и преподаватель Стэнфорда Стив Бланк (создатель методологии <em>Customer Development</em>) сформулировал главное правило запуска любого продукта: <strong>«Get out of the building» (Выйди из здания)</strong>. В переговорке нет фактов, там есть только галлюцинации основателя. Факты есть у клиентов.</p>
-  </div>
-
-  <div class="pq"><p>В переговорке нет фактов, там есть только галлюцинации основателя. Факты есть у клиентов.</p></div>
-
-  <div class="c">
-    <p>Разберем, как проводить глубинные интервью так, чтобы не обмануть самого себя.</p>
+    <p class="dropcap">В прошлой главе мы обсуждали, что продукт — это фундамент, а маркетинг — усилитель. Теперь мы разберем архитектурную аномалию: компанию, которая превратила сам маркетинг в продукт, а физическое производство вынесла за скобки.</p>
+    <p>В бизнес-пабликах любят рассказывать городскую легенду: будто основатель Red Bull разбрасывал пустые банки возле ночных клубов, чтобы создать иллюзию популярности. Подтверждений этой байке нет, и Архитектор в байки не верит. Имитация (как мы обсуждали в кейсе Reddit) допустима только в цифре на этапе «холодного старта». В физическом мире пустые банки в урнах не генерируют LTV.</p>
+    <p>Разберем реальную, а не выдуманную стратегию Дитриха Матешица, которая позволила ему создать новую товарную категорию (энергетики) и захватить мир.</p>
   </div>
 
   <div class="c al">
-    <div class="lb purple">Правило Мамы (The Mom Test): Анатомия лжи</div>
-    <p>Роб Фитцпатрик в своей книге <em>The Mom Test</em> описал главную причину провала исследований: люди социальны и не хотят тебя расстраивать.</p>
-    <p>Если ты спрашиваешь: «Я тут придумал гениальный софт для автоматизации отчетности, вы бы его купили?» — 95% собеседников ответят: «Да, звучит круто». Ты уйдешь счастливым, потратишь год на код, вернешься к ним с готовым продуктом, и они перестанут отвечать на твои письма. Они солгали тебе из вежливости.</p>
-    <p><strong>Архитектор никогда не спрашивает про будущее.</strong> Будущего не существует. Архитектор спрашивает только про прошлое и настоящее. Правильный CustDev в продажах компаниям выглядит так:</p>
-  </div>
-
-  <div class="vs">
-    <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="cross" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>
-      <div class="vs-t">Неправильно</div>
-      <div class="vs-d">Хотели бы вы удобную финмодель?</div>
-    </div>
-    <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="check" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8.4 3.2 3.2L13 4.6"/></svg></span>
-      <div class="vs-t">Правильно</div>
-      <div class="vs-d">Расскажите, как вы в прошлом месяце собирали P&amp;L (отчет о прибылях и убытках)?</div>
-    </div>
-  </div>
-
-  <div class="vs">
-    <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="cross" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>
-      <div class="vs-t">Неправильно</div>
-      <div class="vs-d">Купите ли вы нашу программу за $500?</div>
-    </div>
-    <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="check" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8.4 3.2 3.2L13 4.6"/></svg></span>
-      <div class="vs-t">Правильно</div>
-      <div class="vs-d">Сколько часов вашего финансового директора уходит на ручную сводку таблиц в неделю? Сколько стоит его час?</div>
-    </div>
-  </div>
-
-  <div class="c">
-    <p>Та же логика работает в малом деле:</p>
-  </div>
-
-  <div class="vs">
-    <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="cross" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>
-      <div class="vs-t">Неправильно</div>
-      <div class="vs-d">Ты бы ходил в мою кофейню у метро?</div>
-    </div>
-    <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="check" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8.4 3.2 3.2L13 4.6"/></svg></span>
-      <div class="vs-t">Правильно</div>
-      <div class="vs-d">Где ты сегодня покупал кофе по дороге на работу и сколько заплатил?</div>
-    </div>
-  </div>
-
-  <div class="c">
-    <p>Ты вытаскиваешь из клиента <strong>цену нерешенной проблемы</strong>. Если он говорит, что проблема есть, но не может вспомнить, когда последний раз пытался ее решить (или тратил на это деньги) — проблемы не существует.</p>
+    <div class="lb purple">Провальные фокус-группы и производство на аутсорсе</div>
+    <p>В 1984 году маркетолог Дитрих Матешиц пробует в Таиланде местный тонизирующий напиток <em>Krating Daeng</em> (производства Чалео Йювидхьи) и решает адаптировать его для Европы.</p>
   </div>
 
   <div class="ins">
     <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
-    <p>Ты вытаскиваешь из клиента <strong>цену нерешенной проблемы</strong>. Если он говорит, что проблема есть, но не может вспомнить, когда последний раз пытался ее решить (или тратил на это деньги) — проблемы не существует.</p>
+    <p>Когда Матешиц провел исследование будущих клиентов (CustDev — интервью и опросы целевой аудитории) в Австрии, результаты были катастрофическими. Фокус-группам не нравился вкус, цвет, запах и цена. Но Матешиц понимал концепцию <em>Jobs to be Done</em>: он продавал не вкусную газировку, он продавал «энергию в банке». Он проигнорировал фокус-группы и запустил продукт в 1987 году.</p>
+  </div>
+
+  <div class="c">
+    <p>Главный архитектурный секрет Red Bull кроется в их балансовом отчете. <strong>Red Bull не владеет заводами по розливу напитка.</strong> Производство полностью отдано сторонним подрядчикам — основной объем разливает австрийская компания Rauch. Матешиц избавился от тяжелых капитальных затрат (CAPEX) на фабрики, чтобы высвободить 100% ресурсов на главное — создание спроса.</p>
   </div>
 
   <div class="c al">
-    <div class="lb purple">Фокус на Транзакционных Издержках: Кейс Airbnb</div>
-    <p>Классический пример того, как глубинный анализ реальности ломает изначальную архитектуру продукта — это запуск Airbnb.</p>
-    <p>В 2008 году Брайан Чески и Джо Геббиа запустили платформу по сдаче надувных матрасов. Платформа не росла. Они вышли из здания и поехали к первым пользователям в Нью-Йорк. Первое, что они увидели — отвратительные фотографии квартир. Они арендовали профессиональную камеру и сами пересняли жилье. Конверсия выросла.</p>
-    <p>Но главный инсайт пришел из разговоров. Выяснилось, что барьер роста Airbnb кроется не в плохом интерфейсе и не в цене. Главной проблемой были <strong>Транзакционные издержки (Страх)</strong>.</p>
+    <div class="lb purple">Media-First Architecture: Бизнес как медийная компания</div>
+    <p>Большинство корпораций (Coca-Cola, Pepsi) производят напиток, а затем покупают чужое внимание через телевизионную рекламу.</p>
   </div>
 
   <div class="vs">
     <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="home" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 7.4 8 2.6l5.6 4.8M3.9 8.6v4.8h8.2V8.6M6.6 13.4V9.9h2.8v3.5"/></svg></span>
-      <div class="vs-t">Хозяева боялись</div>
-      <div class="vs-d">Пускать незнакомцев в дом — риск ущерба.</div>
+      <span class="vs-ico"><svg class="ic" data-ic="building" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 13.4V3.1L9.9 1.8v11.6M9.9 5.6h2.9v7.8M1.9 13.4h12.2M5.3 4.6v.1M7.4 4.4v.1M5.3 7v.1M7.4 6.9v.1M5.3 9.4v.1M7.4 9.3v.1"/></svg></span>
+      <div class="vs-t">Coca-Cola, Pepsi</div>
+      <div class="vs-d">Производят напиток, а затем <strong>арендуют</strong> чужое внимание через телевизионную рекламу.</div>
     </div>
     <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="box" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 5.2 8 2.7l5.4 2.5v5.6L8 13.3l-5.4-2.5zM2.6 5.2 8 7.7l5.4-2.5M8 7.7v5.6"/></svg></span>
-      <div class="vs-t">Гости боялись</div>
-      <div class="vs-d">Ехать к незнакомцам — риск обмана.</div>
+      <span class="vs-ico"><svg class="ic" data-ic="screen" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.2 3.2h11.6v7H2.2zM5.5 13h5M8 10.2V13"/></svg></span>
+      <div class="vs-t">Red Bull</div>
+      <div class="vs-d"><strong>Владеет</strong> вниманием: продюсерский центр, который монетизирует контент через банки с кофеином.</div>
     </div>
   </div>
 
   <div class="c">
-    <p>Airbnb понял, что они продают не аренду жилья. Они продают <strong>доверие как услугу</strong>. Они сместили фокус архитектуры на верификацию профилей и двустороннюю систему отзывов. А когда в 2011 году гости разгромили квартиру хозяйки из Сан-Франциско и история разлетелась по прессе, компания ответила «Гарантией Хозяина» (Host Guarantee) на $50,000 — и в 2012 году подняла планку до $1,000,000, перестраховав риск через Lloyd's of London. Заметь: миллионная гарантия — это не ранний инсайт из интервью, а реакция на кризис. Инсайтом было само открытие: люди боятся, и этот страх нужно снимать за счет компании.</p>
+    <p>Матешиц перевернул парадигму. Он построил <strong>Media-First компанию (Медиа на первом месте)</strong>.</p>
+  </div>
+
+  <div class="fla">
+    <div class="fla-lbl">Перевёрнутая парадигма Red Bull</div>
+    <div class="fla-eq">Контент <span class="op">×</span> собственная аудитория <span class="op">=</span> банки с кофеином</div>
+    <div class="fla-note">Red Bull — это глобальное медийное агентство и продюсерский центр, который монетизирует свой контент через продажу алюминиевых банок с кофеином.</div>
+  </div>
+
+  <div class="c">
+    <p>Их выход на рынок строился на прямом доступе к нужной аудитории: 1. <strong>Точечный семплинг (бесплатная раздача образцов):</strong> Раздача продукта там, где энергия нужна физически (студентам на сессиях, дальнобойщикам, рейверам). Это не имитация толпы, это <em>доказательство продукта в момент максимальной потребности</em>. 2. <strong>Владение вниманием, а не аренда:</strong> Вместо того чтобы покупать рекламу на чужих спортивных турнирах, Red Bull начал создавать свои (Red Bull Air Race, Red Bull Cliff Diving). Кульминация — прыжок Феликса Баумгартнера из стратосферы в 2012 году. 3. <strong>Покупка спортивных активов:</strong> Red Bull не спонсирует команды Формулы-1 или футбольные клубы. Они их <strong>покупают или создают</strong> (Red Bull Racing, RB Leipzig). Они владеют медийными активами, которые генерируют собственную прибыль и одновременно служат бесконечным билбордом для материнского бренда.</p>
   </div>
 
   <div class="tl">
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2008</div><div class="tl-txt">Платформа по сдаче надувных матрасов. Не растёт.</div></div>
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2009</div><div class="tl-txt">Выход к пользователям в Нью-Йорк: пересняли жильё профкамерой — конверсия выросла.</div></div>
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2011</div><div class="tl-txt">Гости разгромили квартиру в Сан-Франциско → «Гарантия Хозяина» на <strong>$50,000</strong>.</div></div>
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2012</div><div class="tl-txt">Планка поднята до <strong>$1,000,000</strong>, риск перестрахован через Lloyd's of London.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">1984</div><div class="tl-txt">Матешиц пробует <em>Krating Daeng</em> в Таиланде и решает адаптировать напиток для Европы.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">1987</div><div class="tl-txt">Запуск Red Bull в Австрии — вопреки катастрофическим фокус-группам.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2012</div><div class="tl-txt">Прыжок Феликса Баумгартнера из стратосферы. Кульминация стратегии владения вниманием.</div></div>
   </div>
 
   <div class="c al">
-    <div class="lb purple">Архитектура интервью: Кого искать и что спрашивать</div>
-    <p>Для качественного CustDev в сложном бизнесе тебе не нужно 1000 анкет. Тебе нужно <strong>15-20 глубинных интервью</strong> с людьми, принимающими решения (ЛПР).</p>
+    <div class="lb purple">Эффект ореола и социальное доказательство</div>
+    <p>Действия Red Bull создали мощнейший психологический триггер — <strong>эффект ореола (Halo Effect)</strong>. Ассоциация бренда с экстремальным спортом, риском и победами переносится на сам напиток. Покупатель (студент или офисный работник), покупая банку за тройную цену колы, покупает причастность к этому адреналиновому «ореолу».</p>
   </div>
 
-  <div class="fs">
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="scales" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.7v10.6M4.4 13.3h7.2M3.2 4.3h9.6M3.2 4.3 1.4 8.6h3.6zM12.8 4.3 11 8.6h3.6zM1.4 8.6a1.8 1.8 0 0 0 3.6 0M11 8.6a1.8 1.8 0 0 0 3.6 0"/></svg></span><div class="fc-txt">Тебе <strong>не нужно 1000 анкет</strong> — они создают иллюзию данных.</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="target" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.6a5.4 5.4 0 1 0 0 10.8A5.4 5.4 0 0 0 8 2.6M8 5.6a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8M8 7.6v.1"/></svg></span><div class="fc-txt">Тебе нужно <strong>15–20 глубинных интервью</strong> с ЛПР.</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="speak" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 6.4 10.6 3v10L2.3 9.6zM2.3 6.4H1.4v3.2h.9M4.6 10.3l.9 3.1h1.8l-.9-3.4M12.4 6.1h1.9M12.4 8.6h1.9"/></svg></span><div class="fc-txt">Ты говоришь <strong>20%</strong> времени, клиент — <strong>80%</strong>.</div></div>
-  </div>
-
-  <div class="c">
-    <p>1. <strong>Ищи нейтральных собеседников.</strong> Тебе нужны люди, которым наплевать на твои чувства. Идеальный собеседник — это потенциальный клиент-компания (генеральный директор, финдир, коммерческий директор), с которым ты познакомился через LinkedIn или на профильной конференции. Для малого дела — реальные покупатели конкурента, а не твои родственники. 2. <strong>Ищи тех, кто уже платит.</strong> Если ты делаешь софт для управленческого учета, разговаривай с теми компаниями, которые уже наняли финдиректора на аутсорсе или купили дорогое ПО (1С, ERP-системы). Тебе нужны люди, которые уже осознали боль и выделили на нее бюджет. 3. <strong>Правило 80/20.</strong> На интервью ты говоришь 20% времени (задаешь открытые вопросы). Клиент говорит 80% времени. Если ты начинаешь защищать свою идею или спорить с клиентом — ты провалил интервью.</p>
+  <div class="ins">
+    <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
+    <p>Это и есть высшая форма <strong>социального доказательства</strong>, описанного психологом Робертом Чалдини. Это не «накрученные отзывы на сайте». Это демонстрация продукта в руках чемпионов мира.</p>
   </div>
 
   <div class="ex" onclick="this.classList.toggle('open')">
     <div class="ex-h">
-      <span class="ex-q">Почему именно тех, кто уже платит?</span>
+      <span class="ex-q">Почему отказ от заводов — это про маркетинг, а не про экономию</span>
       <span class="ex-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
     </div>
     <div class="ex-b">
-      <p>Если ты делаешь софт для управленческого учета, разговаривай с теми компаниями, которые уже наняли финдиректора на аутсорсе или купили дорогое ПО (1С, ERP-системы). Тебе нужны люди, которые уже осознали боль и выделили на нее бюджет.</p>
-      <p>Человек, который терпит проблему и не платит за её решение, расскажет тебе красивую теорию. Человек, который уже отдаёт деньги конкуренту, расскажет тебе правду — потому что он живёт с этой болью на своём кошельке.</p>
+      <p>Главный архитектурный секрет Red Bull кроется в их балансовом отчете. Red Bull не владеет заводами по розливу напитка — основной объем разливает австрийская компания Rauch. На первый взгляд это выглядит как обычная экономия на издержках.</p>
+      <p>Но смысл глубже. Матешиц избавился от тяжелых капитальных затрат (CAPEX) на фабрики не для того, чтобы сэкономить, а чтобы высвободить 100% ресурсов на главное — создание спроса. Капитал, который конкуренты заливают в бетон и оборудование, Red Bull заливает в захват внимания. Это и есть Media-First на уровне баланса.</p>
     </div>
   </div>
 
@@ -155,24 +108,29 @@
 
   <div class="tk">
     <span class="tk-badge">Что вынести</span>
-    <h3>CustDev — это калибровка реальностью, а не сбор комплиментов</h3>
-    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Люди врут о будущем.</strong> Никогда не проси клиента оценить твою идею. Проси его описать, как он решает эту проблему сегодня, сколько денег на это тратит и какие костыли использует.</span></div>
-    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Ищи бюджет, а не лайки.</strong> Если проблема есть, но клиент не тратит ни тиына на ее решение (терпит) — это не бизнес-проблема. Бизнес начинается там, где есть боль, за снятие которой уже платят конкурентам.</span></div>
-    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Устраняй системные барьеры.</strong> Airbnb вырос не за счет красивых кнопок, а за счет того, что взял на себя финансовые риски сторон. Если твой клиент боится внедрять твою систему, потому что это остановит работу его отдела продаж на неделю, твой продукт — не софт, а "бесшовная интеграция без простоя".</span></div>
+    <h3>Выводы главы</h3>
+    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Не имитируй, а создавай контекст.</strong> Байка про пустые банки учит мелкому мошенничеству. Реальный кейс Red Bull учит <strong>интеграции продукта в потребность</strong>. Раздай свой софт бесплатно B2B-клиентам в момент их пиковой нагрузки, и если софт выдержит — они купят годовую лицензию.</span></div>
+    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Аутсорс производства ради маркетинга.</strong> Если ценность твоего бизнеса лежит в бренде и эмоции, не инвестируй миллионы в строительство собственных фабрик. Отдай производство подрядчикам и влей капитал в дистрибуцию и захват внимания (Media-First).</span></div>
+    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Владей каналами, не арендуй их.</strong> Зачем платить Facebook или ТВ-каналам за трафик, если можно создать собственный медийный актив (Telegram-сеть, YouTube-шоу, спортивную лигу), который будет генерировать органическое внимание к твоему продукту десятилетиями?</span></div>
   </div>
+
+  <a class="case-cta" href="../../cases/case-094.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Владей каналом, не арендуй</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
 
   <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p>CustDev — это инструмент жесткой калибровки. Он позволяет Архитектору уничтожить свои иллюзии до того, как они превратятся в кассовый разрыв.</p>
-    <p>Но как только ты нащупал реальную боль и нашел клиентов, готовых за нее платить, перед тобой встает новая задача. Как упаковать решение в продукт, который можно продать? В следующей главе мы переходим к финальному этапу проверки — мы поговорим о том, как создать MVP (Minimum Viable Product — минимально жизнеспособный продукт), и как собрать первую юнит-экономику.</p>
+    <p>Медиа оказалось дешевле рекламы. В следующей главе разберём противоположную математику: рынок, где скидка убивает бренд, а сжигание товара оказывается рациональным решением.</p>
   </div>
 
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m5-ch02"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=5'">← Содержание</button>
-  <button class="nb nb-next" onclick="location.href='m5-ch03.html'">Дальше →</button>
+  <button class="nb nb-prev notranslate" translate="no" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=5'">← Содержание</button>
+  <button class="nb nb-next notranslate" translate="no" onclick="location.href='m5-ch03.html'">Дальше →</button>
 </div>
 <script src="/review-enhance.js?v=3" defer></script>
 </body>

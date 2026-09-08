@@ -7,12 +7,12 @@
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
-<title>Искусство убийства: Как данные заставляют уничтожить свой продукт (Кейс Instagram)</title>
-<meta name="description" content="Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и…">
+<title>Император Терпения: Ловушка масштабирования и анатомия &quot;убытков&quot; Amazon</title>
+<meta name="description" content="В предыдущих главах мы разбирали, как корпорации экономят на издержках и оптимизируют процессы. Теперь пришло время посмотреть на самую опасную финансовую…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
-<meta property="og:title" content="Искусство убийства: Как данные заставляют уничтожить свой продукт (Кейс Instagram)">
-<meta property="og:description" content="Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и…">
+<meta property="og:title" content="Император Терпения: Ловушка масштабирования и анатомия &quot;убытков&quot; Amazon">
+<meta property="og:description" content="В предыдущих главах мы разбирали, как корпорации экономят на издержках и оптимизируют процессы. Теперь пришло время посмотреть на самую опасную финансовую…">
 <meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m3-ch05.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m3-ch05.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -22,117 +22,123 @@
 <body>
 <main class="page">
   <div class="hero">
-    <h1>Искусство убийства: Как данные заставляют уничтожить свой продукт (Кейс Instagram)</h1>
+    <h1>Император Терпения: Ловушка масштабирования и анатомия "убытков" Amazon</h1>
   </div>
 
   <div class="c al">
-    <p class="dropcap">Главный соблазн начинающего основателя — это Архитектура Комбайна (Bundling). Ему кажется логичным: «Пусть в моем приложении будет чат, карта, музыка и игры. Я захвачу всех пользователей». На практике это приводит к тому, что система не решает ни одну задачу хорошо и рушится под тяжестью собственного кода.</p>
+    <p class="dropcap">В предыдущих главах мы разбирали, как корпорации экономят на издержках и оптимизируют процессы. Теперь пришло время посмотреть на самую опасную финансовую иллюзию в современном бизнесе — стратегию «Рост любой ценой» (Growth at all costs).</p>
+    <p>Начинающие предприниматели смотрят на Кремниевую Долину и делают фатальный вывод: <em>«Amazon был убыточным 20 лет, значит, я тоже могу работать в минус и захватывать долю рынка»</em>.</p>
+    <p>Архитектор должен уметь читать балансовые отчеты. Если ты попытаешься применить миф об «убыточном Амазоне» к своему бизнесу, ты обанкротишься через полгода. Давай разберем реальную, а не газетную историю империи Джеффа Безоса.</p>
   </div>
 
-  <div class="pq"><p>Фокус — это не философия минимализма, это результат жесткого когортного анализа.</p></div>
+  <div class="c al">
+    <div class="lb purple">Игра в долгую: Разница между P&amp;L и Юнит-экономикой</div>
+    <p>15 мая 1997 года Amazon выходит на IPO. В первом письме акционерам Безос прямо предупреждает: компания будет принимать решения исходя из долгосрочного лидерства на рынке, а не краткосрочной реакции Уолл-стрит.</p>
+    <p>Инвесторы в шоке: Безос обещает не выплачивать дивиденды, а тратить все заработанные деньги на экспансию. Журналисты объявляют Amazon убыточной «бомбой замедленного действия».</p>
+  </div>
+
+  <div class="c ao">
+    <div class="lb orange">Где здесь кроется главная ошибка толпы?</div>
+    <p>Amazon показывал бухгалтерский убыток (отрицательный P&amp;L), но их базовая <strong>юнит-экономика — расчет прибыли на одной продаже — всегда была положительной</strong>.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico"><svg class="ic" data-ic="book" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 3h4.2A1.4 1.4 0 0 1 8 4.4v8.2a1.4 1.4 0 0 0-1.4-1.4H2.4zM13.6 3H9.4A1.4 1.4 0 0 0 8 4.4v8.2a1.4 1.4 0 0 1 1.4-1.4h4.2z"/></svg></span>
+      <div class="vs-t">Бухгалтерия (P&amp;L)</div>
+      <div class="vs-d">Минус на бумаге: вся маржа уходит в стройку складов и серверов.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span>
+      <div class="vs-t">Юнит-экономика</div>
+      <div class="vs-d">Плюс на каждой продаже: книга приносит реальную маржу 20-30%.</div>
+    </div>
+  </div>
 
   <div class="c">
-    <p>Инфобизнесмены говорят: «Нужно уметь фокусироваться». Архитектор говорит иначе: <strong>Фокус — это не философия минимализма, это результат жесткого когортного анализа</strong> (сравнения групп пользователей, пришедших в разное время: кто остался, кто ушел и почему).</p>
-    <p>Разберем этот механизм на примере самого известного разворота (Pivot) в истории IT.</p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Burbn: Перегруженный комбайн с финансированием</div>
-    <p>В 2010 году Кевин Систром и Майк Кригер делают приложение <em>Burbn</em>. Это классический комбайн: чекины в барах (как у Foursquare), планы встреч, система баллов, элементы игры и публикация фото.</p>
-    <p>Венчурные фонды (среди них Andreessen Horowitz) вложили в этот стартап $500 000 посевных инвестиций (Seed-раунд). Проблема в том, что приложение не росло. Пользователи скачивали его, видели стену из непонятных функций и уходили — отток стремился к 100%.</p>
-  </div>
-
-  <div class="fs">
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt"><strong>$500 000</strong> seed-раунда от венчурных фондов, среди них Andreessen Horowitz.</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span><div class="fc-txt">Чекины, планы встреч, баллы, игры и фото — всё в одном перегруженном комбайне.</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="down" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.2 6 8.6l2.6-2.4 5 5.7M13.9 8.5V12H10.4"/></svg></span><div class="fc-txt">Отток стремился к <strong>100%</strong>: скачали, увидели стену функций — ушли.</div></div>
-  </div>
-
-  <div class="c">
-    <p>Большинство основателей в этой точке начинают тратить инвесторские деньги на рекламу или добавляют еще больше функций. Систром и Кригер поступили как Архитекторы.</p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Великая чистка: Поиск Ключевого действия (Core Action)</div>
-    <p>Они остановили маркетинг и залезли в базу данных. Они начали анализировать поведение тех немногих пользователей, которые всё-таки оставались в приложении.</p>
-    <p>Данные показали аномалию. Никто не пользовался чекинами, баллами и планировщиком. Но все постоянно загружали фотографии и накладывали на них фильтры.</p>
+    <p>Каждая проданная книга или диск приносили реальную маржу (около 20-30%). Amazon не доплачивал клиентам за то, чтобы они покупали книги (как это делали позже многие стартапы). Безос брал эту заработанную маржу и полностью реинвестировал ее в капитальные затраты (CAPEX): строительство гигантских складов, логистику, серверы.</p>
   </div>
 
   <div class="ins">
     <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
-    <p>Основатели не "угадали", что нужно оставить. Они выявили <strong>Ключевое действие (Core Action)</strong>, за которое держалась аудитория. Pivot (Разворот) — это не когда ты бросаешь один бизнес и начинаешь другой. Pivot — это когда ты берешь одну работающую функцию из старого бизнеса и строишь вокруг нее новую архитектуру.</p>
+    <p>Масштабировать можно только положительную юнит-экономику. Если на каждом клиенте ты зарабатываешь чистый плюс, реинвестиции приведут к империи. Если твой клиент обходится тебе дороже, чем приносит (как это было у WeWork или Casper), масштабирование лишь приблизит банкротство.</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Маневр, спасший империю: Конвертируемые облигации</div>
+    <p>Эту часть истории обычно опускают, но для Архитектора она важнейшая. Терпение Безоса не сработало бы без параноидального управления кэшем.</p>
+    <p>В начале 2000 года, за месяц до исторического краха доткомов, Безос чувствует перегрев рынка. Он делает гениальный ход по привлечению долга: размещает <strong>конвертируемые облигации (долг, который можно обменять на акции) на $672 миллиона</strong> на европейских рынках.</p>
+  </div>
+
+  <div class="fs">
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt"><strong>$672 млн</strong> долга Безос привлёк за 30 дней до краха доткомов.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="down" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.2 6 8.6l2.6-2.4 5 5.7M13.9 8.5V12H10.4"/></svg></span><div class="fc-txt">Акции Amazon рухнули со <strong>$113 до $5</strong> — и компания всё равно выжила.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="mark" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.9 13.1 8 8 13.1 2.9 8z"/></svg></span><div class="fc-txt"><strong>Pets.com и Webvan</strong> обанкротились: у них кончились деньги, а раунды закрылись.</div></div>
   </div>
 
   <div class="c">
-    <p>Они приняли жесткое архитектурное решение: вырезать 90% кода, выбросить год работы и оставить только ленту, фильтры и кнопку "Опубликовать". Они убили Burbn и 6 октября 2010 года запустили <em>Instagram</em>.</p>
+    <p>Через несколько недель пузырь лопается. Акции Amazon падают со $113 до $5. Сотни интернет-компаний (Pets.com, Webvan) банкротятся, потому что у них кончились деньги, а инвесторы закрыли раунды. Amazon выжил <em>только</em> потому, что Безос сформировал гигантскую финансовую подушку за 30 дней до катастрофы.</p>
+    <p><em>Вывод:</em> Стратегия «в долгую» не работает без доступа к дешевому капиталу или жестких резервов.</p>
   </div>
 
-  <div class="tl">
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">6 октября 2010</div><div class="tl-txt">Запуск <em>Instagram</em> — лента, фильтры, кнопка «Опубликовать». В первый день — 25 000 пользователей.</div></div>
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">Через 2 месяца</div><div class="tl-txt"><strong>1 миллион</strong> пользователей. Тайминг совпал с выходом iPhone 4: хорошая камера в кармане.</div></div>
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">Апрель 2012</div><div class="tl-txt">Facebook покупает Instagram. Объявленная сумма сделки (M&amp;A) — <strong>$1 миллиард</strong>.</div></div>
+  <div class="c al">
+    <div class="lb purple">Диверсификация выручки: Откуда реальные триллионы?</div>
+    <p>Миф гласит, что Amazon заработал свои триллионы на доставке товаров. Реальность Архитектора иная: розничная торговля — это низкомаржинальный, тяжелый бизнес.</p>
+    <p>Реальные деньги пришли из другой модели. В 2006 году Amazon запускает <strong>AWS (Amazon Web Services)</strong> — сдачу своих вычислительных мощностей в аренду другим бизнесам (B2B).</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico"><svg class="ic" data-ic="box" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 5.2 8 2.7l5.4 2.5v5.6L8 13.3l-5.4-2.5zM2.6 5.2 8 7.7l5.4-2.5M8 7.7v5.6"/></svg></span>
+      <div class="vs-t">Розница</div>
+      <div class="vs-d">Огромная выручка, минимальная рентабельность. Тяжёлый низкомаржинальный бизнес.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico"><svg class="ic" data-ic="hole" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.9 5.2c1.9 3.6 3.9 6.7 6.1 6.7s4.2-3.1 6.1-6.7M1.9 5.2h3.2M10.9 5.2h3.2"/></svg></span>
+      <div class="vs-t">AWS</div>
+      <div class="vs-d">Бóльшая часть чистой операционной прибыли всей корпорации. Высокая маржа.</div>
+    </div>
   </div>
 
   <div class="c">
-    <p>В первый день пришло 25 000 пользователей. Через два месяца — миллион. Запуск совпал с выходом iPhone 4 (идеальный тайминг: хорошая камера в кармане), и социальная механика мгновенно создала сетевой эффект (Network Effect).</p>
-    <p>В апреле 2012 года Facebook купил Instagram. Объявленная сумма сделки (M&amp;A) составила $1 миллиард (фактически, из-за падения акций FB, Систром и инвесторы получили около $715 миллионов).</p>
+    <p>Сегодня розничная торговля Amazon (доставка, склады, магазины) генерирует огромную выручку, но работает с минимальной рентабельностью. <strong>Бóльшую часть чистой операционной прибыли всей корпорации приносит облачный сервис AWS.</strong> Империя Безоса (ныне под управлением Энди Джасси) стала триллионной не потому, что 20 лет ждала прибыли от книжного магазина, а потому, что построила вторую, высокомаржинальную архитектуру внутри первой.</p>
   </div>
 
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
 
   <div class="c al">
-    <div class="lb purple">Архитектурный цикл: Bundling and Unbundling</div>
-    <p>Самый ценный урок этой истории кроется в ее финале.</p>
-    <p>Систром и Кригер покинули компанию в 2018 году из-за конфликта с Марком Цукербергом. Если ты откроешь Instagram сегодня, ты увидишь: Stories, Reels, Shopping, Direct, каналы авторов и алгоритмическую ленту. Сегодняшний Instagram — это ровно тот перегруженный комбайн, от которого Систром бежал в 2010 году.</p>
-    <p><strong>Почему так произошло?</strong> Это макроэкономический закон <em>Bundling and Unbundling (Укрупнение и разукрупнение)</em>, описанный Джимом Барксдейлом.</p>
-  </div>
-
-  <div class="vs">
-    <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="target" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.6a5.4 5.4 0 1 0 0 10.8A5.4 5.4 0 0 0 8 2.6M8 5.6a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8M8 7.6v.1"/></svg></span>
-      <div class="vs-t">Unbundling (Разукрупнение)</div>
-      <div class="vs-d">Чтобы пробить рынок и захватить аудиторию, продукт должен быть узким и снайперски точным — как ранний Instagram или Kaspi, начинавшийся только с кредитов.</div>
-    </div>
-    <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="box" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 5.2 8 2.7l5.4 2.5v5.6L8 13.3l-5.4-2.5zM2.6 5.2 8 7.7l5.4-2.5M8 7.7v5.6"/></svg></span>
-      <div class="vs-t">Bundling (Укрупнение)</div>
-      <div class="vs-d">Когда аудитория захвачена, корпорации нужно удерживать её внутри и растить LTV. Система обрастает функциями, превращаясь в суперапп.</div>
-    </div>
-  </div>
-
-  <div class="c">
-    <p>1. <strong>Фаза Unbundling (Разукрупнение):</strong> Чтобы пробить рынок и захватить аудиторию, продукт должен быть узким и снайперски точным (как ранний Instagram или Kaspi, который начинался только с кредитов). 2. <strong>Фаза Bundling (Укрупнение):</strong> Когда аудитория захвачена (сотни миллионов пользователей), корпорации нужно удерживать их внутри и увеличивать LTV (Lifetime Value — доход с одного клиента за всё время). Система начинает обрастать функциями, превращаясь в суперапп.</p>
-    <p>Если ты строишь суперапп с первого дня, ты проиграешь, потому что пользователь не поймет твою ценность. Если ты не превратишься в суперапп на этапе масштабирования, тебя сожрут конкуренты-экосистемы.</p>
+    <div class="lb purple">Тень Империи: Монополизация и Репутация</div>
+    <p>Чтобы не делать из Безоса идола, Архитектор обязан видеть макро-последствия такой стратегии. Amazon построил великолепную машину, но сейчас она находится под жестким давлением антимонопольных регуляторов США и ЕС (иск FTC против Amazon). Корпорацию обвиняют в: 1. Выкручивании рук поставщикам. 2. Анализе данных сторонних продавцов с целью создания собственных клонов успешных товаров (Amazon Basics). 3. Токсичных условиях работы на складах ради удержания низких издержек.</p>
+    <p>Архитектор должен понимать: если твоя стратегия строится на агрессивном доминировании, рано или поздно тебе придется иметь дело не с конкурентами, а с государственными регуляторами.</p>
   </div>
 
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
 
   <div class="tk">
     <span class="tk-badge">Что вынести</span>
-    <h3>Что вынести из этой главы</h3>
-    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Не угадывай, а анализируй когорты.</strong> Никакая интуиция не заменит анализ базы данных. Если твой продукт не летит, найди тех 5% пользователей, которые остались, и посмотри, какую именно кнопку они нажимают каждый день. Это и есть твой будущий бизнес.</span></div>
-    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Пивот (Pivot) — это норма.</strong> Выкинуть год работы и миллионы тенге ради одной рабочей функции — это не провал, это жесткое архитектурное решение. Провал — это продолжать финансировать мертвого "комбайна".</span></div>
-    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Цикличность сложности.</strong> Простота — это инструмент захвата рынка. Сложность — это инструмент удержания рынка. Фокус, который помог тебе стартовать, неизбежно придется размывать, когда ты начнешь строить экосистему.</span></div>
+    <h3>Выводы главы</h3>
+    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Разделяй бухгалтерский убыток и кассовый разрыв.</strong> Безос был убыточным на бумаге, потому что тратил заработанную маржу на строительство инфраструктуры. Современные стартапы умирают, потому что они убыточны на уровне единицы проданного товара.</span></div>
+    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Страхуй макроэкономические риски.</strong> Долгосрочная стратегия рухнет при первом кризисе, если у тебя нет кредитной линии, резервного фонда или (как в случае Amazon) вовремя выпущенных облигаций.</span></div>
+    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Диверсифицируй прибыль.</strong> Продажа физических товаров часто упирается в потолок рентабельности. Самые богатые корпорации мира зарабатывают основную прибыль на инфраструктуре (B2B) или экосистемах (подписках), которые они строят параллельно основному бизнесу.</span></div>
   </div>
 
-  <a class="case-cta" href="../../cases/case-056.html?from=lesson">
+  <a class="case-cta" href="../../cases/case-080.html?from=lesson">
     <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
-    <span class="case-cta-title">Разворот за две недели</span>
+    <span class="case-cta-title">Подушка спасла в кризис</span>
     <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
   </a>
 
   <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p>Кейс Instagram показал нам, как умение убивать собственные идеи на основе метрик создает продукты с миллиардной капитализацией. Мы увидели, что фокус — это временный инструмент захвата аудитории.</p>
-    <p>На этом мы закрываем урок о запуске без ресурсов: ты умеешь проверять спрос деньгами, раскручивать маховик платформы, отличать тест от системы и резать лишнее. Но даже идеальный продукт мертв, пока о нем не знают. В следующем уроке мы переходим к маркетингу и бренду: разберем, как компании продают не товар, а эмоции, статус и идентичность — от Red Bull до Nike.</p>
+    <p>Терпение работает только при сходящейся экономике. В следующей главе закроем урок историей о том, как ручной сервис вырастает в систему и чем на самом деле оказывается успешная продажа компании.</p>
   </div>
 
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m3-ch05"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=3'">← Содержание</button>
-  <button class="nb nb-next" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=3'">Содержание →</button>
+  <button class="nb nb-prev notranslate" translate="no" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=3'">← Содержание</button>
+  <button class="nb nb-next notranslate" translate="no" onclick="location.href='m3-ch06.html'">Дальше →</button>
 </div>
 <script src="/review-enhance.js?v=3" defer></script>
 </body>

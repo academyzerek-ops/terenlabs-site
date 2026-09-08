@@ -7,16 +7,12 @@
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
-<title>Смертельная вода: Контрпозиционирование и взлом коммодити-рынка</title>
-<meta name="description" content="Если ты хочешь понять, что такое чистый маркетинг без технологических инноваций, посмотри на рынок воды.
-
-Бутилированная вода — это абсолютный коммодити…">
+<title>Первая транзакция: воронка продаж, письмо о намерениях и архитектура ручных продаж</title>
+<meta name="description" content="Мы обсудили, как собрать MVP и замерить интерес. Но лайки, регистрации и теплые слова на интервью не платят зарплату твоей команде.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
-<meta property="og:title" content="Смертельная вода: Контрпозиционирование и взлом коммодити-рынка">
-<meta property="og:description" content="Если ты хочешь понять, что такое чистый маркетинг без технологических инноваций, посмотри на рынок воды.
-
-Бутилированная вода — это абсолютный коммодити…">
+<meta property="og:title" content="Первая транзакция: воронка продаж, письмо о намерениях и архитектура ручных продаж">
+<meta property="og:description" content="Мы обсудили, как собрать MVP и замерить интерес. Но лайки, регистрации и теплые слова на интервью не платят зарплату твоей команде.">
 <meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m4-ch05.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m4-ch05.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,119 +22,92 @@
 <body>
 <main class="page">
   <div class="hero">
-    <h1>Смертельная вода: Контрпозиционирование и взлом коммодити-рынка</h1>
+    <h1>Первая транзакция: воронка продаж, письмо о намерениях и архитектура ручных продаж</h1>
   </div>
 
   <div class="c al">
-    <p class="dropcap">Если ты хочешь понять, что такое чистый маркетинг без технологических инноваций, посмотри на рынок воды.</p>
-    <p>Бутилированная вода — это абсолютный <strong>коммодити (commodity)</strong> — товар без уникальных свойств, вкуса, цвета и запаха. Десятилетиями этот рынок был монополизирован мегакорпорациями (Nestlé, Coca-Cola, Danone), которые продавали один и тот же нарратив: зеленые листики, здоровье, йога и голубые ручейки.</p>
-    <p>Как втиснуться на рынок, где маржа минимальна, продукт идентичен, а конкуренты тратят миллиарды на рекламу? Архитектор использует <strong>контрпозиционирование (Counter-Positioning)</strong>.</p>
-    <p>Разберем, как Майк Цессарио построил бренд <em>Liquid Death</em> (оценка $1,4 млрд на 2024 год), продавая обычную воду в банке из-под пива.</p>
+    <p class="dropcap">Мы обсудили, как собрать MVP и замерить интерес. Но лайки, регистрации и теплые слова на интервью не платят зарплату твоей команде.</p>
   </div>
 
-  <div class="fs">
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="drop" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.2c2 2.6 3.6 4.4 3.6 6.4a3.6 3.6 0 0 1-7.2 0c0-2 1.6-3.8 3.6-6.4"/></svg></span><div class="fc-txt">Бутилированная вода — абсолютный <strong>коммодити</strong>: без вкуса, цвета и запаха.</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="warn" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.7 14 12.9H2zM8 6.6v3M8 11.3v.5"/></svg></span><div class="fc-txt"><em>Liquid Death</em> — оценка <strong>$1,4 млрд</strong> (2024) за воду в банке-«толлбое».</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt">В бренд вложили около <strong>$260 млн</strong> за несколько раундов.</div></div>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Ошибка выжившего: Миф об упаковке</div>
-    <p>В пересказах этот кейс часто звучит так: «Парень-бунтарь налил воду в банку с черепом, и все сразу стали ее покупать, потому что это прикольно». Архитектор должен видеть холодный расчет.</p>
-    <p>Майк Цессарио не был панк-рокером с улицы. Он был опытным креативным директором в рекламных агентствах. Он понимал, что запуск нового FMCG-бренда «в лоб» против Coca-Cola — это самоубийство.</p>
-    <p>Он применил контрпозиционирование — стратегию, при которой ты делаешь то, что лидер рынка <strong>физически не может за тобой повторить</strong>, потому что это разрушит его собственный бизнес.</p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Смена Категории: От ЗОЖ к Развлечению</div>
-    <p>Цессарио заметил нишу: люди на рок-концертах или в барах не хотят пить алкоголь, но они чувствуют себя глупо, держа в руках пластиковую бутылочку с горным ручейком на этикетке.</p>
-    <p><em>Liquid Death</em> взял скучную воду и сменил ее категорию.</p>
-  </div>
-
-  <div class="vs">
-    <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="person" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8.1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5M3.4 13.4c0-2.4 2-4 4.6-4s4.6 1.6 4.6 4"/></svg></span>
-      <div class="vs-t">Было</div>
-      <div class="vs-d">Вода = здоровье и гидратация.</div>
-    </div>
-    <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="mark" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.9 13.1 8 8 13.1 2.9 8z"/></svg></span>
-      <div class="vs-t">Стало</div>
-      <div class="vs-d">Вода = дерзкий энергетический напиток без кофеина и сахара. Смерть жажде.</div>
-    </div>
+  <div class="xref">
+    <div class="xref-h">Фаундер · откуда берутся первые платящие</div>
+    <p>Тактики первой продажи здесь даны как принцип. Разбор каналов и того, чем платящий отличается от зарегистрированного, живёт в «Фаундере».</p>
+    <p><a class="xref-a" href="/learn/course-founder-unit?ch=m5-ch02">Открыть главу</a></p>
   </div>
 
   <div class="c">
-    <p>Банка выглядит как крафтовое пиво (высокая банка-«толлбой»). Слоган звучит как угроза: «Murder Your Thirst» («Убей свою жажду»). Coca-Cola не могла скопировать этот подход, потому что их бренд-архитектура строится на «счастье и семье». Если бы Dasani (бренд воды от Coca-Cola) выпустила банку с черепами, их акции рухнули бы. Контрпозиционирование сделало Liquid Death неуязвимым для атак корпораций.</p>
+    <p>Первый девиз акселератора Y Combinator: <em>«Make something people want» (Сделай то, что нужно людям)</em>. Но у его основателя Пола Грэма есть второе, гораздо более прагматичное правило для старта: <strong>«Do things that don't scale» (Делай то, что не масштабируется)</strong>.</p>
   </div>
 
-  <div class="c al">
-    <div class="lb purple">Финансовая Архитектура Виральности</div>
-    <p>Инвесторы не оценивают компанию в $1,4 млрд за «смешную картинку» (всего в Liquid Death вложили около $260 млн за несколько раундов). Они платят за жесткую бизнес-модель.</p>
-  </div>
-
-  <div class="ex" onclick="this.classList.toggle('open')">
-    <div class="ex-h">
-      <span class="ex-q">1. Экологическая Рационализация</span>
-      <span class="ex-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-    </div>
-    <div class="ex-b">
-      <p>Агрессивный панк-дизайн подкреплялся железобетонным экологическим аргументом: «Смерть пластику». Алюминиевые банки перерабатываются бесконечно. Это дало бренду пропуск в премиальные супермаркеты (Whole Foods) и лояльность зумеров.</p>
-    </div>
-  </div>
-
-  <div class="ex" onclick="this.classList.toggle('open')">
-    <div class="ex-h">
-      <span class="ex-q">2. Инвесторский рычаг (Smart Money — «умные деньги»: инвестор, который приносит не только деньги, но и связи)</span>
-      <span class="ex-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-    </div>
-    <div class="ex-b">
-      <p>Одним из инвесторов Liquid Death стала <em>Live Nation</em> (крупнейший организатор концертов в мире). Это решило проблему дистрибуции: вода с черепами стала продаваться на тысячах концертов и фестивалей Live Nation.</p>
-    </div>
-  </div>
-
-  <div class="ex" onclick="this.classList.toggle('open')">
-    <div class="ex-h">
-      <span class="ex-q">3. Продажи напрямую (DTC, Direct-to-Consumer — без посредников) и мерч</span>
-      <span class="ex-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-    </div>
-    <div class="ex-b">
-      <p>Liquid Death — это не просто вода. Это лайфстайл-бренд. Они продают мерч (футболки, кепки) с такой же наценкой, как люксовые бренды. Вода — это лишь товар-приманка (Loss Leader), затягивающий клиента в экосистему бренда.</p>
-    </div>
-  </div>
-
-  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
-
-  <div class="c al">
-    <div class="lb purple">Применимость в B2B и Системном бизнесе</div>
-    <p>Контрпозиционирование работает не только в рознице. Если ты заходишь на любой консервативный рынок (банкинг, консалтинг, B2B-софт), ты можешь отстроиться от корпораций, используя их же размер против них.</p>
-  </div>
-
-  <div class="vs">
-    <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="brain" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a5.6 5.6 0 1 0 0 11.2 5.6 5.6 0 0 0 0-11.2M8 5.1a2.9 2.9 0 0 1 0 5.8 1.5 1.5 0 0 1 0-3"/></svg></span>
-      <div class="vs-t">Лидеры рынка</div>
-      <div class="vs-d">«Комплексные, тяжелые IT-решения с внедрением на год».</div>
-    </div>
-    <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="bolt" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.2 1.8 4.2 8.9h3.2l-.6 5.3 5-7.1H8.6z"/></svg></span>
-      <div class="vs-t">Ты</div>
-      <div class="vs-d">«Кнопка, которая работает за 5 минут без интеграторов».</div>
-    </div>
-  </div>
+  <div class="pq"><p>Твоя цель на старте — не построить воронку, а загнать в кассу первые «грязные» деньги от холодного клиента.</p></div>
 
   <div class="c">
-    <p>Если лидеры рынка общаются с клиентами через скучных юристов в галстуках, общайся на понятном, дерзком, «человеческом» языке.</p>
+    <p>Твоя цель на старте — не построить автоматизированную воронку продаж. Твоя цель — загнать в кассу первые "грязные" деньги от холодного клиента. Первая транзакция доказывает, что твоя юнит-экономика существует за пределами твоих фантазий.</p>
+    <p>Разберем четыре тактики закрытия первых сделок без капитальных затрат на инфраструктуру.</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Тактика 1: Продажа намерений (предоплата, LOI и пилоты)</div>
+    <p>В рознице это называется "предзаказ" (как у Tesla), а в малом деле — обычная предоплата: аванс за ремонт, предзаказ тортов к празднику, депозит за банкет. В продажах компаниям это называется <strong>письмо о намерениях (LOI)</strong> или платное пилотное внедрение.</p>
+    <p>Если ты строишь сложный софт для финансового мониторинга, разработка займет месяцы. Ты идешь к корпоративному клиенту с макетами и говоришь: <em>"Мы пишем этот софт под вашу боль. Подпишите письмо о намерениях, что вы купите годовую лицензию за $10,000, когда мы сдадим релиз"</em>.</p>
   </div>
 
   <div class="ins">
     <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
-    <p>Ключ в том, чтобы найти ту точку, в которой лидер не может тебе ответить без ущерба для собственной репутации и бизнес-модели.</p>
+    <p></p>
   </div>
 
-  <a class="case-cta" href="../../cases/case-120.html?from=lesson">
+  <div class="c al">
+    <div class="lb purple">Тактика 2: Консьерж как Консалтинг</div>
+    <p>Самый надежный способ продать IT-продукт, которого еще нет — оказать его функцию руками в формате дорогого консалтинга.</p>
+    <p>Если ты строишь биржу проверенных специалистов (условно, платформу для поиска финансовых аналитиков), не пиши сложный портал с личными кабинетами и алгоритмами подбора. Найди компанию, которой прямо сейчас нужен человек для сборки управленческого учета. Заключи договор на подбор. Вручную проверь кандидата, руками проверь его финмодель и "продай" его клиенту.</p>
+    <p>Ты выполнишь работу как маленькое агентство. Это абсолютно не масштабируемо. Но ты получишь первые деньги, отработаешь методологию и поймешь, за что именно клиент готов платить комиссию.</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Тактика 3: Скидка за Риск (а не по дружбе)</div>
+    <p>В бизнесе нет друзей, есть контрагенты. Продажа другу со скидкой 50% — это мусорный сигнал, он покупает из жалости.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico"><svg class="ic" data-ic="people" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.2a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2M2.4 13.2c0-2 1.6-3.3 3.6-3.3s3.6 1.3 3.6 3.3M10.7 4.3a2 2 0 0 1 0 3.9M11.6 10.2c1.3.4 2 1.4 2 3"/></svg></span>
+      <div class="vs-t">Скидка по дружбе</div>
+      <div class="vs-d">Друг берёт из жалости. Мусорный сигнал — спрос не доказан.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico"><svg class="ic" data-ic="target" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.6a5.4 5.4 0 1 0 0 10.8A5.4 5.4 0 0 0 8 2.6M8 5.6a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8M8 7.6v.1"/></svg></span>
+      <div class="vs-t">Цена для первых клиентов</div>
+      <div class="vs-d">Холодный клиент берёт риск за выгоду. Деньги + публичный кейс.</div>
+    </div>
+  </div>
+
+  <div class="c">
+    <p>Правильная тактика Архитектора — это <strong>цена для первых клиентов (Early Adopter Pricing)</strong>. Ты приходишь к холодному клиенту и говоришь: <em>"Наша система стоит $5000 в месяц. Вы будете первым клиентом, поэтому мы зафиксируем за вами цену $2000 навсегда, если вы дадите нам честный фидбек и позволите написать публичный кейс"</em>.</p>
+    <p>Клиент получает экономическую выгоду за то, что берет на себя риск внедрения сырого продукта. Ты получаешь первые деньги и социальное доказательство для следующих продаж.</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Тактика 4: Прямой выход на клиента (Ручной поиск)</div>
+    <p>Когда Airbnb начинали, они не покупали таргет и не ждали органики. Они написали скрипт, собрали базу арендодателей у гигантского конкурента (доски объявлений Craigslist) и начали писать им письма вручную, переманивая на свою пустую платформу. Это классический партизанский Outbound (исходящие продажи — когда ты сам идешь к клиенту, а не ждешь его).</p>
+    <p>На старте тебе не нужны сложные системы лидогенерации. Тебе нужен простой учет клиентов — CRM-система или хотя бы Google-таблица, куда ты руками занесешь 100 целевых компаний, найдешь контакты их лиц, принимающих решения (ЛПР), и сделаешь 100 звонков или точечных писем. Основатель — это первый и единственный продавец в компании. Пока ты сам не продашь свой продукт 10 раз, ты не сможешь написать скрипт продаж ни для одного менеджера.</p>
+  </div>
+
+  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
+  <div class="ins">
+    <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
+    <p>Запомни жесткое правило. Продавать то, чего нет — можно. <strong>Обещать то, чего не можешь выполнить — нельзя (это обман).</strong> В IT ты можешь продать подписку на софт, которого нет, честно сказав: <em>"Релиз через 2 месяца"</em>.
+Но в сфере сложных физических или интеллектуальных услуг это не работает. Если ты продаешь аудит компаниям, ты можешь не иметь офиса, логотипа и сайта, но твоя базовая компетенция — навык проведения аудита — уже должна существовать на уровне эксперта.</p>
+  </div>
+
+  <div class="c">
+    <p>Продай экспертизу. Инфраструктуру (юрлицо, красивый офис, секретаря и маркетинговый отдел) ты оплатишь уже с первых контрактов.</p>
+  </div>
+
+  <a class="case-cta" href="../../cases/case-097.html?from=lesson">
     <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
-    <span class="case-cta-title">Стать антиподом лидера</span>
+    <span class="case-cta-title">Первый заказ окупил всё</span>
     <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
   </a>
 
@@ -146,29 +115,23 @@
 
   <div class="tk">
     <span class="tk-badge">Что вынести</span>
-    <h3>Коммодити не существует — есть нерассказанная история</h3>
-    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Контрпозиционирование бьет бюджеты.</strong> Если на рынке все «зеленые» — стань «черным». Не пытайся быть «чуть лучше» лидера, стань его смысловым антиподом. Делай то, что корпорации не могут скопировать из-за бюрократии.</span></div>
-    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Коммодити не существует.</strong> Кейс Liquid Death доказывает: даже абсолютно одинаковый, скучный товар (воду) можно превратить в сверхприбыльный бренд, если изменить контекст потребления.</span></div>
-    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Бренд-архитектура требует сбыта.</strong> Гениальный дизайн банки остался бы шуткой в интернете, если бы основатель не выстроил жесткую дистрибуцию через Live Nation и Whole Foods. Креатив без каналов сбыта мертв.</span></div>
+    <h3>Архитектура первой транзакции</h3>
+    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Деньги — единственный KPI.</strong> До поступления первого транша на расчетный счет твой проект — это хобби. Первые продажи делаются не через красивый бренд, а через личные переговоры и продажу решения проблемы.</span></div>
+    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Делай то, что не масштабируется.</strong> На старте твое преимущество перед корпорациями — ручной сервис. Сопровождай первых клиентов так, словно они купили VIP-консалтинг, даже если они платят 10 долларов за подписку.</span></div>
+    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Прямые продажи бьют ожидание.</strong> Не жди, пока заработает SEO или сарафанное радио. Собери базу, заведи учет сделок и иди в "холодные" продажи. Это быстрее и дешевле всего покажет, есть ли спрос.</span></div>
   </div>
 
   <div class="c al">
     <div class="lb purple">Резюме и переход</div>
-    <p>Мы разобрали, как смена категории и контрпозиционирование позволяют захватывать рынки с минимальной дифференциацией продукта. Liquid Death доказал, что упаковка и медиа-сопровождение могут превратить обычную воду в миллиардный актив.</p>
-  </div>
-
-  <div class="pq"><p>Liquid Death сначала сделал продукт, а потом собрал вокруг него аудиторию. В следующей главе — обратный ход: сначала аудитория, потом товар.</p></div>
-
-  <div class="c">
-    <p>Liquid Death сначала сделал продукт, а потом собрал вокруг него аудиторию. В следующей главе — обратный ход: человек сначала собрал аудиторию в сотни миллионов зрителей, а уже потом решил, что ей продавать. Разберем экономику внимания на кейсе MrBeast и его шоколада Feastables.</p>
+    <p>Первые деньги получены. В следующей главе закроем урок обратной операцией: как данные заставляют убить большую часть собственного продукта и оставить одну работающую функцию.</p>
   </div>
 
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m4-ch05"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=4'">← Содержание</button>
-  <button class="nb nb-next" onclick="location.href='m4-ch06.html'">Дальше →</button>
+  <button class="nb nb-prev notranslate" translate="no" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=4'">← Содержание</button>
+  <button class="nb nb-next notranslate" translate="no" onclick="location.href='m4-ch06.html'">Дальше →</button>
 </div>
 <script src="/review-enhance.js?v=3" defer></script>
 </body>

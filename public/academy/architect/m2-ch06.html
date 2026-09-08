@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
+<script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
+<title>Как продать воздух: Smoke-тесты и ловушка бесплатных функций</title>
+<meta name="description" content="До этого момента мы говорили о компаниях, которые производили физический продукт (кофе, камеры, пленку). Теперь давай посмотрим на…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TerenLabs">
+<meta property="og:title" content="Как продать воздух: Smoke-тесты и ловушка бесплатных функций">
+<meta property="og:description" content="До этого момента мы говорили о компаниях, которые производили физический продукт (кофе, камеры, пленку). Теперь давай посмотрим на…">
+<meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m2-ch06.webp">
+<meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m2-ch06.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/academy-assets/lessons.css?v=11">
+<link rel="stylesheet" href="/embed-web.css?v=10">
+</head>
+<body>
+<main class="page">
+  <div class="hero">
+    <h1>Как продать воздух: Smoke-тесты и ловушка бесплатных функций</h1>
+  </div>
+
+  <div class="c al">
+    <p class="dropcap">До этого момента мы говорили о компаниях, которые производили физический продукт (кофе, камеры, пленку). Теперь давай посмотрим на IT-архитектуру.</p>
+    <p>Классическая ошибка технического основателя (инженера или программиста) — это попытка написать идеальный код до того, как найдена аудитория. Человек запирается в гараже на год, сжигает свои сбережения, выкатывает продукт на рынок и слышит тишину.</p>
+    <p>Архитектор действует иначе. Он сначала продает, а потом строит. Этот процесс называется <strong>валидацией гипотезы через Smoke-тест (тест «дымом»)</strong>. Разберем его на классическом кейсе Dropbox.</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Забытая флешка и проблема рынка</div>
+    <p>2007 год. Выпускник MIT Дрю Хьюстон забывает флешку с рабочими файлами перед долгой поездкой. Разозлившись, он решает написать программу для синхронизации файлов между компьютерами.</p>
+    <p>Проблема в том, что рынок облачных хранилищ уже существовал (Mozy, Carbonite). Когда Хьюстон показывал идею инвесторам, ему говорили: «Облака уже есть, зачем нам еще одно?». Дрю отвечал: «А вы сами ими пользуетесь? Нет, потому что они глючные и сложные».</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-i gold">
+      <span class="vs-ico"><svg class="ic" data-ic="box" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 5.2 8 2.7l5.4 2.5v5.6L8 13.3l-5.4-2.5zM2.6 5.2 8 7.7l5.4-2.5M8 7.7v5.6"/></svg></span>
+      <div class="vs-t">Mozy, Carbonite</div>
+      <div class="vs-d">Рынок уже занят. Но продукты глючные и сложные — никто ими реально не пользуется.</div>
+    </div>
+    <div class="vs-i paper">
+      <span class="vs-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
+      <div class="vs-t">Dropbox</div>
+      <div class="vs-d">Та же функция, но удобная до невидимости. Пустая ниша внутри «занятого» рынка.</div>
+    </div>
+  </div>
+
+  <div class="c">
+    <p>Дрю понимал, что его продукт решает проблему, но писать код до готовности релиза — это месяцы работы и сотни тысяч долларов. Ему нужно было доказать инвесторам (и самому себе), что люди <em>хотят</em> этим пользоваться, до того как продукт будет дописан.</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Видео-MVP (Smoke-тест), который изменил правила рынка</div>
+    <p>Весной 2008 года Дрю делает гениальный архитектурный ход. У него на руках есть сырой, едва работающий прототип (MVP — минимальная рабочая версия продукта). Вместо того чтобы запускать недоделанный сервис, он записывает 4-минутное демо-видео.</p>
+    <p>На видео он просто показывает экран: как файл с одного компьютера мгновенно появляется на другом. В ролик он зашивает локальные шутки и отсылки, понятные только IT-сообществу. Затем он выкладывает видео на Digg — главный агрегатор техногиков того времени (более раннюю версию ролика он обкатывал на форуме Hacker News).</p>
+  </div>
+
+  <div class="ins">
+    <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
+    <p>Smoke-тест — это когда ты создаешь иллюзию готового продукта (через видео или лендинг), чтобы замерить реальную конверсию в целевое действие (оставленный email или предзаказ).</p>
+  </div>
+
+  <div class="c">
+    <p>Эффект был мгновенным. За сутки лист ожидания Dropbox вырос с 5 000 до 75 000 человек. Дрю не продал ни строчки кода. Он продал <em>обещание</em> и получил 75 000 теплых лидов, с которыми спокойно пошел поднимать раунд А на $7,2 миллиона от фондов Sequoia Capital и Accel.</p>
+  </div>
+
+  <div class="fs">
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="screen" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.2 3.2h11.6v7H2.2zM5.5 13h5M8 10.2V13"/></svg></span><div class="fc-txt"><strong>4 минуты</strong> видео вместо месяцев кода. Один ролик заменил весь продукт.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="up" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12.4 6 8l2.6 2.4L13.6 4.6M13.9 7.9V4.4H10.4"/></svg></span><div class="fc-txt">За <strong>сутки</strong> лист ожидания вырос с 5 000 до <strong>75 000</strong> человек.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt"><strong>$7,2 млн</strong> раунда А от Sequoia и Accel — за обещание, не за код.</div></div>
+  </div>
+
+  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
+  <div class="c al">
+    <div class="lb purple">Реалистичный финал: Угроза Коммодитизации</div>
+    <p>В 2018 году Dropbox вышел на IPO с оценкой в $12 миллиардов. Звучит как сказка. Но давай посмотрим на P&amp;L компании глазами Архитектора из 2026 года. Капитализация компании за эти годы не выросла, а периодически даже падала.</p>
+    <p>Почему гениальный продукт с идеальным стартом застрял в развитии?</p>
+    <p>Ответ: <strong>коммодитизация</strong>. Это процесс, при котором твой уникальный продукт со временем превращается в базовую, само собой разумеющуюся функцию (как воздух или электричество).</p>
+    <p>Dropbox сделал синхронизацию файлов удобной. Но затем на рынок вышли гиганты с готовыми экосистемами: <em> Google встроил бесплатный Google Drive в каждую почту Gmail. </em> Apple вшила бесплатный iCloud в каждый iPhone. * Microsoft включил OneDrive в корпоративный пакет Office.</p>
+    <p>Гиганты превратили уникальную функцию Dropbox в бесплатный бонус к своим платформам. Dropbox выжил (у них миллионы платящих B2B-клиентов), но он оказался зажат в тиски: сверху давят бесплатные экосистемы корпораций, снизу — узкие нишевые продукты.</p>
+  </div>
+
+  <div class="ex" onclick="this.classList.toggle('open')">
+    <div class="ex-h">
+      <span class="ex-q">Что такое коммодитизация и почему она убивает «продукт одной функции»</span>
+      <span class="ex-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="ex-b">
+      <p>Коммодитизация — это процесс, при котором твой уникальный продукт со временем превращается в базовую, само собой разумеющуюся функцию (как воздух или электричество). За неё перестают платить отдельно: она просто ожидается «по умолчанию».</p>
+      <p>Dropbox сделал синхронизацию файлов удобной. Но затем на рынок вышли гиганты с готовыми экосистемами: Google встроил бесплатный Google Drive в каждую почту Gmail, Apple вшила бесплатный iCloud в каждый iPhone, Microsoft включил OneDrive в корпоративный пакет Office.</p>
+      <p>Гиганты превратили уникальную функцию Dropbox в бесплатный бонус к своим платформам. Dropbox выжил (у них миллионы платящих B2B-клиентов), но он оказался зажат в тиски: сверху давят бесплатные экосистемы корпораций, снизу — узкие нишевые продукты.</p>
+    </div>
+  </div>
+
+  <a class="case-cta" href="../../cases/case-035.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Построил, не проверив спрос</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
+
+  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
+
+  <div class="tk">
+    <span class="tk-badge">Что вынести</span>
+    <h3>Три урока Архитектора из кейса Dropbox</h3>
+    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Не строй продукт до валидации (тест «дымом»).</strong> Прежде чем вкладывать время и деньги в разработку продукта или открытие физической точки, собери лендинг или запиши демо-видео. Если ты не можешь собрать 100 предзаказов или email-ов на пустом лендинге, готовый продукт тебя не спасет.</span></div>
+    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Ищи правильный канал.</strong> Дрю выложил видео не в общие соцсети, а на площадку для гиков — людей, которые страдали от потери файлов больше всех. Твой Smoke-тест должен бить в самую горячую аудиторию.</span></div>
+    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Опасайся коммодитизации.</strong> Если твой бизнес построен вокруг одной функции (хранение файлов, доставка еды, такси), будь готов к тому, что через 5 лет корпорация-экосистема (Яндекс, Google, Kaspi) добавит эту функцию внутрь своего приложения бесплатно или за копейки. Твоя защита — либо уход в глубокий B2B премиум, либо построение собственной экосистемы (как мы видели в кейсе GoPro).</span></div>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Резюме и переход</div>
+    <p>На этом идеи закончились как тема: ты знаешь, откуда они берутся и как их дёшево проверить. В следующем уроке речь пойдёт о том, как основатель думает: чем защищают позицию, как создают категорию и почему терпение бывает стратегией.</p>
+  </div>
+
+<!-- content-like widget -->
+<div data-content-like data-type="lesson" data-id="architect/m2-ch06"></div>
+</main>
+<div class="nav">
+  <button class="nb nb-prev notranslate" translate="no" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=2'">← Содержание</button>
+  <button class="nb nb-next notranslate" translate="no" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=2'">Содержание →</button>
+</div>
+<script src="/review-enhance.js?v=3" defer></script>
+</body>
+</html>

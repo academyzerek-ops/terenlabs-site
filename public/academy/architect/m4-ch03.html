@@ -7,12 +7,12 @@
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#050B12" media="(prefers-color-scheme: dark)">
 <script>(function(){try{var p=localStorage.getItem('tl-theme');if(p!=='light')document.documentElement.classList.add('dark')}catch(e){}})();</script>
-<title>Ты — Герой: Архитектура идентичности и миф о «чистой накрутке» (Кейс Nike)</title>
-<meta name="description" content="В прошлой главе мы говорили о том, как люксовые конгломераты защищают свой экономический ров через отказ от скидок. Теперь поговорим о том, как компании…">
+<title>Квадратное уродство: Анатомия MVP и ранняя монетизация прототипа</title>
+<meta name="description" content="Главный враг начинающего Архитектора — это перфекционизм. Голос в голове шепчет: «Это еще не готово. Архитектура кривая. Если я покажу это рынку сейчас,…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="TerenLabs">
-<meta property="og:title" content="Ты — Герой: Архитектура идентичности и миф о «чистой накрутке» (Кейс Nike)">
-<meta property="og:description" content="В прошлой главе мы говорили о том, как люксовые конгломераты защищают свой экономический ров через отказ от скидок. Теперь поговорим о том, как компании…">
+<meta property="og:title" content="Квадратное уродство: Анатомия MVP и ранняя монетизация прототипа">
+<meta property="og:description" content="Главный враг начинающего Архитектора — это перфекционизм. Голос в голове шепчет: «Это еще не готово. Архитектура кривая. Если я покажу это рынку сейчас,…">
 <meta property="og:image" content="https://terenlabs-production.up.railway.app/frontend/_assets/academy_hero/architect/m4-ch03.webp">
 <meta property="og:url" content="https://terenlabs-production.up.railway.app/frontend/content/ru/academy/architect/m4-ch03.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -22,124 +22,132 @@
 <body>
 <main class="page">
   <div class="hero">
-    <h1>Ты — Герой: Архитектура идентичности и миф о «чистой накрутке» (Кейс Nike)</h1>
+    <h1>Квадратное уродство: Анатомия MVP и ранняя монетизация прототипа</h1>
   </div>
 
   <div class="c al">
-    <p class="dropcap">В прошлой главе мы говорили о том, как люксовые конгломераты защищают свой экономический ров через отказ от скидок. Теперь поговорим о том, как компании масс-маркета создают добавочную стоимость бренда (Brand Equity), продавая миллионы товаров каждый день.</p>
+    <p class="dropcap">Главный враг начинающего Архитектора — это перфекционизм. Голос в голове шепчет: <em>«Это еще не готово. Архитектура кривая. Если я покажу это рынку сейчас, они засмеют»</em>.</p>
+  </div>
+
+  <div class="pq"><p>Если вам не стыдно за первую версию вашего продукта, вы запустились слишком поздно.</p></div>
+
+  <div class="c">
+    <p>Венчурные инвесторы в ответ любят цитировать сооснователя LinkedIn Рейда Хоффмана: <em>«Если вам не стыдно за первую версию вашего продукта, вы запустились слишком поздно»</em>.</p>
+    <p>Обе эти позиции — опасные крайности, если применять их вслепую. Чтобы понять, где проходит грань между гениальным MVP (Minimum Viable Product — минимальная версия продукта, которую уже можно показать и продать) и бракованным мусором, разберем кейс самой продаваемой игры в истории — Minecraft.</p>
+    <p>И мы посмотрим на него не как на сказку о программисте-одиночке, а как на жесткую модель раннего денежного потока (Cash Flow).</p>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Миф о бедном гении и квадратном уродстве</div>
+    <p>Инфобизнесмены продают историю Minecraft так: «Бедный парень не умел рисовать, сделал игру из кривых квадратов, бесплатно выложил в интернет и продал ее Microsoft за $2.5 миллиарда».</p>
+    <p>Архитектор должен смотреть на факты:</p>
   </div>
 
   <div class="vs">
     <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="snow" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9v12.2M2.7 4.9l10.6 6.2M13.3 4.9 2.7 11.1M8 4.3 6.4 3M8 4.3 9.6 3M8 11.7l-1.6 1.3M8 11.7l1.6 1.3"/></svg></span>
-      <div class="vs-t">Новички</div>
-      <div class="vs-d">Верят: Nike продаёт кроссовки. Чуть мудрее — «Nike продаёт мечту».</div>
+      <span class="vs-ico"><svg class="ic" data-ic="shield" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4 3.2 4.3v3.6c0 2.7 2 4.6 4.8 5.7 2.8-1.1 4.8-3 4.8-5.7V4.3z"/></svg></span>
+      <div class="vs-t">Запас прочности</div>
+      <div class="vs-d">Маркус «Нотч» Перссон не был случайным человеком с улицы. К маю 2009 года за его плечами были годы работы программистом в игровых компаниях (в том числе King.com) и стабильная зарплата. Он не рисковал жизнью: доход покрывал его расходы и позволял тестировать гипотезы без паники.</div>
     </div>
     <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="scales" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.7v10.6M4.4 13.3h7.2M3.2 4.3h9.6M3.2 4.3 1.4 8.6h3.6zM12.8 4.3 11 8.6h3.6zM1.4 8.6a1.8 1.8 0 0 0 3.6 0M11 8.6a1.8 1.8 0 0 0 3.6 0"/></svg></span>
-      <div class="vs-t">Архитектор</div>
-      <div class="vs-d">Знает: Nike продаёт <strong>идентичность (Brand Identity)</strong>.</div>
+      <span class="vs-ico"><svg class="ic" data-ic="brick" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.9 4h12.2v3.4H1.9zM1.9 8.6h12.2V12H1.9M5.5 4v3.4M10.5 4v3.4M3.7 8.6V12M8.3 8.6V12M12.5 8.6V12"/></svg></span>
+      <div class="vs-t">Дизайн через ограничение</div>
+      <div class="vs-d">Воксельная (квадратная) графика была не следствием неумения рисовать. Это было <em>архитектурное решение</em>. В игре про тотальное разрушение и строительство мира блоки — это идеальная, понятная пользователю геометрия. Графика подчинялась функции.</div>
     </div>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">Проверка спроса деньгами (Validation by Revenue)</div>
+    <p>Самая большая ошибка при анализе Minecraft — это вера в то, что Нотч выложил игру бесплатно и «ждал популярности».</p>
+    <p>В июне 2009 года, через месяц после первого релиза сырого прототипа на профильном форуме, Перссон запускает продажу <strong>альфа-версии примерно за 10 евро</strong>.</p>
+  </div>
+
+  <div class="ins">
+    <span class="ins-ico"><svg class="ic" data-ic="idea" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a3.7 3.7 0 0 0-2.2 6.7c.5.4.9 1 .9 1.6h2.6c0-.6.4-1.2.9-1.6A3.7 3.7 0 0 0 8 2.4M6.7 12.2h2.6M7.2 13.6h1.6"/></svg></span>
+    <p>Бесплатный пользователь — это лид. Платящий пользователь — это факт. Нотч не собирал лайки. Он собирал ранний денежный поток. Оплата за сырой, лагающий прототип была самой жесткой валидацией рынка.</p>
   </div>
 
   <div class="c">
-    <p>Разберем, как Фил Найт превратил компанию по продаже японской обуви в монополию на спортивный героизм, и почему миф о «кроссовках за 5 долларов» опасен для твоего бизнеса.</p>
-  </div>
-
-  <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
-
-  <div class="c al">
-    <div class="lb purple">Кризис 1980-х и Архитектурный разворот</div>
-    <p>К середине 1980-х годов Nike проигрывала войну конкурентам из Reebok, которые удачно зашли в нишу аэробики и лайфстайла. У Nike была отличная технология (вафельная подошва, воздушная подушка), но продажа технологии больше не работала.</p>
-    <p>Nike сделала два структурных разворота:</p>
-  </div>
-
-  <div class="tl">
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">1984 · Спонсорский рычаг</div><div class="tl-txt"><strong>Контракт с Майклом Джорданом.</strong> Endorsement — контракт со звездой, которая продвигает бренд. Nike не просто наняла рекламное лицо. Она создала суб-бренд <em>Air Jordan</em>. Это была первая сделка, где продукт слился с личностью атлета до степени смешения.</div></div>
-    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">1988 · Смена нарратива</div><div class="tl-txt"><strong>«Just Do It».</strong> Агентство Wieden+Kennedy совершило революцию. В рекламе Nike больше не показывала обувь и ее характеристики. Она показывала пот, кровь и преодоление.</div></div>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Идентичность против Инструмента</div>
-    <p>В Nike любят повторять слова сооснователя компании Билла Бауэрмана о том, что каждый, у кого есть тело, — уже атлет. Это гениальная архитектура позиционирования. Nike не говорит: «Наши кроссовки сделают тебя быстрее» (это продажа инструмента). Nike не говорит: «Ты толстый, купи кроссовки и похудей» (это манипуляция через вину).</p>
-    <p>Nike говорит: «Ты уже часть племени победителей, просто двигайся». Когда потребитель покупает Nike, он платит не за кусок резины. Он покупает <strong>социальный маркер</strong>. Он сигнализирует окружающим: «Я разделяю эти ценности». Эта идентичность позволяет Nike удерживать миллионы клиентов вне зависимости от того, что делают конкуренты.</p>
-  </div>
-
-  <div class="c al">
-    <div class="lb purple">Финансовая анатомия: Миф о «накрутке за эмоцию»</div>
-    <p>В соцсетях любят повторять: мол, себестоимость кроссовок $5, продают за $200 — вот она, сила бренда, делай так же.</p>
-    <p>Если ты попытаешься продать кусок резины за $200 без системного фундамента, ты обанкротишься. Архитектор должен видеть структуру цены:</p>
-  </div>
-
-  <div class="fla">
-    <div class="fla-lbl">Анатомия цены кроссовок за $200</div>
-    <div class="fla-eq"><span class="cu" data-to="200">0</span> цена <span class="op">−</span> <span class="cu" data-to="20">0</span> COGS <span class="op">−</span> <span class="cu" data-to="156">0</span> OPEX <span class="op">=</span> <span class="cu" data-to="24">0</span> прибыль → <span class="cu" data-to="12">0</span> % Net Margin</div>
-    <div class="fla-note">COGS — около $15–25 (материалы + фабричная сборка). Ещё ~$156 — это OPEX: R&amp;D, глобальная логистика, дистрибуция, спонсорские контракты, содержание тысяч магазинов. Чистая прибыль (Net Margin) — лишь 10–12 %.</div>
+    <p>Люди готовы платить за недоделанный продукт только в одном случае: если базовая механика решает их потребность лучше, чем вылизанные продукты конкурентов.</p>
+    <p>К моменту официального релиза версии 1.0 в ноябре 2011 года (то есть до того, как игра была официально «закончена»), Нотч <strong>уже продал более 4 миллионов копий</strong>. Он профинансировал всю разработку за счет самих клиентов.</p>
   </div>
 
   <div class="fs">
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="building" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 13.4V3.1L9.9 1.8v11.6M9.9 5.6h2.9v7.8M1.9 13.4h12.2M5.3 4.6v.1M7.4 4.4v.1M5.3 7v.1M7.4 6.9v.1M5.3 9.4v.1M7.4 9.3v.1"/></svg></span><div class="fc-txt"><strong>COGS $15–25</strong> — реальная производственная себестоимость: материалы и фабричная сборка.</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt"><strong>~$156 OPEX</strong> — разработка технологий (R&amp;D), логистика, дистрибуция, спонсорские контракты, магазины.</div></div>
-    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="up" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12.4 6 8l2.6 2.4L13.6 4.6M13.9 7.9V4.4H10.4"/></svg></span><div class="fc-txt"><strong>10–12 % Net Margin</strong> — вот вся «магия» бренда после вычета бюджетов.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt"><strong>~10 €</strong> — цена доступа к сырому, лагающему прототипу альфа-версии в июне 2009-го.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="spark" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.2 9.3 6l3.8 1.3-3.8 1.3L8 12.4 6.7 8.6 2.9 7.3 6.7 6z"/></svg></span><div class="fc-txt"><strong>4 млн копий</strong> проданы ещё до релиза 1.0 в ноябре 2011-го — игра не была «закончена».</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="globe" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.4a5.6 5.6 0 1 0 0 11.2 5.6 5.6 0 0 0 0-11.2M2.4 8h11.2M8 2.4c1.5 1.6 2.3 3.5 2.3 5.6S9.5 12 8 13.6C6.5 12 5.7 10.1 5.7 8S6.5 4 8 2.4"/></svg></span><div class="fc-txt"><strong>50 млн копий</strong> к сделке с Microsoft (2014). Уже не инди-поделка — глобальная империя.</div></div>
+    <div class="fc"><span class="fc-ico"><svg class="ic" data-ic="money" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 4.4h11.4v7.2H2.3zM8 6.3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4M4.4 6.1v.1M11.6 9.9v.1"/></svg></span><div class="fc-txt"><strong>$2.5 млрд</strong> — сумма M&amp;A-сделки. Разработку оплатили сами клиенты.</div></div>
+  </div>
+
+  <div class="c al">
+    <div class="lb purple">R&amp;D на аутсорсе (Community-Driven)</div>
+    <p>Второй гениальный архитектурный ход Перссона: он не придумывал Minecraft один. Он построил <strong>Community-driven</strong> модель — разработку, которую направляет само сообщество игроков. Нотч выпускал обновления каждую пятницу и маниакально читал форумы. Крафт, монстры, динамит — всё это придумывали сами игроки.</p>
+    <p>По сути, он превратил миллионы своих платящих клиентов в <strong>бесплатный R&amp;D-отдел (отдел исследований) и QA (отдел тестирования)</strong>. Ему не нужно было угадывать тренды — рынок сам говорил ему, какой код писать на следующей неделе.</p>
+  </div>
+
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">Май 2009</div><div class="tl-txt">Первый релиз сырого прототипа на профильном форуме.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">Июнь 2009</div><div class="tl-txt">Старт продажи альфа-версии за ~10 €. Начало раннего денежного потока.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">Ноябрь 2011</div><div class="tl-txt">Релиз версии 1.0 — уже продано более 4 млн копий.</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-date">2014</div><div class="tl-txt">Сделка M&amp;A с Microsoft за $2.5 млрд, более 50 млн проданных копий.</div></div>
   </div>
 
   <div class="c">
-    <p>Бренд не позволяет тебе «делать деньги из воздуха». Бренд позволяет тебе закладывать в цену колоссальные бюджеты на маркетинг и R&amp;D, оставаясь при этом лидером рынка.</p>
+    <p>К моменту сделки M&amp;A с Microsoft (2014 год, $2.5 млрд) Minecraft был не инди-поделкой, а глобальной империей с более чем 50 миллионами проданных копий.</p>
   </div>
 
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
 
   <div class="c al">
-    <div class="lb purple">Снижение рисков: Почему B2B и B2C работают одинаково</div>
-    <p>Существует опасный стереотип: «В B2C (продажах людям) нужно продавать эмоции, а в B2B (продажах компаниям) — только цифры и таблицы».</p>
-    <p>Архитектор понимает, что за любой корпоративной сделкой стоит живой менеджер.</p>
+    <div class="lb purple">Адаптация правила MVP: Софт против Харда</div>
+    <p>Цитата «выпускай, пока стыдно» работает только в цифровой среде (Software), где стоимость ошибки стремится к нулю. В IT баг можно исправить патчем за один день. Клиент готов терпеть «квадраты» в Dropbox, раннем Instagram или Minecraft ради уникальной функции.</p>
+    <p>Если ты перенесешь это правило на реальный сектор экономики (производство, услуги, офлайн), ты уничтожишь бизнес в первый день.</p>
   </div>
 
   <div class="vs">
     <div class="vs-i gold">
-      <span class="vs-ico"><svg class="ic" data-ic="cart" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.9 2.9h1.7l1.8 6.9h6.2l1.5-4.8H4.3M6.4 12.6v.1M11 12.6v.1"/></svg></span>
-      <div class="vs-t">B2C — человек</div>
-      <div class="vs-d">Покупает Nike, чтобы снизить <strong>социальный риск</strong> — не выглядеть глупо в спортзале.</div>
+      <span class="vs-ico"><svg class="ic" data-ic="cup" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 2.6h7.2v3.1a3.6 3.6 0 0 1-7.2 0zM4.4 3.4H2.7v1.2c0 1 .7 1.7 1.7 1.7M11.6 3.4h1.7v1.2c0 1-.7 1.7-1.7 1.7M8 9.3v2.4M5.6 13.4h4.8"/></svg></span>
+      <div class="vs-t">Ресторан как MVP</div>
+      <div class="vs-d">Если твой MVP — это ресторан, где подают прокисшее мясо, ты получишь не обратную связь, а суд и санитарную инспекцию.</div>
     </div>
     <div class="vs-i paper">
-      <span class="vs-ico"><svg class="ic" data-ic="building" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 13.4V3.1L9.9 1.8v11.6M9.9 5.6h2.9v7.8M1.9 13.4h12.2M5.3 4.6v.1M7.4 4.4v.1M5.3 7v.1M7.4 6.9v.1M5.3 9.4v.1M7.4 9.3v.1"/></svg></span>
-      <div class="vs-t">B2B — директор</div>
-      <div class="vs-d">Покупает дорогой софт Microsoft или IBM не за лучшие таблицы, а чтобы снизить <strong>репутационный и карьерный риск</strong>: «Никого ещё не увольняли за покупку IBM».</div>
+      <span class="vs-ico"><svg class="ic" data-ic="box" viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 5.2 8 2.7l5.4 2.5v5.6L8 13.3l-5.4-2.5zM2.6 5.2 8 7.7l5.4-2.5M8 7.7v5.6"/></svg></span>
+      <div class="vs-t">Логистика как MVP</div>
+      <div class="vs-d">Если твой MVP — это логистическая компания, теряющая грузы, к тебе никто не вернется.</div>
     </div>
   </div>
 
   <div class="c">
-    <p>В любой продаже есть рациональный фундамент (цифры, характеристики, окупаемость) и эмоциональный слой (идентичность, доверие, снижение страха). Меняется только пропорция.</p>
+    <p>В реальном секторе MVP — это <strong>минимальный масштаб, но максимальное качество в узком сегменте</strong>. Это не «плохо написанный курс», а один идеальный вебинар вместо годовой программы. Не сеть из десяти сырых кофеен, а одна тележка с идеальным эспрессо.</p>
   </div>
+
+  <a class="case-cta" href="../../cases/case-102.html?from=lesson">
+    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
+    <span class="case-cta-title">Проверка спросом на ярмарке</span>
+    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
+  </a>
 
   <div class="div"><span class="ln"></span><span class="dt"></span><span class="ln"></span></div>
 
   <div class="tk">
     <span class="tk-badge">Что вынести</span>
-    <h3>Идентичность, математика, человек</h3>
-    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Продавай Идентичность, а не Инструмент.</strong> Если ты продаешь «серверы» — ты конкурируешь с заводами в Тайване по цене. Если ты продаешь «безопасность данных для финтеха» — ты продаешь спокойствие руководителя и можешь устанавливать премию к рынку.</span></div>
-    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Сильный бренд — это не «накрутка».</strong> Добавочная стоимость бренда позволяет финансировать агрессивный R&amp;D и захватывать каналы дистрибуции. Но в основе этой наценки всегда лежит фундаментальная операционная математика.</span></div>
-    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Любая продажа — это B2H (Business to Human — бизнес для человека).</strong> Корпорации не принимают решений. Решения принимают менеджеры, которые боятся ошибиться и потерять бонус. Архитектор проектирует сделки так, чтобы снять страх с конкретного человека, который принимает решение.</span></div>
+    <h3>Что вынести из главы</h3>
+    <div class="tk-pt"><span class="tk-n">1</span><span class="tk-t"><strong>Бесплатный тест не доказывает бизнес-модель.</strong> MVP становится бизнесом только в тот момент, когда незнакомый человек отдает тебе свои деньги за твое решение. Нотч валидировал гипотезу чеками по 10 евро за альфа-версию.</span></div>
+    <div class="tk-pt"><span class="tk-n">2</span><span class="tk-t"><strong>Преврати клиентов в R&amp;D-отдел.</strong> Если ты строишь цифровой продукт, не пили его в гараже два года. Выкати работающее ядро на рынок и позволь сообществу диктовать тебе вектор развития. Это резко снижает риск сделать то, что никому не нужно.</span></div>
+    <div class="tk-pt"><span class="tk-n">3</span><span class="tk-t"><strong>Разделяй цифру и офлайн.</strong> «Стыдный MVP» допустим в IT, где обновление кода занимает секунду. В реальном бизнесе с капитальными затратами (CAPEX) и физическим сервисом качество базовой услуги должно быть бескомпромиссным с первого клиента.</span></div>
   </div>
 
-  <div class="c">
-    <p>История Nike показала нам, как смещение фокуса с характеристик товара на идентичность клиента может перезапустить падающую корпорацию. Мы увидели, что в основе любой эмоциональной продажи лежит жесткий финансовый и психологический расчет.</p>
+  <div class="c al">
+    <div class="lb purple">Резюме и переход</div>
+    <p>Прототип продан. В следующей главе проверим на нём экономику: как понять, сходится ли сделка, до того как написана первая строка кода.</p>
   </div>
-
-  <div class="pq"><p class="nextup">В следующей главе — обратная ситуация: что делать, если ты выходишь на рынок, где уже сидит гигант с бездонным рекламным бюджетом. Разберём, как Burger King троллил McDonald's с помощью технологий — и какая математика стояла за этой дерзостью.</p></div>
-
-  <a class="case-cta" href="../../cases/case-117.html?from=lesson">
-    <span class="case-cta-flag"><span class="case-cta-pulse"></span>Реальный кейс</span>
-    <span class="case-cta-title">Продал ценности, не куртку</span>
-    <span class="case-cta-go">Разобрать кейс<span class="case-cta-arr" aria-hidden="true">→</span></span>
-  </a>
 
 <!-- content-like widget -->
 <div data-content-like data-type="lesson" data-id="architect/m4-ch03"></div>
 </main>
 <div class="nav">
-  <button class="nb nb-prev" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=4'">← Содержание</button>
-  <button class="nb nb-next" onclick="location.href='m4-ch04.html'">Дальше →</button>
+  <button class="nb nb-prev notranslate" translate="no" onclick="location.href='../../../../shell/app.html?tab=academy&level=arch&module=4'">← Содержание</button>
+  <button class="nb nb-next notranslate" translate="no" onclick="location.href='m4-ch04.html'">Дальше →</button>
 </div>
 <script src="/review-enhance.js?v=3" defer></script>
 </body>
