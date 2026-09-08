@@ -1,7 +1,8 @@
 import { Container } from "@/components/Container";
 import { AdminUsers } from "@/components/AdminUsers";
 
-// Раздел закрыт на сервере: /admin/* Океана пускает только tg_id из ADMIN_TG_IDS.
+// Раздел закрыт на сервере: /admin/* Океана пускает только админов (почта входа в
+// ADMIN_EMAILS или id в ADMIN_USER_IDS).
 // Поэтому страница открыта, а данных без прав просто не будет — так честнее, чем
 // прятать адрес и делать вид, что это защита.
 export const metadata = {

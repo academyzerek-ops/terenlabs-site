@@ -2,6 +2,7 @@ import { Container } from "@/components/Container";
 import { MyMemory } from "@/components/MyMemory";
 import { OceanAccount } from "@/components/OceanAccount";
 import { CabinetHeader } from "@/components/CabinetHeader";
+import { AdminLink } from "@/components/AdminLink";
 import { auth, signIn, signOut, providersConfigured } from "@/auth";
 
 export const metadata = { title: "Личный кабинет — TerenLabs", robots: { index: false, follow: false } };
@@ -25,6 +26,8 @@ export default async function Dashboard() {
         sessionImage={session?.user?.image ?? null}
         signOutAction={session ? doSignOut : undefined}
       />
+
+      <AdminLink />
 
       <OceanAccount nextAuthActive={!!session} googleReady={providersConfigured.google} googleAction={doGoogle} />
 
