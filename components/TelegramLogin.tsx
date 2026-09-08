@@ -8,7 +8,7 @@ import { loginTelegram } from "@/lib/ocean";
 // удалён 09.09.2026); старые Telegram-аккаунты находятся по тому же tg_id.
 // ⚠️ Виджет рисуется ТОЛЬКО на домене, прописанном в @BotFather → /setdomain.
 // На localhost и на «чужом» домене Telegram кнопку не отрендерит (это by design).
-const BOT = process.env.NEXT_PUBLIC_TG_BOT ?? "terenlabs_bot";
+const BOT = process.env.NEXT_PUBLIC_TG_BOT ?? "akula_bizzz_bot";
 
 declare global {
   interface Window {
