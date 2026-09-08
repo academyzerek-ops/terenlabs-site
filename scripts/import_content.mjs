@@ -36,7 +36,7 @@ const stripTag = (html, re) => html.replace(re, "");
 // Вырезать внешние/трекинговые скрипты, шапку .hdr, заменить пути ассетов
 function transformEmbedded(html, { keepLocalScripts = false } = {}) {
   let out = html;
-  // телеграм, трекер, лайки — не работают вне Mini App
+  // трекер, лайки и остатки скриптов старого приложения — сайту не нужны
   out = stripTag(out, /<script[^>]*src="https:\/\/telegram\.org[^"]*"[^>]*><\/script>\s*/g);
   out = stripTag(out, /<script[^>]*src="[^"]*tracker\.js[^"]*"[^>]*><\/script>\s*/g);
   out = stripTag(out, /<script[^>]*src="[^"]*content-like\.js[^"]*"[^>]*><\/script>\s*/g);
@@ -284,7 +284,7 @@ report.counts.reviews = reviews.length;
 // Краб — по типу (Теория/Расчёты/Универсальный), Барракуда — по ДИСЦИПЛИНАМ
 // (Финансы/Маркетинг/Менеджмент/Право/Универсальный — бэк гейтит уровень всеми 5).
 // Пулы в клиенте БЕЗ ответов — правильность и разбор считает сервер (/attempt).
-// Пороги: TEST_FLOORS в frontend/products/ocean.js (t3=6, остальные 7).
+// Пороги: TEST_FLOORS в backend/app/services/ocean_progress.py (t3=6, остальные 7).
 const OCEAN_TESTS = [
   { slug: "crab-t1", rank: "Краб", tag: "T2", pool: "crab.t1", title: "Краб · Теория", topic: "Бизнес", floor: 7 },
   { slug: "crab-t2", rank: "Краб", tag: "T2", pool: "crab.t2", title: "Краб · Расчёты", topic: "Финансы", floor: 7 },

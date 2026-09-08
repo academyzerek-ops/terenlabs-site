@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { OCEAN_API } from "@/lib/ocean";
 
-// Формы связи — зеркало Mini App (content/ru/info/contact.html): две темы,
-// POST /lead того же бэка. В Mini App контакт берётся из подписи Telegram;
-// на сайте заявка анонимная (бэк помечает source «:anon»), поэтому просим
-// оставить контакт в тексте.
+// Формы связи (тексты — content/ru/info/contact.html): две темы, POST /lead.
+// Заявка анонимная (бэк помечает source «:anon»), поэтому просим оставить
+// контакт в тексте; вошедшему бэк привяжет аккаунт сам.
 const API_BASE = OCEAN_API.replace(/\/api\/ocean$/, "");
 
 const TOPICS = [

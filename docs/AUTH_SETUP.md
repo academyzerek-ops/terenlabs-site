@@ -1,14 +1,11 @@
 # Вход на сайте
 
-Три способа, все сходятся в один аккаунт Океана (таблица `identities`,
-провайдеры telegram / google / email).
+Два способа, оба сходятся в один аккаунт Океана (таблица `identities`,
+провайдеры email / google; telegram — легаси-строки до 09.09.2026).
 
-1. **Telegram deep-link** (главный): `components/TgDeepLinkLogin.tsx` → бэкенд `/api/ocean/auth/tg/*`,
-   tg_id общий с Mini App. Для нативного приложения остаётся redirect-виджет
-   (`/auth/sign-in?return=miniapp` → `/auth/tg-callback`).
-2. **Почта + код**: `components/CodeLogin.tsx` → бэкенд `/api/ocean/auth/email/start`
+1. **Почта + код**: `components/CodeLogin.tsx` → бэкенд `/api/ocean/auth/email/start`
    и `/email/verify`. Код 6 цифр на 10 минут, одноразовый. Работает с 07.09.2026.
-3. **Google**: NextAuth v5 (`auth.ts`) → возврат на `/auth/bridge-finish` → `/api/ocean-bridge`
+2. **Google**: NextAuth v5 (`auth.ts`) → возврат на `/auth/bridge-finish` → `/api/ocean-bridge`
    меняет сессию на веб-токен Океана и передаёт почту (`users.email`). Работает с 08.09.2026.
 
 Способы показаны одним рядом круглых кнопок (`components/SignInMethods.tsx`) на
@@ -26,8 +23,8 @@
 
 `/auth/onboarding` — имя, год рождения, пол, область РК. Имя вводится руками,
 остальное выпадающими списками. Бэкенд считает анкету пройденной только когда
-заполнены все четыре поля (`needs_onboarding`), иначе пользователь из Telegram
-не увидел бы её никогда: имя оттуда подставляется само. Пустое поле не затирает
+заполнены все четыре поля (`needs_onboarding`), иначе пользователь, чьё имя
+подставил провайдер входа, не увидел бы её никогда. Пустое поле не затирает
 уже сохранённый ответ, анкету можно дозаполнить вторым заходом.
 
 Данные лежат в `users`: `display_name`, `birth_year`, `gender` (m / f / na),
@@ -87,3 +84,9 @@ Google Cloud → Google Auth Platform → Clients → TerenLabs сайт.
 AUTH_APPLE_ID=cc.terenlabs.site   (Services ID)
 AUTH_APPLE_SECRET=eyJ...          (сгенерированный JWT, живёт до 6 месяцев)
 ```
+
+
+**Вход через Telegram удалён 09.09.2026** вместе с ботом `@terenlabs_bot` и Mini App:
+остаются сайт и канал, позже — нативное приложение. Аккаунты, заведённые через
+Telegram, остались в базе; войти в них можно, если к ним была привязана почта
+или Google.

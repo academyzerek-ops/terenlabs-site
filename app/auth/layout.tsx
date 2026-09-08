@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 // Страницы входа/онбординга/коллбэка — служебные, поисковикам не нужны.
-// tg-callback и onboarding — клиентские компоненты и сами metadata экспортировать
+// onboarding и bridge-finish — клиентские компоненты и сами metadata экспортировать
 // не могут, поэтому noindex ставим на уровне сегмента.
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 

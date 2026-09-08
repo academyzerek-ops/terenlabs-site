@@ -129,7 +129,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               </div>
               {!p.stub && (
                 <p className="mt-4 text-[13px] leading-relaxed text-faint">
-                  Попытка идёт в зачёт «Океана» после входа через Telegram.
+                  Попытка идёт в зачёт «Океана» после входа.
                 </p>
               )}
             </aside>

@@ -7,7 +7,7 @@ const ORG = {
   name: "TerenLabs",
   url: SITE_URL,
   logo: `${SITE_URL}/og-image.jpg`,
-  sameAs: ["https://t.me/terenlabs_bot"],
+  sameAs: ["https://instagram.com/terenlabs", "https://www.threads.com/@terenlabs"],
 } as const;
 
 /** Организация — один раз в корневом layout. */

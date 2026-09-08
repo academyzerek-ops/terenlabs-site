@@ -3,11 +3,10 @@
 import { useState } from "react";
 import { OCEAN_API } from "@/lib/ocean";
 
-// Независимая заявка по индивидуальной финмодели: НЕ тянет пользователя в Telegram.
+// Независимая заявка по индивидуальной финмодели.
 // Клиент оставляет контакт на выбор (Telegram/WhatsApp/Email/Телефон) + короткий
-// бриф → POST /lead (аноним, бэк помечает source «:anon»). Продукт содержит
-// «индивидуал» → уведомление падает Адилю в тему «indfm» админ-группы. Ответ —
-// по указанному клиентом каналу, вход в ТГ не требуется.
+// бриф → POST /lead (аноним, бэк помечает source «:anon»). Адиль читает заявки
+// в админке (GET /admin/leads). Ответ — по указанному клиентом каналу.
 const API_BASE = OCEAN_API.replace(/\/api\/ocean$/, "");
 const CHANNELS = ["Telegram", "WhatsApp", "Email", "Телефон"];
 
@@ -63,7 +62,7 @@ export function FinmodelLeadForm() {
   return (
     <div className="rounded-[8px] border border-line bg-subtle p-6">
       <p className="text-[15px] leading-relaxed text-text-2">
-        Оставьте заявку — финансист свяжется по удобному вам каналу. Telegram не обязателен.
+        Оставьте заявку — финансист свяжется по удобному вам каналу.
       </p>
 
       <label className="mt-5 block">

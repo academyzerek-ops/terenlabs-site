@@ -1,67 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { authMethods, tgLoginClaim, tgLoginStart } from "@/lib/ocean";
+import { useEffect, useState } from "react";
+import { authMethods } from "@/lib/ocean";
 import { CodeLogin } from "@/components/CodeLogin";
 import type { CodeChannel } from "@/lib/ocean";
 
-// Компактный вход круглыми кнопками в ряд. Telegram: deep-link в бота и поллинг
-// тикета. Google: серверное действие next-auth, без ключей кнопка выключена.
-// Почта: раскрывает форму адреса и кода, показывается только когда бэкенд умеет
-// его слать. Вход по СМС убран 07.09.2026: платно за сообщение и требует договора,
-// а тех же людей закрывают телеграм и почта.
+// Компактный вход круглыми кнопками в ряд. Google: серверное действие next-auth,
+// без ключей кнопка выключена. Почта: раскрывает форму адреса и кода, включается,
+// когда бэкенд умеет его слать. Вход по СМС убран 07.09.2026 (платно, договор с
+// оператором), Telegram — 09.09.2026 вместе с ботом и Mini App.
 const ROUND = "flex h-14 w-14 items-center justify-center rounded-full text-[#fff] transition-transform hover:scale-[1.04] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100";
 
 export function SignInMethods({ googleReady, googleAction, size = "md" }: { googleReady: boolean; googleAction?: () => Promise<void>; size?: "md" | "sm" }) {
-  // на узком телефоне четыре круга по 56 px с подписями не помещаются в ряд
+  // на узком телефоне круги по 56 px с подписями не помещаются в ряд
   const round = size === "sm"
     ? ROUND.replace("h-14 w-14", "h-11 w-11")
     : ROUND.replace("h-14 w-14", "h-12 w-12 sm:h-14 sm:w-14");
-  const router = useRouter();
-  const [phase, setPhase] = useState<"idle" | "waiting" | "error">("idle");
-  const [link, setLink] = useState<string | null>(null);
   const [channel, setChannel] = useState<CodeChannel | null>(null);
   // Включена ли отправка кода на почту — знает только бэкенд (там настройки SMTP).
   const [emailOn, setEmailOn] = useState(false);
   useEffect(() => {
     authMethods().then((m) => setEmailOn(m.email));
   }, []);
-  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
-  useEffect(() => () => { if (timer.current) clearInterval(timer.current); }, []);
-
-  const startTg = async () => {
-    try {
-      const t = await tgLoginStart();
-      setLink(t.deep_link);
-      setPhase("waiting");
-      window.open(t.deep_link, "_blank", "noopener");
-      const startedAt = Date.now();
-      if (timer.current) clearInterval(timer.current);
-      timer.current = setInterval(async () => {
-        if (Date.now() - startedAt > t.expires_in_sec * 1000) { if (timer.current) clearInterval(timer.current); setPhase("error"); return; }
-        try {
-          const auth = await tgLoginClaim(t.code);
-          if (auth) { if (timer.current) clearInterval(timer.current); router.push(auth.needs_onboarding ? "/auth/onboarding" : "/dashboard"); }
-        } catch { if (timer.current) clearInterval(timer.current); setPhase("error"); }
-      }, 2000);
-    } catch { setPhase("error"); }
-  };
-
   return (
     <div>
       {/* на узком телефоне способы входа с промежутком 20 px не влезают */}
       <div className={`flex items-start justify-center ${size === "sm" ? "gap-3 sm:gap-5" : "gap-2 sm:gap-6"}`}>
-        {/* Telegram */}
-        <div className="flex flex-col items-center gap-2">
-          <button type="button" onClick={startTg} aria-label="Войти через Telegram" className={`${round} bg-[#2AABEE]`}>
-            <svg viewBox="0 0 240 240" className="h-7 w-7 -ml-0.5" aria-hidden="true">
-              <path fill="currentColor" d="M44.7 121.5 194.9 63.6c7-2.6 13.1 1.6 10.8 12.2l-25.6 120.6c-1.9 8.5-7 10.6-14.1 6.6l-39-28.8-18.8 18.2c-2.1 2.1-3.8 3.8-7.8 3.8l2.8-39.8 72.3-65.3c3.1-2.8-.7-4.3-4.9-1.7l-89.4 56.3-38.5-12c-8.4-2.7-8.6-8.4 2-12.2Z" />
-            </svg>
-          </button>
-          <span className="text-[12px] text-text-2">Telegram</span>
-        </div>
-
         {/* Google */}
         <div className="flex flex-col items-center gap-2">
           {googleReady && googleAction ? (
@@ -99,26 +63,6 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
           <span className="text-[12px] text-text-2">Почта</span>
         </div>
       </div>
-
-      {phase === "waiting" && (
-        <div className="mt-5 text-center">
-          <p className="text-[14px] text-body">Подтверди вход в Telegram, он уже открылся.</p>
-          <p role="status" aria-live="polite" className="mt-1 flex items-center justify-center gap-2 text-[13px] text-text-2">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />
-            жду подтверждение от бота
-          </p>
-          {link && (
-            <a href={link} target="_blank" rel="noopener" className="link mt-2 text-[13px]">
-              Telegram не открылся? Открыть ещё раз
-            </a>
-          )}
-        </div>
-      )}
-      {phase === "error" && (
-        <p role="alert" className="mt-4 text-center text-[13px] text-danger">
-          Подтверждение не пришло. Нажми Telegram ещё раз.
-        </p>
-      )}
 
       {channel && emailOn && (
         <div id="code-login" className="mt-6">

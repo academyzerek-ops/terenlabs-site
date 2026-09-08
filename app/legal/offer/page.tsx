@@ -4,10 +4,10 @@ import { Container } from "@/components/Container";
 export const metadata = {
   alternates: { canonical: "/legal/offer" }, title: "Пользовательское соглашение — TerenLabs" };
 
-// Текст — из Mini App (frontend/content/ru/info/terms.html), здесь только вёрстка
+// Текст — из frontend/content/ru/info/terms.html, здесь только вёрстка
 // под дизайн сайта. Редакция августа 2026: §2 и §6 переписаны под пивот 20.07
 // (вся линейка бесплатна, Tribute убран, платная только индивидуальная финмодель
-// по заявке) — terms.html в Mini App нужно подтянуть к этой версии.
+// по заявке) — terms.html нужно подтянуть к этой версии.
 export default function Page() {
   return (
     <>
@@ -35,8 +35,7 @@ export default function Page() {
           <Sec n="1" t="Общие положения">
             <p>
               Настоящее соглашение регулирует использование сервиса <strong>TerenLabs</strong>{" "}
-              (Республика Казахстан), работающего как веб-сайт TerenLabs и Telegram-бот{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>.
+              (Республика Казахстан), работающего как веб-сайт TerenLabs.
               Начиная пользоваться сайтом или ботом, вы
               подтверждаете, что прочитали и принимаете эти условия и{" "}
               <Link href="/legal/privacy" className="text-accent hover:underline">
@@ -105,8 +104,8 @@ export default function Page() {
               </Link>
               , которую финансист собирает под ваш бизнес по заявке. Стоимость, сроки, порядок
               оплаты и возврата согласовываются с финансистом до начала работы и фиксируются в
-              переписке. По вопросам напишите через раздел «Связь» или боту{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">@terenlabs_bot</a>.
+              переписке. По вопросам напишите через{" "}
+              <Link href="/contacts" className="text-accent hover:underline">страницу «Связь»</Link>.
             </p>
           </Sec>
 
@@ -123,11 +122,8 @@ export default function Page() {
           <Sec n="8" t="Изменения и право">
             <p>
               Мы можем обновлять это соглашение — актуальная версия всегда доступна на этой
-              странице. К отношениям применяется законодательство Республики Казахстан. По вопросам:{" "}
-              <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">
-                <strong>@terenlabs_bot</strong>
-              </a>{" "}
-              или раздел «Связь» в приложении.
+              странице. К отношениям применяется законодательство Республики Казахстан. По вопросам —{" "}
+              <Link href="/contacts" className="text-accent hover:underline">страница «Связь»</Link>.
             </p>
           </Sec>
         </div>

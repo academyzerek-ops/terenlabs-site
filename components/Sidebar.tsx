@@ -93,8 +93,6 @@ const SOCIAL = [
     icon: <><rect x="2.5" y="2.5" width="11" height="11" rx="3" /><circle cx="8" cy="8" r="2.6" /><circle cx="11.2" cy="4.8" r=".6" fill="currentColor" /></> },
   { label: "Threads", href: "https://www.threads.com/@terenlabs",
     icon: <path d="M11.2 7.6c-.2-1.9-1.3-3-3.2-3.1-1.4 0-2.5.6-3.1 1.7M11.2 7.6c1.4.6 2 1.7 1.9 2.9-.2 2-1.9 3-3.9 3-2.9 0-4.9-2-4.9-5.5S6.3 2.5 9.1 2.5c1.6 0 2.9.6 3.7 1.7M11.2 7.6c-.7-.3-1.6-.4-2.5-.3-1.6.1-2.7.9-2.6 2 .1 1 1 1.6 2.3 1.5 1.7-.1 2.6-1.2 2.8-3.2" /> },
-  { label: "Telegram", href: "https://t.me/terenlabs_bot",
-    icon: <path d="M13.5 2.8 2.6 7.1c-.7.3-.7.8 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.9 2.1c.5.4 1 .1 1.1-.5L14.3 3.6c.1-.7-.3-1.1-.8-.8zM5.3 9l6.6-4.2-5.2 4.9-.3 2.6" /> },
 ];
 
 type Tab = "home" | "diary" | "about";

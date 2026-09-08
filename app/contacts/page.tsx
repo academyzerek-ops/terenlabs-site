@@ -4,7 +4,7 @@ import { ContactForms } from "@/components/ContactForms";
 export const metadata = {
   alternates: { canonical: "/contacts" }, title: "Связь с нами — TerenLabs" };
 
-// Тексты — из Mini App (content/ru/info/contact.html), вёрстка — сайтовая.
+// Тексты — из content/ru/info/contact.html, вёрстка — сайтовая.
 export default function Page() {
   return (
     <>
@@ -19,11 +19,7 @@ export default function Page() {
       <Container className="border-t border-line pb-10 sm:pb-20 pt-6 sm:pt-10">
         <p className="mb-8 max-w-[64ch] text-[15px] leading-relaxed text-text-2">
           Выберите, о чём хотите написать, и опишите коротко. Заявка попадёт напрямую команде — мы
-          отвечаем на всё по существу. Быстрее всего — написать боту{" "}
-          <a href="https://t.me/terenlabs_bot" className="text-accent hover:underline">
-            @terenlabs_bot
-          </a>
-          : там мы видим ваш Telegram и можем ответить в личку.
+          отвечаем на всё по существу. Оставьте в тексте контакт, по которому удобно ответить.
         </p>
         <ContactForms />
       </Container>

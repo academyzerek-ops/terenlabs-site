@@ -83,73 +83,20 @@ export function oceanSignOut() {
   }
 }
 
-/** Вход через Telegram Login Widget: payload виджета → токен. */
-export async function loginTelegram(widgetUser: Record<string, unknown>): Promise<OceanAuth> {
-  const res = await fetch(OCEAN_API + "/auth/telegram", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(widgetUser),
-  });
-  if (!res.ok) throw new Error(`telegram login: ${res.status}`);
-  const out: OceanAuth = await res.json();
-  setOceanToken(out.token);
-  try {
-    const first = (widgetUser as { first_name?: string }).first_name;
-    const name = out.display_name || first;
-    if (name) localStorage.setItem(NAME_KEY, name);
-  } catch {
-    /* no-op */
-  }
-  return out;
-}
-
-/** Тикет входа по t.me deep-link: бот подтвердит — /tg/claim отдаст токен. */
-export async function tgLoginStart(): Promise<{ code: string; deep_link: string; expires_in_sec: number }> {
-  const res = await fetch(OCEAN_API + "/auth/tg/start", { method: "POST" });
-  if (!res.ok) throw new Error(`tg start: ${res.status}`);
-  return res.json();
-}
-
-/** Один тик поллинга тикета: null — бот ещё не подтвердил; бросает "expired". */
-export async function tgLoginClaim(code: string): Promise<OceanAuth | null> {
-  const res = await fetch(OCEAN_API + "/auth/tg/claim", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ code }),
-  });
-  if (res.status === 404) throw new Error("expired");
-  if (!res.ok) throw new Error(`tg claim: ${res.status}`);
-  const out = await res.json();
-  if (out.status !== "ok") return null;
-  const auth: OceanAuth = {
-    token: out.token,
-    user_id: out.user_id,
-    display_name: out.display_name,
-    needs_onboarding: out.needs_onboarding,
-  };
-  setOceanToken(auth.token);
-  try {
-    if (auth.display_name) localStorage.setItem(NAME_KEY, auth.display_name);
-  } catch {
-    /* no-op */
-  }
-  return auth;
-}
-
 // СМС отключены решением Адиля 07.09.2026: платно за каждое сообщение,
-// нужен договор и регистрация имени отправителя, а почта и телеграм
-// закрывают тех же людей. Остаётся один канал.
+// нужен договор и регистрация имени отправителя. Telegram убран 09.09.2026
+// вместе с ботом. Остаются почта и Google.
 /** Какие способы входа сейчас работают. Спрашиваем бэкенд, а не держим копию
  *  настроек на сайте: почта включается переменными окружения бэкенда, и кнопка
  *  должна ожить без отдельного деплоя сайта. Сеть отвалилась — считаем, что
  *  почты нет: показать выключенную кнопку честнее, чем вести в ошибку. */
-export async function authMethods(): Promise<{ telegram: boolean; email: boolean }> {
+export async function authMethods(): Promise<{ email: boolean }> {
   try {
     const res = await fetch(OCEAN_API + "/auth/methods");
-    if (!res.ok) return { telegram: true, email: false };
+    if (!res.ok) return { email: false };
     return await res.json();
   } catch {
-    return { telegram: true, email: false };
+    return { email: false };
   }
 }
 
@@ -192,7 +139,7 @@ export async function codeVerify(channel: CodeChannel, to: string, code: string)
   return auth;
 }
 
-/** Персональный разбор ИИ-акулёнка после теста (общий бэкенд с Mini App). */
+/** Персональный разбор ИИ-акулёнка после теста (бэкенд Океана). */
 export async function fetchRecommendation(
   level: string,
   test: string,

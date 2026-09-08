@@ -21,7 +21,7 @@ import {
 import { OCEAN_TESTS, SHARK_CASES } from "@/lib/ocean-tests";
 import { currentLevelId } from "./OceanPath";
 
-// Кабинет Океана — полный дашборд, как в Mini App: уровень с целью, путь по
+// Кабинет Океана — полный дашборд: уровень с целью, путь по
 // медальонам, тесты текущего уровня со статусами и баллами, бейджи, последний
 // разбор ИИ-акулёнка, статистика. Все данные — живые, с того же бэка.
 type Rank = {
@@ -85,7 +85,6 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
   const [stats, setStats] = useState<Stats | null>(null);
   const [progress, setProgress] = useState<OceanProgress | null>(null);
   const [badges, setBadges] = useState<Badge[] | null>(null);
-  const [linkCode, setLinkCode] = useState<string | null>(null);
   const [aiSummary, setAiSummary] = useState<string>(""); // общий вывод ИИ-акулёнка
   const [recoOpen, setRecoOpen] = useState(false);
 
@@ -304,7 +303,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
         </div>
       )}
 
-      {/* общий вывод ИИ-акулёнка по накопленной статистике (тот же бэк, что Mini App) */}
+      {/* общий вывод ИИ-акулёнка по накопленной статистике (бэкенд Океана) */}
       {aiSummary && (
         <div className="mt-8 rounded-[8px] border-l-2 border-accent bg-subtle p-5">
           <p className="num text-[11px] font-medium text-accent">
@@ -314,7 +313,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
         </div>
       )}
 
-      {/* последний разбор ИИ-акулёнка — как в кабинете Mini App */}
+      {/* последний разбор ИИ-акулёнка */}
       {reco?.text && (
         <div className="mt-8 rounded-[8px] border-l-2 border-accent bg-subtle p-5">
           <p className="num text-[11px] font-medium text-accent">
@@ -355,24 +354,6 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
       )}
 
       <div className="mt-8 flex flex-wrap items-center gap-4 text-[13px]">
-        <button
-          onClick={async () => {
-            try {
-              const out = await oceanFetch<{ code: string }>("/auth/link/code", { method: "POST", json: {} });
-              setLinkCode(out.code);
-            } catch {
-              setLinkCode(null);
-            }
-          }}
-          className="link"
-        >
-          Привязать Telegram
-        </button>
-        {linkCode && (
-          <span className="num rounded-[6px] bg-subtle px-3 py-1.5 text-ink">
-            код <strong>{linkCode}</strong>, введи в боте за 10 минут
-          </span>
-        )}
 
       </div>
     </section>

@@ -157,7 +157,7 @@ export default function DesignSystem() {
               <Link href="#" className="link text-[15px]">Открыть демо <Arrow /></Link>
               <Link href="#" className="link text-[14px]">Весь рейтинг <Arrow /></Link>
               <span className="text-[14px] text-text-2">
-                в тексте: <a href="#" className="text-accent hover:underline">@terenlabs_bot</a>
+                в тексте: <a href="#" className="text-accent hover:underline">terenlabs.kz</a>
               </span>
             </div>
           </div>

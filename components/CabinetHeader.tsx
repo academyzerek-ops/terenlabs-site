@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getOceanToken, getOceanName, oceanSignOut, OCEAN_API } from "@/lib/ocean";
 
-// Шапка кабинета: имя из Океана (Telegram, Google или номер), одно фото, выход иконкой-дверью.
+// Шапка кабинета: имя из Океана (почта или Google), одно фото, выход иконкой-дверью.
 export function CabinetHeader({ sessionName, sessionImage, signOutAction }: {
   sessionName?: string | null;
   sessionImage?: string | null;
