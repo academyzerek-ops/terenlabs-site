@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { authMethods } from "@/lib/ocean";
 import { CodeLogin } from "@/components/CodeLogin";
+import { TelegramLogin } from "@/components/TelegramLogin";
 import type { CodeChannel } from "@/lib/ocean";
 
-// Компактный вход круглыми кнопками в ряд. Google: серверное действие next-auth,
-// без ключей кнопка выключена. Почта: раскрывает форму адреса и кода, включается,
-// когда бэкенд умеет его слать. Вход по СМС убран 07.09.2026 (платно, договор с
-// оператором), Telegram — 09.09.2026 вместе с ботом и Mini App.
+// Компактный вход круглыми кнопками в ряд. Telegram: официальный Login Widget
+// (бот только для входа, Mini App удалён 09.09.2026). Google: серверное действие
+// next-auth, без ключей кнопка выключена. Почта: раскрывает форму адреса и кода,
+// включается, когда бэкенд умеет его слать. Вход по СМС убран 07.09.2026.
 const ROUND = "flex h-14 w-14 items-center justify-center rounded-full text-[#fff] transition-transform hover:scale-[1.04] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100";
 
 export function SignInMethods({ googleReady, googleAction, size = "md" }: { googleReady: boolean; googleAction?: () => Promise<void>; size?: "md" | "sm" }) {
@@ -16,16 +17,36 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
   const round = size === "sm"
     ? ROUND.replace("h-14 w-14", "h-11 w-11")
     : ROUND.replace("h-14 w-14", "h-12 w-12 sm:h-14 sm:w-14");
-  const [channel, setChannel] = useState<CodeChannel | null>(null);
-  // Включена ли отправка кода на почту — знает только бэкенд (там настройки SMTP).
+  const [channel, setChannel] = useState<CodeChannel | "telegram" | null>(null);
+  // Что включено — знает только бэкенд: почта (настройки Resend), Telegram (токен бота).
   const [emailOn, setEmailOn] = useState(false);
+  const [tgOn, setTgOn] = useState(false);
   useEffect(() => {
-    authMethods().then((m) => setEmailOn(m.email));
+    authMethods().then((m) => { setEmailOn(m.email); setTgOn(m.telegram); });
   }, []);
   return (
     <div>
       {/* на узком телефоне способы входа с промежутком 20 px не влезают */}
       <div className={`flex items-start justify-center ${size === "sm" ? "gap-3 sm:gap-5" : "gap-2 sm:gap-6"}`}>
+        {/* Telegram: раскрывает официальный виджет; без токена бота кнопка выключена */}
+        <div className="flex flex-col items-center gap-2">
+          <button
+            type="button"
+            disabled={!tgOn}
+            onClick={() => setChannel((c) => (c === "telegram" ? null : "telegram"))}
+            aria-expanded={channel === "telegram"}
+            aria-controls="tg-login"
+            aria-label={tgOn ? "Войти через Telegram" : "Telegram скоро"}
+            title={tgOn ? undefined : "Подключается после настройки бота входа"}
+            className={`${round} bg-[#2AABEE] ${channel === "telegram" ? "ring-2 ring-[#2AABEE]/40 ring-offset-2 ring-offset-page" : ""}`}
+          >
+            <svg viewBox="0 0 240 240" className="h-7 w-7 -ml-0.5" aria-hidden="true">
+              <path fill="currentColor" d="M44.7 121.5 194.9 63.6c7-2.6 13.1 1.6 10.8 12.2l-25.6 120.6c-1.9 8.5-7 10.6-14.1 6.6l-39-28.8-18.8 18.2c-2.1 2.1-3.8 3.8-7.8 3.8l2.8-39.8 72.3-65.3c3.1-2.8-.7-4.3-4.9-1.7l-89.4 56.3-38.5-12c-8.4-2.7-8.6-8.4 2-12.2Z" />
+            </svg>
+          </button>
+          <span className="text-[12px] text-text-2">Telegram</span>
+        </div>
+
         {/* Google */}
         <div className="flex flex-col items-center gap-2">
           {googleReady && googleAction ? (
@@ -64,7 +85,12 @@ export function SignInMethods({ googleReady, googleAction, size = "md" }: { goog
         </div>
       </div>
 
-      {channel && emailOn && (
+      {channel === "telegram" && tgOn && (
+        <div id="tg-login" className="mt-6">
+          <TelegramLogin />
+        </div>
+      )}
+      {channel === "email" && emailOn && (
         <div id="code-login" className="mt-6">
           <CodeLogin key={channel} channel={channel} />
         </div>

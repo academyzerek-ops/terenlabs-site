@@ -83,20 +83,39 @@ export function oceanSignOut() {
   }
 }
 
+/** Вход через Telegram Login Widget: payload виджета → токен. */
+export async function loginTelegram(widgetUser: Record<string, unknown>): Promise<OceanAuth> {
+  const res = await fetch(OCEAN_API + "/auth/telegram", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(widgetUser),
+  });
+  if (!res.ok) throw new Error(`telegram login: ${res.status}`);
+  const out: OceanAuth = await res.json();
+  setOceanToken(out.token);
+  try {
+    const first = (widgetUser as { first_name?: string }).first_name;
+    const name = out.display_name || first;
+    if (name) localStorage.setItem(NAME_KEY, name);
+  } catch {
+    /* no-op */
+  }
+  return out;
+}
+
 // СМС отключены решением Адиля 07.09.2026: платно за каждое сообщение,
-// нужен договор и регистрация имени отправителя. Telegram убран 09.09.2026
-// вместе с ботом. Остаются почта и Google.
+// нужен договор и регистрация имени отправителя. Остаются Telegram, почта и Google.
 /** Какие способы входа сейчас работают. Спрашиваем бэкенд, а не держим копию
  *  настроек на сайте: почта включается переменными окружения бэкенда, и кнопка
  *  должна ожить без отдельного деплоя сайта. Сеть отвалилась — считаем, что
  *  почты нет: показать выключенную кнопку честнее, чем вести в ошибку. */
-export async function authMethods(): Promise<{ email: boolean }> {
+export async function authMethods(): Promise<{ telegram: boolean; email: boolean }> {
   try {
     const res = await fetch(OCEAN_API + "/auth/methods");
-    if (!res.ok) return { email: false };
+    if (!res.ok) return { telegram: false, email: false };
     return await res.json();
   } catch {
-    return { email: false };
+    return { telegram: false, email: false };
   }
 }
 

@@ -4,12 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Arrow } from "@/components/Button";
-import { KZ_REGIONS } from "@/lib/kz-regions";
 import { getOceanToken, getOceanName, oceanFetch, type OceanAuth, setOceanToken } from "@/lib/ocean";
 
-// Анкета Океана (12_OCEAN.md): имя, год рождения, пол, область.
-// Показывается один раз после первого входа и повторяется, пока не заполнена
-// целиком — флаг needs_onboarding считает бэкенд по всем четырём полям.
+// Анкета Океана (12_OCEAN.md): имя, год рождения, пол, страна.
+// Область убрана 09.09.2026 (решение Адиля: «только страну оставим»). Показывается
+// один раз после первого входа и повторяется, пока не заполнена целиком — флаг
+// needs_onboarding считает бэкенд по всем четырём полям.
 // Имя вводится руками, остальное выпадающими списками: так ответы приходят
 // в одном виде и их можно считать.
 
@@ -22,6 +22,15 @@ const LABEL = "text-[14px] font-medium text-body";
 const MIN_AGE = 14;
 const OLDEST_BIRTH_YEAR = 1930;
 
+// Страны анкеты: весь русскоязычный рынок, Казахстан первым и по умолчанию.
+const COUNTRIES = [
+  { code: "KZ", name: "Казахстан" },
+  { code: "RU", name: "Россия" },
+  { code: "KG", name: "Кыргызстан" },
+  { code: "UZ", name: "Узбекистан" },
+  { code: "BY", name: "Беларусь" },
+];
+
 const GENDERS = [
   { code: "m", name: "Мужской" },
   { code: "f", name: "Женский" },
@@ -33,7 +42,7 @@ export default function OnboardingPage() {
   const [name, setName] = useState("");
   const [birthYear, setBirthYear] = useState("");
   const [gender, setGender] = useState("");
-  const [region, setRegion] = useState("");
+  const [country, setCountry] = useState("KZ");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -54,7 +63,7 @@ export default function OnboardingPage() {
     if (!name.trim()) { setErr("Напиши, как к тебе обращаться."); return; }
     if (!birthYear) { setErr("Выбери год рождения."); return; }
     if (!gender) { setErr("Выбери пол или «Не указываю»."); return; }
-    if (!region) { setErr("Выбери область."); return; }
+    if (!country) { setErr("Выбери страну."); return; }
     setBusy(true);
     setErr(null);
     try {
@@ -62,8 +71,7 @@ export default function OnboardingPage() {
         method: "POST",
         json: {
           display_name: name.trim(),
-          country: "KZ",
-          region_code: region,
+          country,
           lang: "ru",
           birth_year: Number(birthYear),
           gender,
@@ -83,7 +91,7 @@ export default function OnboardingPage() {
         <p className="eyebrow">Океан · полминуты</p>
         <h1 className="mt-2 text-[22px] sm:text-[24px]">Коротко о тебе</h1>
         <p className="mt-2 text-[14px] leading-relaxed text-text-2">
-          Имя увидят в рейтинге, область нужна для рейтинга земляков. Год рождения и пол
+          Имя увидят в рейтинге, страна нужна для рейтинга среди своих. Год рождения и пол
           в рейтинге не показываются: по ним видно, кто учится.
         </p>
 
@@ -133,19 +141,18 @@ export default function OnboardingPage() {
           </div>
 
           <label className="block">
-            <span className={LABEL}>Область</span>
-            <select value={region} onChange={(e) => setRegion(e.target.value)} className={FIELD}>
-              <option value="">— выбери —</option>
-              {KZ_REGIONS.map((r) => (
-                <option key={r.code} value={r.code}>
-                  {r.name}
+            <span className={LABEL}>Страна</span>
+            <select value={country} onChange={(e) => setCountry(e.target.value)} className={FIELD}>
+              {COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.name}
                 </option>
               ))}
             </select>
           </label>
 
           <p className="text-[13px] text-faint">
-            Казахстан, русский язык. Қазақша — скоро, уже в плане.
+            Язык — русский. Қазақша — скоро, уже в плане.
           </p>
         </div>
 

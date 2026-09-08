@@ -3,7 +3,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { OCEAN_RANKS } from "@/lib/content";
-import { regionName } from "@/lib/kz-regions";
 import { OCEAN_API, getOceanToken } from "@/lib/ocean";
 import { RankSketch, RankMark, API2KEY } from "./RankSketch";
 import type { LevelKey } from "@/lib/content";
@@ -60,23 +59,27 @@ function days(n: number) {
   return `${n} ${word}`;
 }
 
+const COUNTRY_RU: Record<string, string> = {
+  KZ: "Казахстан", RU: "Россия", KG: "Кыргызстан", UZ: "Узбекистан", BY: "Беларусь",
+};
+
 export function OceanLeaderboard() {
-  const [scope, setScope] = useState<"all" | "region" | "level">("all");
+  const [scope, setScope] = useState<"all" | "country" | "level">("all");
   const scopeTouched = useRef(false); // юзер сам выбрал вкладку — дефолт не навязываем
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState(false);
-  const [myRegion, setMyRegion] = useState<string | null>(null);
+  const [myCountry, setMyCountry] = useState<string | null>(null);
   const [myLevel, setMyLevel] = useState<string | null>(null);
   const authed = typeof window !== "undefined" && !!getOceanToken();
 
-  // профиль для срезов «моя область / мой уровень»
+  // профиль для срезов «моя страна / мой уровень»
   useEffect(() => {
     const token = getOceanToken();
     if (!token) return;
     const h = { Authorization: `web ${token}` };
     fetch(OCEAN_API + "/me/settings", { headers: h })
       .then((r) => r.json())
-      .then((s) => setMyRegion(s.region_code ?? null))
+      .then((s) => setMyCountry(s.country ?? null))
       .catch(() => {});
     fetch(OCEAN_API + "/me/rank", { headers: h })
       .then((r) => r.json())
@@ -94,7 +97,7 @@ export function OceanLeaderboard() {
     setData(null);
     setError(false);
     const params = new URLSearchParams({ period: "all" });
-    if (scope === "region" && myRegion) params.set("region", myRegion);
+    if (scope === "country" && myCountry) params.set("country", myCountry);
     if (scope === "level" && myLevel) params.set("level", myLevel);
     const token = getOceanToken();
     fetch(`${API}?${params}`, {
@@ -106,7 +109,7 @@ export function OceanLeaderboard() {
     return () => {
       alive = false;
     };
-  }, [scope, myRegion, myLevel]);
+  }, [scope, myCountry, myLevel]);
 
   const maxLevelCount = data ? Math.max(1, ...Object.values(data.by_level)) : 1;
   const podium = data?.entries.slice(0, 3) ?? [];
@@ -118,17 +121,17 @@ export function OceanLeaderboard() {
       {/* срезы: три зачёта */}
       <div className="flex flex-wrap gap-2">
         <Scope
-          label="Казахстан"
-          sub="вся страна"
+          label="Весь океан"
+          sub="все страны"
           active={scope === "all"}
           onClick={() => { scopeTouched.current = true; setScope("all"); }}
         />
         <Scope
-          label="Моя область"
-          sub={!authed ? "после входа" : !myRegion ? "укажи область" : regionName(myRegion) ?? "твоя область"}
-          active={scope === "region"}
-          disabled={!authed || !myRegion}
-          onClick={() => { scopeTouched.current = true; setScope("region"); }}
+          label="Моя страна"
+          sub={!authed ? "после входа" : !myCountry ? "укажи страну" : COUNTRY_RU[myCountry] ?? myCountry}
+          active={scope === "country"}
+          disabled={!authed || !myCountry}
+          onClick={() => { scopeTouched.current = true; setScope("country"); }}
         />
         <Scope
           label="Мой уровень"
@@ -141,8 +144,8 @@ export function OceanLeaderboard() {
 
       {data && (
         <p className="num mt-4 text-[13px] text-faint">
-          {scope === "region" && myRegion
-            ? `${regionName(myRegion)} · ${data.scope_total} в срезе`
+          {scope === "country" && myCountry
+            ? `${COUNTRY_RU[myCountry] ?? myCountry} · ${data.scope_total} в срезе`
             : scope === "level" && myLevel
             ? `${LEVEL_RU[myLevel]?.name ?? myLevel} против ${LEVEL_VS[myLevel] ?? ""} · ${data.scope_total} в срезе`
             : `в океане: ${data.total_users}`}

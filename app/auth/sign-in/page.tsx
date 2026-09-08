@@ -9,8 +9,8 @@ export const metadata = { title: "Вход — TerenLabs", robots: { index: fals
 
 // Вход ПО ЖЕЛАНИЮ: аноним не теряет ничего. Аккаунт добавляет статистику,
 // память прогресса и зачёт в рейтинг «Океана».
-// Два способа (Telegram убран 09.09.2026 вместе с ботом и Mini App): код на почту
-// и Google (мост /api/ocean-bridge, даёт почту). Оба сходятся в один аккаунт Океана.
+// Три способа: Telegram (Login Widget, бот только для входа), код на почту и Google
+// (мост /api/ocean-bridge, даёт почту). Все сходятся в один аккаунт Океана.
 export default async function Page() {
   const session = await auth();
   if (session) redirect("/dashboard");
