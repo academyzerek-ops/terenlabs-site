@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
-// ИИ-акулёнок — тот же мозг, что в Mini App: Railway POST /chat[/stream]
+// ИИ-акулёнок: Railway POST /chat[/stream]
 // (системный промпт из source-of-truth + RAG по базе знаний + история диалога).
 const AI_API =
   process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-production.up.railway.app/chat";
 import { getOceanToken } from "@/lib/ocean";
+import { SHARK_HELLO } from "./SharkGreeting";
 
 const AI_API_STREAM = AI_API + "/stream";
 
@@ -30,7 +31,7 @@ type Msg = { role: "user" | "ai"; text: string };
 
 const GREETING: Msg = {
   role: "ai",
-  text: "Я ИИ-акулёнок, твой наставник в TerenLabs. Спроси про главу, тест или свой бизнес — разберём по делу, без мотивашек.",
+  text: SHARK_HELLO,
 };
 
 

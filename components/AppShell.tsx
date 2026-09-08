@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Sidebar } from "./Sidebar";
 import { NoaChat } from "./NoaChat";
+import { SharkGreeting } from "./SharkGreeting";
 
 // Каркас сайта: слева панель (на десктопе всегда), сверху на мобиле тонкая полоса с кнопкой панели.
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -22,6 +23,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className={chat ? "contents" : "hidden"}>
         <NoaChat open={chat} onClose={() => setChat(false)} />
       </div>
+      <SharkGreeting chatOpen={chat} onOpen={() => setChat(true)} />
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="sticky top-0 z-20 flex h-12 items-center gap-2 border-b border-line bg-page/95 px-3 backdrop-blur-sm lg:hidden">
           <button onClick={() => setOpen(true)} aria-label="Открыть панель" className="flex h-10 w-10 items-center justify-center rounded-[6px] text-text-2 hover:bg-subtle hover:text-ink">
