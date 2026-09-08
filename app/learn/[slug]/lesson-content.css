@@ -58,6 +58,20 @@
 }
 .lesson-content .pq p { margin: 0; font-size: 19px; line-height: 1.5; font-weight: 500; color: var(--color-ink); }
 
+/* предостережение: в главе это защита от потерь, читаться как обычный абзац оно не должно */
+.lesson-content .wrn {
+  margin: 24px 0;
+  padding: 14px 16px 14px 18px;
+  border-left: 3px solid var(--color-warn);
+  border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--color-warn) 8%, transparent);
+}
+.lesson-content .wrn-h {
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-warn); font-weight: 600; margin-bottom: 6px;
+}
+.lesson-content .wrn p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--color-ink); }
+
 /* инсайт */
 .lesson-content .ins {
   display: flex;

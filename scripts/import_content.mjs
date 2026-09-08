@@ -143,7 +143,8 @@ const EXTRA_TRACKS = {
       { mod: 3, slug: "course-founder-model",  title: "Выбор бизнес-модели",      subtitle: "Подписка, маркетплейс, freemium, реклама, лицензия" },
       { mod: 4, slug: "course-founder-unit",   title: "Финансовое моделирование", subtitle: "Юнит-экономика, CAC и LTV, отток, runway" },
       { mod: 5, slug: "course-founder-pitch",  title: "Питч и презентация",       subtitle: "Что инвестор слышит и что спросит после" },
-      { mod: 6, slug: "course-founder-invest", title: "Привлечение инвестиций",   subtitle: "Ангелы, венчур, гранты, раунды, term sheet" },
+      { mod: 6, slug: "course-founder-invest", title: "Привлечение инвестиций",   subtitle: "Ангелы, венчур, гранты, лестница раундов, SAFE, term sheet" },
+      { mod: 7, slug: "course-founder-exit",   title: "Выход и IPO",               subtitle: "Продажа компании, вторичные сделки, размещение на бирже" },
     ],
   },
 };

@@ -664,13 +664,29 @@
   "stage": "Обучение",
   "free": true,
   "title": "Привлечение инвестиций",
-  "blurb": "Ангелы, венчур, гранты, раунды, term sheet",
+  "blurb": "Ангелы, венчур, гранты, лестница раундов, SAFE, term sheet",
   "metric": {
-   "value": "4",
-   "label": "главы"
+   "value": "6",
+   "label": "глав"
   },
   "badge": "Готов",
   "img": "/academy-assets/tracks/track-founder-invest.webp?v=8"
+ },
+ {
+  "type": "course",
+  "slug": "course-founder-exit",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Выход и IPO",
+  "blurb": "Продажа компании, вторичные сделки, размещение на бирже",
+  "metric": {
+   "value": "2",
+   "label": "главы"
+  },
+  "badge": "Готов",
+  "img": "/academy-assets/tracks/track-founder-exit.webp?v=8"
  },
  {
   "type": "case",

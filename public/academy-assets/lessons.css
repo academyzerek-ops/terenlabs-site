@@ -813,3 +813,17 @@ p .ic,li .ic,td .ic,.vs-d .ic,.fc-txt .ic{margin-right:.28em}
 .src-l a{color:var(--les-text-2);text-decoration:none;border-bottom:1px solid var(--les-border)}
 .src-l a:hover{color:var(--les-aqua-deep)}
 .src-d{color:var(--les-text-3)}
+
+/* ══════ ПРЕДОСТЕРЕЖЕНИЕ (> [!warning]) ══════ */
+.wrn{
+  background:var(--les-warn-soft);
+  border-left:3px solid var(--les-warn);
+  border-radius:0 12px 12px 0;
+  padding:16px 18px;margin-bottom:14px;
+}
+.wrn-h{
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--les-warn);font-weight:700;margin-bottom:6px;
+}
+.wrn p{font-size:14.5px;color:var(--les-text);line-height:1.65;margin:0}
+.wrn strong{color:var(--les-warn);font-weight:700}

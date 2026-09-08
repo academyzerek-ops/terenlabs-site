@@ -1878,8 +1878,8 @@
   "hub": "startup",
   "folder": "startup",
   "title": "Привлечение инвестиций",
-  "subtitle": "Ангелы, венчур, гранты, раунды, term sheet",
-  "chapterTotal": 4,
+  "subtitle": "Ангелы, венчур, гранты, лестница раундов, SAFE, term sheet",
+  "chapterTotal": 6,
   "modules": [
    {
     "id": "m6",
@@ -1891,18 +1891,56 @@
       "img": null
      },
      {
-      "title": "Раунды, доли и размытие",
+      "title": "Зачем нужны раунды: лестница ступеней",
       "file": "m6-ch02",
       "img": null
      },
      {
-      "title": "Term sheet: что ты подписываешь",
+      "title": "Раунды, доли и размытие",
       "file": "m6-ch03",
       "img": null
      },
      {
-      "title": "Цена денег: контроль, скорость, ликвидация",
+      "title": "SAFE и конвертируемые займы: какие бывают и чем отличаются",
       "file": "m6-ch04",
+      "img": null
+     },
+     {
+      "title": "Term sheet: что ты подписываешь",
+      "file": "m6-ch05",
+      "img": null
+     },
+     {
+      "title": "Цена денег: контроль, скорость, ликвидация",
+      "file": "m6-ch06",
+      "img": null
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "startup-7",
+  "slug": "course-founder-exit",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Выход и IPO",
+  "subtitle": "Продажа компании, вторичные сделки, размещение на бирже",
+  "chapterTotal": 2,
+  "modules": [
+   {
+    "id": "m7",
+    "title": "Выход и IPO",
+    "chapters": [
+     {
+      "title": "Выход: зачем он нужен и какие бывают",
+      "file": "m7-ch01",
+      "img": null
+     },
+     {
+      "title": "IPO: как компания выходит на биржу",
+      "file": "m7-ch02",
       "img": null
      }
     ]
