@@ -1683,41 +1683,26 @@
  },
  {
   "key": "startup-1",
-  "slug": "course-founder-team",
+  "slug": "course-founder-fork",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "Команда стартапа",
-  "subtitle": "Кофаундер, доли, вестинг, первые наёмные",
-  "chapterTotal": 5,
+  "title": "Развилка",
+  "subtitle": "Своя выручка или чужие деньги и что на самом деле покупает инвестор",
+  "chapterTotal": 2,
   "modules": [
    {
     "id": "m1",
-    "title": "Команда и роли",
+    "title": "Развилка",
     "chapters": [
      {
-      "title": "Кофаундер: зачем нужен и когда не нужен",
+      "title": "Своя выручка или чужие деньги",
       "file": "m1-ch01",
       "img": null
      },
      {
-      "title": "Доли, вестинг и клифф: как делят компанию, которой ещё нет",
+      "title": "Что покупает инвестор",
       "file": "m1-ch02",
-      "img": null
-     },
-     {
-      "title": "Первые наёмные: кого нанимать первым и за что платить",
-      "file": "m1-ch03",
-      "img": null
-     },
-     {
-      "title": "Опционы сотрудников: чем платить, когда платить нечем",
-      "file": "m1-ch04",
-      "img": null
-     },
-     {
-      "title": "Когда основатели расходятся",
-      "file": "m1-ch05",
       "img": null
      }
     ]
@@ -1726,41 +1711,46 @@
  },
  {
   "key": "startup-2",
-  "slug": "course-founder-market",
+  "slug": "course-founder-team",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "Исследование рынка",
-  "subtitle": "Размер рынка, конкуренты, спрос до первой строки кода",
-  "chapterTotal": 5,
+  "title": "Основание компании",
+  "subtitle": "Форма компании, кофаундер, доли и вестинг, первые наёмные, опционы",
+  "chapterTotal": 6,
   "modules": [
    {
     "id": "m2",
-    "title": "Аналитика рынка",
+    "title": "Основание",
     "chapters": [
      {
-      "title": "Размер рынка: TAM, SAM, SOM без надувания",
+      "title": "Форма компании: во что вообще вкладывают деньги",
       "file": "m2-ch01",
       "img": null
      },
      {
-      "title": "Конкуренты: кто уже забирает эти деньги",
+      "title": "Кофаундер: зачем нужен и когда не нужен",
       "file": "m2-ch02",
       "img": null
      },
      {
-      "title": "За что платят на самом деле: интервью и тесты спроса",
+      "title": "Доли, вестинг и клифф: как делят компанию, которой ещё нет",
       "file": "m2-ch03",
       "img": null
      },
      {
-      "title": "Признаки мёртвой идеи до первой строки кода",
+      "title": "Когда основатели расходятся",
       "file": "m2-ch04",
       "img": null
      },
      {
-      "title": "Разворот: когда менять и что именно",
+      "title": "Первые наёмные: кого нанимать первым и за что платить",
       "file": "m2-ch05",
+      "img": null
+     },
+     {
+      "title": "Опционы сотрудников: чем платить, когда платить нечем",
+      "file": "m2-ch06",
       "img": null
      }
     ]
@@ -1769,74 +1759,36 @@
  },
  {
   "key": "startup-3",
-  "slug": "course-founder-model",
+  "slug": "course-founder-market",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "Выбор бизнес-модели",
-  "subtitle": "Подписка, маркетплейс, freemium, реклама, лицензия",
-  "chapterTotal": 6,
+  "title": "Есть ли здесь бизнес",
+  "subtitle": "Размер рынка, конкуренты, спрос и признаки мёртвой идеи",
+  "chapterTotal": 4,
   "modules": [
    {
     "id": "m3",
-    "title": "Каталог бизнес-моделей",
+    "title": "Есть ли здесь бизнес",
     "chapters": [
      {
-      "title": "Подписка",
+      "title": "Размер рынка: TAM, SAM, SOM без надувания",
       "file": "m3-ch01",
       "img": null
      },
      {
-      "title": "Маркетплейс и комиссия",
+      "title": "Конкуренты: кто уже забирает эти деньги",
       "file": "m3-ch02",
       "img": null
      },
      {
-      "title": "Freemium",
+      "title": "За что платят на самом деле: интервью и тесты спроса",
       "file": "m3-ch03",
       "img": null
      },
      {
-      "title": "Реклама",
+      "title": "Признаки мёртвой идеи до первой строки кода",
       "file": "m3-ch04",
-      "img": null
-     },
-     {
-      "title": "Лицензия и франшиза",
-      "file": "m3-ch05",
-      "img": null
-     },
-     {
-      "title": "Железо плюс сервис",
-      "file": "m3-ch06",
-      "img": null
-     }
-    ]
-   }
-  ]
- },
- {
-  "key": "startup-8",
-  "slug": "course-founder-price",
-  "topic": "Стартап",
-  "hub": "startup",
-  "folder": "startup",
-  "title": "Цена и первые продажи",
-  "subtitle": "Сколько брать за продукт и откуда берутся первые платящие",
-  "chapterTotal": 2,
-  "modules": [
-   {
-    "id": "m8",
-    "title": "Цена и первые продажи",
-    "chapters": [
-     {
-      "title": "Цена: сколько брать",
-      "file": "m8-ch01",
-      "img": null
-     },
-     {
-      "title": "Первые продажи: откуда берутся платящие",
-      "file": "m8-ch02",
       "img": null
      }
     ]
@@ -1845,41 +1797,56 @@
  },
  {
   "key": "startup-4",
-  "slug": "course-founder-unit",
+  "slug": "course-founder-model",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "Финансовое моделирование",
-  "subtitle": "Юнит-экономика, CAC и LTV, отток, runway, сокращение расходов",
-  "chapterTotal": 5,
+  "title": "Как он зарабатывает",
+  "subtitle": "Три вопроса модели, шесть моделей заработка и цена",
+  "chapterTotal": 8,
   "modules": [
    {
     "id": "m4",
-    "title": "Юнит-экономика и финмодель",
+    "title": "Как он зарабатывает",
     "chapters": [
      {
-      "title": "Что считать единицей",
+      "title": "Три вопроса модели",
       "file": "m4-ch01",
       "img": null
      },
      {
-      "title": "CAC и LTV: цена клиента и сколько он приносит",
+      "title": "Подписка",
       "file": "m4-ch02",
       "img": null
      },
      {
-      "title": "Отток и удержание: где утекают деньги",
+      "title": "Маркетплейс и комиссия",
       "file": "m4-ch03",
       "img": null
      },
      {
-      "title": "Runway, burn и момент, когда модель сходится",
+      "title": "Freemium",
       "file": "m4-ch04",
       "img": null
      },
      {
-      "title": "Когда денег на 4 месяца",
+      "title": "Реклама",
       "file": "m4-ch05",
+      "img": null
+     },
+     {
+      "title": "Лицензия и франшиза",
+      "file": "m4-ch06",
+      "img": null
+     },
+     {
+      "title": "Железо плюс сервис",
+      "file": "m4-ch07",
+      "img": null
+     },
+     {
+      "title": "Цена: сколько брать",
+      "file": "m4-ch08",
       "img": null
      }
     ]
@@ -1888,31 +1855,46 @@
  },
  {
   "key": "startup-5",
-  "slug": "course-founder-pitch",
+  "slug": "course-founder-unit",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "Питч и презентация",
-  "subtitle": "Что инвестор слышит и что спросит после",
-  "chapterTotal": 3,
+  "title": "Первые деньги и счёт",
+  "subtitle": "Первая версия, первые продажи, юнит-экономика, отток, runway",
+  "chapterTotal": 6,
   "modules": [
    {
     "id": "m5",
-    "title": "Питч",
+    "title": "Первые деньги и счёт",
     "chapters": [
      {
-      "title": "Что инвестор слышит за 3 минуты",
+      "title": "Что строить первым",
       "file": "m5-ch01",
       "img": null
      },
      {
-      "title": "Дек: 10 слайдов и что в каждом",
+      "title": "Первые продажи: откуда берутся платящие",
       "file": "m5-ch02",
       "img": null
      },
      {
-      "title": "Вопросы после питча: как отвечать и где врут",
+      "title": "Что считать единицей",
       "file": "m5-ch03",
+      "img": null
+     },
+     {
+      "title": "CAC и LTV: цена клиента и сколько он приносит",
+      "file": "m5-ch04",
+      "img": null
+     },
+     {
+      "title": "Отток и удержание: где утекают деньги",
+      "file": "m5-ch05",
+      "img": null
+     },
+     {
+      "title": "Runway, burn и момент, когда модель сходится",
+      "file": "m5-ch06",
       "img": null
      }
     ]
@@ -1921,56 +1903,26 @@
  },
  {
   "key": "startup-6",
-  "slug": "course-founder-invest",
+  "slug": "course-founder-pivot",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "Привлечение инвестиций",
-  "subtitle": "Ангелы, венчур, гранты, лестница раундов, SAFE, term sheet",
-  "chapterTotal": 8,
+  "title": "Когда не сходится",
+  "subtitle": "Разворот и сокращение расходов, когда денег осталось на 4 месяца",
+  "chapterTotal": 2,
   "modules": [
    {
     "id": "m6",
-    "title": "Инвестиции",
+    "title": "Когда не сходится",
     "chapters": [
      {
-      "title": "Кто даёт деньги: ангелы, венчур, гранты, кредит, клиенты",
+      "title": "Разворот: когда менять и что именно",
       "file": "m6-ch01",
       "img": null
      },
      {
-      "title": "Форма компании: во что вообще вкладывают деньги",
+      "title": "Когда денег на 4 месяца",
       "file": "m6-ch02",
-      "img": null
-     },
-     {
-      "title": "Зачем нужны раунды: лестница ступеней",
-      "file": "m6-ch03",
-      "img": null
-     },
-     {
-      "title": "Раунды, доли и размытие",
-      "file": "m6-ch04",
-      "img": null
-     },
-     {
-      "title": "SAFE и конвертируемые займы: какие бывают и чем отличаются",
-      "file": "m6-ch05",
-      "img": null
-     },
-     {
-      "title": "Term sheet: что ты подписываешь",
-      "file": "m6-ch06",
-      "img": null
-     },
-     {
-      "title": "Цена денег: контроль, скорость, ликвидация",
-      "file": "m6-ch07",
-      "img": null
-     },
-     {
-      "title": "После денег: совет, отчёты и первый год",
-      "file": "m6-ch08",
       "img": null
      }
     ]
@@ -1979,26 +1931,94 @@
  },
  {
   "key": "startup-7",
-  "slug": "course-founder-exit",
+  "slug": "course-founder-invest",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
-  "title": "Выход и IPO",
-  "subtitle": "Продажа компании, вторичные сделки, размещение на бирже",
-  "chapterTotal": 2,
+  "title": "Деньги",
+  "subtitle": "Кто даёт, лестница раундов, питч и дек, размытие, SAFE, term sheet",
+  "chapterTotal": 10,
   "modules": [
    {
     "id": "m7",
-    "title": "Выход и IPO",
+    "title": "Деньги",
     "chapters": [
      {
-      "title": "Выход: зачем он нужен и какие бывают",
+      "title": "Кто даёт деньги: ангелы, венчур, гранты, кредит, клиенты",
       "file": "m7-ch01",
       "img": null
      },
      {
-      "title": "IPO: как компания выходит на биржу",
+      "title": "Зачем нужны раунды: лестница ступеней",
       "file": "m7-ch02",
+      "img": null
+     },
+     {
+      "title": "Что инвестор слышит за 3 минуты",
+      "file": "m7-ch03",
+      "img": null
+     },
+     {
+      "title": "Дек: 10 слайдов и что в каждом",
+      "file": "m7-ch04",
+      "img": null
+     },
+     {
+      "title": "Вопросы после питча: как отвечать и где врут",
+      "file": "m7-ch05",
+      "img": null
+     },
+     {
+      "title": "Раунды, доли и размытие",
+      "file": "m7-ch06",
+      "img": null
+     },
+     {
+      "title": "SAFE и конвертируемые займы: какие бывают и чем отличаются",
+      "file": "m7-ch07",
+      "img": null
+     },
+     {
+      "title": "Term sheet: что ты подписываешь",
+      "file": "m7-ch08",
+      "img": null
+     },
+     {
+      "title": "Цена денег: контроль, скорость, ликвидация",
+      "file": "m7-ch09",
+      "img": null
+     },
+     {
+      "title": "После денег: совет, отчёты и первый год",
+      "file": "m7-ch10",
+      "img": null
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "startup-8",
+  "slug": "course-founder-exit",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Выход",
+  "subtitle": "Продажа компании, вторичные сделки, размещение на бирже",
+  "chapterTotal": 2,
+  "modules": [
+   {
+    "id": "m8",
+    "title": "Выход",
+    "chapters": [
+     {
+      "title": "Выход: зачем он нужен и какие бывают",
+      "file": "m8-ch01",
+      "img": null
+     },
+     {
+      "title": "IPO: как компания выходит на биржу",
+      "file": "m8-ch02",
       "img": null
      }
     ]

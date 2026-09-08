@@ -578,15 +578,31 @@
  },
  {
   "type": "course",
+  "slug": "course-founder-fork",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Развилка",
+  "blurb": "Своя выручка или чужие деньги и что на самом деле покупает инвестор",
+  "metric": {
+   "value": "2",
+   "label": "главы"
+  },
+  "badge": "Готов",
+  "img": "/academy-assets/tracks/track-founder-fork.webp?v=8"
+ },
+ {
+  "type": "course",
   "slug": "course-founder-team",
   "level": "T1",
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "Команда стартапа",
-  "blurb": "Кофаундер, доли, вестинг, первые наёмные",
+  "title": "Основание компании",
+  "blurb": "Форма компании, кофаундер, доли и вестинг, первые наёмные, опционы",
   "metric": {
-   "value": "5",
+   "value": "6",
    "label": "глав"
   },
   "badge": "Готов",
@@ -599,11 +615,11 @@
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "Исследование рынка",
-  "blurb": "Размер рынка, конкуренты, спрос до первой строки кода",
+  "title": "Есть ли здесь бизнес",
+  "blurb": "Размер рынка, конкуренты, спрос и признаки мёртвой идеи",
   "metric": {
-   "value": "5",
-   "label": "глав"
+   "value": "4",
+   "label": "главы"
   },
   "badge": "Готов",
   "img": "/academy-assets/tracks/track-founder-market.webp?v=8"
@@ -615,30 +631,14 @@
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "Выбор бизнес-модели",
-  "blurb": "Подписка, маркетплейс, freemium, реклама, лицензия",
+  "title": "Как он зарабатывает",
+  "blurb": "Три вопроса модели, шесть моделей заработка и цена",
   "metric": {
-   "value": "6",
+   "value": "8",
    "label": "глав"
   },
   "badge": "Готов",
   "img": "/academy-assets/tracks/track-founder-model.webp?v=8"
- },
- {
-  "type": "course",
-  "slug": "course-founder-price",
-  "level": "T1",
-  "topic": "Стартап",
-  "stage": "Обучение",
-  "free": true,
-  "title": "Цена и первые продажи",
-  "blurb": "Сколько брать за продукт и откуда берутся первые платящие",
-  "metric": {
-   "value": "2",
-   "label": "главы"
-  },
-  "badge": "Готов",
-  "img": "/academy-assets/tracks/track-founder-price.webp?v=8"
  },
  {
   "type": "course",
@@ -647,10 +647,10 @@
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "Финансовое моделирование",
-  "blurb": "Юнит-экономика, CAC и LTV, отток, runway, сокращение расходов",
+  "title": "Первые деньги и счёт",
+  "blurb": "Первая версия, первые продажи, юнит-экономика, отток, runway",
   "metric": {
-   "value": "5",
+   "value": "6",
    "label": "глав"
   },
   "badge": "Готов",
@@ -658,19 +658,19 @@
  },
  {
   "type": "course",
-  "slug": "course-founder-pitch",
+  "slug": "course-founder-pivot",
   "level": "T1",
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "Питч и презентация",
-  "blurb": "Что инвестор слышит и что спросит после",
+  "title": "Когда не сходится",
+  "blurb": "Разворот и сокращение расходов, когда денег осталось на 4 месяца",
   "metric": {
-   "value": "3",
+   "value": "2",
    "label": "главы"
   },
   "badge": "Готов",
-  "img": "/academy-assets/tracks/track-founder-pitch.webp?v=8"
+  "img": "/academy-assets/tracks/track-founder-pivot.webp?v=8"
  },
  {
   "type": "course",
@@ -679,10 +679,10 @@
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "Привлечение инвестиций",
-  "blurb": "Ангелы, венчур, гранты, лестница раундов, SAFE, term sheet",
+  "title": "Деньги",
+  "blurb": "Кто даёт, лестница раундов, питч и дек, размытие, SAFE, term sheet",
   "metric": {
-   "value": "8",
+   "value": "10",
    "label": "глав"
   },
   "badge": "Готов",
@@ -695,7 +695,7 @@
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
-  "title": "Выход и IPO",
+  "title": "Выход",
   "blurb": "Продажа компании, вторичные сделки, размещение на бирже",
   "metric": {
    "value": "2",

@@ -138,14 +138,14 @@ const EXTRA_TRACKS = {
   startup: {
     slug: "course-startup", topic: "Стартап", hub: "startup",
     split: [
-      { mod: 1, slug: "course-founder-team",   title: "Команда стартапа",         subtitle: "Кофаундер, доли, вестинг, первые наёмные" },
-      { mod: 2, slug: "course-founder-market", title: "Исследование рынка",       subtitle: "Размер рынка, конкуренты, спрос до первой строки кода" },
-      { mod: 3, slug: "course-founder-model",  title: "Выбор бизнес-модели",      subtitle: "Подписка, маркетплейс, freemium, реклама, лицензия" },
-      { mod: 8, slug: "course-founder-price",  title: "Цена и первые продажи",   subtitle: "Сколько брать за продукт и откуда берутся первые платящие" },
-      { mod: 4, slug: "course-founder-unit",   title: "Финансовое моделирование", subtitle: "Юнит-экономика, CAC и LTV, отток, runway, сокращение расходов" },
-      { mod: 5, slug: "course-founder-pitch",  title: "Питч и презентация",       subtitle: "Что инвестор слышит и что спросит после" },
-      { mod: 6, slug: "course-founder-invest", title: "Привлечение инвестиций",   subtitle: "Ангелы, венчур, гранты, лестница раундов, SAFE, term sheet" },
-      { mod: 7, slug: "course-founder-exit",   title: "Выход и IPO",               subtitle: "Продажа компании, вторичные сделки, размещение на бирже" },
+      { mod: 1, slug: "course-founder-fork",   title: "Развилка",              subtitle: "Своя выручка или чужие деньги и что на самом деле покупает инвестор" },
+      { mod: 2, slug: "course-founder-team",   title: "Основание компании",    subtitle: "Форма компании, кофаундер, доли и вестинг, первые наёмные, опционы" },
+      { mod: 3, slug: "course-founder-market", title: "Есть ли здесь бизнес",  subtitle: "Размер рынка, конкуренты, спрос и признаки мёртвой идеи" },
+      { mod: 4, slug: "course-founder-model",  title: "Как он зарабатывает",   subtitle: "Три вопроса модели, шесть моделей заработка и цена" },
+      { mod: 5, slug: "course-founder-unit",   title: "Первые деньги и счёт",  subtitle: "Первая версия, первые продажи, юнит-экономика, отток, runway" },
+      { mod: 6, slug: "course-founder-pivot",  title: "Когда не сходится",     subtitle: "Разворот и сокращение расходов, когда денег осталось на 4 месяца" },
+      { mod: 7, slug: "course-founder-invest", title: "Деньги",                subtitle: "Кто даёт, лестница раундов, питч и дек, размытие, SAFE, term sheet" },
+      { mod: 8, slug: "course-founder-exit",   title: "Выход",                 subtitle: "Продажа компании, вторичные сделки, размещение на бирже" },
     ],
   },
 };
