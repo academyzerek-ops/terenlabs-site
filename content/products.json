@@ -626,16 +626,32 @@
  },
  {
   "type": "course",
+  "slug": "course-founder-price",
+  "level": "T1",
+  "topic": "Стартап",
+  "stage": "Обучение",
+  "free": true,
+  "title": "Цена и первые продажи",
+  "blurb": "Сколько брать за продукт и откуда берутся первые платящие",
+  "metric": {
+   "value": "2",
+   "label": "главы"
+  },
+  "badge": "Готов",
+  "img": "/academy-assets/tracks/track-founder-price.webp?v=8"
+ },
+ {
+  "type": "course",
   "slug": "course-founder-unit",
   "level": "T1",
   "topic": "Стартап",
   "stage": "Обучение",
   "free": true,
   "title": "Финансовое моделирование",
-  "blurb": "Юнит-экономика, CAC и LTV, отток, runway",
+  "blurb": "Юнит-экономика, CAC и LTV, отток, runway, сокращение расходов",
   "metric": {
-   "value": "4",
-   "label": "главы"
+   "value": "5",
+   "label": "глав"
   },
   "badge": "Готов",
   "img": "/academy-assets/tracks/track-founder-unit.webp?v=8"

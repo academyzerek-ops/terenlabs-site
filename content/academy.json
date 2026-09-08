@@ -1801,14 +1801,42 @@
   ]
  },
  {
+  "key": "startup-8",
+  "slug": "course-founder-price",
+  "topic": "Стартап",
+  "hub": "startup",
+  "folder": "startup",
+  "title": "Цена и первые продажи",
+  "subtitle": "Сколько брать за продукт и откуда берутся первые платящие",
+  "chapterTotal": 2,
+  "modules": [
+   {
+    "id": "m8",
+    "title": "Цена и первые продажи",
+    "chapters": [
+     {
+      "title": "Цена: сколько брать",
+      "file": "m8-ch01",
+      "img": null
+     },
+     {
+      "title": "Первые продажи: откуда берутся платящие",
+      "file": "m8-ch02",
+      "img": null
+     }
+    ]
+   }
+  ]
+ },
+ {
   "key": "startup-4",
   "slug": "course-founder-unit",
   "topic": "Стартап",
   "hub": "startup",
   "folder": "startup",
   "title": "Финансовое моделирование",
-  "subtitle": "Юнит-экономика, CAC и LTV, отток, runway",
-  "chapterTotal": 4,
+  "subtitle": "Юнит-экономика, CAC и LTV, отток, runway, сокращение расходов",
+  "chapterTotal": 5,
   "modules": [
    {
     "id": "m4",
@@ -1832,6 +1860,11 @@
      {
       "title": "Runway, burn и момент, когда модель сходится",
       "file": "m4-ch04",
+      "img": null
+     },
+     {
+      "title": "Когда денег на 4 месяца",
+      "file": "m4-ch05",
       "img": null
      }
     ]
