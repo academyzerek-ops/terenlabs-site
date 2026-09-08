@@ -5,8 +5,9 @@
 // по обзорам (нет пекарни) — импорт из него снёс бы контент на сайте.
 //   - ACADEMY_DATA (shell/app.html) → content/academy.json + public/academy/*.html
 //   - content/ru/cases/*.html      → content/cases.json (нативный рендер)
+//   - content/ru/brands/*.html     → content/brands.json (разборы брендов, тип bm)
 //   - content/ru/niches/*.html     → public/reviews-html/*.html + content/reviews.json
-//   - products.json: курсы/кейсы/обзоры регенерируются ИЗ ДАННЫХ
+//   - products.json: курсы/кейсы/обзоры/разборы регенерируются ИЗ ДАННЫХ
 // Запуск: node scripts/import_content.mjs
 // ============================================================
 import fs from "node:fs";
@@ -204,7 +205,64 @@ cases.sort((a, b) => a.order - b.order);
 write(path.join(SITE, "content/cases.json"), JSON.stringify(cases, null, 1));
 report.counts.cases = cases.length;
 
-// ---------- 3. ОБЗОРЫ ----------
+// ---------- 3. РАЗБОРЫ БРЕНДОВ (тип bm) ----------
+// Второй регистр контента: мировые бизнес-модели, доллар, без гео и налоговой
+// привязки. Тела рендерятся нативно (как кейсы), поэтому чистим их так же.
+// Отрасль (sector) в HTML не размечена — держим карту здесь; новый разбор без
+// записи попадает в отчёт и остаётся без отраслевого фильтра.
+const BRAND_SECTORS = {
+  "bm-netflix": "media",
+  "bm-ufc": "sport",
+};
+const brandsDir = path.join(SRC, "content/ru/brands");
+const brandsAvailable = fs.existsSync(brandsDir);
+const brands = [];
+if (!brandsAvailable) {
+  console.warn("⚠ раздел «Разборы брендов» пропущен: нет", brandsDir);
+} else {
+  for (const f of fs.readdirSync(brandsDir).filter((x) => x.endsWith(".html")).sort()) {
+    const slug = f.replace(".html", "");
+    const html = read(path.join(brandsDir, f));
+    const pick = (re) => (html.match(re) || [, ""])[1].trim();
+    const titleHtml = pick(/<h1>([\s\S]*?)<\/h1>/);
+    const title = titleHtml.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+    const mod = pick(/<span class="hdr-mod">([^<]*)<\/span>/); // «Netflix · подписка»
+    // имя бренда для JSON-LD about: до разделителя в hdr-mod, иначе до двоеточия в h1
+    const brand = (mod.split("·")[0] || title.split(":")[0]).trim();
+    const sub = pick(/<p class="hero-sub">([\s\S]*?)<\/p>/).replace(/<[^>]+>/g, "").trim();
+    const desc = pick(/<meta name="description" content="([^"]*)"/);
+    // подзаголовок у всех разборов одинаковый («Разбор бизнес-модели · доллар …»),
+    // поэтому в карточку идёт первая фраза описания — она про конкретный бренд
+    const blurb = (desc.split(/(?<=[.!?])\s/)[0] || sub).trim();
+    // тело: <main> без hero-блока, скриптов и виджета лайков Mini App
+    let body = (html.match(/<main class="page">([\s\S]*?)<\/main>/) || [, ""])[1];
+    body = body.replace(/<div class="hero">[\s\S]*?<\/div>\s*/, "");
+    body = body.replace(/<script[\s\S]*?<\/script>/g, "");
+    body = body.replace(/<!--[\s\S]*?-->\s*/g, "");
+    body = body.replace(/<div data-content-like[^>]*><\/div>\s*/g, "");
+    if (!body.trim()) throw new Error(`пустое тело разбора: ${slug}`);
+    for (const m of body.matchAll(/(?:src|href)="(\/frontend\/[^"]+|\.\.[^"]+)"/g)) report.unknownAssets.add(m[1]);
+    const sector = BRAND_SECTORS[slug] ?? null;
+    if (!sector) report.missingChapters.push(`разбор без отрасли в BRAND_SECTORS: ${slug}`);
+    // hero-арт разбора — если появится в _assets/brands_hero
+    const heroRel = `/academy-assets/brands_hero/${slug}.webp`;
+    const img = fs.existsSync(path.join(SRC, "_assets/brands_hero", slug + ".webp")) ? heroRel : null;
+    brands.push({
+      type: "bm", slug, title, titleHtml, brand, sub, blurb,
+      badge: "Разбор", mod, sector,
+      level: "T1", topic: "Бизнес", stage: "Применение", free: true,
+      img, body: body.trim(),
+    });
+  }
+  // hero-арты разборов копируем, только если папка уже заведена в основном репо
+  const brandsHeroSrc = path.join(SRC, "_assets/brands_hero");
+  if (fs.existsSync(brandsHeroSrc))
+    fs.cpSync(brandsHeroSrc, path.join(SITE, "public/academy-assets/brands_hero"), { recursive: true });
+  write(path.join(SITE, "content/brands.json"), JSON.stringify(brands, null, 1));
+}
+report.counts.brands = brands.length;
+
+// ---------- 4. ОБЗОРЫ ----------
 const nichesDir = path.join(SRC, "content/ru/niches");
 const reviews = [];
 for (const f of fs.readdirSync(nichesDir).filter((x) => x.endsWith(".html")).sort()) {
@@ -227,7 +285,7 @@ for (const f of fs.readdirSync(nichesDir).filter((x) => x.endsWith(".html")).sor
 write(path.join(SITE, "content/reviews.json"), JSON.stringify(reviews, null, 1));
 report.counts.reviews = reviews.length;
 
-// ---------- 4. ОКЕАН: пулы закрытых тестов Краб/Барракуда ----------
+// ---------- 5. ОКЕАН: пулы закрытых тестов Краб/Барракуда ----------
 // Канон Mini App (v9.2, июль 2026): тест = 10 вопросов, по 1 из каждого архетипа.
 // Краб — по типу (Теория/Расчёты/Универсальный), Барракуда — по ДИСЦИПЛИНАМ
 // (Финансы/Маркетинг/Менеджмент/Право/Универсальный — бэк гейтит уровень всеми 5).
@@ -243,7 +301,7 @@ const OCEAN_TESTS = [
   { slug: "barracuda-law", rank: "Барракуда", tag: "T3", pool: "barracuda.law", title: "Барракуда · Право", topic: "Бизнес", floor: 7 },
   { slug: "barracuda-universal", rank: "Барракуда", tag: "T3", pool: "barracuda.universal", title: "Барракуда · Универсальный", topic: "Бизнес", floor: 7 },
 ];
-// Открытые тесты (Дельфин/Акула): ответ своими словами, TEREN-AI оценивает по
+// Открытые тесты (Дельфин/Акула): ответ своими словами, ИИ-акулёнок оценивает по
 // рубрике на сервере (/attempt_open и /attempt_shark). Дельфин — 5 из пула,
 // Акула — 10 вопросов кейса по порядку, с общей виньеткой.
 const OCEAN_OPEN_TESTS = [
@@ -287,26 +345,31 @@ for (const t of OCEAN_OPEN_TESTS) {
     type: "test", slug: t.slug, level: t.tag, topic: t.topic, stage: "Проверка", free: true,
     title: t.title,
     blurb: isShark
-      ? `Финальный кейс «Океана»: ${t.qCount} открытых вопросов по порядку, отвечаешь своими словами — TEREN-AI оценивает по рубрике. Порог 7 из 10.`
-      : `Открытый кейс: ${t.qCount} вопросов, отвечаешь своими словами — TEREN-AI оценивает по рубрике. Порог 7 из 10.`,
+      ? `Финальный кейс «Океана»: ${t.qCount} открытых вопросов по порядку, отвечаешь своими словами — ИИ-акулёнок оценивает по рубрике. Порог 7 из 10.`
+      : `Открытый кейс: ${t.qCount} вопросов, отвечаешь своими словами — ИИ-акулёнок оценивает по рубрике. Порог 7 из 10.`,
     metric: { value: String(pool.length), label: isShark ? "вопросов в кейсе" : "вопросов в пуле" },
     badge: "Океан",
   });
 }
 report.counts.oceanPools = OCEAN_TESTS.length + OCEAN_OPEN_TESTS.length;
 
-// ---------- 5. PRODUCTS.JSON ----------
+// ---------- 6. PRODUCTS.JSON ----------
 const products = JSON.parse(read(path.join(SITE, "content/products.json")));
 // океан-тесты регенерируются выше — старые копии не оставляем (в т.ч. снятые с прода
 // barracuda-t1..t3: набор тестов уровня меняется, «чужих» crab-*/barracuda-* не держим)
 // ВСЕ океан-префиксы: dolphin/shark отсутствовали в фильтре, и их тесты
 // задваивались при каждом импорте (найдено по React-warning 09.08)
 const isOceanSlug = (s) => /^(crab|barracuda|dolphin|shark)-/.test(s);
+// ВАЖНО: keep — единственный шлюз для записей, которые импорт НЕ генерит.
+// Всё, чего нет ни в keep, ни в генерации ниже, стирается при первом же импорте.
+// Разборы брендов (bm) генерятся из content/ru/brands; если источника нет —
+// не стираем раздел, а сохраняем уже импортированные записи.
 const keep = products.filter(
   (p) =>
     (p.type === "finmodel" ||
       (p.type === "test" && !isOceanSlug(p.slug)) ||
-      (p.type === "case" && p.slug === "case-marketplace"))
+      (p.type === "case" && p.slug === "case-marketplace") ||
+      (p.type === "bm" && !brandsAvailable))
 );
 const plural = (n, one, few, many) => {
   const m10 = n % 10, m100 = n % 100;
@@ -354,23 +417,38 @@ const reviewProducts = reviews.map((r) => {
     img: hasHero ? `${heroPath}?v=3` : "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
   };
 });
+// Разборы брендов: карточка каталога = поля из brands.json без тела
+const brandProducts = brands.map((b) => ({
+  type: "bm", slug: b.slug, level: b.level, topic: b.topic, stage: b.stage, free: true,
+  title: b.title,
+  blurb: b.blurb,
+  badge: b.badge,
+  sector: b.sector, // отрасль для фильтра каталога (?type=bm&filter=media)
+  img: b.img, // hero-арта у разборов пока нет — карточка идёт текстовым вариантом
+}));
 write(
   path.join(SITE, "content/products.json"),
   JSON.stringify(
-    [...keep, ...oceanTestProducts, ...courseProducts, ...caseProducts, ...reviewProducts],
+    [...keep, ...oceanTestProducts, ...courseProducts, ...caseProducts, ...reviewProducts, ...brandProducts],
     null,
     1
   )
 );
-report.counts.products = keep.length + courseProducts.length + caseProducts.length + reviewProducts.length;
+report.counts.products =
+  keep.length + oceanTestProducts.length + courseProducts.length +
+  caseProducts.length + reviewProducts.length + brandProducts.length;
 
-// ---------- 6. ТЕМАТИЧЕСКИЕ ЭЛЕМЕНТЫ ОБЗОРОВ (фоны A) ----------
+// ---------- 7. ТЕМАТИЧЕСКИЕ ЭЛЕМЕНТЫ ОБЗОРОВ (фоны A) ----------
 // Для каждой ниши догенерить недостающие /elements/<code>_a.png|_b.png
 // (оборудование + расходники). Идемпотентно: готовые пропускаются, новая ниша
 // получает промпты от Gemini. Не валит импорт, если генерация недоступна.
+// TL_SKIP_ELEMENTS=1 — прогнать импорт без обращения к генератору (он ходит наружу
+// и занимает до часа); используется, когда правится только текстовый контент.
 try {
   const elemScript = "/Users/adil/Documents/TerenLabs/scripts/gen_review_elements.py";
-  if (fs.existsSync(elemScript)) {
+  if (process.env.TL_SKIP_ELEMENTS) {
+    console.log("→ обзорные элементы: пропущено (TL_SKIP_ELEMENTS)");
+  } else if (fs.existsSync(elemScript)) {
     console.log("→ обзорные элементы: проверяю/догенериваю…");
     execFileSync("python3", [elemScript], { stdio: "inherit", timeout: 50 * 60 * 1000 });
   }

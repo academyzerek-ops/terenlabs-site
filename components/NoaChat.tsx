@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
-// TEREN-AI — тот же мозг, что в Mini App: Railway POST /chat[/stream]
+// ИИ-акулёнок — тот же мозг, что в Mini App: Railway POST /chat[/stream]
 // (системный промпт из source-of-truth + RAG по базе знаний + история диалога).
 const AI_API =
   process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-production.up.railway.app/chat";
@@ -24,13 +24,13 @@ function chatHeaders(): Record<string, string> {
   return h;
 }
 const MAINTENANCE =
-  "TEREN-AI сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
+  "ИИ-акулёнок сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
 
 type Msg = { role: "user" | "ai"; text: string };
 
 const GREETING: Msg = {
   role: "ai",
-  text: "Я TEREN-AI. Спроси про свой бизнес, нишу или цифры — отвечу по базе знаний TerenLabs, без мотивашек.",
+  text: "Я ИИ-акулёнок, твой наставник в TerenLabs. Спроси про главу, тест или свой бизнес — разберём по делу, без мотивашек.",
 };
 
 export function NoaChat() {
@@ -196,7 +196,7 @@ export function NoaChat() {
       {/* плавающая кнопка */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Закрыть TEREN-AI" : "Открыть TEREN-AI"}
+        aria-label={open ? "Закрыть ИИ-акулёнка" : "Открыть ИИ-акулёнка"}
         className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-b from-teal to-teal-600 shadow-[0_8px_30px_rgba(0,183,194,0.45)] transition-transform hover:scale-105 active:scale-95"
       >
         {open ? (
@@ -215,7 +215,7 @@ export function NoaChat() {
           className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-card shadow-[var(--shadow-tl-lg)] sm:inset-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:w-[400px] sm:rounded-[20px] sm:border sm:border-line"
           role="dialog"
           aria-modal="true"
-          aria-label="Чат TEREN-AI"
+          aria-label="Чат ИИ-акулёнка"
           style={{ overscrollBehavior: "contain" }}
         >
           {/* шапка */}
@@ -224,7 +224,7 @@ export function NoaChat() {
               <img src="/brand/logo_shark_white.png" alt="" width={22} height={22} aria-hidden="true" />
             </span>
             <div className="flex-1">
-              <div className="text-sm font-bold text-foam">TEREN-AI</div>
+              <div className="text-sm font-bold text-foam">ИИ-акулёнок</div>
               <div className="text-xs text-foam/55">отвечает по базе знаний TerenLabs</div>
             </div>
             <button
@@ -256,7 +256,7 @@ export function NoaChat() {
               ))}
             {busy && msgs[msgs.length - 1]?.text === "" && (
               <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-subtle px-3.5 py-2.5 text-sm text-muted">
-                TEREN-AI думает…
+                ИИ-акулёнок думает…
               </div>
             )}
           </div>
@@ -280,7 +280,7 @@ export function NoaChat() {
               }}
               rows={1}
               placeholder="Спроси про бизнес…"
-              aria-label="Вопрос для TEREN-AI"
+              aria-label="Вопрос для ИИ-акулёнка"
               className="max-h-28 flex-1 resize-none rounded-xl border border-line bg-subtle px-3.5 py-2.5 text-[16px] sm:text-sm text-body outline-none transition-colors placeholder:text-muted focus-visible:border-teal"
             />
             <button

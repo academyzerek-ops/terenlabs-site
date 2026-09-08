@@ -162,7 +162,7 @@ export function ProductPage({ p }: { p: Product }) {
                   </>
                 ) : (
                   <>
-                    <div className="text-heading">TEREN-AI · наставник TerenLabs</div>
+                    <div className="text-heading">ИИ-акулёнок · наставник TerenLabs</div>
                     <div className="text-sm text-muted">Считает, а не мотивирует — отвечает по базе знаний</div>
                   </>
                 )}
