@@ -827,3 +827,17 @@ p .ic,li .ic,td .ic,.vs-d .ic,.fc-txt .ic{margin-right:.28em}
 }
 .wrn p{font-size:14.5px;color:var(--les-text);line-height:1.65;margin:0}
 .wrn strong{color:var(--les-warn);font-weight:700}
+
+/* ══════ ПЕРЕКРЁСТНАЯ ОТСЫЛКА В ДРУГОЙ ХАБ (> [!seealso]) ══════ */
+.xref{
+  background:var(--les-panel,rgba(255,255,255,0.04));
+  border:0.5px solid var(--les-line,rgba(255,255,255,0.12));
+  border-radius:12px;padding:16px 18px;margin-bottom:14px;
+}
+.xref-h{
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--les-text-2,#ada9a3);font-weight:700;margin-bottom:6px;
+}
+.xref p{font-size:14.5px;color:var(--les-text);line-height:1.65;margin:0 0 6px}
+.xref p:last-child{margin-bottom:0}
+.xref-a{color:var(--les-aqua-deep,#00b7c2);text-decoration:none;font-weight:600}

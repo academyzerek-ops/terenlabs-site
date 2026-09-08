@@ -275,3 +275,20 @@
 .lesson-content .src-l a { color: var(--color-text-2); text-decoration: none; border-bottom: 1px solid var(--color-line-2); }
 .lesson-content .src-l a:hover { color: var(--color-ink); border-bottom-color: var(--color-accent); }
 .lesson-content .src-d { color: var(--color-faint); }
+
+/* перекрёстная отсылка в другой хаб: тему не дублируем, а показываем, где она разобрана */
+.lesson-content .xref {
+  margin: 24px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--color-line-2);
+  border-radius: 8px;
+  background: var(--color-subtle);
+}
+.lesson-content .xref-h {
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-2); font-weight: 600; margin-bottom: 6px;
+}
+.lesson-content .xref p { margin: 0 0 6px; font-size: 15px; line-height: 1.6; }
+.lesson-content .xref p:last-child { margin-bottom: 0; }
+.lesson-content .xref-a { color: var(--color-accent); text-decoration: none; font-weight: 500; }
+.lesson-content .xref-a:hover { text-decoration: underline; }
