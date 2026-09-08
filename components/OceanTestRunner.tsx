@@ -22,7 +22,7 @@ import {
 
 // Прохождение океанского теста — зеркало Mini App v9.2 (ocean.js):
 // закрытые (Краб/Барракуда) — выбор без подсказок, сервер считает балл по
-// скрытому ключу; открытые (Дельфин/Акула) — ответ своими словами, TEREN-AI
+// скрытому ключу; открытые (Дельфин/Акула) — ответ своими словами, ИИ-акулёнок
 // оценивает по рубрике. Гейты, кулдауны и сэмплинг невиденных — те же.
 // Прогресс недопройденного теста живёт в localStorage по слоту level.test
 // (как tl-ocean-progress в Mini App) — можно вернуться на тот же вопрос.
@@ -341,14 +341,14 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
           </h1>
           <p className="mt-5 text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
             {isOpen
-              ? "Отвечаешь развёрнуто, своими словами — TEREN-AI оценивает каждый ответ по рубрике. Итог из 10, попытка идёт в твой рейтинг. Прогресс сохраняется: можно отвлечься и вернуться на тот же вопрос."
+              ? "Отвечаешь развёрнуто, своими словами — ИИ-акулёнок оценивает каждый ответ по рубрике. Итог из 10, попытка идёт в твой рейтинг. Прогресс сохраняется: можно отвлечься и вернуться на тот же вопрос."
               : "По одному вопросу из каждой темы уровня, варианты перемешаны, пересдача даёт другие вопросы. Подсказок по ходу нет — это не угадайка. Балл и разбор ошибок считает сервер «Океана», попытка идёт в твой рейтинг."}
           </p>
           {authed === false ? (
             <>
               <p className={NOTE}>
                 {isOpen
-                  ? "Открытые ответы оценивает TEREN-AI на сервере — тест доступен после входа. Войди: попытка сразу пойдёт в зачёт и рейтинг."
+                  ? "Открытые ответы оценивает ИИ-акулёнок на сервере — тест доступен после входа. Войди: попытка сразу пойдёт в зачёт и рейтинг."
                   : "Ответы на вопросы хранятся только на сервере — без входа результат не посчитать. Войди: попытка сразу пойдёт в зачёт и рейтинг."}
               </p>
               <div className="mt-6">
@@ -438,7 +438,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
         <div className="mx-auto max-w-xl">
           <p className="eyebrow">{meta.title}</p>
           <p className="mt-4 text-[20px] text-ink" role="status" aria-live="polite">
-            {isOpen ? "TEREN-AI читает твои ответы…" : "Проверяем…"}
+            {isOpen ? "ИИ-акулёнок читает твои ответы…" : "Проверяем…"}
           </p>
           <p className="mt-2 text-[14px] text-text-2">
             {isOpen
@@ -522,7 +522,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
         {/* слово наставника: разбор попытки / левел-ап / застревание */}
         {reco && (
           <div className="mx-auto mt-7 sm:mt-12 max-w-2xl rounded-[8px] bg-subtle p-5 sm:p-6">
-            <p className="eyebrow">TEREN-AI · разбор попытки</p>
+            <p className="eyebrow">ИИ-акулёнок · разбор попытки</p>
             <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-body">{reco}</p>
           </div>
         )}
@@ -568,7 +568,7 @@ export function OceanTestRunner({ meta }: { meta: OceanTestMeta }) {
                     )}
                     {r.feedback && (
                       <div className="mt-4 rounded-[8px] bg-subtle p-4">
-                        <p className="eyebrow">Разбор TEREN-AI</p>
+                        <p className="eyebrow">Разбор ИИ-акулёнка</p>
                         <p className="mt-2 text-[15px] leading-relaxed text-body">{r.feedback}</p>
                       </div>
                     )}

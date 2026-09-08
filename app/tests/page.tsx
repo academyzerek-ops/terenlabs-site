@@ -20,7 +20,7 @@ export default function TestsPage() {
             <h1 className="text-[30px] leading-[1.1] text-balance sm:text-[42px]">Погружение: от Краба до Кита</h1>
             <p className="text-[15px] leading-relaxed text-text-2">
               Один путь для всех. Каждый уровень открывается, когда сдан предыдущий, а угадать нельзя:
-              балл считает сервер, открытые кейсы проверяет TEREN-AI. Пройденное даёт ранг и место в рейтинге.
+              балл считает сервер, открытые кейсы проверяет ИИ-акулёнок. Пройденное даёт ранг и место в рейтинге.
             </p>
           </div>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">

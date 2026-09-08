@@ -24,13 +24,13 @@
   --color-card-2: rgba(255, 255, 255, 0.085);
   --color-foam: #f0efed;       /* наследие: «пена» = светлый текст */
   --color-panel: #202020;      /* боковая панель */
-  --color-panel-2: #1c1c1c;    /* колонка TEREN-AI */
+  --color-panel-2: #1c1c1c;    /* колонка ИИ-акулёнок */
   --color-raised: #252525;     /* всплывающие окна над страницей */
   --color-raised-2: #262626;   /* кружки и фишки на странице */
   --color-drop: #141414;       /* «дно» объёмной кнопки */
   --color-panel-bg: rgba(32, 32, 32, 0.9);   /* подложка панели */
   --color-panel-bg-2: rgba(25, 25, 25, 0.9); /* панель внутри серой секции */
-  --shadow-fab: 0 4px 18px rgba(0, 0, 0, 0.45); /* круглая кнопка TEREN-AI */
+  --shadow-fab: 0 4px 18px rgba(0, 0, 0, 0.45); /* круглая кнопка ИИ-акулёнок */
   --color-link-hover: #7ab8de; /* ссылка под курсором */
   --color-scroll: rgba(255, 255, 255, 0.14); /* полоса прокрутки */
   --color-scroll-2: rgba(255, 255, 255, 0.22);
@@ -443,7 +443,7 @@ a.card-premium:active { transform: translateY(1px); }
 .path-bounce { animation: path-bounce 1.6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .path-bounce { animation: none; } }
 
-/* окно TEREN-AI вырастает из строки в панели, а не появляется квадратом */
+/* окно ИИ-акулёнок вырастает из строки в панели, а не появляется квадратом */
 @keyframes chat-rise { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 .chat-rise { animation: chat-rise .18s ease-out both; transform-origin: left bottom; }
 @media (prefers-reduced-motion: reduce) { .chat-rise { animation: none; } }

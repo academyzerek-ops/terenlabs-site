@@ -8,7 +8,7 @@ import { NoaChat } from "./NoaChat";
 // Каркас сайта: слева панель (на десктопе всегда), сверху на мобиле тонкая полоса с кнопкой панели.
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  // Колонка TEREN-AI живёт в том же ряду, что панель и контент: пока она открыта,
+  // Колонка ИИ-акулёнок живёт в том же ряду, что панель и контент: пока она открыта,
   // контент ужимается, закрыли — экран возвращается к прежней ширине.
   const [chat, setChat] = useState(false);
   return (

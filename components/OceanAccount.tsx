@@ -23,7 +23,7 @@ import { currentLevelId } from "./OceanPath";
 
 // Кабинет Океана — полный дашборд, как в Mini App: уровень с целью, путь по
 // медальонам, тесты текущего уровня со статусами и баллами, бейджи, последний
-// разбор TEREN-AI, статистика. Все данные — живые, с того же бэка.
+// разбор ИИ-акулёнка, статистика. Все данные — живые, с того же бэка.
 type Rank = {
   rank: number;
   total: number;
@@ -86,7 +86,7 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
   const [progress, setProgress] = useState<OceanProgress | null>(null);
   const [badges, setBadges] = useState<Badge[] | null>(null);
   const [linkCode, setLinkCode] = useState<string | null>(null);
-  const [aiSummary, setAiSummary] = useState<string>(""); // общий вывод TEREN-AI
+  const [aiSummary, setAiSummary] = useState<string>(""); // общий вывод ИИ-акулёнка
   const [recoOpen, setRecoOpen] = useState(false);
 
   const refresh = useCallback(async () => {
@@ -304,21 +304,21 @@ export function OceanAccount({ nextAuthActive = false, title = "Океан", goo
         </div>
       )}
 
-      {/* общий вывод TEREN-AI по накопленной статистике (тот же бэк, что Mini App) */}
+      {/* общий вывод ИИ-акулёнка по накопленной статистике (тот же бэк, что Mini App) */}
       {aiSummary && (
         <div className="mt-8 rounded-[8px] border-l-2 border-accent bg-subtle p-5">
           <p className="num text-[11px] font-medium text-accent">
-            TEREN-AI · твой портрет по статистике
+            ИИ-акулёнок · твой портрет по статистике
           </p>
           <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-body">{aiSummary}</p>
         </div>
       )}
 
-      {/* последний разбор TEREN-AI — как в кабинете Mini App */}
+      {/* последний разбор ИИ-акулёнка — как в кабинете Mini App */}
       {reco?.text && (
         <div className="mt-8 rounded-[8px] border-l-2 border-accent bg-subtle p-5">
           <p className="num text-[11px] font-medium text-accent">
-            Разбор TEREN-AI · {LEVEL_RU[reco.level] ?? reco.level}
+            Разбор ИИ-акулёнка · {LEVEL_RU[reco.level] ?? reco.level}
             {reco.created_at ? ` · ${new Date(reco.created_at).toLocaleDateString("ru-RU")}` : ""}
           </p>
           <p className={`mt-2 whitespace-pre-line text-sm leading-relaxed text-body ${recoOpen ? "" : "line-clamp-4"}`}>

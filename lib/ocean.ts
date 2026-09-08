@@ -192,7 +192,7 @@ export async function codeVerify(channel: CodeChannel, to: string, code: string)
   return auth;
 }
 
-/** Персональный разбор TEREN-AI после теста (общий бэкенд с Mini App). */
+/** Персональный разбор ИИ-акулёнка после теста (общий бэкенд с Mini App). */
 export async function fetchRecommendation(
   level: string,
   test: string,
@@ -210,7 +210,7 @@ export async function fetchRecommendation(
   }
 }
 
-/** Общий вывод TEREN-AI по статистике (кабинет). Кэшируется на бэке. */
+/** Общий вывод ИИ-акулёнка по статистике (кабинет). Кэшируется на бэке. */
 export async function fetchMeSummary(): Promise<string> {
   try {
     const out = await oceanFetch<{ text: string }>("/me/summary");
@@ -255,7 +255,7 @@ export type OceanAttemptPayload = {
 };
 
 /** Разбор одного вопроса от сервера. Closed: индексы исходные (до перемешивания).
- *  Open (Дельфин/Акула): баллы по рубрике + фидбек TEREN-AI. */
+ *  Open (Дельфин/Акула): баллы по рубрике + фидбек ИИ-акулёнка. */
 export type OceanReviewItem = {
   q_idx: number;
   question_id: string;
@@ -297,7 +297,7 @@ export async function submitOceanAttempt(
 }
 
 // ── Открытые тесты (Дельфин/Акула) — зеркало submitOpenAttempt из ocean.js:
-// ответы своими словами, TEREN-AI оценивает по рубрике на сервере (5 вызовов
+// ответы своими словами, ИИ-акулёнок оценивает по рубрике на сервере (5 вызовов
 // Gemini на попытку у Дельфина, 10 у Акулы — поэтому строго после входа).
 // Акула сдаётся в /attempt_shark (тело без level, test = id кейса).
 

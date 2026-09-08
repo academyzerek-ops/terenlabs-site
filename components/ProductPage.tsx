@@ -170,7 +170,7 @@ export function ProductPage({ p }: { p: Product }) {
                   </>
                 ) : (
                   <>
-                    <div className="text-[15px] font-medium text-ink">TEREN-AI · наставник TerenLabs</div>
+                    <div className="text-[15px] font-medium text-ink">ИИ-акулёнок · наставник TerenLabs</div>
                     <div className="mt-0.5 text-[14px] text-text-2">Считает, а не мотивирует — отвечает по базе знаний</div>
                   </>
                 )}

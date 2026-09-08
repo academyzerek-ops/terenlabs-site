@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     ? [
         ["Вопросов в попытке", String(ocean.qCount)],
         ["Порог сдачи", `${ocean.floor} из 10`],
-        ["Формат", ocean.type === "open" ? "ответ своими словами, оценивает TEREN-AI" : "выбор варианта, балл считает сервер"],
+        ["Формат", ocean.type === "open" ? "ответ своими словами, оценивает ИИ-акулёнок" : "выбор варианта, балл считает сервер"],
         ["Пересдача", "через кулдаун, другая выборка вопросов"],
       ]
     : questionCount > 0
@@ -156,7 +156,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <section>
             <h2 className="text-[24px]">Эксперт</h2>
             <div className="mt-4 grid gap-1 border-y border-line py-4 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-6">
-              <span className="text-[16px] font-medium text-ink">TEREN-AI</span>
+              <span className="text-[16px] font-medium text-ink">ИИ-акулёнок</span>
               <div>
                 <p className="text-[16px] text-ink">Наставник TerenLabs</p>
                 <p className="mt-1 text-[14px] leading-relaxed text-text-2">Считает, а не мотивирует — отвечает по базе знаний</p>

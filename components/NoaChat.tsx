@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
-// TEREN-AI — тот же мозг, что в Mini App: Railway POST /chat[/stream]
+// ИИ-акулёнок — тот же мозг, что в Mini App: Railway POST /chat[/stream]
 // (системный промпт из source-of-truth + RAG по базе знаний + история диалога).
 const AI_API =
   process.env.NEXT_PUBLIC_AI_API ?? "https://terenlabs-production.up.railway.app/chat";
@@ -24,13 +24,13 @@ function chatHeaders(): Record<string, string> {
   return h;
 }
 const MAINTENANCE =
-  "TEREN-AI сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
+  "ИИ-акулёнок сейчас на техобслуживании. Загляни чуть позже — отвечу по базе знаний.";
 
 type Msg = { role: "user" | "ai"; text: string };
 
 const GREETING: Msg = {
   role: "ai",
-  text: "Я TEREN-AI. Спроси про свой бизнес, нишу или цифры — отвечу по базе знаний TerenLabs, без мотивашек.",
+  text: "Я ИИ-акулёнок, твой наставник в TerenLabs. Спроси про главу, тест или свой бизнес — разберём по делу, без мотивашек.",
 };
 
 
@@ -215,20 +215,20 @@ export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void 
 
   if (!open) return null;
 
-  // Колонка TEREN-AI: на десктопе встаёт второй колонкой слева и ужимает
+  // Колонка ИИ-акулёнок: на десктопе встаёт второй колонкой слева и ужимает
   // контент, на телефоне разворачивается на весь экран.
   return (
         <div
           ref={dialogRef}
           className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-panel-2 lg:sticky lg:top-0 lg:z-auto lg:h-dvh lg:w-[380px] lg:shrink-0 lg:border-r lg:border-line lg:bg-panel-2"
           role="dialog"
-          aria-label="TEREN-AI"
+          aria-label="ИИ-акулёнок"
           style={{ overscrollBehavior: "contain" }}
         >
           {/* шапка */}
           <div className="flex items-center gap-3 border-b border-line px-4 py-3">
             <div className="flex-1">
-              <div className="text-[14px] font-semibold text-ink">TEREN-AI</div>
+              <div className="text-[14px] font-semibold text-ink">ИИ-акулёнок</div>
               <div className="text-[12px] text-faint">отвечает по базе знаний TerenLabs</div>
             </div>
             <button
@@ -260,7 +260,7 @@ export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void 
               ))}
             {busy && msgs[msgs.length - 1]?.text === "" && (
               <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-subtle px-3.5 py-2.5 text-sm text-faint">
-                TEREN-AI думает…
+                ИИ-акулёнок думает…
               </div>
             )}
           </div>
@@ -304,7 +304,7 @@ export function NoaChat({ open, onClose }: { open: boolean; onClose: () => void 
                 }}
                 rows={2}
                 placeholder="Спроси про свой бизнес, нишу или цифры"
-                aria-label="Вопрос для TEREN-AI"
+                aria-label="Вопрос для ИИ-акулёнка"
                 className="max-h-40 w-full resize-none bg-transparent px-1.5 pb-1 pt-0.5 text-[16px] leading-relaxed text-ink outline-none focus:outline-none focus-visible:outline-none placeholder:text-faint sm:text-[14px]"
               />
               <div className="flex items-center justify-between pl-1.5">
