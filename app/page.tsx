@@ -225,7 +225,7 @@ export default function Home() {
               {WINS.map((c) => (
                 <Link key={c.slug} href={c.href} className="row-hover flex min-h-[52px] items-center justify-between gap-3 border-t border-line py-3 text-[15px]">
                   {/* на телефоне заголовок переносится, а не обрывается многоточием */}
-                  <span className="min-w-0 text-body">{c.title}</span>
+                  <span className="min-w-0 text-body sm:truncate">{c.title}</span>
                   <span className="tag shrink-0">{c.badge}</span>
                 </Link>
               ))}
@@ -246,7 +246,7 @@ export default function Home() {
             <div className="mt-2 min-w-0 self-start">
               {FAILS.map((c) => (
                 <Link key={c.slug} href={c.href} className="row-hover flex min-h-[52px] items-center justify-between gap-3 border-t border-line py-3 text-[15px]">
-                  <span className="min-w-0 text-body">{c.title}</span>
+                  <span className="min-w-0 text-body sm:truncate">{c.title}</span>
                   <span className="tag shrink-0">{c.badge}</span>
                 </Link>
               ))}
