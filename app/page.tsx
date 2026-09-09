@@ -82,9 +82,10 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ДВЕ ДВЕРИ: ПРЕДПРИНИМАТЕЛЬ / ФАУНДЕР ============ */}
+      {/* ============ ТРИ ДВЕРИ: ПРЕДПРИНИМАТЕЛЬ / ФАУНДЕР / ИНВЕСТОР ============
+          Инвестор пока заглушка: программа зафиксирована, главы пишутся. */}
       <section className="border-t border-line">
-        <Container className="grid gap-4 py-8 md:grid-cols-2">
+        <Container className="grid gap-4 py-8 md:grid-cols-2 lg:grid-cols-3">
           {[
             {
               href: "/delo",
@@ -96,13 +97,21 @@ export default function Home() {
               href: "/startup",
               eyebrow: "Фаундер",
               title: "Проект на рост",
-              desc: "Дорожная карта проекта на рост: команда, рынок, модель, юнит-экономика, питч, инвестиции. По шагам, до сделки с инвестором.",
+              desc: "Дорожная карта проекта на рост: развилка, основание, рынок, модель, первые деньги, раунды и выход. По шагам, до сделки с инвестором.",
+            },
+            {
+              href: "/invest",
+              eyebrow: "Инвестор · готовится",
+              title: "С другой стороны стола",
+              desc: "Та же сделка глазами того, кто даёт деньги: поток, проверка компании, цена входа, бумаги, портфель и выход. Программа зафиксирована, главы пишутся.",
             },
           ].map((d) => (
             <Link key={d.href} href={d.href} className="card-premium group flex flex-col gap-3 p-7">
               <span className="mb-2 text-faint">
                 {d.href === "/delo" ? (
                   <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 6.5 4 3h8l1 3.5M3 6.5h10v6a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5zM6.5 13V9.5h3V13" /></svg>
+                ) : d.href === "/invest" ? (
+                  <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 2v12M10.5 4.5H6.75a1.75 1.75 0 0 0 0 3.5h2.5a1.75 1.75 0 0 1 0 3.5H5" /></svg>
                 ) : (
                   <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9.5 2.5c2 .5 3.5 2 4 4L9 11 5 7zM5 7l-2 .5L4.5 9M9 11l.5 2L11 11.5M6.5 9.5 3 13" /></svg>
                 )}
@@ -111,7 +120,7 @@ export default function Home() {
               <h2 className="text-[24px]">{d.title}</h2>
               <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">{d.desc}</p>
               <span className="link mt-auto pt-2 text-[15px]">
-                Открыть раздел <Arrow />
+                {d.href === "/invest" ? "Посмотреть программу" : "Открыть раздел"} <Arrow />
               </span>
             </Link>
           ))}
