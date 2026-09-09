@@ -32,7 +32,7 @@ function buildIndex(): Hit[] {
   for (const m of MODEL_CARDS) {
     hits.push({ label: m.title, sub: "модель заработка", href: `/models/${m.slug}` });
   }
-  const kind: Record<string, string> = { case: "кейс", review: "ниша", bm: "разбор бренда", test: "тест", course: "курс", finmodel: "финмодель" };
+  const kind: Record<string, string> = { case: "кейс", review: "ниша", bm: "разбор бренда", test: "тест", course: "курс" };
   for (const p of CATALOG) {
     if (p.type === "course") continue;
     hits.push({ label: p.title, sub: kind[p.type] ?? p.type, href: p.href, key: p.slug });

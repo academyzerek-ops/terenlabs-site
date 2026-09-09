@@ -89,8 +89,8 @@ export function CaseTrainer() {
           <button onClick={restart} className={BTN_PRIMARY}>
             Пройти заново
           </button>
-          <Button href="/catalog?type=finmodel" variant="secondary">
-            К финмоделям
+          <Button href="/tests" variant="secondary">
+            К тестам
           </Button>
         </div>
       </Container>

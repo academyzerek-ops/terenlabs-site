@@ -16,7 +16,7 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     ...ORG,
     description:
-      "EdTech и FinTools для предпринимателей Казахстана: курсы, тесты, бизнес-кейсы, обзоры и финмодели.",
+      "EdTech для предпринимателей Казахстана: курсы, тесты, бизнес-кейсы и обзоры ниш.",
   };
 }
 

@@ -4,5 +4,5 @@ export const metadata = {
   // заглушка на две строки: в выдаче ей делать нечего, пока нет текста
   robots: { index: false } };
 export default function Page() {
-  return <Placeholder title="О компании" desc="TerenLabs — EdTech и FinTools для предпринимателей." />;
+  return <Placeholder title="О компании" desc="TerenLabs — EdTech для предпринимателей." />;
 }

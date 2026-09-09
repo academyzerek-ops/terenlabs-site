@@ -354,11 +354,11 @@ const products = JSON.parse(read(path.join(SITE, "content/products.json")));
 // ВСЕ океан-префиксы: dolphin/shark отсутствовали в фильтре, и их тесты
 // задваивались при каждом импорте (найдено по React-warning 09.08)
 const isOceanSlug = (s) => /^(crab|barracuda|dolphin|shark)-/.test(s);
+// финпродукты (type finmodel) сняты с прода 09.09.2026 — не переносим
 const keep = products.filter(
   (p) =>
-    (p.type === "finmodel" ||
-      (p.type === "test" && !isOceanSlug(p.slug)) ||
-      (p.type === "case" && p.slug === "case-marketplace"))
+    (p.type === "test" && !isOceanSlug(p.slug)) ||
+    (p.type === "case" && p.slug === "case-marketplace")
 );
 const plural = (n, one, few, many) => {
   const m10 = n % 10, m100 = n % 100;

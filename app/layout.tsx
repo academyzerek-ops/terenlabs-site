@@ -24,21 +24,21 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "EdTech и FinTools для предпринимателей: курсы, тесты, бизнес-кейсы, обзоры и интерактивные финмодели. Реализм и расчёт вместо мотивации.",
+    "EdTech для предпринимателей: курсы, тесты, бизнес-кейсы и обзоры ниш. Реализм и расчёт вместо мотивации.",
   openGraph: {
     siteName: "TerenLabs",
     type: "website",
     locale: "ru_RU",
     title: "TerenLabs — Глубина анализа. Сила результата.",
     description:
-      "EdTech и FinTools для предпринимателей: курсы, тесты, кейсы, обзоры и интерактивные финмодели.",
+      "EdTech для предпринимателей: курсы, тесты, кейсы и обзоры ниш.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "TerenLabs — обучение бизнесу в Казахстане" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "TerenLabs — Глубина анализа. Сила результата.",
     description:
-      "EdTech и FinTools для предпринимателей: курсы, тесты, кейсы, обзоры и интерактивные финмодели.",
+      "EdTech для предпринимателей: курсы, тесты, кейсы и обзоры ниш.",
     images: ["/og-image.jpg"],
   },
   verification: {

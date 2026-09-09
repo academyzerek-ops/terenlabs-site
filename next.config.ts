@@ -51,7 +51,10 @@ const nextConfig: NextConfig = {
       { source: "/cases", destination: "/catalog?type=case", permanent: true },
       { source: "/reviews", destination: "/catalog?type=review", permanent: true },
       { source: "/brands", destination: "/catalog?type=bm", permanent: true },
-      { source: "/finmodels", destination: "/catalog?type=finmodel", permanent: true },
+      // финмодели сняты с прода 09.09.2026 — старые адреса ведут в каталог
+      { source: "/finmodels", destination: "/catalog", permanent: true },
+      { source: "/finmodels/:slug", destination: "/catalog", permanent: true },
+      { source: "/checkout", destination: "/catalog", permanent: true },
       { source: "/courses", destination: "/academy", permanent: true },
     ];
   },

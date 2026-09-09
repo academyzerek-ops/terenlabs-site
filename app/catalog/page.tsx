@@ -19,7 +19,7 @@ const SECTION: Record<ProductType | "all", { eyebrow: string; title: string; des
   all: {
     eyebrow: "Каталог",
     title: "Всё, что двигает бизнес",
-    desc: "Курсы, тесты, кейсы, обзоры и финмодели. Фильтруй по своей задаче.",
+    desc: "Курсы, тесты, кейсы и обзоры ниш. Фильтруй по своей задаче.",
   },
   course: {
     eyebrow: "Академия",
@@ -45,11 +45,6 @@ const SECTION: Record<ProductType | "all", { eyebrow: string; title: string; des
     eyebrow: "Фаундер",
     title: "Откуда бабки у больших",
     desc: "Из чего собран денежный поток мировых компаний, чем за это платят и какая развилка достаётся вам. Всё в долларах, каждая цифра с источником.",
-  },
-  finmodel: {
-    eyebrow: "Финпродукты",
-    title: "Рабочие инструменты под проект",
-    desc: "Интерактивные финмодели и бизнес-планы. Меняешь допущения, видишь результат.",
   },
 };
 
@@ -78,8 +73,8 @@ export default async function CatalogPage({
 
   const items = CATALOG.filter((p) => {
     if (t !== "all" && p.type !== t) return false;
-    // общий вид: обучение и кейсы; ниши и финпродукты живут по своим адресам
-    if (t === "all" && (p.type === "review" || p.type === "finmodel")) return false;
+    // общий вид: обучение и кейсы; ниши живут по своему адресу
+    if (t === "all" && p.type === "review") return false;
     // кейсы витрины: только с цвет-тэгом (тренажёр живёт на уровне Ракушки)
     if (t === "case" && !p.tag) return false;
     if (f === "all") return true;

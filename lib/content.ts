@@ -12,7 +12,8 @@ import { T1_SYNTHESIS_QUESTIONS } from "./content-t1synthesis";
 import productsJson from "@/content/products.json";
 import levelsJson from "@/content/levels.json";
 
-export type ProductType = "course" | "test" | "case" | "review" | "finmodel" | "bm";
+// finmodel снят с прода 09.09.2026 (фокус на Академии и тестах)
+export type ProductType = "course" | "test" | "case" | "review" | "bm";
 export type LevelKey = "rakushka" | "krab" | "barrakuda" | "delfin" | "akula" | "kit";
 
 // ---- Конфиг/копирайт (живёт в коде) ----
@@ -24,7 +25,6 @@ export const PRODUCT_TYPES: Record<
   test: { label: "Тесты", one: "Тест", path: "/tests", href: "/tests", blurb: "Проверь себя — честно и с разбором каждого ответа" },
   case: { label: "Кейсы", one: "Кейс", path: "/cases", href: "/catalog?type=case", blurb: "Чужой опыт как способ учиться на не своих деньгах" },
   review: { label: "Ниши", one: "Обзор ниши", path: "/reviews", href: "/catalog?type=review", blurb: "Обзоры рынка по нишам: спрос, конкуренция, маржа" },
-  finmodel: { label: "Финмодели", one: "Финмодель", path: "/finmodels", href: "/catalog?type=finmodel", blurb: "Рабочие модели и бизнес-планы под твой проект" },
   // Второй регистр контента: мировые бизнес-модели, доллар, без гео и налогов.
   // Учебный модуль Академии «Бизнес-модели» (course-models) — это другое, имена разведены.
   bm: { label: "Разборы брендов", one: "Разбор", path: "/brands", href: "/catalog?type=bm", blurb: "Механика заработка мировых компаний: из чего собран денежный поток" },
@@ -36,7 +36,7 @@ export const STAGES = ["Обучение", "Проверка", "Применен
 export const INTENTS = [
   { key: "learn", title: "Учиться", desc: "Курсы и навыки от основ до масштаба", href: "/catalog?type=course" },
   { key: "check", title: "Проверить себя", desc: "Тесты с честным разбором и рангом", href: "/catalog?type=test" },
-  { key: "apply", title: "Применить в деле", desc: "Кейсы, аналитика, финмодели под задачу", href: "/catalog?type=finmodel" },
+  { key: "apply", title: "Применить в деле", desc: "Кейсы и обзоры ниш под твою задачу", href: "/catalog?type=case" },
 ];
 
 // ?v=2 — cache-bust после перенарезки иконок (браузер кэширует по имени файла)
@@ -147,8 +147,6 @@ function hrefFor(p: RawProduct): string {
       return `/cases/${p.slug}`;
     case "review":
       return `/reviews/${p.slug}`;
-    case "finmodel":
-      return `/finmodels/${p.slug}`;
     case "bm":
       return `/brands/${p.slug}`;
   }
@@ -162,7 +160,6 @@ export const CATALOG: CatalogItem[] = (productsJson as RawProduct[]).map((p) => 
 }));
 
 export const TESTS = CATALOG.filter((x) => x.type === "test");
-export const FINMODELS = CATALOG.filter((x) => x.type === "finmodel");
 export const CASES = CATALOG.filter((x) => x.type === "case");
 export const REVIEWS = CATALOG.filter((x) => x.type === "review");
 export const COURSES = CATALOG.filter((x) => x.type === "course");
@@ -189,10 +186,10 @@ export const COLLECTIONS = [
   },
   {
     title: "Применить в деле",
-    hook: "Кейсы, аналитика и финмодели — инструменты под твою задачу",
+    hook: "Кейсы и обзоры ниш — учись на чужих деньгах, не на своих",
     img: "/lessons/mgmt_m1-ch03_captain-bridge.jpg",
-    filter: (x: CatalogItem) => ["case", "finmodel", "review"].includes(x.type),
-    href: "/catalog?type=finmodel",
+    filter: (x: CatalogItem) => ["case", "review"].includes(x.type),
+    href: "/catalog?type=case",
   },
 ];
 

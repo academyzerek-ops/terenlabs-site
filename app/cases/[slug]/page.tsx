@@ -173,8 +173,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             </Container>
           </section>
 
-          {/* Дальше читать + мягкий мост к финмодели (Академию в воронку не превращаем,
-              кейсы — можно: чужая ошибка → посчитай свою) */}
+          {/* Дальше читать + мост к тестам Океана (финмодели сняты с прода 09.09.2026;
+              чужая ошибка → проверь, как решил бы сам) */}
           <section className="border-t border-line bg-subtle py-9 sm:py-16">
             <Container>
               <div className="mx-auto max-w-[800px]">
@@ -203,13 +203,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
                 <div className="mt-6 sm:mt-10 flex flex-col items-start justify-between gap-5 rounded-[8px] border border-line bg-card p-6 sm:flex-row sm:items-center sm:p-8">
                   <div>
-                    <h3 className="text-[20px] sm:text-[20px]">Чужая ошибка разобрана. Своя — посчитана?</h3>
+                    <h3 className="text-[20px] sm:text-[20px]">Чужая ошибка разобрана. А ты бы как решил?</h3>
                     <p className="mt-2 max-w-[52ch] text-[14px] leading-relaxed text-text-2">
-                      Инструмент расчета риска покажет твою точку безубыточности до того, как ты вложишься.
+                      Тесты Океана ставят в такие же ситуации и разбирают каждый ответ — до того, как ты вложишься.
                     </p>
                   </div>
-                  <Button href="/catalog?type=finmodel" className="shrink-0">
-                    Посчитать мой бизнес <Arrow />
+                  <Button href="/tests" className="shrink-0">
+                    Проверить себя <Arrow />
                   </Button>
                 </div>
               </div>
