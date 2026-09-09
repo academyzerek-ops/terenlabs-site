@@ -8,6 +8,7 @@ import { CommandSearch } from "./CommandSearch";
 import { SidebarDiary } from "./SidebarDiary";
 import { ThemeToggle } from "./ThemeToggle";
 import { AskButton } from "./AskButton";
+import { SharkGreeting } from "./SharkGreeting";
 
 // Боковая панель как в Notion: поиск, быстрые разделы, группы ссылок серыми
 // заголовками, внизу аккаунт. На десктопе заменяет верхнюю шапку; на мобиле
@@ -297,7 +298,9 @@ export function Sidebar({
         {/* Низ: только круглая кнопка ИИ-акулёнок. Строка аккаунта отсюда убрана:
             она дублировала пункт «Кабинет» в быстрых ссылках, а неавторизованный
             попадает на вход тем же пунктом — на странице кабинета есть «Войти». */}
-        <div className="flex justify-end px-4 pb-3 lg:px-3">
+        <div className="relative flex justify-end px-4 pb-3 lg:px-3">
+          {/* приветствие акулёнка растёт из этой кнопки (на десктопе) */}
+          <SharkGreeting variant="anchored" chatOpen={chatOpen} onOpen={onToggleChat} />
           <AskButton open={chatOpen} onToggle={onToggleChat} />
         </div>
       </aside>
