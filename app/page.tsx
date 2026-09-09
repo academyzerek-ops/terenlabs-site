@@ -77,6 +77,8 @@ export default function Home() {
               </p>
               <p className="mt-4 text-[14px] leading-relaxed text-text-2">
                 Учим на кейсах: кто прогорел и почему, кто вышел в плюс и за счёт чего.
+              </p>
+              <p className="mt-3 text-[14px] leading-relaxed text-text-2">
                 Знания проверяем по ступеням, балл показывает, что ты знаешь на самом деле.
               </p>
             </div>
