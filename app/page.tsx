@@ -3,11 +3,15 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
 import { RankSketch } from "@/components/RankSketch";
-import { OceanTopTable } from "@/components/OceanTopTable";
-import { OCEAN_RANKS, BRANDS } from "@/lib/content";
+import { OCEAN_RANKS, CASES } from "@/lib/content";
 import type { LevelKey } from "@/lib/content";
 
 export const metadata = { alternates: { canonical: "/" } };
+
+// Кейсы на главной идут двумя сторонами: кто вышел в плюс и кто прогорел.
+// Исход берём из badge витрины, чтобы не заводить второй признак.
+const WINS = CASES.filter((c) => c.badge === "Успех" && !c.stub).slice(0, 5);
+const FAILS = CASES.filter((c) => c.badge === "Провал" && !c.stub).slice(0, 5);
 
 // Три шага платформы
 const PATH = [
@@ -34,14 +38,6 @@ const PATH = [
   },
 ];
 
-// 5 наставлений: то, что есть в каждом обзоре ниши и в главах Академии
-const PRECEPTS = [
-  ["01", "Ramp-up", "Выручка приходит не с первого дня. Нужен запас на 4-5 месяцев, иначе кассовый разрыв убивает до набора клиентской базы."],
-  ["02", "Сезонность", "У любой ниши есть месяцы провала. Их считают заранее, а не удивляются в январе."],
-  ["03", "Маркетинг", "Канал привлечения и его цена входят в модель заработка. Без этого бизнес-план не считается."],
-  ["04", "Кадры", "Модель «ремесло» рушится при болезни владельца. Строят бизнес, где мастера заменяемы."],
-  ["05", "Резерв на старте", "Деньги на открытие и деньги на первые месяцы жизни. Это две разные суммы."],
-];
 
 export default function Home() {
   return (
@@ -198,77 +194,57 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ 5 НАСТАВЛЕНИЙ ============ */}
-      <section className="border-y border-line bg-subtle">
-        <Container className="py-10 sm:py-20">
-          <div className="max-w-[60ch]">
-            <h2 className="text-[22px] sm:text-[24px]">5 наставлений, без которых бизнес-план опасен</h2>
-            <p className="mt-3 text-[15px] leading-relaxed text-text-2">
-              То, о чём молчат инфобизнесмены. Каждый пункт проходит через модули, кейсы и тесты.
-            </p>
-          </div>
-          <div className="mt-6 sm:mt-10">
-            {PRECEPTS.map(([n, t, d]) => (
-              <div
-                key={n}
-                className="grid gap-2 border-t border-line py-5 sm:grid-cols-[56px_220px_minmax(0,1fr)] sm:gap-6"
-              >
-                <span className="num text-[13px] text-faint">{n}</span>
-                <h3 className="text-[16px]">{t}</h3>
-                <p className="max-w-[64ch] text-[15px] leading-relaxed text-text-2">{d}</p>
-              </div>
-            ))}
-            <div className="border-t border-line" />
-          </div>
-        </Container>
-      </section>
 
-      {/* ============ БРЕНДЫ + ОКЕАН ============
+      {/* ============ КЕЙСЫ: УСПЕХИ + ПРОВАЛЫ ============
           две колонки одной сеткой строк (subgrid): метка, заголовок, лид,
-          таблица на 5 строк с шапкой, ссылка. Всё стоит вровень. */}
+          список на 5 строк, ссылка. Слева вышли в плюс, справа прогорели. */}
       <section>
         <Container className="py-10 sm:py-20">
           <p className="section-label mb-3">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2.5 13.5h11M4 11V7M7 11V4M10 11V8.5M13 11V6" /></svg>
-            Сейчас на платформе
+            Учимся на чужом опыте
           </p>
           <div className="panel grid gap-7 sm:gap-12 p-6 lg:grid-cols-2 lg:grid-rows-[auto_auto_auto_auto_auto] lg:gap-x-0 lg:gap-y-0 lg:p-0">
           <div className="grid min-w-0 gap-4 lg:row-span-5 lg:grid-rows-subgrid lg:p-10">
-            <p className="eyebrow">Фаундер · бизнес-модели</p>
-            <h2 className="text-[22px] sm:text-[24px]">Откуда бабки у больших</h2>
+            <p className="eyebrow">Кейсы · успех</p>
+            <h2 className="text-[22px] sm:text-[24px]">Кто вышел в плюс</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
-              Механика заработка, структура выручки и развилка, за которую заплатили. Каждая цифра с
-              источником.
+              Что сработало и за счёт чего именно. Не история успеха, а решение, которое
+              изменило деньги.
             </p>
             <div className="mt-2 min-w-0 self-start">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 pb-2 text-[12px] font-medium text-text-2">
-                <span>Разбор</span><span className="text-right">Модель</span>
-              </div>
-              {BRANDS.filter((b) => !b.stub).slice(0, 5).map((b) => (
-                <Link key={b.slug} href={b.href} className="row-hover grid min-h-[52px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-t border-line py-3 text-[15px]">
+              {WINS.map((c) => (
+                <Link key={c.slug} href={c.href} className="row-hover flex min-h-[52px] items-center justify-between gap-3 border-t border-line py-3 text-[15px]">
                   {/* на телефоне заголовок переносится, а не обрывается многоточием */}
-                  <span className="min-w-0 font-medium text-ink sm:truncate">{b.title}</span>
-                  {b.badge ? <span className="tag">{b.badge}</span> : <span className="text-[13px] text-faint">{b.sector ?? ""}</span>}
+                  <span className="min-w-0 text-body">{c.title}</span>
+                  <span className="tag shrink-0">{c.badge}</span>
                 </Link>
               ))}
               <div className="border-t border-line" />
             </div>
-            <Link href="/catalog?type=bm" className="link self-start text-[15px]">
-              Все разборы <Arrow />
+            <Link href="/catalog?type=case" className="link self-start text-[15px]">
+              Все кейсы <Arrow />
             </Link>
           </div>
 
           <div className="grid min-w-0 gap-4 border-t border-line pt-7 lg:border-t-0 lg:pt-0 lg:row-span-5 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
-            <p className="eyebrow">Океан · рейтинг</p>
-            <h2 className="text-[22px] sm:text-[24px]">В океане уже идёт гонка</h2>
+            <p className="eyebrow">Кейсы · провал</p>
+            <h2 className="text-[22px] sm:text-[24px]">Кто прогорел</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
-              Место зарабатывают решениями: точность ответов, помноженная на скорость мысли.
+              Где именно кончились деньги и какой шаг это решил. Ошибка названа, а не
+              спрятана за словом «не повезло».
             </p>
             <div className="mt-2 min-w-0 self-start">
-              <OceanTopTable limit={5} showAll={false} />
+              {FAILS.map((c) => (
+                <Link key={c.slug} href={c.href} className="row-hover flex min-h-[52px] items-center justify-between gap-3 border-t border-line py-3 text-[15px]">
+                  <span className="min-w-0 text-body">{c.title}</span>
+                  <span className="tag shrink-0">{c.badge}</span>
+                </Link>
+              ))}
+              <div className="border-t border-line" />
             </div>
-            <Link href="/ocean" className="link self-start text-[15px]">
-              Весь рейтинг <Arrow />
+            <Link href="/catalog?type=case" className="link self-start text-[15px]">
+              Все кейсы <Arrow />
             </Link>
           </div>
           </div>
