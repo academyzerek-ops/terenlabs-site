@@ -77,7 +77,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <div className="mt-8">
             {track.modules.map((m, mi) => {
               // своя обложка урока, если нарисована; иначе первая картинка главы
-              const own = `/academy-assets/lessons_cover/${track.folder ?? ""}/${m.id}.webp?v=1`;
+              const own = `/academy-assets/lessons_cover/${track.folder ?? ""}/${m.id}.webp?v=2`;
               const cover = (track.folder && LESSON_COVERS.has(`${track.folder}/${m.id}`)) ? own : m.chapters.find((c) => c.img)?.img;
               return (
                 <div
