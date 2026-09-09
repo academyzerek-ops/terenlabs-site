@@ -38,8 +38,8 @@ export default function DeloPage() {
           <h1 className="mt-3 max-w-[18ch] text-[24px] sm:text-[40px]">Бизнес здесь и сейчас: точка, мастер, магазин</h1>
           <p className="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-text-2 sm:text-[16px]">
             Навыки, чтобы вести своё дело: деньги, люди, маркетинг, право и модель, по которой
-            оно живёт. Порядок не важен, бери тему, которая горит. Рядом кейсы, где чужие деньги
-            уже сгорели, и обзоры ниш с реальной экономикой рынка.
+            оно живёт. Порядок не важен, бери тему, которая горит. Рядом кейсы про тех, кто
+            прогорел, и про тех, кто вышел в плюс, и обзоры ниш с реальной экономикой рынка.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href="/academy">
@@ -92,9 +92,9 @@ export default function DeloPage() {
 
           <div className="grid min-w-0 gap-4 border-t border-line pt-7 lg:border-t-0 lg:pt-0 lg:row-span-4 lg:grid-rows-subgrid lg:border-l lg:border-line lg:p-10">
             <p className="eyebrow">Кейсы</p>
-            <h2 className="text-[20px] sm:text-[24px]">Где чужие деньги уже сгорели</h2>
+            <h2 className="text-[20px] sm:text-[24px]">Кто прогорел и кто вышел в плюс</h2>
             <p className="max-w-[48ch] text-[15px] leading-relaxed text-text-2">
-              Реальные истории своего дела с главной ошибкой и уроком. Дешевле учиться на них.
+              Реальные истории своего дела: что решило исход и какой урок остаётся. Чужой опыт стоит дешевле своего.
             </p>
             <div className="min-w-0 self-start">
               {cases.map((c) => (
