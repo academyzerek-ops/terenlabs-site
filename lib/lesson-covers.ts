@@ -71,5 +71,7 @@ export const LESSON_COVERS = new Set<string>([
   "startup/m3",
   "startup/m4",
   "startup/m5",
-  "startup/m6"
+  "startup/m6",
+  "startup/m7",
+  "startup/m8"
 ]);

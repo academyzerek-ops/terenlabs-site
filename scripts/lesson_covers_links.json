@@ -60,14 +60,16 @@
  "course-models/m7": "https://r2.syntx.ai/banana/2026/09/05/c15f14199ad4422db127c733edeed441_img_1K.png",
  "course-models/m8": "https://r2.syntx.ai/banana/2026/09/05/2a74d74a10e7468b9c2fa3a80dcf7840_img_1K.png",
  "course-models/m9": "https://r2.syntx.ai/banana/2026/09/05/84649e70c7254916b2949e57d434f4b6_img_1K.png",
- "course-startup/m1": "https://r2.syntx.ai/banana/2026/09/05/9abc97ff841d4d369ed16932b51d305e_img_1K.png",
- "course-startup/m2": "https://r2.syntx.ai/banana/2026/09/05/1c930dff3d6841ae9c3d97f967efb1f5_img_1K.png",
- "course-startup/m3": "https://r2.syntx.ai/banana/2026/09/05/dfff6becd9314ae4aaa5fdf930968392_img_1K.png",
- "course-startup/m4": "https://r2.syntx.ai/banana/2026/09/05/8aa67dc73fac48a9ad2312e5848353f1_img_1K.png",
- "course-startup/m5": "https://r2.syntx.ai/banana/2026/09/05/8c55873bfcde489e8666f07a07b29dce_img_1K.png",
- "course-startup/m6": "https://r2.syntx.ai/banana/2026/09/05/52ab1328c80d45f5be1a575faf256b27_img_1K.png",
  "course-legal/m1": "https://r2.syntx.ai/banana/2026/09/05/bafe42e0a89444bc877fc5973232c3b8_img_1K.png",
  "course-legal/m2": "https://r2.syntx.ai/banana/2026/09/05/9a616270aa4e4ed0b8c6bbcb5e665bc1_img_1K.png",
  "course-legal/m3": "https://r2.syntx.ai/banana/2026/09/05/2c7e8f5083ed476a94b6342868861786_img_1K.png",
- "course-legal/m4": "https://r2.syntx.ai/banana/2026/09/05/ad4d8b44943c4ddc8da1c648530d65de_img_1K.png"
+ "course-legal/m4": "https://r2.syntx.ai/banana/2026/09/05/ad4d8b44943c4ddc8da1c648530d65de_img_1K.png",
+ "course-startup/m1": "нарисовано локально (scripts/covers), генератор SYNTX не использован",
+ "course-startup/m2": "https://r2.syntx.ai/banana/2026/09/05/9abc97ff841d4d369ed16932b51d305e_img_1K.png",
+ "course-startup/m3": "https://r2.syntx.ai/banana/2026/09/05/1c930dff3d6841ae9c3d97f967efb1f5_img_1K.png",
+ "course-startup/m4": "https://r2.syntx.ai/banana/2026/09/05/dfff6becd9314ae4aaa5fdf930968392_img_1K.png",
+ "course-startup/m5": "https://r2.syntx.ai/banana/2026/09/05/8aa67dc73fac48a9ad2312e5848353f1_img_1K.png",
+ "course-startup/m6": "нарисовано локально (scripts/covers), генератор SYNTX не использован",
+ "course-startup/m7": "https://r2.syntx.ai/banana/2026/09/05/52ab1328c80d45f5be1a575faf256b27_img_1K.png",
+ "course-startup/m8": "нарисовано локально (scripts/covers), генератор SYNTX не использован"
 }

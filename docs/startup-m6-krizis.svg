@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<defs>
+<filter id="rough" x="-15%" y="-15%" width="130%" height="130%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.017" numOctaves="3" seed="37" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+</filter>
+</defs>
+<rect width="1200" height="800" fill="#F4F0E8"/>
+<g filter="url(#rough)" fill="none" stroke="#141210" stroke-width="15"
+   stroke-linecap="round" stroke-linejoin="round">
+
+  <path d="M 268 706 L 268 470 A 264 264 0 0 1 540 208"/>
+  <path d="M 380 706 L 380 470 A 152 152 0 0 1 532 318"/>
+  <path d="M 268 706 L 380 706" stroke-width="15"/>
+  <path d="M 540 208 L 532 318" stroke-width="15"/>
+  <path d="M 932 706 L 932 470 A 264 264 0 0 0 668 208"/>
+  <path d="M 820 706 L 820 470 A 152 152 0 0 0 668 318"/>
+  <path d="M 820 706 L 932 706" stroke-width="15"/>
+  <path d="M 668 208 L 668 318" stroke-width="15"/>
+  <path d="M 592 232 L 616 186" stroke-width="12"/>
+  <path d="M 600 288 L 608 244" stroke-width="12"/>
+  <path d="M 592 344 L 616 300" stroke-width="12"/>
+  <path d="M 214 748 L 986 748" stroke-width="13"/>
+
+</g>
+</svg>
