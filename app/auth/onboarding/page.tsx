@@ -152,7 +152,7 @@ export default function OnboardingPage() {
           </label>
 
           <p className="text-[13px] text-faint">
-            Язык — русский. Қазақша — скоро, уже в плане.
+            Язык — русский. Другие языки — в плане.
           </p>
         </div>
 

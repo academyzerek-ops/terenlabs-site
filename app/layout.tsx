@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "TerenLabs — Глубина анализа. Сила результата.",
     description:
       "EdTech для предпринимателей: курсы, тесты, кейсы и обзоры ниш.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "TerenLabs — обучение бизнесу в Казахстане" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "TerenLabs — платформа обучения бизнесу" }],
   },
   twitter: {
     card: "summary_large_image",

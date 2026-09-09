@@ -50,9 +50,9 @@ export default function Home() {
       <section>
         <Container className="grid gap-7 sm:gap-12 py-9 sm:py-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:py-20">
           <div className="flex flex-col gap-7">
-            <p className="eyebrow">Обучение бизнесу · Казахстан</p>
+            <p className="eyebrow">Обучение бизнесу · на русском языке</p>
             <h1 className="max-w-[18ch] text-[32px] sm:text-[40px] lg:text-[44px]">
-              Единственная платформа обучения бизнесу в Казахстане
+              Платформа обучения бизнесу
             </h1>
             <p className="max-w-[56ch] text-[16px] leading-relaxed text-text-2 sm:text-[17px]">
               Говорим о рисках и реальности, а не про «успешный успех». Видишь, где потеряешь

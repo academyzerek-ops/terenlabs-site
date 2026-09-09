@@ -8,7 +8,7 @@ import { RankSketch, RankMark, API2KEY } from "./RankSketch";
 import type { LevelKey } from "@/lib/content";
 
 // Живой рейтинг «Океана» (12_OCEAN.md, этап 3): пьедестал топ-3, таблица
-// топ-10, закреплённая «моя позиция» и срезы Казахстан / область / уровень.
+// топ-10, закреплённая «моя позиция» и срезы все / регион / уровень.
 const API = OCEAN_API + "/leaderboard";
 
 type Entry = {

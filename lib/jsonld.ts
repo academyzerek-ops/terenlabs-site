@@ -16,7 +16,7 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     ...ORG,
     description:
-      "EdTech для предпринимателей Казахстана: курсы, тесты, бизнес-кейсы и обзоры ниш.",
+      "EdTech для предпринимателей: курсы, тесты, бизнес-кейсы и обзоры ниш. На русском языке.",
   };
 }
 
