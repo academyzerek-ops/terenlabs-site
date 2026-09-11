@@ -6,6 +6,7 @@ import { BRANDS, plural } from "@/lib/content";
 import { ACADEMY } from "@/lib/learn";
 import { TrackCards } from "@/components/TrackCards";
 import { getModel, MODEL_SHOWCASE } from "@/lib/models-data";
+import { HubSwitch } from "@/components/HubSwitch";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -167,6 +168,7 @@ export default function StartupPage() {
           </div>
         </Container>
       </section>
+      <HubSwitch current="startup" />
     </>
   );
 }

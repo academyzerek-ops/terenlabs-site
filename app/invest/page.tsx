@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
+import { HubSwitch } from "@/components/HubSwitch";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -194,6 +195,7 @@ export default function InvestPage() {
           </div>
         </Container>
       </section>
+      <HubSwitch current="invest" />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { Button, Arrow } from "@/components/Button";
 import { ACADEMY } from "@/lib/learn";
 import { TrackCards } from "@/components/TrackCards";
 import { CASES } from "@/lib/content";
+import { HubSwitch } from "@/components/HubSwitch";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -140,6 +141,7 @@ export default function DeloPage() {
           </div>
         </Container>
       </section>
+      <HubSwitch current="delo" />
     </>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
 import { ACADEMY } from "@/lib/learn";
+import { HubSwitch } from "@/components/HubSwitch";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -95,30 +96,7 @@ export default function DeloRuPage() {
         </Container>
       </section>
 
-      <section>
-        <Container className="py-10 sm:py-16">
-          <div className="panel grid gap-4 p-7 sm:p-10">
-            <p className="eyebrow">Что уже доступно</p>
-            <h2 className="text-[20px] sm:text-[24px]">Три хаба работают независимо от страны</h2>
-            <p className="max-w-[64ch] text-[15px] leading-relaxed text-text-2">
-              «Фундамент», «Фаундер» и «Инвестор» не привязаны к рынку: механика денег, раунды,
-              доли и оценка устроены одинаково везде. Их можно читать прямо сейчас, не дожидаясь
-              российского корпуса.
-            </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-3 pt-1">
-              <Link href="/money" className="link text-[15px]">
-                Фундамент <Arrow />
-              </Link>
-              <Link href="/startup" className="link text-[15px]">
-                Фаундер <Arrow />
-              </Link>
-              <Link href="/invest" className="link text-[15px]">
-                Инвестор <Arrow />
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <HubSwitch current="delo" title="Что уже доступно" />
     </>
   );
 }
