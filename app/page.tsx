@@ -82,11 +82,18 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ============ ТРИ ДВЕРИ: ПРЕДПРИНИМАТЕЛЬ / ФАУНДЕР / ИНВЕСТОР ============
+      {/* ============ ЧЕТЫРЕ ДВЕРИ: ФУНДАМЕНТ / ПРЕДПРИНИМАТЕЛЬ / ФАУНДЕР / ИНВЕСТОР ============
+          Фундамент идёт первым: он основа под три остальные, а не четвёртая роль.
           Инвестор пока заглушка: программа зафиксирована, главы пишутся. */}
       <section className="border-t border-line">
-        <Container className="grid gap-4 py-8 md:grid-cols-2 lg:grid-cols-3">
+        <Container className="grid gap-4 py-8 md:grid-cols-2">
           {[
+            {
+              href: "/money",
+              eyebrow: "Фундамент",
+              title: "Как на тебе зарабатывают",
+              desc: "Цена с девятками, FOMO, кешбэк, рассрочка, блогер с промокодом. Основа под три остальные дороги: сначала научись видеть механику, потом выбирай, с какой стороны в ней стоять.",
+            },
             {
               href: "/delo",
               eyebrow: "Предприниматель",
@@ -108,7 +115,10 @@ export default function Home() {
           ].map((d) => (
             <Link key={d.href} href={d.href} className="card-premium group flex flex-col gap-3 p-7">
               <span className="mb-2 text-faint">
-                {d.href === "/delo" ? (
+                {d.href === "/money" ? (
+                  // кирпич основания: та же метафора, что на обложке трека «Фундамент»
+                  <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 6.5 8 3.5l6 3-6 3zM2 6.5v3l6 3 6-3v-3M8 9.5v3" /></svg>
+                ) : d.href === "/delo" ? (
                   <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 6.5 4 3h8l1 3.5M3 6.5h10v6a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5zM6.5 13V9.5h3V13" /></svg>
                 ) : d.href === "/invest" ? (
                   <svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.1} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 2v12M10.5 4.5H6.75a1.75 1.75 0 0 0 0 3.5h2.5a1.75 1.75 0 0 1 0 3.5H5" /></svg>
