@@ -5,6 +5,7 @@ import { ACADEMY } from "@/lib/learn";
 import { TrackCards } from "@/components/TrackCards";
 import { CASES } from "@/lib/content";
 import { HubSwitch } from "@/components/HubSwitch";
+import { HubTests } from "@/components/HubTests";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -141,6 +142,7 @@ export default function DeloPage() {
           </div>
         </Container>
       </section>
+      <HubTests hub="delo" />
       <HubSwitch current="delo" />
     </>
   );

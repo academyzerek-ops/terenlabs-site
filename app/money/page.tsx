@@ -3,6 +3,7 @@ import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
 import { getTrack } from "@/lib/learn";
 import { HubSwitch } from "@/components/HubSwitch";
+import { HubTests } from "@/components/HubTests";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -133,6 +134,7 @@ export default function MoneyPage() {
         </Container>
       </section>
 
+      <HubTests hub="money" />
       <HubSwitch current="money" title="Три дороги после этого хаба" />
     </>
   );
