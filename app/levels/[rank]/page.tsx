@@ -84,7 +84,7 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
               hint={
                 lvl.key === "rakushka"
                   ? "Разминка на берегу: в ранг не идёт, но результат сохраняется."
-                  : "Порог сдачи 7 из 10. Пересдача через кулдаун."
+                  : "Порог сдачи 7 из 10. Пересдавать можно сразу и сколько нужно."
               }
             >
               {items.tests.map((t) => (
