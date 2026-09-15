@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Arrow } from "@/components/Button";
 import { LessonNav } from "@/components/LessonNav";
 import { LessonToc } from "@/components/LessonToc";
+import { LessonRecommendations } from "@/components/LessonRecommendations";
 import { getTrack } from "@/lib/learn";
 import { loadLesson } from "@/lib/lesson-html";
 import "./lesson-content.css";
@@ -80,6 +81,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
               Глава {cur.chapterIndex} из {cur.chapterCount} · {doc.minutes} мин чтения
             </p>
             <div className="lesson-content mt-6 sm:mt-10" dangerouslySetInnerHTML={{ __html: doc.html }} />
+
+            <LessonRecommendations track={slug} file={cur.file} />
 
             {/* дальше по треку */}
             <div className="mt-8 sm:mt-14 grid gap-3 border-t border-line pt-8 sm:grid-cols-2">

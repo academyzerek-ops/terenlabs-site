@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CATALOG } from "@/lib/content";
 import { ACADEMY } from "@/lib/learn";
 import { MODEL_CARDS } from "@/lib/models-data";
+import { LITERATURE } from "@/lib/literature";
 
 // Поиск по сайту (⌘K): разделы, треки и главы Академии, кейсы, ниши, разборы.
 // Заголовки лежат в бандле, текст страниц — в /search-index.json: он грузится лениво
@@ -13,13 +14,14 @@ type Hit = { label: string; sub: string; href: string; key?: string };
 
 const SECTIONS: Hit[] = [
   { label: "Главная", sub: "раздел", href: "/" },
-  { label: "Академия", sub: "раздел", href: "/academy" },
-  { label: "Тесты: погружение", sub: "раздел", href: "/tests" },
-  { label: "Океан: уровни", sub: "раздел", href: "/levels" },
-  { label: "Рейтинг Океана", sub: "раздел", href: "/ocean" },
+  { label: "Академия", sub: "учиться", href: "/academy" },
+  { label: "Тесты Океана", sub: "тестировать", href: "/tests" },
+  { label: "Океан: уровни", sub: "тестировать", href: "/levels" },
+  { label: "Рейтинг Океана", sub: "тестировать", href: "/ocean" },
   { label: "Предприниматель", sub: "раздел", href: "/delo" },
   { label: "Фаундер", sub: "раздел", href: "/startup" },
   { label: "Справочник моделей заработка", sub: "раздел", href: "/models" },
+  { label: "Литература", sub: "разбирать", href: "/literature" },
   { label: "Кабинет", sub: "раздел", href: "/dashboard" },
 ];
 
@@ -31,6 +33,9 @@ function buildIndex(): Hit[] {
   }
   for (const m of MODEL_CARDS) {
     hits.push({ label: m.title, sub: "модель заработка", href: `/models/${m.slug}` });
+  }
+  for (const book of LITERATURE) {
+    hits.push({ label: book.title, sub: `${book.author} · литература`, href: `/literature/${book.slug}` });
   }
   const kind: Record<string, string> = { case: "кейс", review: "ниша", bm: "разбор бренда", test: "тест", course: "курс" };
   for (const p of CATALOG) {

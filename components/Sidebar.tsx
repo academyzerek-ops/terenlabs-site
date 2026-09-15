@@ -23,6 +23,7 @@ const I = {
   rocket: <path d="M9.5 2.5c2 .5 3.5 2 4 4L9 11 5 7zM5 7l-2 .5L4.5 9M9 11l.5 2L11 11.5M6.5 9.5 3 13" />,
   case: <path d="M2.5 5.5h11v7h-11zM6 5.5V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1.5M2.5 8.5h11" />,
   book: <path d="M2 3.5h4.5A1.5 1.5 0 0 1 8 5v8.5A1.5 1.5 0 0 0 6.5 12H2zM14 3.5H9.5A1.5 1.5 0 0 0 8 5v8.5a1.5 1.5 0 0 1 1.5-1.5H14z" />,
+  library: <path d="M3 3v10M6.5 3v10M10 4l2.8 8.5M2 13h12" />,
   grid: <path d="M2.5 2.5h4.5v4.5H2.5zM9 2.5h4.5V7H9zM2.5 9H7v4.5H2.5zM9 9h4.5v4.5H9z" />,
   test: <path d="M3 8.5l3 3 7-7" />,
   brand: <path d="M8 2.5l1.7 3.6 3.9.5-2.9 2.7.8 3.9L8 11.3l-3.5 1.9.8-3.9L2.4 6.6l3.9-.5z" />,
@@ -46,18 +47,24 @@ function Icon({ d }: { d: React.ReactNode }) {
 // «Главная» из списка убрана: на неё ведут логотип сверху и вкладка с тем же
 // именем, три одинаковых слова в одной панели читались как ошибка.
 const QUICK: Item[] = [
-  { label: "Океан", href: "/levels", icon: I.wave, match: (p) => p.startsWith("/levels") || p.startsWith("/ocean") },
   { label: "Кабинет", href: "/dashboard", icon: I.user, match: (p) => p.startsWith("/dashboard") },
 ];
 
-// Панель по типу занятия, не по аудитории (решение Адиля 06.09): Академия и Тесты одни на всех,
-// разборы трёх видов. Хабы «Предприниматель» и «Фаундер» живут дверями на главной и в Академии.
+// Панель по типу действия, не по аудитории: учиться, тестировать, разбирать.
+// Океан объединяет проверку знаний и тесты, а Кабинет остаётся отдельным
+// пользовательским пространством. Хабы «Предприниматель» и «Фаундер»
+// живут дверями на главной и в Академии.
 const GROUPS: { title: string; items: Item[] }[] = [
   {
     title: "Учиться",
     items: [
       { label: "Академия", href: "/academy", icon: I.book, match: (p) => p === "/academy" || p.startsWith("/courses/") || p.startsWith("/learn/") },
-      { label: "Тесты", href: "/tests", icon: I.test, match: (p) => p === "/tests" || p.startsWith("/tests/") },
+    ],
+  },
+  {
+    title: "Тестировать",
+    items: [
+      { label: "Океан", href: "/levels", icon: I.wave, match: (p) => p.startsWith("/levels") || p.startsWith("/ocean") || p.startsWith("/tests") },
     ],
   },
   {
@@ -66,6 +73,7 @@ const GROUPS: { title: string; items: Item[] }[] = [
       { label: "Кейсы", href: "/catalog?type=case", icon: I.case, match: (p, t) => (p === "/catalog" && t === "case") || p.startsWith("/cases/") },
       { label: "Бренды", href: "/catalog?type=bm", icon: I.brand, match: (p, t) => (p === "/catalog" && t === "bm") || p.startsWith("/brands/") },
       { label: "Ниши", href: "/catalog?type=review", icon: I.chart, match: (p, t) => (p === "/catalog" && t === "review") || p.startsWith("/reviews/") },
+      { label: "Литература", href: "/literature", icon: I.library, match: (p) => p.startsWith("/literature") },
     ],
   },
 ];

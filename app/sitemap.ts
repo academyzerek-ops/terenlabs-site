@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { CATALOG, LEVELS } from "@/lib/content";
 import { MODEL_CARDS } from "@/lib/models-data";
 import { SITE_URL as BASE } from "@/lib/site";
+import { LITERATURE } from "@/lib/literature";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Только страницы с реальным контентом. Заглушки <Placeholder> «раздел готовится»
@@ -10,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     "", "/catalog", "/free", "/ocean", "/levels", "/delo", "/startup", "/models",
     // Академия и погружение по тестам появились позже разделов выше и в карту не попадали
-    "/academy", "/tests", "/contacts",
+    "/academy", "/tests", "/contacts", "/literature",
   ].map((p) => ({
     url: `${BASE}${p || "/"}`,
     changeFrequency: "weekly" as const,
@@ -38,5 +39,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticPages, ...products, ...models, ...levels];
+  const literature = LITERATURE.map((book) => ({
+    url: `${BASE}/literature/${book.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
+  return [...staticPages, ...products, ...models, ...levels, ...literature];
 }
