@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Arrow } from "@/components/Button";
 import { TestPath } from "@/components/TestPath";
+import { HubBranches } from "@/components/HubBranches";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -10,6 +11,8 @@ export const metadata = pageMetadata({
 });
 
 // Тесты как одно погружение сверху вниз: уровни, между ними ворота с обитателем. Раньше были плитки.
+// Сверху — переключатель веток: путь ниже принадлежит «Предпринимателю», у Фаундера
+// и Инвестора свои пулы с Барракуды (канон 16_HUBS.md, раздел «Как тесты раскладываются по хабам»).
 export default function TestsPage() {
   return (
     <>
@@ -19,7 +22,7 @@ export default function TestsPage() {
           <div className="mt-3 grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-end lg:gap-12">
             <h1 className="text-[30px] leading-[1.1] text-balance sm:text-[42px]">Погружение: от Краба до Кита</h1>
             <p className="text-[15px] leading-relaxed text-text-2">
-              Один путь для всех. Каждый уровень открывается, когда сдан предыдущий, а угадать нельзя:
+              Одна лестница на всех, но ниже Краба она расходится по хабам. Угадать нельзя:
               балл считает сервер, открытые кейсы проверяет ИИ-акулёнок. Пройденное даёт ранг и место в рейтинге.
             </p>
           </div>
@@ -30,7 +33,9 @@ export default function TestsPage() {
         </div>
       </section>
       <div className="mx-auto w-full max-w-[1180px] px-5 py-7 sm:py-12 sm:px-8 lg:px-12">
-        <TestPath />
+        <HubBranches>
+          <TestPath />
+        </HubBranches>
       </div>
     </>
   );

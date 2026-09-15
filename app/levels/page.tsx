@@ -6,6 +6,7 @@ import { LevelStatusChip } from "@/components/OceanPath";
 import { LevelAction } from "@/components/LevelAction";
 import { OceanTopTable } from "@/components/OceanTopTable";
 import { LEVELS, plural } from "@/lib/content";
+import { HUBS, HUB_BRANCH, LEVEL_SCOPE, SCOPE_LABEL } from "@/lib/hubs";
 
 export const metadata = {
   alternates: { canonical: "/levels" },
@@ -51,6 +52,11 @@ export default function LevelsPage() {
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                   <h2 className="text-[24px]">{l.name}</h2>
                   <LevelStatusChip levelKey={l.key} hideDone />
+                  {/* общий уровень или ветка хаба — видно прямо в реестре,
+                      иначе «Акула» читается как одно достижение на всех */}
+                  <span className="text-[12.5px] text-faint">
+                    {SCOPE_LABEL[LEVEL_SCOPE[l.key] ?? "common"]}
+                  </span>
                 </div>
                 {/* сперва кто ты на этой глубине, потом что это значит по навыкам:
                     имена уровней держатся на характере зверя, а не на порядковом номере */}
@@ -90,6 +96,36 @@ export default function LevelsPage() {
           </div>
         </aside>
       </Container>
+
+      <section className="border-t border-line">
+        <Container className="py-9 sm:py-16">
+          <p className="eyebrow">Ветки</p>
+          <h2 className="mt-3 text-[20px] sm:text-[24px]">Один ствол, разные ветки</h2>
+          <p className="mt-4 max-w-[70ch] text-[15px] leading-relaxed text-text-2">
+            Ракушка и Краб общие: база сдаётся один раз и засчитывается во всех хабах.
+            Ниже лестница расходится — Барракуда, Дельфин и Акула у каждого хаба свои.
+            «Акула Предпринимателя» и «Акула Фаундера» — разные значки, как пояса
+            в разных единоборствах: шкала одна, дисциплины разные.
+          </p>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {HUBS.map((h) => {
+              const b = HUB_BRANCH[h.key];
+              const state =
+                b?.state === "live" ? "Сдаётся сейчас"
+                : b?.state === "planned" ? "Готовится"
+                : "Без своей ветки";
+              return (
+                <Link key={h.key} href="/tests" className="card-premium flex flex-col gap-2 p-6">
+                  <p className="eyebrow">{h.title}</p>
+                  <span className="tag self-start">{state}</span>
+                  <p className="text-[14px] leading-relaxed text-text-2">{b?.note}</p>
+                </Link>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
 
       <section className="border-t border-line">
         <Container className="py-9 sm:py-16">

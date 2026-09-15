@@ -12,12 +12,15 @@ export function pageMetadata(opts: {
   image?: string | null;
   /** Путь страницы от корня, например `/reviews/coffee`. Идёт в canonical. */
   path?: string;
+  /** Заглушка или служебная страница: в индекс не пускаем, пока не наполнится. */
+  noindex?: boolean;
 }): Metadata {
   const title = opts.title ? `${opts.title} — ${SITE_NAME}` : undefined;
   const description = opts.description ?? undefined;
   return {
     title,
     description,
+    ...(opts.noindex ? { robots: { index: false, follow: false } } : {}),
     // Канонический адрес. Без него Google сам решает, какой из нескольких
     // адресов страницы главный, и иногда выбрасывает обе версии из индекса
     // («страница является копией, канонический вариант не выбран»).

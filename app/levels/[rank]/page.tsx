@@ -4,6 +4,7 @@ import { Container } from "@/components/Container";
 import { Button, Arrow } from "@/components/Button";
 import { RankSketch } from "@/components/RankSketch";
 import { LevelStatusChip } from "@/components/OceanPath";
+import { LEVEL_SCOPE, SCOPE_LABEL } from "@/lib/hubs";
 import { TestDone } from "@/components/TestDone";
 import { LevelCrowd } from "@/components/OceanPulse";
 import { getLevel, levelItems, Level, plural, LEVELS } from "@/lib/content";
@@ -83,7 +84,7 @@ export default async function Page({ params }: { params: Promise<{ rank: string 
               hint={
                 lvl.key === "rakushka"
                   ? "Разминка на берегу: в ранг не идёт, но результат сохраняется."
-                  : "Порог сдачи 7 из 10. Пересдача через кулдаун."
+                  : "Порог сдачи 7 из 10. Пересдавать можно сразу и сколько нужно."
               }
             >
               {items.tests.map((t) => (
@@ -187,6 +188,10 @@ function LevelHero({ lvl, cta }: { lvl: Level; cta?: { href: string; label: stri
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
               <h1 className="text-[32px] sm:text-[40px]">{lvl.name}</h1>
               <LevelStatusChip levelKey={lvl.key} />
+              {/* тот же признак, что и в реестре уровней: общий уровень или ветка хаба */}
+              <span className="text-[13px] text-faint">
+                {SCOPE_LABEL[LEVEL_SCOPE[lvl.key] ?? "common"]}
+              </span>
             </div>
             <p className="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-body">{lvl.metaphor ?? lvl.tagline}</p>
             {lvl.meaning && (

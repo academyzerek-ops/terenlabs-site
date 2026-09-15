@@ -6,6 +6,8 @@ import { BRANDS, plural } from "@/lib/content";
 import { ACADEMY } from "@/lib/learn";
 import { TrackCards } from "@/components/TrackCards";
 import { getModel, MODEL_SHOWCASE } from "@/lib/models-data";
+import { HubSwitch } from "@/components/HubSwitch";
+import { HubTests } from "@/components/HubTests";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -147,6 +149,8 @@ export default function StartupPage() {
         </div></Container>
       </section>
 
+      <HubTests hub="startup" />
+
       {/* связь с Океаном */}
       <section>
         <Container className="grid gap-8 py-9 sm:py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
@@ -154,9 +158,9 @@ export default function StartupPage() {
             <p className="eyebrow">Океан</p>
             <h2 className="mt-3 text-[20px] sm:text-[24px]">Этот трек ведёт к Киту</h2>
             <p className="mt-4 max-w-[60ch] text-[15px] leading-relaxed text-text-2">
-              Ранг один на всю платформу. Тесты по бизнес-моделям и рынку входят в Барракуду,
-              открытые кейсы по брендам в Дельфина и Акулу, а первые деньги и счёт, раунды и
-              выход открывают последний уровень, Кита.
+              Ранг один на всю платформу: Ракушка и Краб сдаются один раз и засчитываются
+              во всех хабах. Ветка Фаундера ведёт дальше остальных — первые деньги и счёт,
+              раунды и выход открывают последний уровень, Кита.
             </p>
             <Link href="/levels" className="link mt-5 text-[15px]">
               Уровни «Океан» <Arrow />
@@ -167,6 +171,7 @@ export default function StartupPage() {
           </div>
         </Container>
       </section>
+      <HubSwitch current="startup" />
     </>
   );
 }
