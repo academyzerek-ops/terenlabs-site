@@ -1,0 +1,418 @@
+/* ============================================================
+   Контент разборов брендов — портированный сабсет case-content.css
+   (тот же дизайн-система-сабсет lessons.css на токенах сайта) плюс два блока,
+   которых у кейсов нет: сетка цифр .nb-grid и таблица «Откуда цифры» .src.
+   Правишь тут — сверься с app/cases/[slug]/case-content.css.
+   ============================================================ */
+.brand-content {
+  /* тёмная глубина (дефолт сайта) */
+  --les-text: var(--color-heading);
+  --les-text-2: var(--color-body);
+  --les-text-3: var(--color-muted);
+  --les-border: var(--color-line);
+  --les-surface: var(--color-card);
+  --les-bg: var(--background);
+  --les-accent: #4fd3dd;
+  --les-aqua-deep: #00b7c2;
+  --les-aqua-soft: rgba(0, 183, 194, 0.18);
+  --les-green: #5fe0b5;
+  --les-green-soft: rgba(95, 224, 181, 0.14);
+  --les-red: #ff6b6b;
+  --les-red-soft: rgba(255, 107, 107, 0.12);
+  --les-warm: #e8a05c;
+  --les-warm-soft: rgba(232, 160, 92, 0.14);
+  --les-surface-2: color-mix(in srgb, var(--les-surface) 82%, var(--les-aqua-soft));
+
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ---- TAKEAWAY: «Главное из кейса» (крупный блок-вывод, как у обзоров) ---- */
+.brand-content .tk {
+  position: relative;
+  overflow: hidden;
+  background: var(--les-surface-2);
+  border: 1.5px solid var(--les-aqua-deep);
+  border-radius: 16px;
+  padding: 24px 22px;
+  margin: 34px 0;
+  box-shadow: 0 8px 30px var(--les-aqua-soft);
+}
+.brand-content .tk::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--les-aqua-deep), var(--les-green), var(--les-aqua-deep));
+  background-size: 200% 100%;
+  animation: tk-sh 4s ease-in-out infinite;
+}
+@keyframes tk-sh {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.brand-content .tk-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--les-aqua-deep);
+  background: var(--les-aqua-soft);
+  padding: 6px 12px;
+  border-radius: 7px;
+  margin-bottom: 18px;
+}
+.brand-content .tk h3 {
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 1.25;
+  color: var(--les-text);
+  margin-bottom: 16px;
+  letter-spacing: -0.018em;
+}
+.brand-content .tk h3 .hl {
+  color: var(--les-aqua-deep);
+  font-style: italic;
+  font-weight: 500;
+}
+.brand-content .tk-pt {
+  display: flex;
+  gap: 13px;
+  margin-bottom: 15px;
+  align-items: flex-start;
+}
+.brand-content .tk-pt:last-child { margin-bottom: 0; }
+.brand-content .tk-n {
+  flex: 0 0 auto;
+  min-width: 27px;
+  height: 27px;
+  border-radius: 8px;
+  background: var(--les-aqua-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--les-aqua-deep);
+  margin-top: 1px;
+  font-variant-numeric: tabular-nums;
+}
+.brand-content .tk-t {
+  font-size: 16px;
+  color: var(--les-text-2);
+  line-height: 1.62;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-content .tk::before { animation: none; }
+}
+
+/* ---- карточка-абзац ---- */
+.brand-content .c {
+  background: var(--les-surface);
+  border: 0.5px solid var(--les-border);
+  border-radius: 14px;
+  padding: 20px 18px;
+  margin-bottom: 14px;
+}
+.brand-content .c p {
+  font-size: 15px;
+  color: var(--les-text-2);
+  margin-bottom: 10px;
+  line-height: 1.75;
+}
+.brand-content .c p:last-child {
+  margin-bottom: 0;
+}
+.brand-content .c strong {
+  font-weight: 700;
+  color: var(--les-text);
+}
+.brand-content .c em {
+  font-style: italic;
+}
+.brand-content .c.al {
+  border-left: 3.5px solid var(--les-accent);
+  background: var(--les-aqua-soft);
+}
+.brand-content .c.ag {
+  border-left: 3.5px solid var(--les-green);
+  background: var(--les-green-soft);
+}
+.brand-content .c.ao {
+  border-left: 3.5px solid var(--les-warm);
+  background: var(--les-warm-soft);
+}
+
+/* ---- метка-лейбл ---- */
+.brand-content .lb {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+.brand-content .lb.purple { color: var(--les-aqua-deep); background: var(--les-aqua-soft); }
+.brand-content .lb.red    { color: var(--les-red);       background: var(--les-red-soft); }
+.brand-content .lb.green  { color: var(--les-green);     background: var(--les-green-soft); }
+.brand-content .lb.orange { color: var(--les-warm);      background: var(--les-warm-soft); }
+
+/* ---- цитата ---- */
+.brand-content .pq {
+  position: relative;
+  text-align: center;
+  padding: 36px 22px 24px;
+  margin: 22px 4px 18px;
+}
+.brand-content .pq::before {
+  content: "\201C";
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 1;
+  color: var(--les-accent);
+  opacity: 0.18;
+}
+.brand-content .pq p {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--les-text);
+  letter-spacing: -0.012em;
+}
+.brand-content .pq .pq-by {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-text), sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--les-text-3);
+}
+
+/* ---- крупная первая буква ---- */
+.brand-content .dropcap::first-letter {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  float: left;
+  font-size: 54px;
+  line-height: 0.9;
+  padding: 6px 10px 0 0;
+  color: var(--les-accent);
+  font-style: italic;
+}
+
+/* ---- инсайт-бокс ---- */
+.brand-content .ins {
+  background: linear-gradient(135deg, var(--les-aqua-soft) 0%, var(--les-green-soft) 100%);
+  border: 0.5px solid var(--les-aqua-soft);
+  border-radius: 14px;
+  padding: 22px 18px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.brand-content .ins-ico {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--les-bg);
+  padding: 0 4px;
+  font-size: 18px;
+  border-radius: 4px;
+}
+.brand-content .ins p {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--les-text);
+  line-height: 1.65;
+}
+.brand-content .ins strong {
+  color: var(--les-aqua-deep);
+  font-weight: 700;
+}
+
+/* ---- косвенная цитата ---- */
+.brand-content .qt {
+  border-left: 3.5px solid var(--les-warm);
+  background: var(--les-warm-soft);
+  border-radius: 0 12px 12px 0;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.brand-content .qt p {
+  font-size: 14.5px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--les-text-2);
+  line-height: 1.6;
+}
+
+/* ---- разделитель ---- */
+.brand-content .div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 18px;
+}
+.brand-content .div .ln {
+  flex: 1;
+  height: 1px;
+  background: var(--les-border);
+}
+.brand-content .div .dt {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--les-text-3);
+  opacity: 0.6;
+}
+
+/* ---- хвостовые ссылки/CTA внутри тела, если есть ---- */
+.brand-content a {
+  color: var(--les-aqua-deep);
+}
+
+/* ---- акцентное слово в заголовке (из исходного h1 разбора) ---- */
+.brand-title-html .o,
+.brand-content .o {
+  color: var(--color-teal);
+  font-style: italic;
+}
+
+/* ===== ДЕСКТОП: издательская типографика — В КОНЦЕ файла, чтобы перебить базу ===== */
+/* ---- десктоп: проза вместо телефонных карточек ---- */
+@media (min-width: 768px) {
+  .brand-content .c:not(.al):not(.ag):not(.ao) {
+    background: transparent;
+    border: none;
+    padding: 6px 0;
+    margin-bottom: 8px;
+  }
+  .brand-content .c p {
+    font-size: 19.5px;
+    line-height: 1.8;
+  }
+  .brand-content .c.al,
+  .brand-content .c.ag,
+  .brand-content .c.ao {
+    padding: 24px 26px;
+    margin: 18px 0 22px;
+  }
+  .brand-content .lb {
+    font-size: 13px;
+  }
+  .brand-content .dropcap::first-letter {
+    font-size: 66px;
+    padding-right: 12px;
+  }
+  .brand-content .pq {
+    padding: 48px 36px 30px;
+    margin: 28px 8px 24px;
+  }
+  .brand-content .pq p {
+    font-size: 30px;
+    line-height: 1.3;
+  }
+  .brand-content .ins {
+    padding: 26px;
+    margin: 20px 0 22px;
+  }
+  .brand-content .ins p,
+  .brand-content .qt p {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+}
+
+
+/* ---- СЕТКА ЦИФР: .nb-grid (крупные числа разбора) ---- */
+.brand-content .nb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 26px 0;
+}
+.brand-content .nb {
+  background: var(--les-surface);
+  border: 1px solid var(--les-border);
+  border-radius: 14px;
+  padding: 18px 16px;
+  text-align: center;
+}
+.brand-content .nb-n {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--les-accent);
+}
+.brand-content .nb-cap {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--les-text-3);
+}
+
+/* ---- «ОТКУДА ЦИФРЫ»: Факт | Число | Источник ---- */
+/* Единственный блок раздела, которого нет в lessons.css: перенесён из <style>
+   в исходных файлах разборов (тело идёт в DOM без своего <style>). */
+.brand-content .src-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -4px;
+}
+.brand-content .src {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.brand-content .src th {
+  text-align: left;
+  padding: 0 10px 8px;
+  font-size: 10.5px;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: var(--les-text-3);
+  font-weight: 700;
+  border-bottom: 1px solid var(--les-border);
+}
+.brand-content .src td {
+  text-align: left;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--les-border);
+  vertical-align: top;
+  color: var(--les-text-2);
+}
+.brand-content .src td:first-child {
+  color: var(--les-text);
+  font-weight: 600;
+}
+.brand-content .src td:nth-child(2) {
+  font-variant-numeric: tabular-nums;
+  color: var(--les-accent);
+  font-weight: 600;
+}
+.brand-content .src tr:last-child td { border-bottom: 0; }
+.brand-content .src-note {
+  font-size: 12px;
+  color: var(--les-text-3);
+  line-height: 1.6;
+  margin-top: 10px;
+}

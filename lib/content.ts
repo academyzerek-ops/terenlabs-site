@@ -10,7 +10,7 @@ import { T1_A04_QUESTIONS } from "./content-t1a04";
 import productsJson from "@/content/products.json";
 import levelsJson from "@/content/levels.json";
 
-export type ProductType = "course" | "test" | "case" | "review" | "finmodel";
+export type ProductType = "course" | "test" | "case" | "review" | "finmodel" | "bm";
 export type LevelKey = "rakushka" | "krab" | "barrakuda" | "delfin" | "akula" | "kit";
 
 // ---- Конфиг/копирайт (живёт в коде) ----
@@ -23,6 +23,9 @@ export const PRODUCT_TYPES: Record<
   case: { label: "Кейсы", one: "Кейс", path: "/cases", href: "/catalog?type=case", blurb: "Чужой опыт как способ учиться на не своих деньгах" },
   review: { label: "Аналитика малого бизнеса", one: "Аналитика", path: "/reviews", href: "/catalog?type=review", blurb: "Вникаем в реальный сектор и смотрим риски" },
   finmodel: { label: "Финмодели", one: "Финмодель", path: "/finmodels", href: "/catalog?type=finmodel", blurb: "Рабочие модели и бизнес-планы под твой проект" },
+  // Второй регистр контента: мировые бизнес-модели, доллар, без гео и налогов.
+  // Учебный модуль Академии «Бизнес-модели» (course-models) — это другое, имена разведены.
+  bm: { label: "Разборы брендов", one: "Разбор", path: "/brands", href: "/catalog?type=bm", blurb: "Механика заработка мировых компаний: из чего собран денежный поток" },
 };
 
 export const TOPICS = ["Финансы", "Бизнес", "Маркетинг", "Аналитика", "Управление"];
@@ -119,6 +122,7 @@ export type CatalogItem = {
   titleHtml?: string | null; // заголовок карточки с <span class="em"> — витрина Mini App (кейсы)
   tag?: "r" | "y" | "g" | null; // цвет исхода кейса из витрины Mini App
   loc?: string | null; // гео кейса «🇰🇿 KZ» из витрины Mini App
+  sector?: string | null; // отрасль разбора бренда (media/sport/auto/retail/platform)
   interactive?: boolean;
   metric?: { value: string; label: string };
   bank?: string;
@@ -141,6 +145,8 @@ function hrefFor(p: RawProduct): string {
       return `/reviews/${p.slug}`;
     case "finmodel":
       return `/finmodels/${p.slug}`;
+    case "bm":
+      return `/brands/${p.slug}`;
   }
 }
 
@@ -156,6 +162,7 @@ export const FINMODELS = CATALOG.filter((x) => x.type === "finmodel");
 export const CASES = CATALOG.filter((x) => x.type === "case");
 export const REVIEWS = CATALOG.filter((x) => x.type === "review");
 export const COURSES = CATALOG.filter((x) => x.type === "course");
+export const BRANDS = CATALOG.filter((x) => x.type === "bm");
 
 export const FEATURED: CatalogItem[] = ["t1-a04", "case-marketplace", "review-coffee"]
   .map((s) => CATALOG.find((x) => x.slug === s))

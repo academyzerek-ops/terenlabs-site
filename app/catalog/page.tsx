@@ -51,6 +51,13 @@ const SECTION: Record<
     img: "/lessons/fund_m6-ch01_asset-lens_v2.jpg",
     glow: "rgba(143, 184, 203, 0.22)", // зона обзоров — ледяная вода
   },
+  bm: {
+    eyebrow: "Разборы брендов",
+    title: "Откуда бабки у больших",
+    desc: "Разбираем не то, какие они молодцы, а из чего собран денежный поток: на чём зарабатывают мировые компании, чем за это платят и какая развилка из этого достаётся вам. Всё в долларах, каждая цифра — с источником.",
+    img: "/lessons/arch_m6-ch01_unit-econ-scale_v2.jpg",
+    glow: "rgba(154, 106, 232, 0.2)", // зона разборов — фиолетовый, как метки в самих текстах
+  },
   finmodel: {
     eyebrow: "Финпродукты",
     title: "Рабочие инструменты под проект",
@@ -95,6 +102,12 @@ export default async function CatalogPage({
     // Для обзоров
     if (t === "review" && f in REVIEW_CATS) {
       return REVIEW_CATS[f].includes(p.slug);
+    }
+
+    // Разборы брендов — отрасль лежит в самой записи (поле sector из brands.json),
+    // хардкод-карты слугов здесь не нужно. Чипы включатся, когда наберётся материал.
+    if (t === "bm") {
+      return p.sector === f;
     }
     
     return p.level.includes(f) || p.topic.includes(f) || p.stage.includes(f);

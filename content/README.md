@@ -3,14 +3,15 @@
 Контент платформы вынесен сюда и редактируется **без кода**.
 
 ## Файлы
-- `products.json` — все продукты (курсы, тесты, кейсы, обзоры, финмодели): метаданные карточки.
+- `products.json` — все продукты (курсы, тесты, кейсы, обзоры, финмодели, разборы брендов): метаданные карточки.
+- `brands.json` — разборы бизнес-моделей брендов (тип `bm`): карточка + готовое тело HTML для нативного рендера на `/brands/<slug>`.
 - `levels.json` — уровни «Океан» (T1–T6): модули + ссылки на продукты по slug.
 - Банки вопросов тестов — в `lib/content-*.ts` (генерируются парсером из банков `~/Downloads/*банк.md`). Тест в `products.json` ссылается на банк полем `"bank": "<id>"`, id регистрируется в `lib/content.ts` → `BANKS`.
 
 ## Поля продукта (products.json)
 | Поле | Обяз. | Пример |
 |------|-------|--------|
-| type | да | "test" / "course" / "case" / "review" / "finmodel" |
+| type | да | "test" / "course" / "case" / "review" / "finmodel" / "bm" |
 | slug | да | "t1-a04" (уникальный) |
 | title, blurb | да | заголовок и подзаголовок карточки |
 | level | да | "T1".."T6" |
@@ -23,17 +24,34 @@
 | metric | нет | { "value": "42", "label": "вопроса" } |
 | bank | нет (тесты) | id банка вопросов |
 | interactive | нет | true для финмодели/кейса/обзора с собственной механикой |
+| sector | нет (bm) | отрасль разбора: media / sport / auto / retail / platform |
 
 Ссылки (href) и привязка вопросов вычисляются автоматически в `lib/content.ts` — в JSON их писать НЕ нужно.
 
+## Два регистра контента
+- **Регистр А — Казахстан, МСБ**: обзоры ниш, финмодели и бизнес-планы, тенге, местные налоги.
+- **Регистр Б — мировые бизнес-модели** (`bm`, раздел «Разборы брендов», `/brands/<slug>`):
+  доллар, без географии и налоговой привязки. Регистры не смешиваются внутри одного
+  материала: КЗ-ключи (`nicheSeo`) в разборы не подмешиваем, у разборов свой `brandSeo`.
+
+Учебный модуль Академии «Бизнес-модели» (`course-models`) — это ДРУГОЕ: учебный трек про
+МСБ. Имена разведены намеренно, слуги не пересекаются (`course-models` против `bm-*`).
+
 ## Импорт контента из основного репо
-Курсы, кейсы и обзоры не редактируются здесь руками — они импортируются из `frontend/`
-основного репо TerenLabs (ветка main, worktree `/Users/adil/TerenLabs-zerek`):
+Курсы, кейсы, обзоры и разборы брендов не редактируются здесь руками — они импортируются
+из `frontend/` основного репо TerenLabs (ветка main, worktree `/Users/adil/TerenLabs-zerek`):
 ```
 node scripts/import_content.mjs
+# без обращения к генератору картинок (он ходит наружу и занимает до часа):
+TL_SKIP_ELEMENTS=1 node scripts/import_content.mjs
 # или явно указать источник:
 TL_SRC=/Users/adil/TerenLabs-zerek/frontend node scripts/import_content.mjs
 ```
+ВАЖНО про новые типы контента: в импорте есть фильтр `keep` — он оставляет только то,
+чего скрипт не генерит сам. Всё, что не попало ни в генерацию, ни в `keep`, стирается
+из `products.json` при первом же импорте. Новый тип добавлять сразу в три места:
+`lib/content.ts` (`ProductType` + `PRODUCT_TYPES` + `hrefFor`), `scripts/import_content.mjs`
+(генерация или `keep`) и `scripts/check-content.mjs` (свой дубль списка типов).
 Импортировать из рабочего дерева `/Users/adil/TerenLabs` нельзя, пока оно на другой ветке —
 обзоры откатятся (там нет пекарни). После импорта — `node scripts/check-content.mjs` и `npm run build`.
 
@@ -42,6 +60,14 @@ TL_SRC=/Users/adil/TerenLabs-zerek/frontend node scripts/import_content.mjs
 node scripts/check-content.mjs
 ```
 Проверяет: уникальность slug, корректность type/stage/topic, что все slug в уровнях существуют, что у непустых тестов есть банк.
+
+## Добавить новый разбор бренда
+1. Положить готовый HTML в основной репо: `frontend/content/ru/brands/bm-<бренд>.html`
+   (шаблон — существующие разборы: hero, блоки `.c`, `.nb-grid`, таблица «Откуда цифры», `.tk`).
+2. Прописать отрасль в `scripts/import_content.mjs` → `BRAND_SECTORS` (иначе разбор
+   выйдет без отраслевого фильтра, и импорт скажет об этом в отчёте).
+3. `node scripts/import_content.mjs` → обновятся `content/brands.json` и `products.json`.
+4. `node scripts/check-content.mjs` и `npm run build`.
 
 ## Добавить новый тест из банка
 1. Прогнать парсер: `node /tmp/parse_bank.mjs ~/Downloads/<банк>.md` → создаст `lib/content-<id>.ts`.
